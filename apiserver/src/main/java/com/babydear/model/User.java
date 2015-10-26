@@ -14,11 +14,17 @@ public class User {
 		FACEBOOK,
 		NORMAL
 	}
+	
 	public enum State {
-		NAVER,
-		KAKAO,
-		FACEBOOK,
-		NORMAL
+		MANAGER,
+		NORMAL,
+		WITHDRAW,
+		PRISON
+	}
+	
+	public enum Sex {
+		WOMAN,
+		MAN
 	}
 	
 	@Id
@@ -28,10 +34,12 @@ public class User {
 	@ManyToOne
 	private Family fid;
 	
-	private String name;
+	private String userName;
+	private String userImg;
 	
 	private String email;
 	private String password;
+	private Sex sex;
 	private State state;
 	private SignIn signIn;
 }
