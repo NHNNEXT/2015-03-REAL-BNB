@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
 public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +18,6 @@ public class Album {
 	
 	private String name;
 	
-	private List<Post> posts;
+	private List<Card> posts;
 	
 }

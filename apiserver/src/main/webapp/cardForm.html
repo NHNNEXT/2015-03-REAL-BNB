@@ -1,0 +1,15 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CardForm</title>
+</head>
+<body>
+	<form action="/api/card" method="post" enctype="multipart/form-data">
+		<input name="content" type="text">
+		<input name="modifiedDate" type="date">
+		<input name="files[0]" type="file">
+		<input name="files[1]" type="file">
+		<input name="submit" type="submit" value="submit">
+	</form>
+</body>
+</html>

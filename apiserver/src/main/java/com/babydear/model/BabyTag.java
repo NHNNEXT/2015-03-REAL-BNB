@@ -5,7 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-public class Hash {
+public class BabyTag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long hId;
@@ -14,6 +14,6 @@ public class Hash {
 	private Baby baby;
 	
 	@OneToOne
-	private Post post;
+	private Card post;
 	
 }

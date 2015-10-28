@@ -1,7 +1,6 @@
 package com.babydear.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,25 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Post {
-	public enum State {
-		NORMAL,
-		DELETE
-	}
-	
+public class CardImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long pId;
-	
+	private Long iId;
+
 	@ManyToOne
-	private Family fid;
+	private Card cId;
 	
-	private String title;
-	private String content;
-	private List<PostImage> images;	
-	
-	private User user;
-	private Date write;
-	private Date modify;
-	private State state;
+	private String originUrl;
+	private String recentUrl;
+	private Date CreateDate;
 }
