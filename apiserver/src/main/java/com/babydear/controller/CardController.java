@@ -1,15 +1,33 @@
 package com.babydear.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.babydear.dto.CardDTO;
 import com.babydear.model.Card;
+import com.babydear.repository.CardRepository;
 
 @RestController
 //@RequestMapping(value = "/api/card")
 public class CardController {
+	@Autowired
+	CardRepository cardRepo;
+	
+	@RequestMapping("/set")
+	public Set hello(){
+		Set set = new HashSet();
+		set.add("b1.jpg");
+		set.add("b2.jpg");
+		set.add("b3.jpg");
+		set.add("b4.jpg");
+		return set;
+	}
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
 	public String selectCards(){
@@ -17,12 +35,12 @@ public class CardController {
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public Card createCard(CardDTO cardDTO){
-		Card card = new Card(cardDTO);
+		Assert.notNull(cardDTO, "card should be not null!");
+		Card card = new Card();
+		card.create(cardDTO);
 		
-		System.out.println("--------*********--------*********--------*********");
-		System.out.println(cardDTO.getFiles().size());
-		System.out.println(cardDTO);
-		System.out.println(card);
+		cardRepo.save(card);
+		
 //		return "{ create : true, error: null }";
 		return card;
 	}

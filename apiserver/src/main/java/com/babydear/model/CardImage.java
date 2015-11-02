@@ -20,4 +20,8 @@ public class CardImage {
 	private String originUrl;
 	private String recentUrl;
 	private Date CreateDate;
+	
+	public String getWebUrl(){
+		return recentUrl+"web";
+	}
 }
