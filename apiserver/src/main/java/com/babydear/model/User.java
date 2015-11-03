@@ -6,7 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class User {
 	public enum SignIn {
 		NAVER,
@@ -42,4 +47,5 @@ public class User {
 	private Sex sex;
 	private State state;
 	private SignIn signIn;
+	
 }

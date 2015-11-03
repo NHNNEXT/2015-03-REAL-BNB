@@ -1,64 +1,42 @@
 package com.babydear.dto;
 
-import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.babydear.model.CardImage;
+import com.babydear.model.Baby;
+import com.babydear.model.Card;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
 public class CardDTO {
-
 	private Long cId;
 	private String content;
 	private String modifiedDate;
-	private List<MultipartFile> files;
-
+	private MultipartFile image;
+	private List<Long> babies;
 	
-	public Long getcId() {
-		return cId;
-	}
-
-	public void setcId(Long cId) {
-		this.cId = cId;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public List<MultipartFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
+	public String getUrl() {
+		return "img/asdf1234.jpg";
 	}
 	
-
-	public String getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	@Override
-	public String toString() {
-		return "CardDto [ content=" + content + ", modifiedDate=" + modifiedDate + ", files=" + files.size() + "]";
-	}
-
-	public int getImageSize() {
-		return files.size();
-	}
-
-	public Collection<? extends CardImage> getImages() {
-		// TODO Auto-generated method stub
-		return null;
+	public void createCard(){
+		Card card =  new Card();
+		card.setContent(content);
+		card.setImage(image.getOriginalFilename());
+		card.setModifiedDate(modifiedDate);
+		card.setDeleted(true);
+		card.setCreateDate(new Date());
+		
+		
 	}
 }

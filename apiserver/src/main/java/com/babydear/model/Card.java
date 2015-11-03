@@ -1,7 +1,6 @@
 package com.babydear.model;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +16,12 @@ import javax.persistence.TemporalType;
 
 import com.babydear.dto.CardDTO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Setter
+@Getter
 public class Card {
 
 	@Id
@@ -27,12 +31,12 @@ public class Card {
 	@ManyToOne
 	private Family fId;
 
-	@OneToMany
-	private Set<CardImage> images = new HashSet<CardImage>();
-
 	@ManyToOne
 	private User writer;
+	
+	@OneToMany Set<Baby> babies;
 
+	private String image;
 	private String content;
 	private String modifiedDate;
 
@@ -45,6 +49,18 @@ public class Card {
 	private Date updateDate;
 
 	private boolean deleted;
+	
+	public Card() {
+	}
+	public Card(Family fId, User writer, Set<Baby> babies, String image, String content, String modifiedDate) {
+		super();
+		this.fId = fId;
+		this.writer = writer;
+		this.babies = babies;
+		this.image = image;
+		this.content = content;
+		this.modifiedDate = modifiedDate;
+	}
 
 	public void create(CardDTO cardDTO) {
 		content = cardDTO.getContent();
@@ -52,7 +68,7 @@ public class Card {
 		createDate = new Date();
 		updateDate = new Date();
 		deleted = false;
-		images.addAll(cardDTO.getImages());
+		image = cardDTO.getUrl();
 	}
 
 	public boolean update(CardDTO cardDTO) {
@@ -70,83 +86,20 @@ public class Card {
 		
 //		if(images.){
 //			이미지가 바뀌었을때
-			images.addAll(cardDTO.getImages());
 			update = true;
 //		}
 
 		return update;
 	}
 
-	public Long getcId() {
-		return cId;
+	public void getImageBig(){
+		
+	}
+	
+	public void getImageSmall(){
+		
 	}
 
-	public void setcId(Long cId) {
-		this.cId = cId;
-	}
 
-	public Family getfId() {
-		return fId;
-	}
-
-	public void setfId(Family fId) {
-		this.fId = fId;
-	}
-
-	public Set<CardImage> getImages() {
-		return images;
-	}
-
-	public void setImages(Set<CardImage> images) {
-		this.images = images;
-	}
-
-	public User getWriter() {
-		return writer;
-	}
-
-	public void setWriter(User writer) {
-		this.writer = writer;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
 
 }
