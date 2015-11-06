@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+        <!-- Base application theme. -->
+
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        <!--<style name="AppTheme" parent="android:Theme.Material" tools:targetApi="lollipop">-->
+
+             <!--Main theme colors -->
+               <!--your app branding color for the app bar -->
+            <item name="android:colorPrimary">@color/purple4</item>
+            <!--   darker variant for the status bar and contextual app bars -->
+            <item name="android:colorPrimaryDark">@color/purple5</item>
+            <!--   theme UI controls like checkboxes and text fields -->
+            <item name="android:colorAccent">@color/purple5</item>
+        </style>
+
+
+
+</resources>
