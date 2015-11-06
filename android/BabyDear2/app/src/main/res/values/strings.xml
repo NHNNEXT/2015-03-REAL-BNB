@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BabyDear</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="diary_sample">"오늘은 하늘이 하늘하늘 오늘도 경륜챙챙유림이 잘 크고 있다! 화이링화이링" </string>
+
+
+    <string name="share_text">공유</string>
+    <string name="save_text">저장</string>
+    <string name="facebook_app_id">743303165813558</string>
+
+
+</resources>
