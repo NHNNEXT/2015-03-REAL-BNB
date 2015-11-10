@@ -3,5 +3,5 @@
 target/
 .classpath
 .project
-
+.DS_Store
 apiserver/src/main/resources/application.properties
