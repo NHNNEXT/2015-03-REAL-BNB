@@ -6,13 +6,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.babydear.dto.UserDTO;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class User {
+
+	public User(UserDTO userDTO, Family family) {
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword();
+		this.family = family;
+	}
 	public enum SignIn {
 		NAVER,
 		KAKAO,
@@ -27,24 +37,25 @@ public class User {
 		PRISON
 	}
 	
-	public enum Sex {
-		WOMAN,
-		MAN
-	}
-	
+//	public enum Sex {
+//		WOMAN,
+//		MAN
+//	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long uId;
 	
 	@ManyToOne
-	private Family fid;
+	private Family family;
 	
 	private String userName;
 	private String userImg;
 	
 	private String email;
 	private String password;
-	private Sex sex;
+	private String role;
+	
 	private State state;
 	private SignIn signIn;
 	

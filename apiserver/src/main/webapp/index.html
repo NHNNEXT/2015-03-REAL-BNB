@@ -1,9 +1,33 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Balbum : Baby Album</title>
 </head>
 <body>
-	로그인 회원가입 로직
+	<a href="/user">회원 가입 또는 로그인 페이지 리다이랙트</a>
+	<form action="/api/card" method="post" enctype="multipart/form-data">
+		<input name="content" type="text">
+		<input name="modifiedDate" type="date">
+		<input name="image" type="file">
+		<input name="babies[0]" value="1" type="checkbox">
+		<input name="babies[1]" value="2" type="checkbox">
+		<input name="babies[2]" value="4" type="checkbox">
+		<input name="submit" type="submit" value="submit">
+	</form>
+	<ul>
+		<li>
+			card1
+		</li>
+		<li>
+			card2
+		</li>
+		<li>
+			card3
+		</li>
+		<li>
+			card4
+		</li>
+	</ul>
+
 </body>
 </html>

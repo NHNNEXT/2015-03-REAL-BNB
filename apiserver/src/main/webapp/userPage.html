@@ -1,0 +1,78 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Balbum : Baby Album</title>
+</head>
+<body>
+  <h1>회원가입</h1>
+  <h3>초대 받을시 가족 만들 필요 없음</h3>
+  <form action="/user/create" method="post">
+    <input type="text" name="fId" value="1234">
+    <div>
+      <label for="email">email</label>
+      <input type="text" name="email" value="erin">
+    </div>
+    <div>
+      <label for="password">password</label>
+      <input type="text" name="password" value="1234">
+    </div>
+    <div>
+      <label for="role">role</label>
+      <input type="text" name="role" value="mom">
+    </div>
+    <input name="submit" type="submit" value="submit">
+  </form>
+  
+  <h3>family Id 없으면 새로 만듬</h3>
+  <form action="/user/create" method="post">
+    <div>
+      <label for="email">email</label>
+      <input type="text" name="email" value="erin">
+    </div>
+    <div>
+      <label for="password">password</label>
+      <input type="text" name="password" value="1234">
+    </div>
+    <div>
+      <label for="role">role</label>
+      <input type="text" name="role" value="mom">
+    </div>
+    <div>
+      <label for="babies[0].name">babies</label>
+      <input type="text" name="babies[0].name" value="baby1">
+    </div>
+    <input name="submit" type="submit" value="submit">
+  </form>
+
+  <h1>로그인</h1>
+  <form action="/user/login" method="post">
+  <div>
+    <label for="email">email</label>
+    <input type="text" name="email">
+  </div>
+  <div>
+    <label for="password">password</label>
+    <input type="text" name="password">
+  </div>
+    <input name="submit" type="submit" value="submit">
+  </form>
+</body>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '388811954638443',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+</html>

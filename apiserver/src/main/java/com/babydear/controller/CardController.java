@@ -38,7 +38,7 @@ public class CardController {
 		
 		final Set<Baby> babies = tagService.processTags(cardDTO.getBabies());
 		final String image = imgService.processImg(cardDTO.getImage());
-		Card card = new Card(user.getFid(), user, babies, image, cardDTO.getContent(), cardDTO.getModifiedDate());
+		Card card = new Card(user.getFamily(), user, babies, image, cardDTO.getContent(), cardDTO.getModifiedDate());
 		cardRepo.save(card);
 //		return "{ create : true, error: null }";
 		return card;
