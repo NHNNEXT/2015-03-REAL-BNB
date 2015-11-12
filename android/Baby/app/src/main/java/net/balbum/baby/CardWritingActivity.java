@@ -21,6 +21,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.http.HEAD;
+
 /**
  * Created by hyes on 2015. 11. 10..
  */
@@ -30,7 +32,9 @@ public class CardWritingActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
+
     List<BabyTagVo> babyTagNamesList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,6 @@ public class CardWritingActivity extends AppCompatActivity {
         babyTagNamesList.add(baby3);
 
         return null;
-
     }
 
     private void initTagBar() {

@@ -56,7 +56,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             holder.diary_text.setText(cards.get(position).memo);
             holder.diary_text.setTypeface(typeface);
 
-
             holder.cv.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
