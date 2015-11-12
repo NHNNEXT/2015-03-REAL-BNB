@@ -18,7 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,8 +80,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
             BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
             rv_baby.setAdapter(adapter);
-
-            Log.i("test", "rv test");
 
 
             photo_tv.setOnClickListener(this);

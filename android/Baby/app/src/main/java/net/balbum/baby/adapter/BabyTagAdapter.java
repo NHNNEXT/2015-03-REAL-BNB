@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.balbum.baby.R;
 import net.balbum.baby.Util.ConvertFileToBitmapUtil;
@@ -106,12 +106,16 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     class BabyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photo;
-        CheckBox cbox;
+
+                TextView cbox;
+
 
         public BabyViewHolder(View itemView) {
             super(itemView);
             photo = (ImageView)itemView.findViewById(R.id.baby_iv);
-            cbox = (CheckBox)itemView.findViewById(R.id.baby_cb);
+
+            cbox = (TextView)itemView.findViewById(R.id.baby_cb);
+
         }
     }
 }

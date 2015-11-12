@@ -2,6 +2,8 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.adapter.ViewPagerAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.http.HEAD;
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -21,6 +31,9 @@ public class CardWritingActivity extends AppCompatActivity {
     Context context;
 
     Toolbar toolbar;
+
+
+    List<BabyTagVo> babyTagNamesList;
 
 
     @Override
@@ -36,6 +49,39 @@ public class CardWritingActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+
+//        initData();
+//        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby);
+//        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+//        rv_baby.setLayoutManager(sgm);
+//
+//        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
+//        rv_baby.setAdapter(adapter);
+    }
+
+    private Context initData(){
+
+
+        babyTagNamesList = new ArrayList<>();
+
+
+        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
+        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
+        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
+
+        File a = ConvertBitmapToFileUtil.convertFile(img1);
+        File b = ConvertBitmapToFileUtil.convertFile(img2);
+        File c = ConvertBitmapToFileUtil.convertFile(img3);
+
+        BabyTagVo baby1 = new BabyTagVo(a, "산체");
+        BabyTagVo baby2 = new BabyTagVo(b, "연두");
+        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
+
+        babyTagNamesList.add(baby1);
+        babyTagNamesList.add(baby2);
+        babyTagNamesList.add(baby3);
+
+        return null;
     }
 
     private void initTagBar() {

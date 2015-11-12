@@ -1,14 +1,28 @@
 package net.balbum.baby;
 
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.adapter.BabyTagAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -19,11 +33,20 @@ public class EventCardFragment extends Fragment {
     private RelativeLayout photo_layout;
     private TextView photo_tv;
 
+    List<BabyTagVo> babyTagNamesList;
+   Context context;
+//    EditText editText;
+//    int year_x, month_x, day_x;
+//    static final int DIALOG_ID = 0;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_event_fragment, container, false);
+
+        context = this.getActivity();
+
         return view;
     }
 
@@ -36,9 +59,65 @@ public class EventCardFragment extends Fragment {
 //            photo_layout.setOnClickListener(onClickListener);
 //            photo_tv.setOnClickListener(onClickListener);
             isDone = true;
+
+
+            initData();
+        RecyclerView rv_baby = (RecyclerView)getActivity().findViewById(R.id.rv_baby_event);
+        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        rv_baby.setLayoutManager(sgm);
+
+        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
+        rv_baby.setAdapter(adapter);
+
         }
         super.onResume();
     }
+
+
+    private void initData(){
+
+
+        babyTagNamesList = new ArrayList<>();
+
+
+        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
+        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
+        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
+
+        File a = ConvertBitmapToFileUtil.convertFile(img1);
+        File b = ConvertBitmapToFileUtil.convertFile(img2);
+        File c = ConvertBitmapToFileUtil.convertFile(img3);
+
+        BabyTagVo baby1 = new BabyTagVo(a, "산체");
+        BabyTagVo baby2 = new BabyTagVo(b, "연두");
+        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
+
+        babyTagNamesList.add(baby1);
+        babyTagNamesList.add(baby2);
+        babyTagNamesList.add(baby3);
+
+    }
+
+//    protected Dialog onCreateDialog(int id){
+//        if(id == DIALOG_ID){
+//            return new DatePickerDialog(this.getActivity(), dpickerListener, year_x, month_x, day_x);
+//        }
+//        return null;
+//    }
+//
+//
+//    public void showDialogOnEditTextOnClick(){
+//        editText = (EditText)getActivity().findViewById(R.id.editText);
+//        editText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialog(DIALOG_ID);
+//
+//            }
+//        });
+//
+//    }
+
 
 //    // Activity 로 데이터를 전달할 커스텀 리스너
 //    private CustomOnClickListener customListener;
