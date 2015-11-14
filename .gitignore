@@ -4,4 +4,6 @@ target/
 .classpath
 .project
 
+node_modules/
+
 apiserver/src/main/resources/application.properties
