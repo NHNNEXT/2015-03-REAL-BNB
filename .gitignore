@@ -5,5 +5,5 @@ target/
 .project
 
 node_modules/
-
+config.js
 apiserver/src/main/resources/application.properties
