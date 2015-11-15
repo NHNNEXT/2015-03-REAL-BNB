@@ -106,16 +106,12 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     class BabyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photo;
-
-                TextView cbox;
-
+        TextView cbox;
 
         public BabyViewHolder(View itemView) {
             super(itemView);
             photo = (ImageView)itemView.findViewById(R.id.baby_iv);
-
             cbox = (TextView)itemView.findViewById(R.id.baby_cb);
-
         }
     }
 }

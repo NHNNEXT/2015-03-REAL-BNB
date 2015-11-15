@@ -23,7 +23,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by hyes on 2015. 11. 10..
  */
@@ -32,21 +31,17 @@ public class EventCardFragment extends Fragment {
     private boolean isDone = false;
     private RelativeLayout photo_layout;
     private TextView photo_tv;
-
     List<BabyTagVo> babyTagNamesList;
    Context context;
 //    EditText editText;
 //    int year_x, month_x, day_x;
 //    static final int DIALOG_ID = 0;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_event_fragment, container, false);
-
         context = this.getActivity();
-
         return view;
     }
 
@@ -68,11 +63,9 @@ public class EventCardFragment extends Fragment {
 
         BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
         rv_baby.setAdapter(adapter);
-
         }
         super.onResume();
     }
-
 
     private void initData(){
 
@@ -117,7 +110,6 @@ public class EventCardFragment extends Fragment {
 //        });
 //
 //    }
-
 
 //    // Activity 로 데이터를 전달할 커스텀 리스너
 //    private CustomOnClickListener customListener;

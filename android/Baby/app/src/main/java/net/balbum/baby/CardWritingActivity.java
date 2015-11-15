@@ -10,8 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
@@ -21,20 +23,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.http.HEAD;
-
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class CardWritingActivity extends AppCompatActivity {
+public class CardWritingActivity extends AppCompatActivity implements GeneralCardFragment.CustomOnClickListener {
 
     Context context;
 
     Toolbar toolbar;
 
-
     List<BabyTagVo> babyTagNamesList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +80,7 @@ public class CardWritingActivity extends AppCompatActivity {
         babyTagNamesList.add(baby3);
 
         return null;
+
     }
 
     private void initTagBar() {
@@ -122,6 +121,7 @@ public class CardWritingActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_save) {
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -136,6 +136,13 @@ public class CardWritingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClicked(int id) {
+
+
+            Log.i("test", "fragment listener id + : " + id);
+            Toast.makeText(context, "fragment on click~~", Toast.LENGTH_SHORT).show();
+    }
 }
 
 

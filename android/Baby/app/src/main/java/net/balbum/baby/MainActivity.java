@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.Util.TimeUtil;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private LinearLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,15 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        drawerLayout = (LinearLayout)findViewById(R.id.drawer_calendar);
+        drawerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "calcal", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void initToolbar() {
