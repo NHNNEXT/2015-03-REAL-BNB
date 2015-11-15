@@ -3,53 +3,95 @@
 <!-- sp = start page = 시작 페이지 -->
 
 <html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>Welcome to Bablum. | 로그인 및 회원가입</title>
+		
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<head>
-<meta charset="utf-8">
-<title>아기자기에 오신 것을 환영합니다. | 로그인 및 회원가입</title>
-<link rel="stylesheet" type="text/css" href="css/landing.css"/>
-</head>
-<body class="sp_body">
-<div class="sp_wrap">
-	<div class="bg_box">
-		<img src="img/bg1.jpg" class="bg_img">
-	</div>
+		<link rel="stylesheet" type="text/css" href="css/landing.css"/>
+	</head>
+	<body class="sp_body">
+		<div class="sp_wrap">
+			<div class="bg_box">
+				<img src="img/bg1.jpg" class="bg_img">
+			</div>
 
-	<div class="sp_container">
-		<div class="sp_greeting">Welcome to BabyDear</div>
-		<div class="sp_logo"></div>
-		<div class="sp_content_wrap">
-			<div class="sp_content">
-				<div class="login_box" style="display:block">
-					<form>
-						<ul>
-							<li><input type="email" name="email" placeholder="이메일" required></li>
-							<li><input type="password" name="password" placeholder="비밀번호" required></li>
-							<li><button class="login_btn">로그인</button></li>
-						</ul>
-					</form>
-					<div class="login_btn_box">
-						<img src="img/facebook_login.png" class="login_btn" alt="">
-						<img src="img/kakao_login.png" class="login_btn" alt="">
-						<img src="img/naver_login.png" class="login_btn" alt="">
+			<div class="sp_container">
+				<div class="sp_content_wrap">
+					<div class="sp_content">
+						<div class="msg">
+							<span>Welcome to</span>
+							<span class="blue-text text-lighten-2">Bablum</span>
+						</div>
+						<div class="sp_logo"></div>
+						<!-- %erin login  -->
+						<div class="login_box" style="display:block">
+							<form class="col s12">
+								<div class="row ">
+									<div class="input-field  s12">
+										<input id="email" type="email" class="validate">
+										<label for="email">Email</label>
+									</div>
+								</div>
+								<div class="row">
+								    <div class="input-field s12">
+								    	<input id="password" type="password" class="validate">
+								    	<label for="password">Password</label>
+								    </div>
+								</div>
+							</form>
+							<a class="login_btn waves-effect waves-light btn-large">Login</a>
+
+							<!-- 소셜 로그인 
+								<img src="img/facebook_login.png" class="login_btn" alt="">
+								<img src="img/kakao_login.png" class="login_btn" alt="">
+								<img src="img/naver_login.png" class="login_btn" alt=""> -->
+								<div class="fd">
+							<a class="goto_signup">회원가입 바로가기</a></div>
+						</div>
+						<div class="signup_box" style="display:none">
+							<form class="col s12">
+								<div class="row ">
+									<div class="input-field  s12">
+										<input id="name" type="text" class="validate">
+										<label for="name">Name</label>
+									</div>
+								</div>
+								<div class="row ">
+									<div class="input-field  s12">
+										<input id="email" type="email" class="validate">
+										<label for="email">Email</label>
+									</div>
+								</div>
+								<div class="row">
+								    <div class="input-field s12">
+								    	<input id="password" type="password" class="validate">
+								    	<label for="password">Password</label>
+								    </div>
+								</div>
+								<div class="row">
+								    <div class="input-field s12">
+								    	<input id="password" type="password" class="validate">
+								    	<label for="password">Confirm Password</label>
+								    </div>
+								</div>
+								<!-- 초대코드 유무, role, babies는 어떻게 받을까.. 회원가입 양식을 2단으로 나누면 좋을까? 일단은 (이름,이메일,비번,비번확인)만 받음 by.챙 -->
+							</form>
+							<a class="signup_btn waves-effect waves-light btn-large">SIGN UP</a>
+							<div class="ff">
+							<a class="goto_login">로그인 바로가기</a></div>
+						</div>
 					</div>
-					<a class="goto_signup">회원가입 바로가기</a>
-				</div>
-				<div class="signup_box" style="display:none">
-					<form>
-						<ul>
-							<li><input type="text" name="name" placeholder="이름" required></li>
-							<li><input type="email" name="email" placeholder="이메일" required></li>
-							<li><input type="password" name="password" placeholder="비밀번호" required></li>
-							<li><input type="password" placeholder="비밀번호 확인" required></li>
-							<li><button class="signup_btn">가입하기</button></li>
-						</ul>
-					</form>
-					<a class="goto_login">로그인 바로가기</a>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</body>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/vendor/materialize.js"></script>
+		<script type="text/javascript" src="js/landing.js"></script>
+	</body>
 </html>
