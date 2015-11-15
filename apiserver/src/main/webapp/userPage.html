@@ -6,7 +6,7 @@
 <body>
   <h1>회원가입</h1>
   <h3>초대 받을시 가족 만들 필요 없음</h3>
-  <form action="/user/create" method="post">
+  <form action="api/user/create" method="post">
     <input type="text" name="fId" value="1234">
     <div>
       <label for="email">email</label>
@@ -24,7 +24,7 @@
   </form>
   
   <h3>family Id 없으면 새로 만듬</h3>
-  <form action="/user/create" method="post">
+  <form action="api/user/create" method="post">
     <div>
       <label for="email">email</label>
       <input type="text" name="email" value="erin">
@@ -45,7 +45,7 @@
   </form>
 
   <h1>로그인</h1>
-  <form action="/user/login" method="post">
+  <form action="api/user/login" method="post">
   <div>
     <label for="email">email</label>
     <input type="text" name="email">

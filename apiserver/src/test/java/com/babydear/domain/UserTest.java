@@ -62,7 +62,7 @@ public class UserTest {
 
 		User user = new User(userDTO, family);
 		userRepo.save(user);
-		babyRepo.save(babies);
+		babyRepo.save(userDTO.getBabies());
 
 	}
 
@@ -115,5 +115,25 @@ public class UserTest {
 		userRepo.save(user);
 		babyRepo.save(babies);
 	}
-
+	
+	@Test
+	public void loginUser() throws Exception {
+		Family family = new Family();
+		family = familyRepo.save(family);
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO.setEmail("erin314@naver.com");
+		userDTO.setPassword("1234");
+		userDTO.setRole("mome");
+		userDTO.setFId(family.getFId());
+		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		userRepo.save(user);
+		
+		UserDTO loginDTO = new UserDTO();
+		loginDTO.setEmail("erin314@naver.com");
+		loginDTO.setPassword("1234");
+		User login = new User(loginDTO);
+		login = userRepo.findByEmail(login.getEmail());
+		
+	}
 }

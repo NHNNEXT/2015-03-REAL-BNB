@@ -23,6 +23,9 @@ public class User {
 		this.password = userDTO.getPassword();
 		this.family = family;
 	}
+	public User(UserDTO loginDTO) {
+		this(loginDTO, null);
+	}
 	public enum SignIn {
 		NAVER,
 		KAKAO,
