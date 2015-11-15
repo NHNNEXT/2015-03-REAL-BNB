@@ -9,10 +9,19 @@
 }
 
 body {
-    background: #f0f4f8;
+    background: #f3ede8;
 }
 
 .nav-top {
+    background-color: #fffbf5;
+
+    .brand-logo {
+        color: @primary;
+        font-weight: 900;
+    }
+    ul a {
+        color: #DAD3CE;
+    }
     @media @l-m {
         a.button-collapse {
             display: none;
@@ -25,7 +34,7 @@ body {
 .left-col {
     background: #3F4A58;
     height: 600px;
-    color: white !important;
+    color: white;
     //material css 기본 side-nav 오버라이드
     .side-nav.fixed {
         top: initial !important;
@@ -41,7 +50,6 @@ body {
 
 //*-- right col --*//
 .right-col {
-    background: green;
+    // background: green;
     height: 600px;
 }
-
