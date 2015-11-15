@@ -17,14 +17,14 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <nav class="purple" role="navigation">
+        <nav class="purple nav-top" role="navigation">
             <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo">BALBUM</a>
-                <ul class="right hide-on-med-and-down">
+                <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
                     <li><a href="#"><i class="material-icons">face</i></a></li>
                     <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a></li>
                     <li><a href="#"><i class="material-icons">create</i></a></li>
                 </ul>
-                <ul id="nav-mobile" class="side-nav">
+                <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
                     <li><a href="#">타임라인</a></li>
                     <li><a href="#">다정이</a></li>
                     <li><a href="#">연우</a></li>
@@ -38,55 +38,66 @@
             <li class="divider"></li>
             <li><a href="#!">three</a></li>
         </ul>
+
         <div class="main-container row">
+
             <div class="left-col col m4 l2 hide-on-small-only">
-                <ul class="">
-                    <li><a href="#">타임라인</a></li>
-                    <li><a href="#">다정이</a></li>
-                    <li><a href="#">연우</a></li>
-                </ul>
+                <ul id="slide-out" class="side-nav fixed left-col col m4 l2 hide-on-small-only">
+                <li><a href="#!">가나다</a></li>
+                <li><a href="#!">라마바</a></li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                        <a class="collapsible-header">펼쳐져라</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="#!">First</a></li>
+                                    <li><a href="#!">Second</a></li>
+                                    <li><a href="#!">Third</a></li>
+                                    <li><a href="#!">Fourth</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
             </div>
             <div class="main-col col s12 m8 l8">
+                <div class="postcard-container row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li class="daily-tab tab col s3"><a class="active" href="#test1">일상 담기</a></li>
+                                    <li class="tab col s3"><a class="active" href="#test2">기념 담기</a></li>
+                                </ul>
+                            </div>
+                            <div id="test1" class="col s12">일상탭이라네</div>
+                            <div id="test2" class="col s12">기념탭이라네</div>
+
+                            <div class="card-content">
+                                <div class="chip">
+                                    <img src="img/baby1.jpeg" alt="Contact Person">
+                                    연우
+                                </div>
+                                <div class="chip">
+                                    <img src="img/baby2.jpeg" alt="Contact Person">
+                                    다정이
+                                </div>
+
+                            </div>
+                            <div class="card-action">
+                                <p>2015.05.22</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="right-col col l2 hide-on-med-and-down">
             </div>
         </div>
-        <!-- <footer class="page-footer orange">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">Company Bio</h5>
-                        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-                    </div>
-                    <div class="col l3 s12">
-                        <h5 class="white-text">Settings</h5>
-                        <ul>
-                            <li><a class="white-text" href="#!">Link 1</a></li>
-                            <li><a class="white-text" href="#!">Link 2</a></li>
-                            <li><a class="white-text" href="#!">Link 3</a></li>
-                            <li><a class="white-text" href="#!">Link 4</a></li>
-                        </ul>
-                    </div>
-                    <div class="col l3 s12">
-                        <h5 class="white-text">Connect</h5>
-                        <ul>
-                            <li><a class="white-text" href="#!">Link 1</a></li>
-                            <li><a class="white-text" href="#!">Link 2</a></li>
-                            <li><a class="white-text" href="#!">Link 3</a></li>
-                            <li><a class="white-text" href="#!">Link 4</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-                </div>
-            </div>
-        </footer> -->
-
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

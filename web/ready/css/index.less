@@ -1,3 +1,5 @@
+@import (once) "var";
+
 //*-- common --*//
 .icon-block {
   padding: 0 15px;
@@ -6,15 +8,34 @@
     font-size: inherit;
 }
 
+body {
+    background: #f0f4f8;
+}
+
+.nav-top {
+    @media @l-m {
+        a.button-collapse {
+            display: none;
+        }
+    }
+}
+
+
 //*-- left col --*//
 .left-col {
-    // background: red;
+    background: #3F4A58;
     height: 600px;
+    color: white !important;
+    //material css 기본 side-nav 오버라이드
+    .side-nav.fixed {
+        top: initial !important;
+        left: 0 !important;
+    }
 }
 
 //*-- main col --*//
 .main-col {
-    background: blue;
+    // background: #F3F5F6;
     height: 600px;
 }
 
