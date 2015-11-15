@@ -68,6 +68,17 @@ public class UserController {
 //		System.out.println(userDTO);
 		return userDTO;
 	}
+	
+	@RequestMapping("/api/user/logintest")
+	public UserDTO loginTest(UserDTO userDTO) {
+		UserDTO test = new UserDTO();
+		test.setEmail("dumdum");
+		test.setPassword("1234");
+//		User user = userRepo.findByEmail(userDTO.getEmail());
+//		System.out.println(userDTO);
+		return test;
+	}
+	
 	@RequestMapping("/api/user/facebook")
 	public String facebook(User user) {
 		System.out.println(user);
