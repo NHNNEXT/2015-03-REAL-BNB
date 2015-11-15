@@ -3,12 +3,15 @@ package net.balbum.baby.VO;
 import java.io.File;
 import java.util.ArrayList;
 
+import io.realm.annotations.Required;
+
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class GeneralCardVo {
+public class GeneralCardVo{
 
     //카드 생성일, 기록대상일, 아이이름[], 메모, 작성자, 상태(삭제여부 boolean)
+    @Required
     public String createDate;
     public String recordDate;
     public File image;

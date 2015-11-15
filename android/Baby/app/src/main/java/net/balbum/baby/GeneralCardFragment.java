@@ -1,6 +1,7 @@
 package net.balbum.baby;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +57,8 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     String selectedImagePath;
     List<BabyTagVo> babyTagNamesList;
 
+    private CustomOnClickListener customListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +82,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
             BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
             rv_baby.setAdapter(adapter);
-
 
             photo_tv.setOnClickListener(this);
             memo_tv.setOnClickListener(this);
@@ -266,6 +267,28 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
     }
 
+    public interface CustomOnClickListener{
+        public void onClicked(int id);
+    }
+
+        @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        customListener = (CustomOnClickListener)activity;
+    }
+
+    View.OnClickListener onClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            customListener.onClicked(v.getId());
+        }
+    };
+
+
+
+
+
 
 }
 
@@ -281,13 +304,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 //    }
 //
 //    // 버튼에 설정한 OnClickListener의 구현, 버튼이 클릭 될 때마다 Activity의 커스텀 리스너를 호출함
-//    View.OnClickListener onClickListener = new View.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View v) {
-//            customListener.onClicked(v.getId());
-//        }
-//    };
+
 //
 //    // Activity 로 데이터를 전달할 커스텀 리스너를 연결
 //    @Override
