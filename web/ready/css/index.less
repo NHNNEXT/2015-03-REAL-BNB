@@ -12,15 +12,28 @@ body {
     background: #f3ede8;
 }
 
+button {
+    background: @primary !important;
+}
+
 .nav-top {
     background-color: #fffbf5;
 
     .brand-logo {
         color: @primary;
         font-weight: 900;
+        left: 50% !important;
+        img {
+            height: 37px;
+        }
     }
-    ul a {
+    a {
         color: #DAD3CE;
+    }
+    #nav-mobile {
+        a {
+            color: @primary;
+        }
     }
     @media @l-m {
         a.button-collapse {

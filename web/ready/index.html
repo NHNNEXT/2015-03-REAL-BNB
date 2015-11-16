@@ -18,7 +18,7 @@
     </head>
     <body>
         <nav class="nav-top" role="navigation">
-            <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo">BALBUM</a>
+            <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
                 <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
                     <li><a href="#"><i class="material-icons">face</i></a></li>
                     <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a></li>
@@ -75,26 +75,74 @@
                         <div class="card">
                             <div class="col s12">
                                 <ul class="tabs">
-                                    <li class="daily-tab tab col s3"><a class="active" href="#test1">일상 담기</a></li>
+                                    <li class="daily-tab tab col s3 deep-purple-text text-lighten-1"><a class="active" href="#test1">일상 담기</a></li>
                                     <li class="tab col s3"><a class="active" href="#test2">기념 담기</a></li>
                                 </ul>
                             </div>
-                            <div id="test1" class="col s12">일상탭이라네</div>
-                            <div id="test2" class="col s12">기념탭이라네</div>
+                            <div id="test1" class="col s12">
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                            <textarea id="textarea1" placeholder="우리 연우의 소중한 일상을 담아주세요" class="materialize-textarea" length="120"></textarea>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                          <div class="btn">
+                                            <span>사진 추가</span>
+                                            <input type="file">
+                                          </div>
+                                          <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                          </div>
+                                        </div>
+                                      </form>
+                                </div>
+                            </div>
+                            <div id="test2" class="col s12">
+                                <div class="row center-align">
+                                    <div class="date-container  col s6">
+                                        <input type="date" class="datepicker">
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s6">
+                                          <input placeholder="첫 옹알이" id="first_name" type="text" class="validate">
+                                        </div>
+                            </div>
 
                             <div class="card-content">
-                                <div class="chip">
-                                    <img src="img/baby1.jpeg" alt="Contact Person">
-                                    연우 1개월
-                                </div>
-                                <div class="chip">
-                                    <img src="img/baby2.jpeg" alt="Contact Person">
-                                    다정이 3개월
-                                </div>
+                                <form action="#">
+                                    <p>
+                                        <input type="checkbox" id="baby-check-1" />
+                                        <label for="baby-check-1">연우
+                                            <div class="baby-chip chip">
+                                                <img src="img/baby1.jpeg" alt="Contact Person">
+                                                연우 1개월
+                                            </div>
 
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="baby-check-2" />
+                                        <label for="baby-check-2">다정이</label>
+                                        <div class="baby-chip chip">
+                                            <img src="img/baby2.jpeg" alt="Contact Person">
+                                            다정이 3개월
+                                        </div>
+                                    </p>
+                                </form>
                             </div>
-                            <div class="card-action">
-                                <p>2015.05.22</p>
+                            <div class="card-action row">
+                                <div class="date-container col s6">
+                                    <input type="date" class="datepicker">
+                                </div>
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">담기
+                                    <i class="material-icons right">send</i>
+                                  </button>
                             </div>
                         </div>
                     </div>
