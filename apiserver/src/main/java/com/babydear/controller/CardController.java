@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.babydear.dto.CardDTO;
+import com.babydear.dto.ResponseDTO;
 import com.babydear.model.Baby;
 import com.babydear.model.Card;
 import com.babydear.model.User;
 import com.babydear.repository.CardRepository;
 import com.babydear.service.ImgService;
 import com.babydear.service.TagService;
+import com.mysql.fabric.Response;
 
 
 @RestController
@@ -33,15 +35,21 @@ public class CardController {
 		return "{ error: null, startCard: 10, count: 10, cards: [a,b,c,d]}";
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
-	public Card createCard(User user, CardDTO cardDTO){
+	public ResponseDTO createCard(User user, CardDTO cardDTO){
+		System.out.println("hello im card card ");
 		Assert.notNull(cardDTO, "card should be not null!");
-		
+//		console.log(cardDTO);
+		System.out.println(cardDTO);
 		final Set<Baby> babies = tagService.processTags(cardDTO.getBabies());
 		final String image = imgService.processImg(cardDTO.getImage());
-		Card card = new Card(user.getFamily(), user, babies, image, cardDTO.getContent(), cardDTO.getModifiedDate());
-		cardRepo.save(card);
+//		Card card = new Card(user.getFamily(), user, babies, image, cardDTO.getContent(), cardDTO.getModifiedDate());
+//		cardRepo.save(card);
 //		return "{ create : true, error: null }";
-		return card;
+//		return card;
+		ResponseDTO res = new ResponseDTO();
+		res.setState(true);
+		res.setError("null");
+		return res;
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.PUT)
 	public String updateCard(){

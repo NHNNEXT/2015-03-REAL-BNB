@@ -20,6 +20,7 @@ import lombok.ToString;
 @ToString
 public class CardDTO {
 	private Long cId;
+	private String token;
 	private String content;
 	private String modifiedDate;
 	private MultipartFile image;
@@ -36,7 +37,5 @@ public class CardDTO {
 		card.setModifiedDate(modifiedDate);
 		card.setDeleted(true);
 		card.setCreateDate(new Date());
-		
-		
 	}
 }

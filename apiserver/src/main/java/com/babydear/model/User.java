@@ -26,6 +26,7 @@ public class User {
 	public User(UserDTO loginDTO) {
 		this(loginDTO, null);
 	}
+	public User(){}
 	public enum SignIn {
 		NAVER,
 		KAKAO,
