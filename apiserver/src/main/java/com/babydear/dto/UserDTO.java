@@ -22,4 +22,5 @@ public class UserDTO {
 	private String password;
 	private String role;
 	private List<Baby> babies;
+	private String token;
 }

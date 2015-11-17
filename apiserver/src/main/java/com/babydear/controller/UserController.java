@@ -74,6 +74,7 @@ public class UserController {
 		UserDTO test = new UserDTO();
 		test.setEmail("dumdum");
 		test.setPassword("1234");
+		test.setToken("asdf1234");
 //		User user = userRepo.findByEmail(userDTO.getEmail());
 //		System.out.println(userDTO);
 		return test;
