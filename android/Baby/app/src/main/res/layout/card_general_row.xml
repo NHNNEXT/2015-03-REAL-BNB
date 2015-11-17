@@ -23,6 +23,7 @@
             android:background="@android:color/transparent"
             android:textColor="@color/purple2"
             android:textStyle="italic"
+            android:textSize="18dp"
             android:paddingBottom="10dp"/>
 
         <ImageView
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:scaleType="centerInside" />
+            android:scaleType="centerCrop"
+            />
 
         <TextView
             android:id="@+id/diary_text"

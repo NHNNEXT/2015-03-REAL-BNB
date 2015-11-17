@@ -37,7 +37,7 @@ public class LoginActivity extends FragmentActivity{
     CallbackManager callbackManager;
     TextView info;
     Context context;
-    String token;
+    String tokenB;
     SharedPreferences sharedPreferences;
     String callValue;
     LinearLayout linear;
@@ -51,6 +51,14 @@ public class LoginActivity extends FragmentActivity{
         super.onResume();
         taskService = ServiceGenerator.createService(TaskService.class);
 
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        if(sharedPreferences.contains("tokenB")) {
+//            String t = sharedPreferences.getString("tokenB", "");
+//            Log.i("test", "hello~~"+ t);
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//
+//        }
     }
 
     @Override
@@ -124,8 +132,8 @@ public class LoginActivity extends FragmentActivity{
                         //Token을 sharedprefernce에 저장해두면 되겠군!
                 );
 
-                token = loginResult.getAccessToken().getToken();
-                saveToken(context);
+//                token = loginResult.getAccessToken().getToken();
+             //   saveToken(context);
 
                 Handler handler = new Handler();
                 handler.postDelayed(runnable, 1000);
@@ -157,13 +165,16 @@ public class LoginActivity extends FragmentActivity{
         emailString = email.getText().toString();
         passwordString = password.getText().toString();
         LoginVo loginVo = new LoginVo(emailString, passwordString);
-        taskService.createTask(loginVo, new Callback<LoginVo>() {
+        taskService.createLogin(loginVo, new Callback<LoginVo>() {
             @Override
             public void success(LoginVo task, Response response) {
                 Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
 
-                Log.i("test", "response header: "+ response.getHeaders() + "body: " + response.getBody());
+                Log.i("test", "task: " + task + "body: " + response.getBody()+ " token: " + task.getToken());
+                saveTokenBalbum(context, task.getToken());
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -171,9 +182,6 @@ public class LoginActivity extends FragmentActivity{
                 Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void goMainActivity() {
@@ -182,10 +190,12 @@ public class LoginActivity extends FragmentActivity{
 
     }
 
-    private void saveToken(Context context) {
+    private void saveTokenBalbum(Context context, String token) {
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
+        editor.putString("tokenB", token);
+        Toast.makeText(context, "tokenB저" + token, Toast.LENGTH_SHORT).show();
         editor.commit();
 
     }

@@ -4,23 +4,23 @@
     xmlns:net.balbum.baby="http://schemas.android.com/tools">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camara"
-            android:icon="@android:drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Gallery" />
+        <!--<item-->
+            <!--android:id="@+id/nav_camara"-->
+            <!--android:icon="@android:drawable/ic_menu_camera"-->
+            <!--android:title="Import" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_gallery"-->
+            <!--android:icon="@android:drawable/ic_menu_gallery"-->
+            <!--android:title="Gallery" />-->
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="아기별 묶어보기" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@android:drawable/ic_menu_manage"
             app:actionLayout="@layout/action_view_switch"
-            android:title="Tools"
+            android:title="가족 설정"
             app:showAsAction="always"
             />
     </group>
@@ -30,11 +30,20 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="공유" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="포토카드" />
+        </menu>
+    </item>
+    <item android:title="setting">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="로그아웃" />
+
         </menu>
     </item>
 

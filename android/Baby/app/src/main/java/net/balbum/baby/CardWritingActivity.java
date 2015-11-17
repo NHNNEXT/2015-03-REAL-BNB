@@ -17,11 +17,19 @@ import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.ViewPagerAdapter;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -33,12 +41,14 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
     Toolbar toolbar;
 
     List<BabyTagVo> babyTagNamesList;
+    TaskService taskService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_writing);
         context = this;
+        taskService = ServiceGenerator.createService(TaskService.class);
 
         initToolbar();
 
@@ -121,6 +131,31 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
         }
 
         if (id == R.id.action_save) {
+            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+
+
+            Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
+            File a = ConvertBitmapToFileUtil.convertFile(img1);
+
+            TypedFile typedFile = new TypedFile("multipart/form-data", a);
+
+//            new CardFormVo("card test!!!")
+            String content = "asdasd";
+            taskService.createCard(typedFile, content, new Callback<ResponseVo>() {
+                @Override
+                public void success(ResponseVo responseVo, Response response) {
+                    Log.i("test", "card success" + responseVo.state + ", error: "+ responseVo.error);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.i("test", "card error: " + error);
+                }
+            });
+
+            startActivity(intent);
+
+
 
             return true;
         }

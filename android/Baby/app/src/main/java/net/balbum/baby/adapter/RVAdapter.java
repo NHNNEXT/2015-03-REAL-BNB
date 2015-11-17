@@ -30,6 +30,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
     private Typeface typeface;
             Animation anim;
 
+
     public RVAdapter(List<GeneralCardVo> cards, Context context){
         this.cards = cards;
         this.context = context;
@@ -55,7 +56,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).image));
             holder.diary_text.setText(cards.get(position).memo);
             holder.diary_text.setTypeface(typeface);
-
 
             holder.cv.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -126,8 +126,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
                 tv.setGravity(Gravity.CENTER);
                 linLayout.addView(tv);
                 ((LinearLayout) profile_container).addView(linLayout);
-
-
 
             }
 
