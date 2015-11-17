@@ -32,6 +32,7 @@ import android.widget.Toast;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private boolean isDone = false;
     private RelativeLayout photo_layout;
     private TextView photo_tv;
-    private ImageView photo_iv;
+    private ImageView camera_iv, photo_iv;
     private EditText memo_tv;
     Context context;
     private Intent pictureActionIntent = null;
@@ -58,6 +59,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     List<BabyTagVo> babyTagNamesList;
 
     private CustomOnClickListener customListener;
+    TaskService taskService;
 
     @Nullable
     @Override
@@ -74,6 +76,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
             photo_layout = (RelativeLayout)getActivity().findViewById(R.id.photo_layout);
             photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
             memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv);
+            camera_iv = (ImageView)this.getActivity().findViewById(R.id.camera_iv);
             photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
 
             RecyclerView rv_baby = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby);
@@ -85,6 +88,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
             photo_tv.setOnClickListener(this);
             memo_tv.setOnClickListener(this);
+            camera_iv.setOnClickListener(this);
             isDone = true;
         }
         super.onResume();
@@ -93,8 +97,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.photo_tv:
-            case R.id.photo_iv:
+            case R.id.camera_iv:
                 startDialog();
                 break;
         }
@@ -266,6 +269,42 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         }
 
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_share) {
+//            return true;
+//        }
+//
+//        if (id == R.id.action_save) {
+//            Intent intent = new Intent(getActivity(), MainActivity.class);
+//            Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
+//            File a = ConvertBitmapToFileUtil.convertFile(img1);
+//
+//            TypedFile typedFile = new TypedFile("multipart/form-data", a);
+//
+//            taskService.createCard(typedFile, new CardFormVo("card test!!!"), new Callback<ResponseVo>() {
+//                @Override
+//                public void success(ResponseVo responseVo, Response response) {
+//                    Log.i("test", "g card success" + responseVo.state + ", error: " + responseVo.error);
+//                }
+//
+//                @Override
+//                public void failure(RetrofitError error) {
+//                    Log.i("test", "g card error: " + error);
+//                }
+//            });
+//
+//            startActivity(intent);
+//
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public interface CustomOnClickListener{
         public void onClicked(int id);

@@ -10,7 +10,9 @@ import retrofit.client.OkClient;
  */
 public class ServiceGenerator {
 
+//    public static final String API_BASE_URL = "http://192.168.0.2:8080/";
     public static final String API_BASE_URL = "http://dev.balbum.net";
+
 
     private static RestAdapter.Builder builder = new RestAdapter.Builder()
             .setEndpoint(API_BASE_URL)

@@ -18,15 +18,18 @@ public class GeneralCardVo{
     public ArrayList<String> names;
     public String memo;
     public String writer;
-    public boolean isDeleted;
 
-    public GeneralCardVo(String createDate, String recordDate, File image, ArrayList<String> names, String memo, String writer, boolean isDeleted) {
+    public long card_id_db;
+
+    public long cId;
+
+
+    public GeneralCardVo(String createDate, String recordDate, File image, ArrayList<String> names, String memo, String writer) {
         this.createDate = createDate;
         this.recordDate = recordDate;
         this.image = image;
         this.names = names;
         this.memo = memo;
         this.writer = writer;
-        this.isDeleted = isDeleted;
     }
 }
