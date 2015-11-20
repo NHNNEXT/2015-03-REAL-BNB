@@ -44,29 +44,9 @@ li {
 	left: 0;
 	top: 0;
 	position: fixed;
-	background-color: #71FF94;
-	/*background-color: #18cf8c;*/
+	background-color: #896DA5;
 	z-index: -1;
 }
-
-/*@media screen (min-width: 1024px){
-	.sp_body .bg_box {
-		height: 100%;
-		width: 100%;
-	}*/
-
-/*
-320
-1280
-1920
-
-(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)
-
-	<img src="small.jpg"
-     srcset="large.jpg 1024w, medium.jpg 640w, small.jpg 320w"
-     sizes="(min-width: 36em) 33.3vw, 100vw"
-     alt="A rad wolf">
-}*/
 
 .sp_body .bg_box .bg_img {
 	width: 100%;
@@ -75,13 +55,14 @@ li {
 }
 
 .sp_body .sp_logo {
-	width: 150px;
-	height: 30px;
-	left: 40px;
+	width: 90px;
+	height: 90px;
+	margin: 40px;
+	left: 65px;
 	top: 40px;
-	background: url("/images/ubuntudo_logo.png") no-repeat;
+	background: url("../img/bablum_logo2.png") no-repeat;
 	background-size: 100%;
-	position: absolute;
+	position: relative;
 }
 
 .sp_body .sp_content_wrap {
@@ -89,14 +70,15 @@ li {
 	text-align: center;
 	left: 50%;
 	top: 50%;
-	margin: -205px auto 0 -150px; /* sp_content의 height와 width의 절반값 참고 */
+	margin: -250px auto 0 -150px; /* sp_content의 height와 width의 절반값 참고 */
 	width: 300px;
 }
 
 .sp_body .sp_content {
+	/*border: solid 1px;*/
 	position: relative;
 	width: 300px;
-	height: 410px;
+	height: 500px;
 	/*background-color: #eee;*/
 	margin: 0 auto;
 }
@@ -104,10 +86,9 @@ li {
 .sp_body .msg {
 	float: left;
 	width: 300px;
-	height: 110px;
 	margin: 0 auto;
 	text-align: center;
-	font-size: 3em;
+	font-size: 1.5em;
 	color: #fff;
 }
 
@@ -116,51 +97,44 @@ li {
 	margin: 0 auto;
 }
 
-
-.sp_body .sp_content input {
-	overflow: hidden;
-	width: 215px;
-	height: 40px;
-	padding: 0 15px;
-	border: 0;
-	font-size: 13px;
-	line-height: 1.4;
-	background: 0 0;
-	outline: 0 none;
-	border-radius: 2px;
-  	background: #fff;
-  	margin-bottom: 8px;
+.login_box .row input, .signup_box .row input{
+	color: #ffffff;
 }
 
+.login_box .row input:focus, .signup_box .row input:focus{
+	border-bottom: 1px solid #64b5f6 !important;
+	box-shadow: 0 1px 0 0 #64b5f6 !important;
+}
+
+/*.login_box .row label:active{
+	color: #64b5f6 !important;
+}*/
+
+
 .sp_body .signup_btn, .login_btn{
-	display: block;
-	width: 245px;
-	height: 46px;
-	padding: 15px 0 14px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-ms-border-radius: 2px;
-	-o-border-radius: 2px;
-	border-radius: 2px;
-	font-size: 16px;
-	color: #393939;
-	background: #71FF94;
-	font-weight: 700;
-	text-align: center;
-	letter-spacing: -1px;
-	border: 0 none;
-	cursor: pointer;
+	width: 100%;
+	background-color: #64b5f6;
+}
+
+.sp_body .login_btn:hover {
+	background-color: #90caf9;
+}
+
+.sp_body .signup_btn:hover {
+	background-color: #90caf9;
 }
 
 .sp_body .goto_login, .goto_signup {
 	margin: 12px auto;
 	width: 105px;
-	font-weight: 700;
 	font-size: 13px;
-	/*color: #18cf8c;*/
 	color: #fff;
 	display: block;
 	cursor: pointer;
+}
+
+.sp_body .goto_login:hover, .goto_signup:hover {
+	color:#64b5f6;
 }
 
 .sp_body .sp_footer {
