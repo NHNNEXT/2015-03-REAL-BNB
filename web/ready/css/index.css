@@ -20,7 +20,7 @@ button {
   left: 50% !important;
 }
 .nav-top .brand-logo img {
-  height: 37px;
+  height: 35px;
 }
 .nav-top a {
   color: #DAD3CE;
@@ -38,16 +38,24 @@ button {
 }
 .left-col {
   background: #3F4A58;
-  height: 2500px;
   color: white;
+  position: fixed;
+  left: 0;
+  width: 180px;
+  height: 100%;
+  z-index: -10;
 }
-.left-col .side-nav.fixed {
-  top: initial !important;
-  left: 0 !important;
+.main-container {
+  padding-left: 180px;
 }
-.main-col {
+@media (max-width: 599px) {
+  .main-container {
+    padding-left: 0;
+  }
+}
+.main-container .main-col {
   height: 600px;
 }
-.right-col {
+.main-container .right-col {
   height: 600px;
 }

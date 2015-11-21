@@ -14,31 +14,33 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/timeline.css">
         <link rel="stylesheet" href="css/main.css">
-        
+
         <!-- <link rel="stylesheet/less" href="less/index.less"> -->
         <link rel="stylesheet" href="css/index.css">
-        
+
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
         <!-- react -->
-        
+
     </head>
     <body>
-        <nav class="nav-top" role="navigation">
-            <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
-                <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
-                    <li><a href="#"><i class="material-icons">face</i></a></li>
-                    <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a></li>
-                    <li><a href="#"><i class="material-icons post-icon">create</i></a></li>
-                </ul>
-                <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
-                    <li><a href="#">타임라인</a></li>
-                    <li><a href="#">다정이</a></li>
-                    <li><a href="#">연우</a></li>
-                </ul>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-            </div>
-        </nav>
+        <div class="navbar-fixed">
+            <nav class="nav-top" role="navigation">
+                <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
+                    <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
+                        <li><a href="#"><i class="material-icons">face</i></a></li>
+                        <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a></li>
+                        <li><a href="#"><i class="material-icons post-icon">create</i></a></li>
+                    </ul>
+                    <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
+                        <li><a href="#">타임라인</a></li>
+                        <li><a href="#">다정이</a></li>
+                        <li><a href="#">연우</a></li>
+                    </ul>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                </div>
+            </nav>
+        </div>
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="#!">one</a></li>
             <li><a href="#!">two</a></li>
@@ -46,37 +48,17 @@
             <li><a href="#!">three</a></li>
         </ul>
 
+        <div class="left-col hide-on-small-only">
+            <ul>
+                <li>타임라인</li>
+                <li>다정이</li>
+                <li>연우</li>
+                <li>설정</li>
+            </ul>
+        </div>
         <div class="main-container row">
 
-            <div class="left-col col m4 l3 hide-on-small-only">
-                <ul>
-                    <li>타임라인</li>
-                    <li>다정이</li>
-                    <li>연우</li>
-                    <li>설정</li>
-                </ul>
-                <!-- <ul id="slide-out" class="side-nav fixed left-col col m4 l2 hide-on-small-only">
-                <li><a href="#!">가나다</a></li>
-                <li><a href="#!">라마바</a></li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                        <a class="collapsible-header">펼쳐져라</a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li><a href="#!">First</a></li>
-                                    <li><a href="#!">Second</a></li>
-                                    <li><a href="#!">Third</a></li>
-                                    <li><a href="#!">Fourth</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                </ul> -->
-
-            </div>
-            <div class="main-col col s12 m8 l7">
+            <div class="main-col col s12 m12 l9">
                 <div class="postcard-container row">
                     <div class="col s12">
                         <div class="card">
@@ -223,7 +205,7 @@
                         </div> <!-- cd-timeline-content -->
                     </div> <!-- cd-timeline-block -->
             </div>
-            <div class="right-col col l2 hide-on-med-and-down">
+            <div class="right-col col l3 hide-on-med-and-down">
                 <div class="card ">
                             <div class="card-content">
                               <span class="card-title">타임머신</span>
@@ -245,7 +227,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/vendor/materialize.js"></script>
         <script src="js/plugins.js"></script>
-        <script src="js/timeline.js"></script>
+        <script src="js/vendor/timeline.js"></script>
         <script src="js/index.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
