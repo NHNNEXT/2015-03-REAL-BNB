@@ -11,32 +11,32 @@ body {
 button {
   background: #896DA5 !important;
 }
-.nav-top {
+nav.nav-top {
   background-color: #fffbf5;
 }
-.nav-top .brand-logo {
+nav.nav-top .brand-logo {
   color: #896DA5;
   font-weight: 900;
   left: 50% !important;
 }
-.nav-top .brand-logo img {
+nav.nav-top .brand-logo img {
   height: 35px;
 }
-.nav-top a {
+nav.nav-top a {
   color: #DAD3CE;
 }
-.nav-top a i.post-icon {
+nav.nav-top a i.post-icon {
   color: #896DA5;
 }
-.nav-top #nav-mobile a {
+nav.nav-top #nav-mobile a {
   color: #896DA5;
 }
 @media (min-width: 600px) and (max-width: 991px) {
-  .nav-top a.button-collapse {
+  nav.nav-top a.button-collapse {
     display: none;
   }
 }
-.left-col {
+aside.left-col {
   background: #3F4A58;
   color: white;
   position: fixed;
@@ -45,17 +45,28 @@ button {
   height: 100%;
   z-index: -10;
 }
-.main-container {
+section.main-container {
   padding-left: 180px;
 }
 @media (max-width: 599px) {
-  .main-container {
+  section.main-container {
     padding-left: 0;
   }
 }
-.main-container .main-col {
+section.main-container article.main-col {
   height: 600px;
 }
-.main-container .right-col {
+section.main-container article.main-col .postcard-container .card-photo-container {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  border: 1px dashed #CECECE;
+  color: #CECECE;
+  text-align: center;
+}
+section.main-container article.main-col .postcard-container .card-photo-container i {
+  line-height: 50px;
+}
+section.main-container aside.right-col {
   height: 600px;
 }

@@ -30,7 +30,7 @@
                     <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
                         <li><a href="#"><i class="material-icons">face</i></a></li>
                         <li><a class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a></li>
-                        <li><a href="#"><i class="material-icons post-icon">create</i></a></li>
+                        <li><a href="#"><i class="material-icons post-icon">add_circle</i></a></li>
                     </ul>
                     <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
                         <li><a href="#">타임라인</a></li>
@@ -38,6 +38,7 @@
                         <li><a href="#">연우</a></li>
                     </ul>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <a href="#" class="button-collapse right"><i class="material-icons post-icon">add_circle</i></a>
                 </div>
             </nav>
         </div>
@@ -48,17 +49,16 @@
             <li><a href="#!">three</a></li>
         </ul>
 
-        <div class="left-col hide-on-small-only">
+        <aside class="left-col hide-on-small-only">
             <ul>
                 <li>타임라인</li>
                 <li>다정이</li>
                 <li>연우</li>
                 <li>설정</li>
             </ul>
-        </div>
-        <div class="main-container row">
-
-            <div class="main-col col s12 m12 l9">
+        </aside>
+        <section class="main-container row">
+            <article class="main-col col s12 m12 l9">
                 <div class="postcard-container row">
                     <div class="col s12">
                         <div class="card">
@@ -70,6 +70,13 @@
                             </div>
                             <div id="test1" class="col s12">
                                 <div class="row">
+                                    <!-- <form id="form1" runat="server">
+                                        <input type='file' id="imgInp" />
+                                        <img id="blah" src="#" alt="your image" />
+                                    </form> -->
+                                    <div class="card-photo-container col s12">
+                                        <i class="material-icons">add</i>
+                                    </div>
                                     <form action="#" class="col s6">
                                         <div class="file-field input-field">
                                           <div class="btn">
@@ -204,8 +211,8 @@
                             <span class="cd-date">Jan 14</span>
                         </div> <!-- cd-timeline-content -->
                     </div> <!-- cd-timeline-block -->
-            </div>
-            <div class="right-col col l3 hide-on-med-and-down">
+            </article>
+            <aside class="right-col col l3 hide-on-med-and-down">
                 <div class="card ">
                             <div class="card-content">
                               <span class="card-title">타임머신</span>
@@ -219,8 +226,8 @@
                               </ul>
                             </div>
                           </div>
-            </div>
-        </div>
+            </aside>
+        </section>
 
         <!-- // <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
