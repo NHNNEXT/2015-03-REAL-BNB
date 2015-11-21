@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- sp = start page = 시작 페이지 -->
+<!-- lp = landing page = 랜딩 페이지 -->
 
 <html lang="ko">
 	<head>
@@ -13,78 +13,73 @@
 
 		<link rel="stylesheet" type="text/css" href="css/landing.css"/>
 	</head>
-	<body class="sp_body">
-		<div class="sp_wrap">
-			<div class="bg_box">
-				<img src="img/bg1.jpg" class="bg_img">
-			</div>
+	<body class="lp_body">
+		<div class="bg_box">
+			<img src="img/bg1.jpg" class="bg_img">
+		</div>
 
-			<div class="sp_container">
-				<div class="sp_content_wrap">
-					<div class="sp_content">
-						<div class="msg">
-							<span>Welcome to</span>
-							<span class="blue-text text-lighten-2">Bablum</span>
+		<div class="lp_container">
+			<div class="lp_content row">
+				<div class="msg col s12">
+					<span>Welcome to</span>
+					<span class="blue-text text-lighten-2">Bablum</span>
+				</div>
+				<div class="lp_logo col s12"></div>
+				<!-- %erin login  -->
+				<div class="login_box col s12" style="display:block">
+					<form class="col s12">
+						<div class="row ">
+							<div class="input-field  s12">
+								<input id="email" type="email" class="validate">
+								<label for="email">Email</label>
+							</div>
 						</div>
-						<div class="sp_logo"></div>
-						<!-- %erin login  -->
-						<div class="login_box" style="display:block">
-							<form class="col s12">
-								<div class="row ">
-									<div class="input-field  s12">
-										<input id="email" type="email" class="validate">
-										<label for="email">Email</label>
-									</div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="password" type="password" class="validate">
-								    	<label for="password">Password</label>
-								    </div>
-								</div>
-							</form>
-							<a class="login_btn waves-effect waves-light btn-large">Login</a>
+						<div class="row">
+						    <div class="input-field s12">
+						    	<input id="password" type="password" class="validate">
+						    	<label for="password">Password</label>
+						    </div>
+						</div>
+					</form>
+					<a class="login_btn waves-effect waves-light btn-large">Login</a>
 
-							<!-- 소셜 로그인 
-								<img src="img/facebook_login.png" class="login_btn" alt="">
-								<img src="img/kakao_login.png" class="login_btn" alt="">
-								<img src="img/naver_login.png" class="login_btn" alt=""> -->
-								<div class="fd">
-							<a class="goto_signup">회원가입 바로가기</a></div>
+					<!-- 소셜 로그인 
+						<img src="img/facebook_login.png" class="login_btn" alt="">
+						<img src="img/kakao_login.png" class="login_btn" alt="">
+						<img src="img/naver_login.png" class="login_btn" alt=""> -->
+						
+					<a class="goto_signup">회원가입 바로가기</a>
+				</div>
+				<div class="signup_box col s12" style="display:none">
+					<form class="col s12">
+						<div class="row ">
+							<div class="input-field  s12">
+								<input id="name" type="text" class="validate">
+								<label for="name">Name</label>
+							</div>
 						</div>
-						<div class="signup_box" style="display:none">
-							<form class="col s12">
-								<div class="row ">
-									<div class="input-field  s12">
-										<input id="name" type="text" class="validate">
-										<label for="name">Name</label>
-									</div>
-								</div>
-								<div class="row ">
-									<div class="input-field  s12">
-										<input id="email" type="email" class="validate">
-										<label for="email">Email</label>
-									</div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="password" type="password" class="validate">
-								    	<label for="password">Password</label>
-								    </div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="password" type="password" class="validate">
-								    	<label for="password">Confirm Password</label>
-								    </div>
-								</div>
-								<!-- 초대코드 유무, role, babies는 어떻게 받을까.. 회원가입 양식을 2단으로 나누면 좋을까? 일단은 (이름,이메일,비번,비번확인)만 받음 by.챙 -->
-							</form>
-							<a class="signup_btn waves-effect waves-light btn-large">SIGN UP</a>
-							<div class="ff">
-							<a class="goto_login">로그인 바로가기</a></div>
+						<div class="row ">
+							<div class="input-field  s12">
+								<input id="email" type="email" class="validate">
+								<label for="email">Email</label>
+							</div>
 						</div>
-					</div>
+						<div class="row">
+						    <div class="input-field s12">
+						    	<input id="password" type="password" class="validate">
+						    	<label for="password">Password</label>
+						    </div>
+						</div>
+						<div class="row">
+						    <div class="input-field s12">
+						    	<input id="password" type="password" class="validate">
+						    	<label for="password">Confirm Password</label>
+						    </div>
+						</div>
+						<!-- 초대코드 유무, role, babies는 어떻게 받을까.. 회원가입 양식을 2단으로 나누면 좋을까? 일단은 (이름,이메일,비번,비번확인)만 받음 by.챙 -->
+					</form>
+					<a class="signup_btn waves-effect waves-light btn-large">SIGN UP</a>
+					<a class="goto_login">로그인 바로가기</a>
 				</div>
 			</div>
 		</div>
