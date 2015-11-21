@@ -13,5 +13,8 @@
     "gulp-less": "^3.0.5",
     "gulp-server-livereload": "^1.5.4",
     "gulp-watch": "^4.3.5"
+  },
+  "dependencies": {
+    "dropzone": "^4.2.0"
   }
 }

@@ -56,15 +56,16 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
-section.main-container article.main-col .postcard-container .card-photo-container {
+section.main-container article.main-col .postcard-container .upload-photo-box {
   margin-top: 10px;
   width: 100%;
   height: 50px;
   border: 1px dashed #CECECE;
   color: #CECECE;
   text-align: center;
+  cursor: pointer;
 }
-section.main-container article.main-col .postcard-container .card-photo-container i {
+section.main-container article.main-col .postcard-container .upload-photo-box i {
   line-height: 50px;
 }
 section.main-container aside.right-col {

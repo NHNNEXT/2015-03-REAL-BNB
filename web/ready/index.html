@@ -17,6 +17,7 @@
 
         <!-- <link rel="stylesheet/less" href="less/index.less"> -->
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="node_modules/dropzone/dist/dropzone.css">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
@@ -70,24 +71,15 @@
                             </div>
                             <div id="test1" class="col s12">
                                 <div class="row">
-                                    <!-- <form id="form1" runat="server">
-                                        <input type='file' id="imgInp" />
-                                        <img id="blah" src="#" alt="your image" />
-                                    </form> -->
-                                    <div class="card-photo-container col s12">
+                                    <div style="height:0px;overflow:hidden">
+                                        <form id="form1" runat="server">
+                                            <input type='file' id="upload-photo" />
+                                        </form>
+                                    </div>
+                                    <div class="upload-photo-box col s12">
                                         <i class="material-icons">add</i>
                                     </div>
-                                    <form action="#" class="col s6">
-                                        <div class="file-field input-field">
-                                          <div class="btn">
-                                            <span>사진 추가</span>
-                                            <input type="file">
-                                          </div>
-                                          <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text">
-                                          </div>
-                                        </div>
-                                    </form>
+                                    <img id="uploaded-photo" src="#" alt="your image" />
                                     <form class="col s12">
                                         <div class="row">
                                             <div class="input-field col s12">
@@ -230,12 +222,13 @@
         </section>
 
         <!-- // <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/vendor/materialize.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/vendor/timeline.js"></script>
         <script src="js/index.js"></script>
+        <script src="node_modules/dropzone/dist/dropzone.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!-- <script>
