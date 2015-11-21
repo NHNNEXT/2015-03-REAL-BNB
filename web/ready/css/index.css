@@ -8,6 +8,10 @@
 .pinned {
   top: 50px !important;
 }
+.card {
+  box-shadow: none !important;
+  border-radius: 5px !important;
+}
 body {
   background: #f3ede8;
 }
@@ -15,7 +19,8 @@ button {
   background: #896DA5 !important;
 }
 nav.nav-top {
-  background-color: #fffbf5;
+  background-color: rgba(255, 251, 245, 0.93);
+  box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
 }
 nav.nav-top .nav-wrapper {
   padding: 0 11px;
