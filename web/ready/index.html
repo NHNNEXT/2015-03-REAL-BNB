@@ -59,90 +59,120 @@
             </ul>
         </aside>
         <section class="main-container row">
-            <article class="main-col col s12 m12 l9">
-                <div class="postcard-container row">
-                    <div class="col s12">
-                        <div class="card">
-                            <div class="col s12">
-                                <ul class="tabs">
-                                    <li class="daily-tab tab col s3 deep-purple-text text-lighten-1"><a class="active" href="#test1">일상 담기</a></li>
-                                    <li class="tab col s3"><a class="active" href="#test2">기념 담기</a></li>
-                                </ul>
-                            </div>
-                            <div id="test1" class="col s12">
-                                <div class="row">
-                                    <div style="height:0px;overflow:hidden">
-                                        <form id="form1" runat="server">
-                                            <input type='file' id="upload-photo" />
-                                        </form>
-                                    </div>
-                                    <div class="upload-photo-box col s12">
-                                        <i class="material-icons">add</i>
-                                    </div>
-                                    <img id="uploaded-photo" src="#" alt="your image" />
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                            <textarea id="textarea1" placeholder="우리 연우의 소중한 일상을 담아주세요" class="materialize-textarea" length="120"></textarea>
-                                            </div>
-
-                                        </div>
+            <article class="main-col col s12 m12 l8">
+                <div class="postcard-container">
+                    <div class="card">
+                        <div class="col s12">
+                            <ul class="postcard-tabs tabs">
+                                <li class="daily-tab tab col s3 deep-purple-text text-lighten-1"><a class="active" href="#daily-tab">일상 담기</a></li>
+                                <li class="tab col s3"><a class="active" href="#event-tab">기념 담기</a></li>
+                            </ul>
+                        </div>
+                        <div id="daily-tab" class="col s12">
+                            <div class="row">
+                                <div style="height:0px;overflow:hidden">
+                                    <form id="upload-form" runat="server">
+                                        <input type='file' id="upload-photo" />
                                     </form>
                                 </div>
-                            </div>
-                            <div id="test2" class="col s12">
-                                <div class="row center-align">
-                                    <div class="date-container  col s6">
-                                        <input type="date" class="datepicker">
-                                    </div>
-
+                                <div class="upload-photo-box col s12">
+                                    <i class="material-icons">add_a_photo</i>
                                 </div>
-                                <div class="input-field col s6">
-                                          <input placeholder="첫 옹알이" id="first_name" type="text" class="validate">
+                                <img id="uploaded-photo" src="#" alt="uploaded photo" />
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                        <textarea id="textarea1" placeholder="우리 아이의 소중한 일상을 담아주세요" class="materialize-textarea" length="120"></textarea>
                                         </div>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                        <div id="event-tab" class="col s12">
+                            <div class="row center-align">
+                                <div class="date-container  col s6">
+                                    <input type="date" class="datepicker">
+                                </div>
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="첫 옹알이" id="first_name" type="text" class="validate">
+                            </div>
+                        </div>
 
-                            <div class="card-content">
-                                <form action="#">
-                                    <p>
-                                        <input type="checkbox" id="baby-check-1" />
-                                        <label for="baby-check-1">연우
-                                            <div class="baby-chip chip">
-                                                <img src="img/baby1.jpeg" alt="Contact Person">
-                                                연우 1개월
-                                            </div>
+                        <div class="card-content">
+                            <form action="#">
+                                <p class="baby-check">
+                                    <input type="checkbox" id="baby-check-1" />
+                                    <label for="baby-check-1">연우
+                                        <div class="baby-chip chip">
+                                            <img src="img/baby1.jpeg" alt="Contact Person">
+                                            연우 1개월
+                                        </div>
 
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <input type="checkbox" id="baby-check-2" />
-                                        <label for="baby-check-2">다정이</label>
+                                    </label>
+                                </p>
+                                <p class="baby-check">
+                                    <input type="checkbox" id="baby-check-2" />
+                                    <label for="baby-check-2">다정이
                                         <div class="baby-chip chip">
                                             <img src="img/baby2.jpeg" alt="Contact Person">
                                             다정이 3개월
                                         </div>
-                                    </p>
-                                </form>
+                                    </label>
+                                </p>
+                            </form>
+                        </div>
+                        <div class="card-action row">
+                            <div class="date-container col s5">
+                                <input type="date" class="datepicker">
                             </div>
-                            <div class="card-action row">
-                                <div class="date-container col s6">
-                                    <input type="date" class="datepicker">
-                                </div>
-                                <button class="btn waves-effect waves-light right" type="submit" name="action">담기
-                                    <i class="material-icons right">send</i>
-                                  </button>
-                            </div>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">담기
+                                <i class="material-icons right">send</i>
+                              </button>
                         </div>
                     </div>
                 </div>
-
-
-
-                <section id="cd-timeline" class="cd-container">
+                <div class="card scrollspy" id="card-1">
+                    <div class="card-image">
+                        <img src="img/photo6.jpg">
+                        <span class="card-title">부산항 가족여행</span>
+                    </div>
+                    <div class="card-content">
+                        <p>짜샤들이 볼이 빨간게 귀엽다. 사진으로 계속 남겨야지. 나는 쓸 말이 없다. 또 쓸 말이 없다. 애기를 키워야 하는가. 팀플을 위한 애기키우기(?) 조금 더 말을 해야하나. 아마 더 길게 써야 할 듯 하다. 힘들다 말 지어내기.</p>
+                    </div>
+                    <div class="card-action">
+                        <div class="baby-chip chip right">
+                            <img src="img/baby1.jpeg" alt="Contact Person">
+                            연우 2살
+                        </div>
+                        <div class="baby-chip chip right">
+                            <img src="img/baby2.jpeg" alt="Contact Person">
+                            다정이 3개월
+                        </div>
+                        <a href="#">15.04.27</a>
+                    </div>
+                </div>
+                <div class="card scrollspy" id="card-2">
+                    <div class="card-image">
+                        <img src="img/photo7.jpg">
+                        <span class="card-title">첫 할로윈데이</span>
+                    </div>
+                    <div class="card-content">
+                        <p>높이 올라가. 세상을 다 가져봐. 네버 배끼레 배끼리럽. 네버 터니럽 터니리러업. 예에. 할라 할로 할로 할로.</p>
+                    </div>
+                    <div class="card-action">
+                        <div class="baby-chip chip right">
+                            <img src="img/baby2.jpeg" alt="Contact Person">
+                            다정이 3개월
+                        </div>
+                        <a href="#">15.03.13</a>
+                    </div>
+                </div>
+                <!-- <section id="cd-timeline" class="cd-container">
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-picture">
                             <img src="img/cd-icon-picture.svg" alt="Picture">
-                        </div> <!-- cd-timeline-img -->
+                        </div>
 
                         <div class="cd-timeline-content">
                             <img src="img/photo1.jpg" alt="logo">
@@ -152,26 +182,25 @@
                                 다정이 3개월
                             </div>
                             <span class="cd-date">Jan 14</span>
-                        </div> <!-- cd-timeline-content -->
-                    </div> <!-- cd-timeline-block -->
+                        </div>
+                    </div>
 
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-movie">
                             <img src="img/cd-icon-movie.svg" alt="Movie">
-                        </div> <!-- cd-timeline-img -->
+                        </div>
 
                         <div class="cd-timeline-content">
                             <h2>딸바보를 소개합니다.</h2>
                             <p>딸을 1순위로 생각하는 내 남편, 그래도 나는 0순위야.</p>
-                            <!-- <a href="#0" class="cd-read-more">Read more</a> -->
                             <span class="cd-date">Jan 18</span>
-                        </div> <!-- cd-timeline-content -->
-                    </div> <!-- cd-timeline-block -->
+                        </div>
+                    </div>
 
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-location">
                             <img src="img/cd-icon-location.svg" alt="Location">
-                        </div> <!-- cd-timeline-img -->
+                        </div>
 
                         <div class="cd-timeline-content">
                             <img src="img/photo3.jpg" alt="logo">
@@ -185,27 +214,21 @@
                                 다정이 3개월
                             </div>
                             <span class="cd-date">Jan 14</span>
-                        </div> <!-- cd-timeline-content -->
-                    </div> <!-- cd-timeline-block -->
-                    <div class="cd-timeline-block">
-                        <div class="cd-timeline-img cd-picture">
-                            <img src="img/cd-icon-picture.svg" alt="Picture">
-                        </div> <!-- cd-timeline-img -->
-
-                        <div class="cd-timeline-content">
-                            <img src="img/photo2.jpg" alt="logo">
-                            <p>다정이 2개월때. 레알 카와이하다.</p>
-                            <div class="baby-chip chip right">
-                                <img src="img/baby2.jpeg" alt="Contact Person">
-                                다정이 1살
-                            </div>
-
-                            <span class="cd-date">Jan 14</span>
-                        </div> <!-- cd-timeline-content -->
-                    </div> <!-- cd-timeline-block -->
+                        </div>
+                    </div>
+                </section> -->
             </article>
-            <aside class="right-col col l3 hide-on-med-and-down">
-                <div class="card ">
+            <aside class="right-col col l4 hide-on-med-and-down">
+                <div class="timemachine-wrapper">
+                    <div class="row">
+                        <ul class="section table-of-contents">
+                            <li><a href="#card-1">2015년 5월</a></li>
+                            <li><a href="#card-2">2015년 3월</a></li>
+                            <li><a href="#">태어남</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="card ">
                             <div class="card-content">
                               <span class="card-title">타임머신</span>
                               <p>타임머신 뾰로롱</p>
@@ -217,11 +240,10 @@
                                 <li>12월</li>
                               </ul>
                             </div>
-                          </div>
+                          </div> -->
             </aside>
         </section>
 
-        <!-- // <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script> -->
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/vendor/materialize.js"></script>
@@ -229,16 +251,5 @@
         <script src="js/vendor/timeline.js"></script>
         <script src="js/index.js"></script>
         <script src="node_modules/dropzone/dist/dropzone.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <!-- <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='https://www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script> -->
-
     </body>
 </html>

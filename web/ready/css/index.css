@@ -5,6 +5,9 @@
 .icon-block .material-icons {
   font-size: inherit;
 }
+.pinned {
+  top: 50px !important;
+}
 body {
   background: #f3ede8;
 }
@@ -13,6 +16,9 @@ button {
 }
 nav.nav-top {
   background-color: #fffbf5;
+}
+nav.nav-top .nav-wrapper {
+  padding: 0 11px;
 }
 nav.nav-top .brand-logo {
   color: #896DA5;
@@ -41,12 +47,12 @@ aside.left-col {
   color: white;
   position: fixed;
   left: 0;
-  width: 180px;
+  width: 230px;
   height: 100%;
   z-index: -10;
 }
 section.main-container {
-  padding-left: 180px;
+  padding-left: 230px;
 }
 @media (max-width: 599px) {
   section.main-container {
@@ -67,6 +73,12 @@ section.main-container article.main-col .postcard-container .upload-photo-box {
 }
 section.main-container article.main-col .postcard-container .upload-photo-box i {
   line-height: 50px;
+}
+section.main-container article.main-col .postcard-container #uploaded-photo {
+  display: none;
+}
+section.main-container article.main-col .postcard-container .card-content .baby-check {
+  display: inline-block;
 }
 section.main-container aside.right-col {
   height: 600px;

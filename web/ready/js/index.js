@@ -5,6 +5,8 @@ var Start = {
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
+        $('.scrollspy').scrollSpy();
+        $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top })
     }
 
 }
@@ -18,6 +20,7 @@ var Upload = {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#uploaded-photo').attr('src', e.target.result);
+                $('#uploaded-photo').css('display', 'block');
             }
             reader.readAsDataURL(input.files[0]);
         }

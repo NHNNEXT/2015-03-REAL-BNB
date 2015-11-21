@@ -1,5 +1,5 @@
 @import (once) "var";
-@left-col-width: 180px;
+@left-col-width: 230px;
 
 //*-- common --*//
 .icon-block {
@@ -7,6 +7,9 @@
 }
 .icon-block .material-icons {
     font-size: inherit;
+}
+.pinned {
+    top: 50px !important;
 }
 body {
     background: #f3ede8;
@@ -18,7 +21,9 @@ button {
 //*-- 네비게이션 --*//
 nav.nav-top {
     background-color: #fffbf5;
-
+    .nav-wrapper {
+        padding: 0 11px;
+    }
     .brand-logo {
         color: @primary;
         font-weight: 900;
@@ -85,6 +90,14 @@ section.main-container {
                 cursor: pointer;
                 i {
                     line-height: 50px;
+                }
+            }
+            #uploaded-photo {
+                display: none;
+            }
+            .card-content {
+                .baby-check {
+                    display: inline-block;
                 }
             }
         }
