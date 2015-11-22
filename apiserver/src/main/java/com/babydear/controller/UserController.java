@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.babydear.dto.AuthDTO;
 import com.babydear.dto.UserDTO;
 import com.babydear.model.Baby;
 import com.babydear.model.Family;
@@ -45,7 +46,7 @@ public class UserController {
 	FamilyRepository familyRepo;
 	
 	@RequestMapping("/api/user/create")
-	public User create(@Valid UserDTO userDTO) {
+	public UserDTO create(@Valid UserDTO userDTO) {
 		Family family = null;
 		if (userDTO.getFId() == null) {
 			family = familyRepo.save(new Family());
@@ -59,25 +60,25 @@ public class UserController {
 		
 		mailService.sendSignUpMail();
 		System.out.println(userDTO);
-		return user;
-	}
-	
-	@RequestMapping("/api/user/login")
-	public UserDTO login(UserDTO userDTO) {
-//		User user = userRepo.findByEmail(userDTO.getEmail());
-//		System.out.println(userDTO);
 		return userDTO;
 	}
 	
+	@RequestMapping("/api/user/login")
+	public AuthDTO login(UserDTO userDTO) {
+//		User user = userRepo.findByEmail(userDTO.getEmail());
+//		System.out.println(userDTO);
+		return new AuthDTO("asdf1234", "2015-11-19:00:00:00");
+	}
+	
 	@RequestMapping("/api/user/logintest")
-	public UserDTO loginTest(UserDTO userDTO) {
+	public AuthDTO loginTest(UserDTO userDTO) {
 		UserDTO test = new UserDTO();
 		test.setEmail("dumdum");
 		test.setPassword("1234");
-		test.setToken("asdf1234");
+//		test.setToken("asdf1234");
 //		User user = userRepo.findByEmail(userDTO.getEmail());
 //		System.out.println(userDTO);
-		return test;
+		return new AuthDTO("asdf1234", "2015-11-19:00:00:00");
 	}
 	
 	@RequestMapping("/api/user/facebook")
