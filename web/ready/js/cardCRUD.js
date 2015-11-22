@@ -16,18 +16,63 @@ var cardCRUD = {
 		}
 	},
 	get : function(callback) {
-		console.log("hello get");
 		if (navigator.onLine) {
-			console.log("hello get if")
 			$.ajax({
 				url: this.url+"/card",
 				method: "GET",
-				success: function(result) {
-					console.log("success");
-	                $.each(result.reverse(), function(index, item) {
-	                	console.log(item);
-	                    // callback(item.todo, item.id, item.completed);
-	                });
+				error: function(result) {
+					var result = [{
+						cId: 1234,
+						fId: 1234,
+						writer: {
+							name: "챙챙",
+							email: "erin314@naver.com"
+						},
+						img: "http://localhost:8000/img/photo1.jpg",
+						content: "우리 아이가 이쁘다 ",
+						modifiedDate: "1994-03-01:00:00:22",
+						babies: [{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						},{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						}
+						,{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						}]
+					},{
+						cId: 1234,
+						fId: 1234,
+						writer: {
+							name: "챙챙",
+							email: "erin314@naver.com"
+						},
+						img: "http://localhost:8000/img/photo1.jpg",
+						content: "우리 아이가 이쁘다 ",
+						modifiedDate: "1994-03-01:00:00:22",
+						babies: [{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						},{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						}
+						,{
+							bID: 1,
+							name: "pi",
+							birth: "1990-02-01:00:00:00"
+						}]
+					}];
+					callback(result);
+
+					
 				}
 			});
 		}
@@ -82,5 +127,9 @@ var cardCRUD = {
 	}
 };
 
-cardCRUD.get();
+cardCRUD.get(function(result){
+	$.each(result.reverse(), function(index, item) {
+		console.log(item.img, item.content, item.modifiedDate, item.babies);
+    });
+});
 
