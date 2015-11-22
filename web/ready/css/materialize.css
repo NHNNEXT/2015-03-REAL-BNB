@@ -5607,7 +5607,7 @@ small {
     position: relative; }
     .card .card-image img {
       display: block;
-      border-radius: 2px 2px 0 0;
+      border-radius: 5px 5px 0 0;
       position: relative;
       left: 0;
       right: 0;

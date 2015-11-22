@@ -1,4 +1,5 @@
 @import (once) "var";
+@left-col-width: 230px;
 
 //*-- common --*//
 .icon-block {
@@ -7,24 +8,34 @@
 .icon-block .material-icons {
     font-size: inherit;
 }
+.pinned {
+    top: 50px !important;
+}
+.card {
+    box-shadow: none !important;
+    border-radius: 5px !important;
+}
 
 body {
     background: #f3ede8;
 }
-
 button {
     background: @primary !important;
 }
 
-.nav-top {
-    background-color: #fffbf5;
-
+//*-- 네비게이션 --*//
+nav.nav-top {
+    background-color: rgba(255, 251, 245, 0.9);
+    box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
+    .nav-wrapper {
+        padding: 0 11px;
+    }
     .brand-logo {
         color: @primary;
         font-weight: 900;
         left: 50% !important;
         img {
-            height: 37px;
+            height: 35px;
         }
     }
     a {
@@ -47,25 +58,64 @@ button {
 
 
 //*-- left col --*//
-.left-col {
+aside.left-col {
     background: #3F4A58;
-    height: 2500px;
     color: white;
+    position:fixed;
+    left:0;
+    width: @left-col-width;
+    height:100%;
+    z-index: -10;
+
     //material css 기본 side-nav 오버라이드
-    .side-nav.fixed {
-        top: initial !important;
-        left: 0 !important;
+    // .side-nav.fixed {
+    //     top: initial !important;
+    //     left: 0 !important;
+    // }
+}
+
+//*-- Main Container --*//
+section.main-container {
+    padding-left: @left-col-width;
+    @media @l-s {
+        padding-left: 0;
+    }
+
+    article.main-col {
+        // background: #F3F5F6;
+        height: 600px;
+        .postcard-container {
+
+            .upload-photo-box {
+                margin-top: 10px;
+                width: 100%;
+                height: 50px;
+                border: 1px dashed @light-gray;
+                color: @light-gray;
+                text-align: center;
+                cursor: pointer;
+                i {
+                    line-height: 50px;
+                }
+            }
+            #uploaded-photo {
+                display: none;
+            }
+            .card-content {
+                // padding: 0;
+                .baby-check {
+                    display: inline-block;
+                }
+            }
+            .bcard-action {
+                // padding: 0 !important;
+            }
+        }
+    }
+
+    aside.right-col {
+        // background: green;
+        height: 600px;
     }
 }
 
-//*-- main col --*//
-.main-col {
-    // background: #F3F5F6;
-    height: 600px;
-}
-
-//*-- right col --*//
-.right-col {
-    // background: green;
-    height: 600px;
-}
