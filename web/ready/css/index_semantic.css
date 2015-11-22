@@ -1,0 +1,17 @@
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+.left-col {
+  height: 600px;
+}
+.main-col {
+  background: blue;
+  height: 600px;
+}
+.right-col {
+  background: green;
+  height: 600px;
+}

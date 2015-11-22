@@ -1,0 +1,53 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+body {
+  background: #f3ede8;
+}
+button {
+  background: #896DA5 !important;
+}
+.nav-top {
+  background-color: #fffbf5;
+}
+.nav-top .brand-logo {
+  color: #896DA5;
+  font-weight: 900;
+  left: 50% !important;
+}
+.nav-top .brand-logo img {
+  height: 37px;
+}
+.nav-top a {
+  color: #DAD3CE;
+}
+.nav-top a i.post-icon {
+  color: #896DA5;
+}
+.nav-top #nav-mobile a {
+  color: #896DA5;
+}
+@media (min-width: 600px) and (max-width: 991px) {
+  .nav-top a.button-collapse {
+    display: none;
+  }
+}
+.left-col {
+  background: #3F4A58;
+  height: 2500px;
+  color: white;
+}
+.left-col .side-nav.fixed {
+  top: initial !important;
+  left: 0 !important;
+}
+.main-col {
+  height: 600px;
+}
+.right-col {
+  height: 600px;
+}

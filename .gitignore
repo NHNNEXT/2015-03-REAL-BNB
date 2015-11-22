@@ -4,6 +4,9 @@ target/
 .classpath
 .project
 
+
 node_modules/
 config.js
+.DS_Store
+
 apiserver/src/main/resources/application.properties

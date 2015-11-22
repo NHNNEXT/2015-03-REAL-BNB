@@ -1,0 +1,71 @@
+@import (once) "var";
+
+//*-- common --*//
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+body {
+    background: #f3ede8;
+}
+
+button {
+    background: @primary !important;
+}
+
+.nav-top {
+    background-color: #fffbf5;
+
+    .brand-logo {
+        color: @primary;
+        font-weight: 900;
+        left: 50% !important;
+        img {
+            height: 37px;
+        }
+    }
+    a {
+        color: #DAD3CE;
+        i.post-icon {
+            color: @primary;
+        }
+    }
+    #nav-mobile {
+        a {
+            color: @primary;
+        }
+    }
+    @media @l-m {
+        a.button-collapse {
+            display: none;
+        }
+    }
+}
+
+
+//*-- left col --*//
+.left-col {
+    background: #3F4A58;
+    height: 2500px;
+    color: white;
+    //material css 기본 side-nav 오버라이드
+    .side-nav.fixed {
+        top: initial !important;
+        left: 0 !important;
+    }
+}
+
+//*-- main col --*//
+.main-col {
+    // background: #F3F5F6;
+    height: 600px;
+}
+
+//*-- right col --*//
+.right-col {
+    // background: green;
+    height: 600px;
+}
