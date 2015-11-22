@@ -46,7 +46,7 @@ public class UserController {
 	FamilyRepository familyRepo;
 	
 	@RequestMapping("/api/user/create")
-	public UserDTO create(@Valid UserDTO userDTO) {
+	public AuthDTO create(@Valid UserDTO userDTO) {
 		Family family = null;
 		if (userDTO.getFId() == null) {
 			family = familyRepo.save(new Family());
@@ -60,7 +60,7 @@ public class UserController {
 		
 		mailService.sendSignUpMail();
 		System.out.println(userDTO);
-		return userDTO;
+		return new AuthDTO("asdf1234", "2015-11-19:00:00:00");
 	}
 	
 	@RequestMapping("/api/user/login")
