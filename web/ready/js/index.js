@@ -20,7 +20,7 @@ var Upload = {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#uploaded-photo').attr('src', e.target.result);
-                $('#uploaded-photo').css('display', 'block');
+                $('#uploaded-photo').css('display', 'block').css('max-width', '100%');
             }
             reader.readAsDataURL(input.files[0]);
         }
