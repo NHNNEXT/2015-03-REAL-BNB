@@ -189,7 +189,6 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
                 bitmap = GetRotatedBitmap(bitmap, GetExifOrientation(selectedImagePath));
-                bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/2, bitmap.getHeight()/2, true);
                 cropImageView.setImageBitmap(bitmap);
 
             } else {
@@ -208,7 +207,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
         if ( degrees != 0 && bitmap != null )
         {
             Matrix m = new Matrix();
-            m.setRotate(degrees, (float) bitmap.getWidth() / 2, (float) bitmap.getHeight() / 2 );
+            m.setRotate(degrees, (float) bitmap.getWidth(), (float) bitmap.getHeight());
             try
             {
                 Bitmap b2 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
