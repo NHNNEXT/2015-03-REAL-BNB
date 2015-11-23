@@ -182,6 +182,8 @@ public class LoginActivity extends FragmentActivity{
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
+                //실패시 토스트 메시니 또는 스낵바에 내용 띄워주기 추가할 것
+
             }
         });
     }
