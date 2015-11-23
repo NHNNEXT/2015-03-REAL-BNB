@@ -130,7 +130,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 
                 bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
 
-                bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
+               // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
 
                 int rotate = 0;
                 try {

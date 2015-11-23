@@ -9,9 +9,8 @@
         xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        custom:cropMode="ratio_1_1"
-        />
+        android:layout_weight="1"
+        custom:cropMode="ratio_1_1" />
 
     <!--<Button-->
         <!--android:id="@+id/test"-->
@@ -28,13 +27,12 @@
         android:layout_margin="16dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         />
     <LinearLayout
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/camera_btn"
