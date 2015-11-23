@@ -31,27 +31,22 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     Bitmap bitmap;
     String selectedImagePath;
     CropImageView cropImageView;
-
+    ImageView cropButton;
     Context context;
+    ImageView croppedImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_edit);
         context = this;
         cropImageView = (CropImageView) findViewById(R.id.cropImageView);
-        final ImageView croppedImageView = (ImageView) findViewById(R.id.croppedImageView);
+        cropButton = (ImageView) findViewById(R.id.crop_button);
+        croppedImageView = (ImageView) findViewById(R.id.croppedImageView);
 
         // Set image for cropping
 //        cropImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
 
-        ImageView cropButton = (ImageView) findViewById(R.id.crop_button);
-        cropButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get cropped image, and show result.
-                croppedImageView.setImageBitmap(cropImageView.getCroppedBitmap());
-            }
-        });
 
         ImageView camera_btn = (ImageView)findViewById(R.id.camera_btn);
         ImageView gallery_btn = (ImageView)findViewById(R.id.gallery_btn);
@@ -200,7 +195,6 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
@@ -231,6 +225,15 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         GALLERY_PICTURE);
                 break;
 
+            case R.id.crop_button:
+                croppedImageView.setImageBitmap(cropImageView.getCroppedBitmap());
+                break;
+
+            case R.id.confirm_button:
+                //서버에 저장하는 코드
+                Intent intent1 = new Intent(CardImageEditActivity.this, MainActivity.class);
+                startActivity(intent1);
+                break;
 
         }
     }

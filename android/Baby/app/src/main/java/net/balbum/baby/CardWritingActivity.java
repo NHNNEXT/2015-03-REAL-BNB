@@ -7,8 +7,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +21,9 @@ import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
-import net.balbum.baby.adapter.ViewPagerAdapter;
+import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -36,12 +41,15 @@ import retrofit.mime.TypedFile;
  */
 public class CardWritingActivity extends AppCompatActivity implements GeneralCardFragment.CustomOnClickListener {
 
+    List<Fragment> fragmentList = new ArrayList<>();
+    List<String> fragmentTitleList = new ArrayList<>();
+
     Context context;
-
     Toolbar toolbar;
-
     List<BabyTagVo> babyTagNamesList;
     TaskService taskService;
+    ViewPager viewPager;
+    BabyTagAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +59,22 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
         taskService = ServiceGenerator.createService(TaskService.class);
 
         initToolbar();
-
+        initData();
         initTagBar();
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-//        initData();
-//        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby);
-//        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-//        rv_baby.setLayoutManager(sgm);
-//
-//        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
-//        rv_baby.setAdapter(adapter);
+        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
+        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        rv_baby.setLayoutManager(sgm);
+
+        Log.i("test", "1: " + babyTagNamesList.size());
+
+        adapter = new BabyTagAdapter(babyTagNamesList, context);
+        rv_baby.setAdapter(adapter);
+
     }
 
     private Context initData(){
@@ -107,6 +117,22 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
         adapter.addFrag(new GeneralCardFragment(), "DAILY");
         adapter.addFrag(new EventCardFragment(), "EVENT");
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -120,26 +146,29 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
             return true;
         }
 
         if (id == R.id.action_save) {
-            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
+            int currentItem = viewPager.getCurrentItem();
+                Log.i("test", "current: " + currentItem);
+
+
+            GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+
+
+            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
             File a = ConvertBitmapToFileUtil.convertFile(img1);
 
             TypedFile typedFile = new TypedFile("multipart/form-data", a);
 
-//            new CardFormVo("card test!!!")
             String content = "asdasd";
             taskService.createCard(typedFile, content, new Callback<ResponseVo>() {
                 @Override
@@ -154,8 +183,6 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
             });
 
             startActivity(intent);
-
-
 
             return true;
         }
@@ -177,6 +204,33 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
             Log.i("test", "fragment listener id + : " + id);
             Toast.makeText(context, "fragment on click~~", Toast.LENGTH_SHORT).show();
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentTitleList.get(position);
+        }
     }
 }
 

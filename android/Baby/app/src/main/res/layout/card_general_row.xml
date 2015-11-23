@@ -23,7 +23,7 @@
             android:background="@android:color/transparent"
             android:textColor="@color/purple2"
             android:textStyle="italic"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:paddingBottom="10dp"/>
 
         <ImageView

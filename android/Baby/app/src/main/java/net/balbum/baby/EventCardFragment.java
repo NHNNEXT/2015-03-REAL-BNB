@@ -7,16 +7,17 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 
 import java.io.File;
@@ -26,16 +27,14 @@ import java.util.List;
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class EventCardFragment extends Fragment {
+public class EventCardFragment extends Fragment implements OnGetCardListener{
 
-    private boolean isDone = false;
-    private RelativeLayout photo_layout;
-    private TextView photo_tv;
+    boolean isDone = false;
+    RelativeLayout photo_layout;
+    TextView photo_tv;
     List<BabyTagVo> babyTagNamesList;
-   Context context;
-//    EditText editText;
-//    int year_x, month_x, day_x;
-//    static final int DIALOG_ID = 0;
+    Context context;
+    BabyTagAdapter adapter;
 
     @Nullable
     @Override
@@ -47,31 +46,21 @@ public class EventCardFragment extends Fragment {
 
     @Override
     public void onResume() {
+
+        super.onResume();
         if(!isDone){
             photo_layout = (RelativeLayout)this.getActivity().findViewById(R.id.photo_layout);
             photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
-
-//            photo_layout.setOnClickListener(onClickListener);
-//            photo_tv.setOnClickListener(onClickListener);
             isDone = true;
-
-
             initData();
-        RecyclerView rv_baby = (RecyclerView)getActivity().findViewById(R.id.rv_baby_event);
-        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        rv_baby.setLayoutManager(sgm);
-
-        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
-        rv_baby.setAdapter(adapter);
         }
-        super.onResume();
+
     }
 
     private void initData(){
 
 
         babyTagNamesList = new ArrayList<>();
-
 
         Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
@@ -91,7 +80,19 @@ public class EventCardFragment extends Fragment {
 
     }
 
-//    protected Dialog onCreateDialog(int id){
+
+    @Override
+    public GeneralCardVo getCardInfo() {
+
+        EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv_event);
+
+        GeneralCardVo tempVo = new GeneralCardVo();
+        tempVo.memo = memo.getText().toString();
+        tempVo.names = adapter.getSelectedNames();
+        Log.i("test", "selected : " + tempVo.names.get(0)+ " size: " + tempVo.names.size());
+        return tempVo;
+    }
+    //    protected Dialog onCreateDialog(int id){
 //        if(id == DIALOG_ID){
 //            return new DatePickerDialog(this.getActivity(), dpickerListener, year_x, month_x, day_x);
 //        }
