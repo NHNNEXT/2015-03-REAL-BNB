@@ -22,6 +22,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
@@ -165,13 +166,14 @@ public class LoginActivity extends FragmentActivity{
         emailString = email.getText().toString();
         passwordString = password.getText().toString();
         LoginVo loginVo = new LoginVo(emailString, passwordString);
-        taskService.createLogin(loginVo, new Callback<LoginVo>() {
+        taskService.createLogin(loginVo, new Callback<AuthVo>() {
+
             @Override
-            public void success(LoginVo task, Response response) {
+            public void success(AuthVo authVo, Response response) {
                 Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
 
-                Log.i("test", "task: " + task + "body: " + response.getBody()+ " token: " + task.getToken());
-                saveTokenBalbum(context, task.getToken());
+                Log.i("test", "task: " + authVo.token);
+                saveTokenBalbum(context, authVo.token);
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

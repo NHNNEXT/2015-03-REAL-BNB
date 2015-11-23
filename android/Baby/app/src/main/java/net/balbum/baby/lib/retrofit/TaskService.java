@@ -1,5 +1,6 @@
 package net.balbum.baby.lib.retrofit;
 
+import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
 
@@ -15,8 +16,8 @@ import retrofit.mime.TypedFile;
  */
 public interface TaskService {
 
-    @POST("/api/user/logintest")
-    void createLogin(@Body LoginVo task, Callback<LoginVo> cb);
+    @POST("/api/user/login")
+    void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
 //    @GET("/api/card")
 //    void getCard(@Body GeneralCardVo)
@@ -26,4 +27,6 @@ public interface TaskService {
     @POST("/api/card")
     void createCard(@Part("image") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
 //    CardFormVo cardFormVo
+
+
 }
