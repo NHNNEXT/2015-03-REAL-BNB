@@ -15,6 +15,8 @@ var Upload = {
     init: function() {
         this.uploadPhoto();
     },
+
+    /* 사진 프리뷰 */
     readURL: function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
