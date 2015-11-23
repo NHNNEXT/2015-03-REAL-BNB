@@ -1,3 +1,14 @@
+/*
+ * - card-container
+ *		- card-image
+ *		- card-content
+ * 		- card-action
+ * 			- baby-chip(arr)
+ *		- card-date
+ */
+
+
+
 var CommentBox = React.createClass({
   render: function() {
     return (

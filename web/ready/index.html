@@ -20,6 +20,18 @@
         <link rel="stylesheet" href="node_modules/dropzone/dist/dropzone.css">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+        <script type="text/javascript" src="asset/handlebars-v3.0.3.js"></script>
+        <script id="card-template" type="text/x-handlebars-template">
+            <li class="{{completed}}" data-key="{{key}}">
+                <div class="view">
+                    <input class="toggle" type="checkbox" {}>
+                    <label>{{todoName}}</label>
+                    <button class="destroy"></button>
+                </div>
+            </li>
+        </script>
+
     </head>
     <body>
         <div class="navbar-fixed">
@@ -132,10 +144,9 @@
                     </div>
                 </div>
                 <div class="card-container" >
-                    <div class="b-card card scrollspy" id="card-1">
+                    <!-- <div class="b-card card scrollspy" id="card-1">
                         <div class="card-image">
                             <img src="img/photo6.jpg">
-                            <span class="card-title">부산항 가족여행</span>
                         </div>
                         <div class="card-content">
                             <p>짜샤들이 볼이 빨간게 귀엽다. 사진으로 계속 남겨야지. 나는 쓸 말이 없다. 또 쓸 말이 없다. 애기를 키워야 하는가. 팀플을 위한 애기키우기(?) 조금 더 말을 해야하나. 아마 더 길게 써야 할 듯 하다. 힘들다 말 지어내기.</p>
@@ -149,13 +160,21 @@
                                 <img src="img/baby2.jpeg" alt="Contact Person">
                                 다정이 3개월
                             </div>
-                            <a href="#">15.04.27</a>
-                        </div>
+                            <a href="#" class="date-container">15.03.17</a>
+                            <div class="btn-container">
+                                <div class="share-btn"></div>
+                                <div class="ctrl-btn">
+                                    <div class="modify-btn"></div>
+                                    <div class="delete-btn"></div>
+                                </div>
+                            </div>
+                        </div> -->
+
                     </div>
+
                     <div class="b-card card scrollspy" id="card-2">
                         <div class="card-image">
                             <img src="img/photo7.jpg">
-                            <span class="card-title">첫 할로윈데이</span>
                         </div>
                         <div class="card-content">
                             <p>높이 올라가. 세상을 다 가져봐. 네버 배끼레 배끼리럽. 네버 터니럽 터니리러업. 예에. 할라 할로 할로 할로.</p>
@@ -165,10 +184,18 @@
                                 <img src="img/baby2.jpeg" alt="Contact Person">
                                 다정이 3개월
                             </div>
-                            <a href="#">15.03.13</a>
+                            <a href="#" class="date-container">15.03.13</a>
+                            <div class="btn-container">
+                                <div class="share-btn"></div>
+                                <div class="ctrl-btn">
+                                    <div class="modify-btn"></div>
+                                    <div class="delete-btn"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- <section id="cd-timeline" class="cd-container">
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-picture">
