@@ -114,8 +114,8 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new GeneralCardFragment(), "DAILY");
-        adapter.addFrag(new EventCardFragment(), "EVENT");
+        adapter.addFrag(new GeneralCardFragment(), "일상의 순간");
+        adapter.addFrag(new EventCardFragment(), "특별한 순간");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

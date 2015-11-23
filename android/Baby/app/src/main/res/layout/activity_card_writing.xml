@@ -21,14 +21,15 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/white" />
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabTextColor="@color/lightgray" />
 
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/background">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
