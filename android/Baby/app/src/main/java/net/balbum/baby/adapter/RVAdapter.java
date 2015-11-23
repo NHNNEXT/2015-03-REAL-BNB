@@ -137,6 +137,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
     @Override
     public int getItemCount() {
+
+        if(cards == null || cards.size() ==0){
+            return 0;
+        }
             return cards.size();
     }
 

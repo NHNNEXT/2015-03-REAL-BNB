@@ -24,13 +24,20 @@ import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.Util.TimeUtil;
+import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.RVAdapter;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private LinearLayout drawerLayout;
     private SharedPreferences sharedPreferences;
+    TaskService taskService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initNavigationView();
         initFab();
-        initData();
+       // initData();
         initView();
 
     }
@@ -205,5 +213,29 @@ public class MainActivity extends AppCompatActivity
 //        cardGeneralModelList.add(new CardGeneralModel("2015.11.03", R.drawable.img6, "유림 13개월", "륜이13개월", "오늘도 맑음"));
 //        cardGeneralModelList.add(new CardGeneralModel("2015.11.04", R.drawable.img5, "유림 13개월", "오늘의 일과는 블라블라블라~~~~"));
         return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        taskService = ServiceGenerator.createService(TaskService.class);
+
+        taskService.getCard(new Callback<CardListVo>() {
+            @Override
+            public void success(CardListVo cardListVo, Response response) {
+                Toast.makeText(context, "Toast.make", Toast.LENGTH_LONG).show();
+                cardGeneralModelList = new ArrayList<>();
+                if(cardListVo == null || cardListVo.cardList.size() == 0){
+                    Toast.makeText(context, "card empty?null?", Toast.LENGTH_SHORT).show();
+                }else {
+                    cardGeneralModelList = cardListVo.cardList;
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(context, "ERORRRRRRRR", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
