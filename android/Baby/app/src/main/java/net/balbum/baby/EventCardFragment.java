@@ -46,7 +46,6 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
 
     @Override
     public void onResume() {
-
         super.onResume();
         if(!isDone){
             photo_layout = (RelativeLayout)this.getActivity().findViewById(R.id.photo_layout);

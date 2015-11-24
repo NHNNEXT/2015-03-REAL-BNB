@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
@@ -39,7 +38,7 @@ import retrofit.mime.TypedFile;
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class CardWritingActivity extends AppCompatActivity implements GeneralCardFragment.CustomOnClickListener {
+public class CardWritingActivity extends AppCompatActivity {
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
@@ -160,8 +159,6 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
 
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
-
-
             Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
@@ -190,20 +187,13 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("test", "여긴 어디1");
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
+
         }
-    }
-
-
-    @Override
-    public void onClicked(int id) {
-
-
-            Log.i("test", "fragment listener id + : " + id);
-            Toast.makeText(context, "fragment on click~~", Toast.LENGTH_SHORT).show();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -4,9 +4,11 @@ package net.balbum.baby;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by hyes on 2015. 11. 10..
  */
 public class GeneralCardFragment extends Fragment implements View.OnClickListener, OnGetCardListener {
-
+    static final int PICTURE_EDIT_COMPLETE = 2;
     private boolean isDone = false;
     private RelativeLayout photo_layout;
     private TextView photo_tv;
@@ -43,7 +45,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     List<BabyTagVo> babyTagNamesList;
     BabyTagAdapter adapter;
 
-    private CustomOnClickListener customListener;
+   // private CustomOnClickListener customListener;
     private OnGetCardListener getCardInfoListener;
     TaskService taskService;
 
@@ -58,6 +60,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onResume() {
+        super.onResume();
         if(!isDone){
             photo_layout = (RelativeLayout)getActivity().findViewById(R.id.photo_layout);
             photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
@@ -77,8 +80,11 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
             camera_iv.setOnClickListener(this);
             isDone = true;
         }
-        super.onResume();
+
+
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -91,12 +97,13 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     }
 
     private void cardImageEdit() {
-        Intent intent = new Intent(getActivity(), CardImageEditActivity.class);
-        startActivity(intent);
+        Log.d("test", "cardImageEdit()");
+
+        Intent intent = new Intent(context, CardImageEditActivity.class);
+        startActivityForResult(intent, PICTURE_EDIT_COMPLETE);
+
 
     }
-
-
 
 
     @Override
@@ -112,32 +119,52 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         return tempVo;
     }
 
+    public void setSelectedImage(Bitmap bitmap){
+        Log.i("test", "나는 여기 프레그먼트에");
+        photo_iv.setImageBitmap(bitmap);
 
-    public interface CustomOnClickListener{
-        public void onClicked(int id);
     }
 
-        @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        customListener = (CustomOnClickListener)activity;
-    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("test", "Activity rerult");
+        Log.d("test", "resultCode: " + resultCode + "," + Activity.RESULT_OK);
+        Log.d("test", "requestCode: "+requestCode+ "," +  PICTURE_EDIT_COMPLETE);
 
-    View.OnClickListener onClickListener = new View.OnClickListener(){
 
-        @Override
-        public void onClick(View v) {
-            customListener.onClicked(v.getId());
+        if (resultCode == Activity.RESULT_OK && requestCode == PICTURE_EDIT_COMPLETE) {
+            Log.d("test", "activity for result!");
+
+            this.setSelectedImage(CardImageEditActivity.croppedBitmap);
+
         }
-    };
 
-
-
-
-
-    public String getItem(){
-        return "item";
     }
+
+    //
+//    public interface CustomOnClickListener{
+//        public void onClicked(int id);
+//    }
+//
+//        @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        customListener = (CustomOnClickListener)activity;
+//    }
+//
+//    View.OnClickListener onClickListener = new View.OnClickListener(){
+//
+//        @Override
+//        public void onClick(View v) {
+//            customListener.onClicked(v.getId());
+//        }
+//    };
+//
+//
+//    public String getItem(){
+//        return "item";
+//    }
 
 }
 

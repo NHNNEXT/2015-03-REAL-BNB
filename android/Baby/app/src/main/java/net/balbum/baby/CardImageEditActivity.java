@@ -1,7 +1,6 @@
 package net.balbum.baby;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
+
+import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,29 +30,30 @@ import java.io.IOException;
 public class CardImageEditActivity extends AppCompatActivity implements View.OnClickListener {
     static final int CAMERA_REQUEST = 0;
     static final int GALLERY_PICTURE = 1;
-    Bitmap bitmap;
+     Bitmap bitmap;
     String selectedImagePath;
     CropImageView cropImageView;
     ImageView cropButton;
     Context context;
     ImageView croppedImageView;
+    static Bitmap croppedBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_edit);
         context = this;
+
+
         cropImageView = (CropImageView) findViewById(R.id.cropImageView);
         cropButton = (ImageView) findViewById(R.id.crop_button);
         croppedImageView = (ImageView) findViewById(R.id.croppedImageView);
 
-        // Set image for cropping
-//        cropImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
 
-
-        ImageView camera_btn = (ImageView)findViewById(R.id.camera_btn);
-        ImageView gallery_btn = (ImageView)findViewById(R.id.gallery_btn);
-        ImageView confirm_btn = (ImageView)findViewById(R.id.confirm_button);
+        ImageView camera_btn = (ImageView) findViewById(R.id.camera_btn);
+        ImageView gallery_btn = (ImageView) findViewById(R.id.gallery_btn);
+        ImageView confirm_btn = (ImageView) findViewById(R.id.confirm_button);
 
         cropButton.setOnClickListener(this);
         camera_btn.setOnClickListener(this);
@@ -60,44 +61,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
         confirm_btn.setOnClickListener(this);
     }
 
-    private void startDialog() {
-        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(context);
-        myAlertDialog.setTitle("Upload Pictures Option");
-        myAlertDialog.setMessage("How do you want to set your picture?");
 
-        myAlertDialog.setPositiveButton("Gallery",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Intent pictureActionIntent = null;
-
-                        pictureActionIntent = new Intent(
-                                Intent.ACTION_PICK,
-                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(
-                                pictureActionIntent,
-                                GALLERY_PICTURE);
-
-                    }
-                });
-
-        myAlertDialog.setNegativeButton("Camera",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-
-                        Intent intent = new Intent(
-                                MediaStore.ACTION_IMAGE_CAPTURE);
-                        File f = new File(android.os.Environment
-                                .getExternalStorageDirectory(), "temp.jpg");
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                Uri.fromFile(f));
-
-                        startActivityForResult(intent,
-                                CAMERA_REQUEST);
-
-                    }
-                });
-        myAlertDialog.show();
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -301,16 +265,36 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                 break;
 
             case R.id.crop_button:
-                croppedImageView.setImageBitmap(cropImageView.getCroppedBitmap());
+                croppedBitmap = cropImageView.getCroppedBitmap();
+                croppedImageView.setImageBitmap(croppedBitmap);
+                saveBitmap(croppedBitmap);
+                Log.d("TEST", "croppedBitmap " + croppedBitmap.getByteCount());
                 break;
 
             case R.id.confirm_button:
-                //서버에 저장하는 코드
-                Intent intent1 = new Intent(CardImageEditActivity.this, MainActivity.class);
-                startActivity(intent1);
+                Log.d("test", "눌림");
+
+                Intent intent1 = getIntent();
+                setResult(RESULT_OK, intent1);
+                Log.d("test", "눌림after setResult");
+                finish();
+
+
+//                //서버에 저장하는 코드..면 안되겠구나
+//                Intent intent1 = new Intent(CardImageEditActivity.this, CardWritingActivity.class);
+//                intent1.putExtra("bitmap", (Bitmap)croppedBitmap);
+//                setResult(intent1, PICTURE_EDIT_COMPLETE);
+
                 break;
 
         }
     }
+
+    private void saveBitmap(Bitmap croppedBitmap) {
+        File a = ConvertBitmapToFileUtil.convertFile(croppedBitmap);
+
+    }
+
+
 }
 
