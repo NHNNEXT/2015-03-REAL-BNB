@@ -67,9 +67,6 @@ public class LoginActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         context = this;
 
-
-
-
         linear = (LinearLayout)findViewById(R.id.layout);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
