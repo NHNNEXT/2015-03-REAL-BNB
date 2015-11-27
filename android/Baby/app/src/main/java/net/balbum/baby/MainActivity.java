@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,14 +25,20 @@ import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.Util.TimeUtil;
+import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.RVAdapter;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -232,4 +239,26 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 //    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        taskService = ServiceGenerator.createService(TaskService.class);
+
+        taskService.getCard("token", new Callback<CardListVo>() {
+
+            @Override
+            public void success(CardListVo cardListVo, Response response) {
+                Log.d("test", " getCard test success~");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("test", " errorrororororor~");
+            }
+        });
+    }
 }
+

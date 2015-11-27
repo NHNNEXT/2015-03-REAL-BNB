@@ -11,6 +11,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 /**
@@ -32,6 +33,6 @@ public interface TaskService {
 //    CardFormVo cardFormVo
 
     @GET("/api/card")
-    void getCard(Callback<CardListVo> cb);
+    void getCard(@Query("token") String token, Callback<CardListVo> cb);
 
 }
