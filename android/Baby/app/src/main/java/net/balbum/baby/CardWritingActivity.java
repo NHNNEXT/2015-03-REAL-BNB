@@ -20,7 +20,7 @@ import android.view.MenuItem;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
-import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -158,7 +158,7 @@ public class CardWritingActivity extends AppCompatActivity {
                 Log.i("test", "current: " + currentItem);
 
 
-            GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+           // GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
             Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
@@ -166,8 +166,16 @@ public class CardWritingActivity extends AppCompatActivity {
 
             TypedFile typedFile = new TypedFile("multipart/form-data", a);
 
+            List<Long> asd = new ArrayList<Long>();
+            asd.add(new Long(2));
+            asd.add(new Long(3));
+            asd.add(new Long(4));
+
+            Long l = new Long(2);
             String content = "asdasd";
-            taskService.createCard(typedFile, content, new Callback<ResponseVo>() {
+            CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
+
+            taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
                     Log.i("test", "card success" + responseVo.state + ", error: "+ responseVo.error);
