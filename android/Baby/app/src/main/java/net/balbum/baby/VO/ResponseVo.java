@@ -6,5 +6,6 @@ package net.balbum.baby.VO;
 public class ResponseVo {
     public Boolean state;
     public String error;
+
 }
 

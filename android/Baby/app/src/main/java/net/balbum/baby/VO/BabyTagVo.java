@@ -8,9 +8,11 @@ import java.io.File;
 public class BabyTagVo {
     public File image;
     public String name;
+    public boolean isSelected;
 
     public BabyTagVo(File image, String name) {
         this.image = image;
         this.name = name;
+        this.isSelected = false;
     }
 }

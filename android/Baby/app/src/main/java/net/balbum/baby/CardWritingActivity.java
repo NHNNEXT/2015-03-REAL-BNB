@@ -7,18 +7,22 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.ResponseVo;
-import net.balbum.baby.adapter.ViewPagerAdapter;
+import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -34,14 +38,17 @@ import retrofit.mime.TypedFile;
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class CardWritingActivity extends AppCompatActivity implements GeneralCardFragment.CustomOnClickListener {
+public class CardWritingActivity extends AppCompatActivity {
+
+    List<Fragment> fragmentList = new ArrayList<>();
+    List<String> fragmentTitleList = new ArrayList<>();
 
     Context context;
-
     Toolbar toolbar;
-
     List<BabyTagVo> babyTagNamesList;
     TaskService taskService;
+    ViewPager viewPager;
+    BabyTagAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +58,22 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
         taskService = ServiceGenerator.createService(TaskService.class);
 
         initToolbar();
-
+        initData();
         initTagBar();
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-//        initData();
-//        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby);
-//        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-//        rv_baby.setLayoutManager(sgm);
-//
-//        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
-//        rv_baby.setAdapter(adapter);
+        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
+        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        rv_baby.setLayoutManager(sgm);
+
+        Log.i("test", "1: " + babyTagNamesList.size());
+
+        adapter = new BabyTagAdapter(babyTagNamesList, context);
+        rv_baby.setAdapter(adapter);
+
     }
 
     private Context initData(){
@@ -104,9 +113,25 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new GeneralCardFragment(), "DAILY");
-        adapter.addFrag(new EventCardFragment(), "EVENT");
+        adapter.addFrag(new GeneralCardFragment(), "일상의 순간");
+        adapter.addFrag(new EventCardFragment(), "특별한 순간");
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -120,28 +145,37 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
             return true;
         }
 
         if (id == R.id.action_save) {
-            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
+            int currentItem = viewPager.getCurrentItem();
+                Log.i("test", "current: " + currentItem);
+
+
+           // GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
             File a = ConvertBitmapToFileUtil.convertFile(img1);
 
             TypedFile typedFile = new TypedFile("multipart/form-data", a);
 
-//            new CardFormVo("card test!!!")
+            List<Long> asd = new ArrayList<Long>();
+            asd.add(new Long(2));
+            asd.add(new Long(3));
+            asd.add(new Long(4));
+
+            Long l = new Long(2);
             String content = "asdasd";
-            taskService.createCard(typedFile, content, new Callback<ResponseVo>() {
+            CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
+
+            taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
                     Log.i("test", "card success" + responseVo.state + ", error: "+ responseVo.error);
@@ -155,28 +189,46 @@ public class CardWritingActivity extends AppCompatActivity implements GeneralCar
 
             startActivity(intent);
 
-
-
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("test", "여긴 어디1");
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
+
         }
     }
 
+    class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    @Override
-    public void onClicked(int id) {
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
 
-            Log.i("test", "fragment listener id + : " + id);
-            Toast.makeText(context, "fragment on click~~", Toast.LENGTH_SHORT).show();
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentTitleList.get(position);
+        }
     }
 }
 

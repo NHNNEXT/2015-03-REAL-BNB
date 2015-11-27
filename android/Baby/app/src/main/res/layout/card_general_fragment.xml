@@ -33,8 +33,8 @@
             android:id="@+id/photo_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop" />
+            android:layout_alignParentTop="true"
+            />
 
 
     </RelativeLayout>
@@ -50,26 +50,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:hint="@string/memo_btn_hint" />
+            android:hint="@string/memo_btn_hint"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/child_names"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_baby"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp" />
-
-
-    </LinearLayout>
-
 
 </LinearLayout>
