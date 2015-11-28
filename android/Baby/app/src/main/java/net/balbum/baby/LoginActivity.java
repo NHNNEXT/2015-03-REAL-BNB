@@ -72,13 +72,6 @@ public class LoginActivity extends FragmentActivity{
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.login_activity);
 
-
-//        callValue = sharedPreferences.getString("token", "default value");
-//        Log.i("test", "callvalue" + callValue);
-//        if(callValue != null){
-//            goMainActivity();
-//        }
-
         password = (EditText)findViewById(R.id.user_password);
         email = (EditText)findViewById(R.id.user_email);
 

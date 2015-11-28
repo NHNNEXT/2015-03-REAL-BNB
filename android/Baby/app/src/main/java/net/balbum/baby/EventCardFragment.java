@@ -53,11 +53,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
             isDone = true;
             initData();
         }
-
     }
 
     private void initData(){
-
 
         babyTagNamesList = new ArrayList<>();
 

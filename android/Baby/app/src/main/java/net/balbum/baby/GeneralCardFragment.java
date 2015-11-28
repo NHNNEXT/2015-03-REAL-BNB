@@ -14,16 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.TaskService;
-
-import java.util.List;
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -36,13 +32,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private ImageView camera_iv, photo_iv;
     private EditText memo_tv;
     Context context;
-    private Intent pictureActionIntent = null;
 
-    ImageView img_logo;
-    LinearLayout childNames;
-//    ListView childNames;
-
-    List<BabyTagVo> babyTagNamesList;
     BabyTagAdapter adapter;
 
    // private CustomOnClickListener customListener;
@@ -68,41 +58,26 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
             camera_iv = (ImageView)this.getActivity().findViewById(R.id.camera_iv);
             photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
 
-//            RecyclerView rv_baby = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby);
-//            StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-//            rv_baby.setLayoutManager(sgm);
-//
-//            adapter = new BabyTagAdapter(babyTagNamesList, context);
-//            rv_baby.setAdapter(adapter);
-
             photo_tv.setOnClickListener(this);
             memo_tv.setOnClickListener(this);
             camera_iv.setOnClickListener(this);
             isDone = true;
         }
-
-
     }
-
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.camera_iv:
                 cardImageEdit();
-               // startDialog();
                 break;
         }
     }
 
     private void cardImageEdit() {
         Log.d("test", "cardImageEdit()");
-
         Intent intent = new Intent(context, CardImageEditActivity.class);
         startActivityForResult(intent, PICTURE_EDIT_COMPLETE);
-
-
     }
 
 
