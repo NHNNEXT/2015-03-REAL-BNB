@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div class="col-md-4">
-        <div id="modal-sample-4" class="modal fade">
+    <div class="">
+        <div id="modal-main" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="js-title-step"></h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row hide" data-step="1" data-title="Click next please">
+                        <div class="row hide" data-step="1" data-title="안녕하세요 유림님!">
                             <div class="col-md-12">
-                                <div class="jumbotron text-center"><p>Click next, please.</p></div>
+                                <ul class="collection with-header">
+                                        <li class="collection-item"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                        <li class="collection-item"><div>BALBUM 찾기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                </ul>
+                                <div>한 ID당 하나의 가족만 등록이 가능합니다^^</div>
                             </div>
                         </div>
                         <div class="row hide" data-step="2" data-title="Callback on second step">
@@ -25,29 +31,37 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
-                        <button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
-                        <button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
+                        <button type="button" class="btn waves-effect js-btn-step left" data-orientation="cancel" data-dismiss="modal"></button>
+                        <button type="button" class="btn waves-effect btn-success js-btn-step" data-orientation="next"></button>
+                        <button type="button" class="btn waves-effect btn-warning js-btn-step" data-orientation="previous"></button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                A modal with a callback function at 2 (second) step
-            </div>
-            <div class="panel-footer">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-sample-4">
-                    <span class="glyphicon glyphicon-flash"></span> Open modal
-                </button>
-            </div>
+
+
+        <div class="">
+            모달 테스트 페이지
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-main">
+                modal-main
+            </button>
         </div>
     </div>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/vendor/materialize.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+    <script src="js/vendor/bootstrap-modal.min.js"></script>
     <script src="js/vendor/steps-modal.js"></script>
     <script type="text/javascript">
+
+        // $(document).ready(function(){
+        //     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        //     $('.modal-trigger').leanModal();
+        // });
+
+
         // $('#modal-sample-1').modalSteps();
         // $('#modal-sample-2').modalSteps({
         //     'disableNextButton': true
@@ -58,7 +72,7 @@
         //     btnNextHtml: '<span class="glyphicon glyphicon-chevron-right"></span> Go',
         //     btnLastStepHtml: '<span class="glyphicon glyphicon-fire"></span> Finish'
         // });
-        $('#modal-sample-4').modalSteps({
+        $('#modal-main').modalSteps({
             callbacks: {
                 '2': function(){ alert('Tanam!');}
             }
