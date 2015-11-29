@@ -23,14 +23,36 @@
 
         <script type="text/javascript" src="asset/handlebars-v3.0.3.js"></script>
         <script id="card-template" type="text/x-handlebars-template">
-            <li class="{{completed}}" data-key="{{key}}">
+            <div class="b-card card scrollspy" id="card-1">
+                <div class="card-image">
+                    <img src={{card-img}}>
+                </div>
+                <div class="card-content">
+                    <p>{{card-content}}</p>
+                </div>
+                <div class="card-action">
+                    <div class="baby-chip chip right">
+                        <img src="img/baby2.jpeg" alt="Contact Person">
+                        {{baby-name}}{{baby-age}}
+                    </div>
+                    <a href="#" class="date-container">{{card-date}}</a>
+                    <div class="btn-container">
+                        <div class="share-btn"></div>
+                        <div class="ctrl-btn">
+                            <div class="modify-btn"></div>
+                            <div class="delete-btn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+            <!-- <li class="{{completed}}" data-key="{{key}}">
                 <div class="view">
                     <input class="toggle" type="checkbox" {}>
                     <label>{{todoName}}</label>
                     <button class="destroy"></button>
                 </div>
-            </li>
-        </script>
+            </li> -->
 
     </head>
     <body>
