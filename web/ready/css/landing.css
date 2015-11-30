@@ -77,10 +77,6 @@ li {
   /*width: 245px;*/
   /*margin: 0 auto;*/
 }
-.lp_container .lp_content .signup_box .row input,
-.lp_container .lp_content .login_box .row input {
-  color: #ffffff;
-}
 .lp_container .lp_content .signup_box .row input:focus,
 .lp_container .lp_content .login_box .row input:focus {
   border-bottom: 1px solid #64b5f6 !important;

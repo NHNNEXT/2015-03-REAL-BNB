@@ -56,8 +56,8 @@
 						<img src="img/naver_login.png" class="login_btn" alt=""> -->
 
 						<div class="login_box col s12">
-							<form class="col s12">
-								<div class="row ">
+							<form id="login_form" class="col s12">
+								<div class="row">
 									<div class="input-field  s12">
 										<input id="email" type="email" class="validate">
 										<label for="email">Email</label>
@@ -69,11 +69,9 @@
 								    	<label for="password">Password</label>
 								    </div>
 								</div>
+								<button name="submit" type="submit" class="login_btn modal-action modal-close waves-effect waves-light btn-large">로그인</button>
 							</form>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<a href="#!" class="login_btn modal-action modal-close waves-effect waves-light btn-large">Login</a>
 					</div>
 				</div>
 
@@ -86,13 +84,7 @@
 						<img src="img/kakao_signup.png" class="signup_btn" alt="">
 						<img src="img/naver_signup.png" class="signup_btn" alt=""> -->
 						<div class="signup_box col s12">
-							<form class="col s12">
-								<div class="row ">
-									<div class="input-field  s12">
-										<input id="name" type="text" class="validate">
-										<label for="name">Name</label>
-									</div>
-								</div>
+							<form action="api/user/create" method="post" class="col s12">
 								<div class="row ">
 									<div class="input-field  s12">
 										<input id="email" type="email" class="validate">
@@ -107,15 +99,19 @@
 								</div>
 								<div class="row">
 								    <div class="input-field s12">
-								    	<input id="password" type="password" class="validate">
-								    	<label for="password">Confirm Password</label>
+								    	<input id="confirm-password" type="password" class="validate">
+								    	<label for="confirm-password">Confirm Password</label>
 								    </div>
 								</div>
+								<div class="row ">
+									<div class="input-field  s12">
+										<input id="nickname" type="text" class="validate">
+										<label for="nickname">Nickname</label>
+									</div>
+								</div>
+								<button name="submit" type="submit" value="submit" class="signup_btn modal-action modal-close waves-effect waves-light btn-large">계정 만들기</button>
 							</form>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<a href="#!" class="signup_btn modal-action modal-closewaves-effect waves-light btn-large">계정 만들기</a>
 					</div>
 				</div>
 		</div>
