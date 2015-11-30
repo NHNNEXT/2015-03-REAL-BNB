@@ -1,0 +1,112 @@
+html {
+	height: 100%;
+}
+
+body, button, div, form, input, li, ul {
+	margin: 0;
+	padding: 0;
+	font-family: NanumGothic, "나눔고딕", sans-serif;
+}
+
+li {
+	list-style-type: none;
+}
+
+.lp_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.bg_box {
+	overflow: hidden;
+	width: 100%;
+	/*height: 100%;*/
+	min-width: 1024px;
+	min-height: 768px;
+	left: 0;
+	top: 0;
+	position: fixed;
+	background-color: #896DA5;
+	z-index: -1;
+
+	.bg_img {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+	}
+}
+
+.lp_container {
+	position: absolute;
+	text-align: center;
+	left: 50%;
+	top: 50%;
+	margin: -250px auto 0 -150px; /* lp_content의 height와 width의 절반값 참고 */
+	width: 300px;
+
+	.lp_content {
+		/*border: solid 1px;*/
+		position: relative;
+		width: 300px;
+		height: 500px;
+		/*background-color: #eee;*/
+		margin: 0 auto;
+
+		.msg {
+			float: left;
+			width: 300px;
+			margin: 0 auto;
+			text-align: center;
+			font-size: 1.5em;
+			color: #fff;
+		}
+
+		.lp_logo {
+			width: 90px;
+			height: 90px;
+			margin: 40px;
+			left: 65px;
+			/*top: 40px;*/
+			background: url("../img/bablum_logo2.png") no-repeat;
+			background-size: 100%;
+			position: relative;
+		}
+
+		.signup_box, .login_box {
+			/*width: 245px;*/
+			/*margin: 0 auto;*/
+
+			.row input{
+				color: #ffffff;
+
+				&:focus{
+					border-bottom: 1px solid #64b5f6 !important;
+					box-shadow: 0 1px 0 0 #64b5f6 !important;
+				}
+			}
+		}
+
+		.signup_btn, .login_btn{
+			width: 100%;
+			background-color: #64b5f6;
+
+			&:hover{
+				background-color: #90caf9;
+			}
+		}
+
+		.goto_login, .goto_signup {
+			margin: 12px auto;
+			width: 105px;
+			font-size: 13px;
+			color: #fff;
+			display: block;
+			cursor: pointer;
+
+			&:hover {
+				color:#64b5f6;
+			}
+		}
+	}
+}

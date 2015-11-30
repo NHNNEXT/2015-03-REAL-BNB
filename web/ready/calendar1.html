@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>todo modal</title>
+
+<link rel="stylesheet" type="text/css" href="css/calendar.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div clas="add_wrap">
+	<form class="add_todo">
+		
+		<!-- 날짜선택 -->
+		
+    <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택">
+		
+  	</form>
+
+</div>
+
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+  var datepicker = $("#datepicker");
+  datepicker.datepicker({ 
+    firstDay: 0, // 일요일 부터 시작 
+    maxDate: 0, // 오늘 이후는 선택 못함
+    dayNamesMin: 
+        [ "일", "월", "화", "수", "목", "금", "토" ] ,
+    dateFormat: "yy-mm-dd"
+  });
+
+  $("#ui-datepicker-div").addClass("ui-datepicker-default");
+  
+	datepicker.click(function() {
+   $("#ui-datepicker-div").removeClass("ui-datepicker-default");
+  });
+});
+</script>
+</html>
