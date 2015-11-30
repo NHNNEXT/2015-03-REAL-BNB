@@ -2,7 +2,6 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +22,18 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     private List<BabyTagVo> names;
     private Context context;
-    ArrayList<String> selectedList =new ArrayList<String>();
+    private ArrayList<String> selectedList =new ArrayList<String>();
+
+
+
 
     public BabyTagAdapter(List<BabyTagVo> names, Context context) {
         this.names = names;
         this.context = context;
+
+        if(names != null && names.size() == 1){
+            names.get(0).isSelected = true;
+        }
     }
 
     @Override
@@ -40,28 +46,32 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     @Override
     public void onBindViewHolder(final BabyViewHolder holder, final int position) {
-        final boolean[] flag = {false};
         holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
-        holder.photo.setAlpha(0.3f);
-        holder.cbox.setText(names.get(position).name);
+        holder.name.setText(names.get(position).name);
+
+        if (!names.get(position).isSelected) {
+            holder.photo.setAlpha(0.3f);
+        } else {
+            holder.photo.setAlpha(1.0f);
+        }
 
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                names.get(position).isSelected = !names.get(position).isSelected;
+                notifyDataSetChanged();
 
-                if (!flag[0]) {
-                    holder.photo.setAlpha(1.0f);
-                    selectedList.add(names.get(position).name);
-                    flag[0] = true;
-                    for (int i = 0; i < selectedList.size(); i++) {
-                        Log.i("test", selectedList.get(i));
-                    }
-                } else if (flag[0]) {
-                    flag[0] = false;
-                    holder.photo.setAlpha(0.3f);
-                }
             }
         });
+    }
+
+    public ArrayList<String> getSelectedNames(){
+        for(int i =0; i< names.size(); i++){
+            if(names.get(i).isSelected){
+                selectedList.add(names.get(i).name);
+            }
+        }
+        return selectedList;
     }
 
     @Override
@@ -85,7 +95,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //
 //            viewHolder = new BabyViewHolder();
 //            viewHolder.photo = (ImageView) convertView.findViewById(R.id.baby_iv);
-//            viewHolder.cbox = (CheckBox) convertView.findViewById(R.id.baby_cb);
+//            viewHolder.name = (CheckBox) convertView.findViewById(R.id.baby_cb);
 //
 //
 //            convertView.setTag(viewHolder);
@@ -96,23 +106,29 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //        }
 //
 //        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
-//        viewHolder.cbox.setText(names.get(position).name);
+//        viewHolder.name.setText(names.get(position).name);
 //
 //
 //        return convertView;
 //    }
 
 
+    public ArrayList<String> getSelectedList() {
+        return selectedList;
+    }
+
     class BabyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photo;
-        TextView cbox;
+        TextView name;
 
         public BabyViewHolder(View itemView) {
             super(itemView);
             photo = (ImageView)itemView.findViewById(R.id.baby_iv);
-            cbox = (TextView)itemView.findViewById(R.id.baby_cb);
+            name = (TextView)itemView.findViewById(R.id.baby_tv);
         }
     }
+
+
 }
 

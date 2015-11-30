@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="">
+        <div id="modal-main" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <h4 class="js-title-step"></h4>
+                    </div> -->
+                    <div class="modal-body">
+                        <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
+                            <div>안녕하세요, 율무님!</div>
+                            <div class="collection-container">
+                                <ul class="collection with-header">
+                                        <li class="js-btn-goto collection-item" data-goto="2"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                        <li class="js-btn-goto collection-item" data-goto="3"><div>BALBUM 찾기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                </ul>
+                                <div>한 ID당 하나의 가족만 등록이 가능합니다^^</div>
+                            </div>
+                        </div>
+                        <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
+                            <div class="">우리 아이를 등록해요.</div>
+                            <div class="add-baby-container row">
+                                <ul class="collection row">
+                                    <li class="collection-item col s12">
+                                        <div class="col s3">
+                                            <div class="upload-baby-photo">
+                                                <i class="material-icons">add</i>
+                                            </div>
+                                        </div>
+                                        <div class="baby-info col s9">
+                                            <form>
+                                                <input type="text" name="input" placeholder="이름">
+                                                <input type="date" name="input" value="Type here" placeholder="생년월일">
+                                                <span>
+                                                    <input name="group1" type="radio" id="test1" />
+                                                    <label for="test1">남</label>
+                                                </span>
+                                                <span>
+                                                    <input name="group1" type="radio" id="test2" />
+                                                    <label for="test2">여</label>
+                                                </span>
+                                                <span>
+                                                    <input class="with-gap" name="group1" type="radio" id="test3"  />
+                                                    <label for="test3">임신중</label>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="add-baby-btn">
+                                    <span>아이 더 추가하기<i class="material-icons">add</i></span>
+                                </div>
+                            </div>
+                            <div class="action-container">
+                                <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
+                                <button type="button" class="js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                            </div>
+                        </div>
+                        <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
+                            <div class="">
+                                <div>이미 가입한 가족의 Email을 입력해주세요.</div>
+                                <form>
+                                    <input type="email" name="input" placeholder="Email">
+                                </form>
+                                <button type="button" class="js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
+                            </div>
+                            <div class="found-existing-user hide">
+                                <img class="circle" src="img/baby1.jpeg" alt="user-photo">
+                                <div class="">
+                                    <div>율무님의 BALBUM</div>
+                                    <div>jayjinjay@gmail.com</div>
+                                    <button type="button" class="js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-found-balbum row hide" data-step="4" data-title="">
+                            <img class="circle" src="img/baby1.jpeg" alt="user-photo">
+                            <div class="">
+                                <div>율무님의 BALBUM</div>
+                                <div>jayjinjay@gmail.com</div>
+                                <button type="button" class="js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn waves-effect js-btn-step left" data-orientation="cancel" data-dismiss="modal"></button>
+                        <button type="button" class="btn waves-effect btn-success js-btn-step" data-orientation="next"></button>
+                        <button type="button" class="btn waves-effect btn-warning js-btn-step" data-orientation="previous"></button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="">
+            모달 테스트 페이지
+            <button type="button" class="btn" data-toggle="modal" data-target="#modal-main">
+                modal-main
+            </button>
+        </div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/materialize.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+    <script src="js/vendor/bootstrap-modal.min.js"></script>
+    <script src="js/vendor/steps-modal.js"></script>
+    <script type="text/javascript">
+        // 콜백 테스트
+        $('#modal-main').modalSteps({
+            callbacks: {
+                // '2': function(){ alert('Tanam!');}
+            }
+        });
+
+        // 이메일 검색 하면 검색한 결과 바로 뜨게 한다.
+        $('.js-btn-find-user').on('click', function() {
+            $('.found-existing-user').removeClass('hide');
+        });
+    </script>
+
+
+</body>
+</html>

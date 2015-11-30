@@ -16,4 +16,12 @@ public class CardFormVo {
     public CardFormVo(String content) {
         this.content = content;
     }
+
+    public CardFormVo(Long cId, String token, List<Long> babies, String content, String modifiedDate) {
+        this.cId = cId;
+        this.token = token;
+        this.babies = babies;
+        this.content = content;
+        this.modifiedDate = modifiedDate;
+    }
 }

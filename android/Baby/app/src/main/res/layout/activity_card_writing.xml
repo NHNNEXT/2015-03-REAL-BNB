@@ -13,25 +13,40 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/white" />
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabTextColor="@color/lightgray" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/background">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_above="@+id/rv_baby_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rv_baby_list"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        />
+
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

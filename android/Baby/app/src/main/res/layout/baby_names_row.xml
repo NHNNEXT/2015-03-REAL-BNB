@@ -2,20 +2,21 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="60dp"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:layout_marginLeft="4dp">
 
     <ImageView
         android:id="@+id/baby_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        />
 
     <TextView
-        android:id="@+id/baby_cb"
+        android:id="@+id/baby_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/baby_iv"

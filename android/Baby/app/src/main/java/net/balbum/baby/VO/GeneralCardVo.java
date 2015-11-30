@@ -18,11 +18,12 @@ public class GeneralCardVo{
     public ArrayList<String> names;
     public String memo;
     public String writer;
-
     public long card_id_db;
-
     public long cId;
 
+
+    public GeneralCardVo() {
+    }
 
     public GeneralCardVo(String createDate, String recordDate, File image, ArrayList<String> names, String memo, String writer) {
         this.createDate = createDate;
