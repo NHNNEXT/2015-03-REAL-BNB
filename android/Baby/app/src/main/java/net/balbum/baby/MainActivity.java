@@ -256,7 +256,12 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("test", " errorrororororor~");
+                String a = "192.168.1.146:8080/img/asdf.jpeg";
+                Log.d("test", " string a :" + a);
+
+//                Url url = new URL(context, a);
+
+//                String decodeResult = URLDecoder.decode(String decodingString, String charsetName);
             }
         });
     }
