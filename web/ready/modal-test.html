@@ -6,6 +6,7 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div class="">
@@ -16,8 +17,8 @@
                         <h4 class="js-title-step"></h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row hide" data-step="1" data-title="안녕하세요 유림님!">
-                            <div class="col-md-12">
+                        <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
+                            <div class="">
                                 <ul class="collection with-header">
                                         <li class="collection-item"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
                                         <li class="collection-item"><div>BALBUM 찾기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
@@ -25,9 +26,55 @@
                                 <div>한 ID당 하나의 가족만 등록이 가능합니다^^</div>
                             </div>
                         </div>
-                        <div class="row hide" data-step="2" data-title="Callback on second step">
-                            <div class="col-md-12">
-                                <div class="jumbotron text-center"><p>An ugly javascript alert will appeared. It works?!</p></div>
+                        <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
+                            <div class="add-baby-container row">
+                                <ul class="collection row">
+                                    <li class="collection-item col s12">
+                                        <div class="col s3">
+                                            <div class="upload-baby-photo">
+                                                <i class="material-icons">add</i>
+                                            </div>
+                                        </div>
+                                        <div class="baby-info col s9">
+                                            <form>
+                                                <input type="text" name="input" placeholder="이름">
+                                                <input type="date" name="input" value="Type here" placeholder="생년월일">
+                                                <span>
+                                                    <input name="group1" type="radio" id="test1" />
+                                                    <label for="test1">남</label>
+                                                </span>
+                                                <span>
+                                                    <input name="group1" type="radio" id="test2" />
+                                                    <label for="test2">여</label>
+                                                </span>
+                                                <span>
+                                                    <input class="with-gap" name="group1" type="radio" id="test3"  />
+                                                    <label for="test3">임신중</label>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="add-baby-btn">
+                                    <span>아이 더 추가하기<i class="material-icons">add</i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
+                            <div class="">
+                                <div>이미 가입한 가족의 Email을 입력해주세요.</div>
+                                <form>
+                                    <input type="email" name="input" placeholder="Email">
+                                </form>
+                                <button class="waves-effect waves-light btn-large">찾기</button>
+                            </div>
+                        </div>
+                        <div class="modal-found-balbum row hide" data-step="4" data-title="">
+                            <img class="circle" src="img/baby1.jpeg" alt="user-photo">
+                            <div class="">
+                                <div>율무님의 BALBUM</div>
+                                <div>jayjinjay@gmail.com</div>
+                                <button class="waves-effect waves-light btn-large">들어가기</button>
                             </div>
                         </div>
                     </div>
@@ -74,7 +121,7 @@
         // });
         $('#modal-main').modalSteps({
             callbacks: {
-                '2': function(){ alert('Tanam!');}
+                // '2': function(){ alert('Tanam!');}
             }
         });
         // $('#modal-sample-5').modalSteps({

@@ -46,7 +46,7 @@ li {
   /* lp_content의 height와 width의 절반값 참고 */
   width: 300px;
 }
-.lp_body .lp_content {
+.lp_container .lp_content {
   /*border: solid 1px;*/
   position: relative;
   width: 300px;
@@ -54,7 +54,7 @@ li {
   /*background-color: #eee;*/
   margin: 0 auto;
 }
-.lp_body .lp_content .msg {
+.lp_container .lp_content .msg {
   float: left;
   width: 300px;
   margin: 0 auto;
@@ -62,41 +62,41 @@ li {
   font-size: 1.5em;
   color: #fff;
 }
-.lp_body .lp_content .lp_logo {
+.lp_container .lp_content .lp_logo {
   width: 90px;
   height: 90px;
   margin: 40px;
   left: 65px;
-  top: 40px;
+  /*top: 40px;*/
   background: url("../img/bablum_logo2.png") no-repeat;
   background-size: 100%;
   position: relative;
 }
-.lp_body .lp_content .signup_box,
-.lp_body .lp_content .login_box {
+.lp_container .lp_content .signup_box,
+.lp_container .lp_content .login_box {
   /*width: 245px;*/
   /*margin: 0 auto;*/
 }
-.lp_body .lp_content .signup_box .row input,
-.lp_body .lp_content .login_box .row input {
+.lp_container .lp_content .signup_box .row input,
+.lp_container .lp_content .login_box .row input {
   color: #ffffff;
 }
-.lp_body .lp_content .signup_box .row input:focus,
-.lp_body .lp_content .login_box .row input:focus {
+.lp_container .lp_content .signup_box .row input:focus,
+.lp_container .lp_content .login_box .row input:focus {
   border-bottom: 1px solid #64b5f6 !important;
   box-shadow: 0 1px 0 0 #64b5f6 !important;
 }
-.lp_body .lp_content .signup_btn,
-.lp_body .lp_content .login_btn {
+.lp_container .lp_content .signup_btn,
+.lp_container .lp_content .login_btn {
   width: 100%;
   background-color: #64b5f6;
 }
-.lp_body .lp_content .signup_btn:hover,
-.lp_body .lp_content .login_btn:hover {
+.lp_container .lp_content .signup_btn:hover,
+.lp_container .lp_content .login_btn:hover {
   background-color: #90caf9;
 }
-.lp_body .lp_content .goto_login,
-.lp_body .lp_content .goto_signup {
+.lp_container .lp_content .goto_login,
+.lp_container .lp_content .goto_signup {
   margin: 12px auto;
   width: 105px;
   font-size: 13px;
@@ -104,13 +104,7 @@ li {
   display: block;
   cursor: pointer;
 }
-.lp_body .lp_content .goto_login:hover,
-.lp_body .lp_content .goto_signup:hover {
+.lp_container .lp_content .goto_login:hover,
+.lp_container .lp_content .goto_signup:hover {
   color: #64b5f6;
-}
-.error {
-  color: #dd4b39;
-}
-.fine {
-  color: #71FF94;
 }

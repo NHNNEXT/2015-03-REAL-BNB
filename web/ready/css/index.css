@@ -88,3 +88,40 @@ section.main-container article.main-col .postcard-container .card-content .baby-
 section.main-container aside.right-col {
   height: 600px;
 }
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .collection-item {
+  padding: 1em;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo {
+  width: 6em;
+  height: 6em;
+  border: 1px dashed #CECECE;
+  border-radius: 50%;
+  color: #CECECE;
+  text-align: center;
+  cursor: pointer;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo i {
+  line-height: 2.5em;
+  font-size: 2.3em;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .baby-info span {
+  margin-right: 1.5em;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn {
+  text-align: center;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span {
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: 1.4em;
+  color: #74d0cb;
+  border: 1px solid #74d0cb;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span i {
+  vertical-align: bottom;
+}
+#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span:hover {
+  background-color: #74d0cb;
+  color: white;
+}

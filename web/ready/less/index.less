@@ -119,3 +119,60 @@ section.main-container {
     }
 }
 
+//*-- Main Modal --*//
+#modal-main {
+    div.modal-body {
+        div.modal-check-balbum {
+
+        }
+
+        div.modal-add-baby {
+            .add-baby-container {
+                .collection {
+                    .collection-item {
+                        padding: 1em;
+                    }
+                    .upload-baby-photo {
+                        width: 6em;
+                        height: 6em;
+                        border: 1px dashed @light-gray;
+                        border-radius: 50%;
+                        color: @light-gray;
+                        text-align: center;
+                        cursor: pointer;
+                        i {
+                            line-height: 2.5em;
+                            font-size: 2.3em;
+                        }
+                    }
+                    .baby-info {
+                        span {
+                            margin-right: 1.5em;
+                        }
+                    }
+                }
+                .add-baby-btn {
+                    text-align: center;
+                    span {
+                        transition: all 0.3s ease;
+                        display: inline-block;
+                        padding: 0.5em 1em;
+                        border-radius: 1.4em;
+                        color: @tertiary;
+                        border: 1px solid @tertiary;
+                        i {vertical-align: bottom;}
+                        &:hover {
+                            background-color: @tertiary;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        div.modal-find-balbum {
+
+        }
+    }
+}
+
