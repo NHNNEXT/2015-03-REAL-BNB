@@ -53,12 +53,11 @@ public class User {
 	@ManyToOne
 	private Family family;
 	
-	private String userName;
 	private String userImg;
 	
 	private String email;
 	private String password;
-	private String role;
+	private String nickname;
 	
 	private State state;
 	private SignIn signIn;

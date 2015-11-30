@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 
 		Family family = new Family();
 		family = familyRepo.save(family);
@@ -50,7 +51,7 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 
 		Baby baby = new Baby();
 		baby.setName("dumdum");
@@ -74,7 +75,7 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 
 		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
@@ -88,7 +89,7 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 		userDTO.setFId(new Long(1234));
 
 		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
@@ -103,10 +104,11 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 		
 		Baby baby = new Baby();
+		baby.setBirth(new Date());
 		baby.setName("dumdum");
 		List<Baby> babies = Arrays.asList(baby, baby);
 		userDTO.setBabies(babies);
@@ -124,7 +126,7 @@ public class UserTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
-		userDTO.setRole("mome");
+		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
 		userRepo.save(user);

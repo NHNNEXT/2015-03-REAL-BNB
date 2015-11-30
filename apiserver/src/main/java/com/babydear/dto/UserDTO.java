@@ -20,6 +20,6 @@ public class UserDTO {
 	private String email;
 	@NotEmpty(message="no password")
 	private String password;
-	private String role;
+	private String nickname;
 	private List<Baby> babies;
 }

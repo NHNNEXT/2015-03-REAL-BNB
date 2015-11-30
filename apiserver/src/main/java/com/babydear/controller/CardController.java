@@ -1,5 +1,6 @@
 package com.babydear.controller;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,11 @@ public class CardController {
 	ImgService imgService;
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
-	public String selectCards(){
+	public String selectCards(Long uId, User user){
+		System.out.println("it's uId");
+		System.out.println(uId);
+		System.out.println(user.getUId());
+		
 		return "{ error: null, startCard: 10, count: 10, cards: [a,b,c,d]}";
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)

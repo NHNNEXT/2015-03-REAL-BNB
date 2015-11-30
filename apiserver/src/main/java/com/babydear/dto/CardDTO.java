@@ -23,6 +23,7 @@ public class CardDTO {
 	private String token;
 	private String content;
 	private String modifiedDate;
+	private String imgUrl;
 	private MultipartFile image;
 	private List<Long> babies;
 	

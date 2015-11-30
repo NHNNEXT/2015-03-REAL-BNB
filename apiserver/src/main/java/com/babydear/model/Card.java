@@ -18,10 +18,12 @@ import com.babydear.dto.CardDTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Setter
 @Getter
+@ToString
 public class Card {
 
 	@Id
@@ -41,14 +43,12 @@ public class Card {
 	private String modifiedDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_date", nullable = false)
 	private Date updateDate;
 
-	private boolean deleted;
+	private Boolean deleted;
 	
 	public Card() {
 	}
