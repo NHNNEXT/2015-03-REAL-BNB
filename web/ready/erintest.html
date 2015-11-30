@@ -1,0 +1,36 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<button onclick="userLoginLocal()">로컬로그인</button>
+
+	<button onclick="userLoginGlobal()">글로벌로그인</button>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	function userLoginLocal () {
+		$.ajax({
+		    type: "POST",
+		    url: "http://127.0.0.1:8080/api/user/login",
+		    data: "email=erin314@naver.com&password=1234",
+		    success: function(res) {
+		        console.log(res);
+		        alert("success");
+		   }
+		});
+	}
+	function userLoginGlobal () {
+		$.ajax({
+		    type: "POST",
+		    url: "http://dev.balbum.net/api/user/login",
+		    data: "email=erin314@naver.com&password=1234",
+		    success: function(res) {
+		        console.log(res);
+		        alert("success");
+		   }
+		});
+	}
+</script>
+</html>
