@@ -88,6 +88,9 @@ section.main-container article.main-col .postcard-container .card-content .baby-
 section.main-container aside.right-col {
   height: 600px;
 }
+#modal-main div.modal-body div.modal-check-balbum .collection-container li {
+  cursor: pointer;
+}
 #modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .collection-item {
   padding: 1em;
 }
@@ -124,4 +127,9 @@ section.main-container aside.right-col {
 #modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span:hover {
   background-color: #74d0cb;
   color: white;
+}
+#modal-main div.modal-body div.modal-add-baby div.action-container a {
+  text-decoration: underline;
+  color: #6f6c66;
+  cursor: pointer;
 }

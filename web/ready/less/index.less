@@ -123,9 +123,12 @@ section.main-container {
 #modal-main {
     div.modal-body {
         div.modal-check-balbum {
-
+            .collection-container {
+                li {
+                    cursor: pointer;
+                }
+            }
         }
-
         div.modal-add-baby {
             .add-baby-container {
                 .collection {
@@ -168,10 +171,15 @@ section.main-container {
                     }
                 }
             }
+            div.action-container {
+                a{
+                    text-decoration: underline;
+                    color: @font-primary;
+                    cursor: pointer;
+                }
+            }
         }
-
         div.modal-find-balbum {
-
         }
     }
 }

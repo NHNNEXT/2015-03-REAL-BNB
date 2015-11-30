@@ -129,6 +129,7 @@ https://github.com/orige/jquery-bootstrap-modal-steps 를 커스텀.
 
         // cancel, next, previous 버튼 클릭
         $modal.find('.js-btn-step').on('click', function(){
+
             var $btn = $(this),
                 $actualStep = $modal.find('#actual-step'),
                 $btnPrevious = $modal.find('.js-btn-step[data-orientation=previous]'),
@@ -233,8 +234,25 @@ https://github.com/orige/jquery-bootstrap-modal-steps 를 커스텀.
         });
 
         // goto를 받아서 그 모달로 이동
-        $modal.find('.js-btn-step').on('click', function() {
+        $modal.find('.js-btn-goto').on('click', function() {
+            var gotoStep = $(this).data('goto'),
+                actualStep = $(this).closest('.row').data('step');
 
+            if (gotoStep == 0){
+                settings.completeCallback();
+                $modal.modal('hide');
+                return;
+            }
+
+            $modal
+                .find('[data-step=' + actualStep + ']')
+                .not($modal.find('.js-btn-step'))
+                .addClass('hide');
+
+            $modal
+                .find('[data-step=' + gotoStep + ']')
+                .not($modal.find('.js-btn-step'))
+                .removeClass('hide');
         });
 
         return this;
