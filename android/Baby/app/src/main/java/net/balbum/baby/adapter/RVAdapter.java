@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.balbum.baby.R;
 import net.balbum.baby.Util.ConvertFileToBitmapUtil;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -53,7 +55,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
             holder.diary_text.setText(cards.get(position).memo.toString());
             holder.date.setText(cards.get(position).recordDate);
-            holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).image));
+           // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).image));
+
+            Picasso.with(context)
+                .load(!!ㅁㄴㄹ미ㅏㄴㅇ미나엄ㄴㅇ!)
+                .resize(250, 200)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.photo);
+
             holder.diary_text.setText(cards.get(position).memo);
             holder.diary_text.setTypeface(typeface);
 
