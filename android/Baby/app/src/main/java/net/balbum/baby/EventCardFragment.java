@@ -84,9 +84,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv_event);
 
         GeneralCardVo tempVo = new GeneralCardVo();
-        tempVo.memo = memo.getText().toString();
+        tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedNames();
-        Log.i("test", "selected : " + tempVo.names.get(0)+ " size: " + tempVo.names.size());
+        Log.i("test", "selected : " + tempVo.babies.get(0) + " size: " + tempVo.babies.size());
         return tempVo;
     }
     //    protected Dialog onCreateDialog(int id){

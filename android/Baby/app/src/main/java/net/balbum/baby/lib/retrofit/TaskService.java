@@ -29,7 +29,7 @@ public interface TaskService {
     @Multipart
     @POST("/api/card")
     void createCard(@Part("image") TypedFile file, @Part("cId") Long l, @Part("token") String token, @Part("babies[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
-//    void createCard(@Part("image") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
+//    void createCard(@Part("imgUrl") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
 //    CardFormVo cardFormVo
 
     @GET("/api/card")

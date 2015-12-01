@@ -87,7 +87,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv);
 
         GeneralCardVo tempVo = new GeneralCardVo();
-        tempVo.memo = memo.getText().toString();
+        tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedList();
 
 

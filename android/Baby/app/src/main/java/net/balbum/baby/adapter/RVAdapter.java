@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
-import net.balbum.baby.Util.ConvertFileToBitmapUtil;
 import net.balbum.baby.VO.GeneralCardVo;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import java.util.List;
  */
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
+    private static final String CORESERVER_URL = "http://192.168.0.14:8080/";
     private List<GeneralCardVo> cards;
     private Context context;
     private boolean open = true;
@@ -53,17 +53,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
     final boolean[] flag = {false};
 
-            holder.diary_text.setText(cards.get(position).memo.toString());
-            holder.date.setText(cards.get(position).recordDate);
-           // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).image));
+            holder.diary_text.setText(cards.get(position).content);
+
+            holder.date.setText(cards.get(position).modifiedDate);
+           // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
 
             Picasso.with(context)
-                .load(!!ㅁㄴㄹ미ㅏㄴㅇ미나엄ㄴㅇ!)
-                .resize(250, 200)
+                .load((CORESERVER_URL+cards.get(position).imgUrl))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.photo);
 
-            holder.diary_text.setText(cards.get(position).memo);
+            holder.diary_text.setText(cards.get(position).content);
             holder.diary_text.setTypeface(typeface);
 
             holder.cv.setOnClickListener(new View.OnClickListener() {

@@ -158,6 +158,7 @@ public class LoginActivity extends FragmentActivity{
         LoginVo loginVo = new LoginVo(emailString, passwordString);
         taskService.createLogin(loginVo, new Callback<AuthVo>() {
 
+
             @Override
             public void success(AuthVo authVo, Response response) {
                 Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
