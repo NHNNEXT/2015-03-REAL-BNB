@@ -72,13 +72,6 @@ public class LoginActivity extends FragmentActivity{
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.login_activity);
 
-
-//        callValue = sharedPreferences.getString("token", "default value");
-//        Log.i("test", "callvalue" + callValue);
-//        if(callValue != null){
-//            goMainActivity();
-//        }
-
         password = (EditText)findViewById(R.id.user_password);
         email = (EditText)findViewById(R.id.user_email);
 
@@ -164,6 +157,7 @@ public class LoginActivity extends FragmentActivity{
         passwordString = password.getText().toString();
         LoginVo loginVo = new LoginVo(emailString, passwordString);
         taskService.createLogin(loginVo, new Callback<AuthVo>() {
+
 
             @Override
             public void success(AuthVo authVo, Response response) {

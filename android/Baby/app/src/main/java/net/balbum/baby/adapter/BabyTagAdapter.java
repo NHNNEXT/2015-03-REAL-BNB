@@ -68,7 +68,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     public ArrayList<String> getSelectedNames(){
         for(int i =0; i< names.size(); i++){
             if(names.get(i).isSelected){
-                selectedList.add(names.get(i).name);
+                selectedList.add(names.get(i).name.toString());
             }
         }
         return selectedList;
@@ -105,7 +105,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //            viewHolder = (BabyViewHolder) convertView.getTag();
 //        }
 //
-//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
+//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).imgUrl));
 //        viewHolder.name.setText(names.get(position).name);
 //
 //
