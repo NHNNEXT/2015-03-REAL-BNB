@@ -67,27 +67,28 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             holder.diary_text.setTypeface(typeface);
 
             holder.cv.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
 
-            if (!flag[0]) {
-            // holder.photo.setImageAlpha(64);
-         //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
+                    if (!flag[0]) {
+                        // holder.photo.setImageAlpha(64);
+                        //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
 
-            flag[0] = !flag[0];
-          //  holder.diary_text.setVisibility(View.VISIBLE);
+                        flag[0] = !flag[0];
+                        //  holder.diary_text.setVisibility(View.VISIBLE);
 
-        //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
-            holder.photo.setImageAlpha(65);
-            addUserTag(view);
-            } else {
-            holder.photo.setImageAlpha(255);
-            flag[0] = !flag[0];
-        //    holder.diary_text.setVisibility(View.INVISIBLE);
-            removeUserTag(view);
-            }
-            }
+                        //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
+                        holder.photo.setImageAlpha(65);
+                        addUserTag(view);
+                    } else {
+                        holder.photo.setImageAlpha(255);
+                        flag[0] = !flag[0];
+                        //    holder.diary_text.setVisibility(View.INVISIBLE);
+                        removeUserTag(view);
+                    }
+                }
             });
+
 
     //        holder.cv.setOnTouchListener(new View.OnTouchListener() {
     //            @Override
@@ -171,5 +172,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
 
 }

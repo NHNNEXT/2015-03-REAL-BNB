@@ -70,6 +70,16 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
 
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState ==  1){
+                    Toast.makeText(context, "scrolling~~", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         RVAdapter adapter = new RVAdapter(cardGeneralModelList, context);
         Log.d("test", cardGeneralModelList.size()+"!!!");
         rv.setAdapter(adapter);
