@@ -1,6 +1,7 @@
 package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -33,6 +34,9 @@ public interface TaskService {
 //    CardFormVo cardFormVo
 
 
+    @Multipart
+    @POST("/api/card")
+    void createCard(@Body TypedFile file, @Body CardFormVo cardFormVo, Callback<ResponseVo> cb);
 
   //Body body로 나눠 보내보기!
 
