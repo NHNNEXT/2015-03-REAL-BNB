@@ -22,12 +22,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CardViewDTO {
+public class CardListDTO {
 	private String error = "adsf";
 	private Integer startCard = 10;
 	public Integer count = 10;
-	public List<Card> cardList = Arrays.asList(
-			new Card(new Family(), new User(), new HashSet(), "http://img.cgv.co.kr/Movie/Thumbnail/Poster/000078/78529/78529_185.jpg", "content", "modifiedDate"), 
-			new Card(), 
-			new Card());
+	public List<CardShowDTO> cardList = Arrays.asList(
+			new CardShowDTO(),new CardShowDTO());
 }

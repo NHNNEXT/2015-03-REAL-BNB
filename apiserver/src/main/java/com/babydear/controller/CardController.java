@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.babydear.dto.CardDTO;
+import com.babydear.dto.CardListDTO;
 import com.babydear.dto.ResponseDTO;
 import com.babydear.model.Baby;
 import com.babydear.model.Card;
@@ -32,12 +33,13 @@ public class CardController {
 	ImgService imgService;
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
-	public String selectCards(Long uId, User user){
+	public CardListDTO selectCards(Long uId, User user){
 		System.out.println("it's uId");
-		System.out.println(uId);
-		System.out.println(user.getUId());
+//		System.out.println(uId);
+//		System.out.println(user.getUId());
 		
-		return "{ error: null, startCard: 10, count: 10, cards: [a,b,c,d]}";
+		
+		return new CardListDTO();
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(User user, CardDTO cardDTO){

@@ -49,16 +49,24 @@ public class RepoTest {
 		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 		
+		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		userRepo.save(user);
+		
 		Baby baby = new Baby();
 		baby.setBirth(new Date());
 		baby.setName("dumdum");
-		List<Baby> babies = Arrays.asList(baby, baby);
-		userDTO.setBabies(babies);
-
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
-		userRepo.save(user);
-		babyRepo.save(babies);
+		baby.setSex(Baby.Sex.BOY);
+		baby.setFid(family);
 		
+		Baby baby2 = new Baby();
+		baby2.setBirth(new Date());
+		baby2.setName("dumdum");
+		baby2.setSex(Baby.Sex.GIRL);
+		baby2.setFid(family);
+		
+		List<Baby> babies = Arrays.asList(baby, baby2);
+		babyRepo.save(babies);
+
 		Baby temp =babyRepo.findOne(new Long(1));
 		Card card = new Card();
 		Set<Baby> set = new HashSet<Baby>();

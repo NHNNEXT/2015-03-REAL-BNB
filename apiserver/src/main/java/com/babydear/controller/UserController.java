@@ -53,7 +53,7 @@ public class UserController {
 	FamilyRepository familyRepo;
 	
 	@RequestMapping("/api/user/create")
-	public AuthDTO create(@Valid UserDTO userDTO) {
+	public AuthDTO create(UserDTO userDTO) {
 		Family family = null;
 		if (userDTO.getFId() == null) {
 			family = familyRepo.save(new Family());
