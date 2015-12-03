@@ -13,15 +13,12 @@ import android.util.Log;
  */
 public class LoadingActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
     Context context;
-
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     @Override
@@ -30,11 +27,10 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         context = this;
 
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(sharedPreferences.contains("tokenB")) {
             String t = sharedPreferences.getString("tokenB", "");
-            Log.i("test", "hello~~" + t);
+            Log.d("test", "token~~" + t);
             Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
             startActivity(intent);
 
@@ -42,8 +38,6 @@ public class LoadingActivity extends AppCompatActivity {
             Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-
-
 
     }
 }

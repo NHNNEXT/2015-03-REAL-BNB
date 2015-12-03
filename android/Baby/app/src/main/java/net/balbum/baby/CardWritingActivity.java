@@ -59,21 +59,23 @@ public class CardWritingActivity extends AppCompatActivity {
 
         initToolbar();
         initData();
-        initTagBar();
+        initViewPager();
+        initBabyTag();
+    }
+
+    private void initBabyTag() {
+        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
+        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        rv_baby.setLayoutManager(sgm);
+        adapter = new BabyTagAdapter(babyTagNamesList, context);
+        rv_baby.setAdapter(adapter);
+    }
+
+    private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
-        RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
-        StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        rv_baby.setLayoutManager(sgm);
-
-        Log.i("test", "1: " + babyTagNamesList.size());
-
-        adapter = new BabyTagAdapter(babyTagNamesList, context);
-        rv_baby.setAdapter(adapter);
-
     }
 
     private Context initData(){
@@ -99,10 +101,6 @@ public class CardWritingActivity extends AppCompatActivity {
         babyTagNamesList.add(baby3);
 
         return null;
-
-    }
-
-    private void initTagBar() {
 
     }
 

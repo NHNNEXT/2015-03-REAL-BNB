@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +24,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
-import net.balbum.baby.Util.TimeUtil;
+import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.RVAdapter;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,18 +59,29 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initNavigationView();
         initFab();
-        initData();
-        initView();
-
+//        initData();
+//        initView(cardGeneralModelList);
+//
     }
 
-    private void initView() {
+    private void initView(List<GeneralCardVo> cardGeneralModelList) {
 
         RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
 
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState ==  1){
+                    Toast.makeText(context, "scrolling~~", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         RVAdapter adapter = new RVAdapter(cardGeneralModelList, context);
+        Log.d("test", cardGeneralModelList.size()+"!!!");
         rv.setAdapter(adapter);
     }
 
@@ -187,19 +203,19 @@ public class MainActivity extends AppCompatActivity
         File c = ConvertBitmapToFileUtil.convertFile(img3);
         File d = ConvertBitmapToFileUtil.convertFile(img4);
 
-        GeneralCardVo data1 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "오늘 날씨 맑음", "엄마");
-        GeneralCardVo data2 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "오늘 우리 아가가 나를 보면서 빵긋 웃었다. 씩 모델해도 될 것 같다...", "아빠");
-        GeneralCardVo data3 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), c, names, "햇살 따듯, 한가로운 오후", "엄마");
-        GeneralCardVo data4 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), d, names, "아무리봐도 아빠를 너무 닮은 것 같아 속상하다 크면서 바뀌겠지. 그래 그럴거야! 우리 아가는 점점 나를 닮아갈거야!!!", "엄마");
-        GeneralCardVo data5 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "아가들 씐나씐나", "아빠");
-        GeneralCardVo data6 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "우리아가 이쁜이 옹알옹알 잘한다", "엄마");
+//        GeneralCardVo data1 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "오늘 날씨 맑음", "엄마");
+//        GeneralCardVo data2 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "오늘 우리 아가가 나를 보면서 빵긋 웃었다. 씩 모델해도 될 것 같다...", "아빠");
+//        GeneralCardVo data3 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), c, names, "햇살 따듯, 한가로운 오후", "엄마");
+//        GeneralCardVo data4 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), d, names, "아무리봐도 아빠를 너무 닮은 것 같아 속상하다 크면서 바뀌겠지. 그래 그럴거야! 우리 아가는 점점 나를 닮아갈거야!!!", "엄마");
+//        GeneralCardVo data5 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "아가들 씐나씐나", "아빠");
+//        GeneralCardVo data6 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "우리아가 이쁜이 옹알옹알 잘한다", "엄마");
 
-        cardGeneralModelList.add(data1);
-        cardGeneralModelList.add(data2);
-        cardGeneralModelList.add(data3);
-        cardGeneralModelList.add(data4);
-        cardGeneralModelList.add(data5);
-        cardGeneralModelList.add(data6);
+//        cardGeneralModelList.add(data1);
+//        cardGeneralModelList.add(data2);
+//        cardGeneralModelList.add(data3);
+//        cardGeneralModelList.add(data4);
+//        cardGeneralModelList.add(data5);
+//        cardGeneralModelList.add(data6);
 
 //        cardGeneralModelList.add(new CardGeneralModel("2015.10.10", R.drawable.img1, "륜이 12개월", "챙챙 12개월", "오늘은 하늘이 하늘하늘"));
 //        cardGeneralModelList.add(new CardGeneralModel("2015.10.22",  R.drawable.img2, "챙챙 12개월", "유림 12개월", "꺄르르 까궁!"));
@@ -232,4 +248,41 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 //    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        taskService = ServiceGenerator.createService(TaskService.class);
+        Log.d("test", " getCard시작?~");
+        taskService.getCard("token", new Callback<CardListVo>() {
+
+
+            @Override
+            public void success(CardListVo cardListVo, Response response) {
+                CardListVo cd =  cardListVo;
+                Log.d("test", " getCard test success~");
+                cardGeneralModelList = cd.cardList;
+                Log.d("test", "size~: " + cardGeneralModelList.size());
+                getCardsFromServer(cardGeneralModelList);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                String a = "192.168.1.146:8080/img/asdf.jpeg";
+                Log.d("test", " string a :" + a);
+
+//                Url url = new URL(context, a);
+
+//                String decodeResult = URLDecoder.decode(String decodingString, String charsetName);
+            }
+        });
+    }
+
+    private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
+            initView(cardGeneralModelList);
+
+    }
 }
+

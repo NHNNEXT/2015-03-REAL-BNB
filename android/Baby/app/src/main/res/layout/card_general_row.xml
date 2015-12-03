@@ -4,11 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="500dp"
     android:layout_marginBottom="10dp"
     android:elevation="5dp"
-    app:cardCornerRadius="1dp"
-    >
+    app:cardCornerRadius="1dp">
 
     <LinearLayout
         android:id="@+id/card_layout"
@@ -20,35 +19,39 @@
             android:id="@+id/tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:background="@android:color/transparent"
+            android:gravity="center"
+            android:paddingBottom="10dp"
             android:textColor="@color/purple2"
-            android:textStyle="italic"
             android:textSize="14dp"
-            android:paddingBottom="10dp"/>
+            android:textStyle="italic" />
 
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="5"
             android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
+
             />
 
         <TextView
             android:id="@+id/diary_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:padding="20dp"
-            android:textColor="@color/text"
-             />
+            android:textColor="@color/text" />
 
         <LinearLayout
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_gravity="bottom"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical" />
 
