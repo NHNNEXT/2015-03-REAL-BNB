@@ -71,13 +71,10 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
 
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == 1) {
-                    Toast.makeText(context, "scrolling~~", Toast.LENGTH_SHORT).show();
-                }
+            public void onLoadMore(int current_page) {
+
             }
         });
 

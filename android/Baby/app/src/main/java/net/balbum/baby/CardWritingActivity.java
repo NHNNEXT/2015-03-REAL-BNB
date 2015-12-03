@@ -173,6 +173,17 @@ public class CardWritingActivity extends AppCompatActivity {
             String content = "asdasd";
             CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
 
+            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
+                @Override
+                public void success(ResponseVo responseVo, Response response) {
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
             taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
