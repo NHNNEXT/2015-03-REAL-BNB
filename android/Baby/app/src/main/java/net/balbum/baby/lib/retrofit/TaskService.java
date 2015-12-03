@@ -32,6 +32,11 @@ public interface TaskService {
 //    void createCard(@Part("imgUrl") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
 //    CardFormVo cardFormVo
 
+
+
+  //Body body로 나눠 보내보기!
+
+
     @GET("/api/card")
     void getCard(@Query("token") String token, Callback<CardListVo> cb);
 

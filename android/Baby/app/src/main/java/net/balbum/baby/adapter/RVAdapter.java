@@ -12,17 +12,15 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import net.balbum.baby.R;
 import net.balbum.baby.VO.GeneralCardVo;
-
 import java.util.List;
 
 /**
  * Created by hyes on 2015. 11. 10..
  */
+
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
     private static final String CORESERVER_URL = "http://192.168.0.14:8080/";
@@ -45,8 +43,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row, parent, false);
             viewHolder pvh = new viewHolder(v);
             return pvh;
-
-            }
+        }
 
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
@@ -158,6 +155,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
         CardView cv;
         TextView date, diary_text;
         ImageView photo;
+        LinearLayout profile_container;
 
         viewHolder(View itemView) {
             super(itemView);
@@ -165,6 +163,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             date = (TextView)itemView.findViewById(R.id.tv_date);
             photo = (ImageView)itemView.findViewById(R.id.iv_image);
             diary_text = (TextView)itemView.findViewById(R.id.diary_text);
+            profile_container = (LinearLayout) itemView.findViewById(R.id.profile_container);
         }
     }
 
@@ -172,6 +171,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
 
 
 }

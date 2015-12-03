@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private LinearLayout drawerLayout;
     private SharedPreferences sharedPreferences;
+    RVAdapter adapter;
     TaskService taskService;
 
     @Override
@@ -74,13 +75,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState ==  1){
+                if (newState == 1) {
                     Toast.makeText(context, "scrolling~~", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        RVAdapter adapter = new RVAdapter(cardGeneralModelList, context);
+        adapter = new RVAdapter(cardGeneralModelList, context);
         Log.d("test", cardGeneralModelList.size()+"!!!");
         rv.setAdapter(adapter);
     }
@@ -265,7 +266,10 @@ public class MainActivity extends AppCompatActivity
                 Log.d("test", " getCard test success~");
                 cardGeneralModelList = cd.cardList;
                 Log.d("test", "size~: " + cardGeneralModelList.size());
-                getCardsFromServer(cardGeneralModelList);
+                //getCardsFromServer(cardGeneralModelList);
+                //되는지 확인할 것
+                adapter.notifyDataSetChanged();
+
             }
 
             @Override
