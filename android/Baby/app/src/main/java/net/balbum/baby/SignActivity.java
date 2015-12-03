@@ -1,5 +1,6 @@
 package net.balbum.baby;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,6 +24,13 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch(id){
             case R.id.sign_facebook:
+                break;
+            case R.id.sign_email:
+                Intent intentEmail = new Intent(SignActivity.this, SignEmailActivity.class);
+                startActivity(intentEmail);
+                break;
+
+
         }
     }
 }
