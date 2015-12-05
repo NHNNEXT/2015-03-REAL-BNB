@@ -61,5 +61,11 @@ public class User {
 	
 	private State state;
 	private SignIn signIn;
+	public boolean checkPW(String password) {
+		if(this.password.equals(password)){
+			return true;
+		}
+		return false;
+	}
 	
 }

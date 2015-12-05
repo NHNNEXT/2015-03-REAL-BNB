@@ -1,5 +1,6 @@
 package com.babydear.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.babydear.dto.AuthDTO;
+import com.babydear.dto.ResponseDTO;
 import com.babydear.dto.UserDTO;
 import com.babydear.model.Baby;
 import com.babydear.model.Family;
@@ -78,8 +80,12 @@ public class UserController {
 		System.out.println("login");
 		
 		User user = userRepo.findByEmail(userDTO.getEmail());
-//		System.out.println(userDTO);
-		return new AuthDTO("asdf1234", "2015-11-19:00:00:00");
+		Boolean result = user.checkPW(userDTO.getPassword());
+		if(result){
+			return new AuthDTO(setToken(user.getUId()), new Date().toString());
+		}else{
+			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
+		}
 	}
 	
 	@RequestMapping("/api/user/logintest")
@@ -92,6 +98,7 @@ public class UserController {
 //		System.out.println(userDTO);
 		return new AuthDTO("asdf1234", "2015-11-19:00:00:00");
 	}
+	
 	
 	@RequestMapping("/api/user/facebook")
 	public String facebook(User user) {
