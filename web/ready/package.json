@@ -15,6 +15,7 @@
     "gulp-watch": "^4.3.5"
   },
   "dependencies": {
+    "angular": "^1.4.8",
     "dropzone": "^4.2.0"
   }
 }
