@@ -15,12 +15,12 @@ ul {
 li {
   list-style-type: none;
 }
-.lp_body {
+.lp-body {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.bg_box {
+.bg-box {
   overflow: hidden;
   width: 100%;
   /*height: 100%;*/
@@ -32,12 +32,12 @@ li {
   background-color: #896DA5;
   z-index: -1;
 }
-.bg_box .bg_img {
+.bg-box .bg-img {
   width: 100%;
   height: 100%;
   background-size: cover;
 }
-.lp_container {
+.lp-container {
   position: absolute;
   text-align: center;
   left: 50%;
@@ -46,7 +46,7 @@ li {
   /* lp_content의 height와 width의 절반값 참고 */
   width: 300px;
 }
-.lp_container .lp_content {
+.lp-container .lp-content {
   /*border: solid 1px;*/
   position: relative;
   width: 300px;
@@ -54,7 +54,7 @@ li {
   /*background-color: #eee;*/
   margin: 0 auto;
 }
-.lp_container .lp_content .msg {
+.lp-container .lp-content .msg {
   float: left;
   width: 300px;
   margin: 0 auto;
@@ -62,7 +62,7 @@ li {
   font-size: 1.5em;
   color: #fff;
 }
-.lp_container .lp_content .lp_logo {
+.lp-container .lp-content .lp-logo {
   width: 90px;
   height: 90px;
   margin: 40px;
@@ -72,27 +72,27 @@ li {
   background-size: 100%;
   position: relative;
 }
-.lp_container .lp_content .signup_box,
-.lp_container .lp_content .login_box {
+.lp-container .lp-content .signup-box,
+.lp-container .lp-content .login-box {
   /*width: 245px;*/
   /*margin: 0 auto;*/
 }
-.lp_container .lp_content .signup_box .row input:focus,
-.lp_container .lp_content .login_box .row input:focus {
+.lp-container .lp-content .signup-box .row input:focus,
+.lp-container .lp-content .login-box .row input:focus {
   border-bottom: 1px solid #64b5f6 !important;
   box-shadow: 0 1px 0 0 #64b5f6 !important;
 }
-.lp_container .lp_content .signup_btn,
-.lp_container .lp_content .login_btn {
+.lp-container .lp-content .signup-btn,
+.lp-container .lp-content .login-btn {
   width: 100%;
   background-color: #64b5f6;
 }
-.lp_container .lp_content .signup_btn:hover,
-.lp_container .lp_content .login_btn:hover {
+.lp-container .lp-content .signup-btn:hover,
+.lp-container .lp-content .login-btn:hover {
   background-color: #90caf9;
 }
-.lp_container .lp_content .goto_login,
-.lp_container .lp_content .goto_signup {
+.lp-container .lp-content .goto-login,
+.lp-container .lp-content .goto-signup {
   margin: 12px auto;
   width: 105px;
   font-size: 13px;
@@ -100,7 +100,7 @@ li {
   display: block;
   cursor: pointer;
 }
-.lp_container .lp_content .goto_login:hover,
-.lp_container .lp_content .goto_signup:hover {
+.lp-container .lp-content .goto-login:hover,
+.lp-container .lp-content .goto-signup:hover {
   color: #64b5f6;
 }
