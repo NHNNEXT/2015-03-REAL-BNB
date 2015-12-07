@@ -263,9 +263,9 @@ public class MainActivity extends AppCompatActivity
                 Log.d("test", " getCard test success~");
                 cardGeneralModelList = cd.cardList;
                 Log.d("test", "size~: " + cardGeneralModelList.size());
-                //getCardsFromServer(cardGeneralModelList);
+                getCardsFromServer(cardGeneralModelList);
                 //되는지 확인할 것
-                adapter.notifyDataSetChanged();
+//                adapter.notifyDataSetChanged();
 
             }
 
