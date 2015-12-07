@@ -12,6 +12,9 @@
   box-shadow: none !important;
   border-radius: 5px !important;
 }
+.disappear {
+  display: none;
+}
 body {
   background: #f3ede8;
 }
@@ -67,7 +70,7 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
-section.main-container article.main-col .postcard-container .upload-photo-box {
+section.main-container article.main-col div.postcard-container div#daily-tab .upload-photo-box {
   margin-top: 10px;
   width: 100%;
   height: 50px;
@@ -76,13 +79,13 @@ section.main-container article.main-col .postcard-container .upload-photo-box {
   text-align: center;
   cursor: pointer;
 }
-section.main-container article.main-col .postcard-container .upload-photo-box i {
+section.main-container article.main-col div.postcard-container div#daily-tab .upload-photo-box i {
   line-height: 50px;
 }
-section.main-container article.main-col .postcard-container #uploaded-photo {
+section.main-container article.main-col div.postcard-container div#daily-tab #uploaded-photo {
   display: none;
 }
-section.main-container article.main-col .postcard-container .card-content .baby-check {
+section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check {
   display: inline-block;
 }
 section.main-container aside.right-col {

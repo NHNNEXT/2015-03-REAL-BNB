@@ -15,6 +15,9 @@
     box-shadow: none !important;
     border-radius: 5px !important;
 }
+.disappear {
+    display: none;
+}
 
 body {
     background: #f3ede8;
@@ -66,12 +69,6 @@ aside.left-col {
     width: @left-col-width;
     height:100%;
     z-index: -10;
-
-    //material css 기본 side-nav 오버라이드
-    // .side-nav.fixed {
-    //     top: initial !important;
-    //     left: 0 !important;
-    // }
 }
 
 //*-- Main Container --*//
@@ -81,35 +78,47 @@ section.main-container {
         padding-left: 0;
     }
 
+    //*-- 메인 타임라인 --*//
     article.main-col {
-        // background: #F3F5F6;
         height: 600px;
-        .postcard-container {
 
-            .upload-photo-box {
-                margin-top: 10px;
-                width: 100%;
-                height: 50px;
-                border: 1px dashed @light-gray;
-                color: @light-gray;
-                text-align: center;
-                cursor: pointer;
-                i {
-                    line-height: 50px;
+        //*-- 카드 작성 컨테이너 --*//
+        div.postcard-container {
+            div.postcard-tabs {
+
+            }
+            div#daily-tab {
+                .upload-photo-box {
+                    margin-top: 10px;
+                    width: 100%;
+                    height: 50px;
+                    border: 1px dashed @light-gray;
+                    color: @light-gray;
+                    text-align: center;
+                    cursor: pointer;
+                    i {
+                        line-height: 50px;
+                    }
                 }
+                #uploaded-photo {
+                    display: none;
+                }
+
             }
-            #uploaded-photo {
-                display: none;
+            div#event-tab {
+
             }
-            .card-content {
+            div.baby-check-container {
                 // padding: 0;
                 .baby-check {
                     display: inline-block;
                 }
             }
-            .bcard-action {
-                // padding: 0 !important;
-            }
+        }
+
+        //*-- 작성된 카드들 컨테이너 --*//
+        .card-container {
+
         }
     }
 
