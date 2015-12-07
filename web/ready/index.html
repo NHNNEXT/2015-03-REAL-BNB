@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html ng-app="balbumApp" class="no-js" lang="">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -150,21 +150,23 @@
                         <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                     </div>
                 </div>
-                <div class="card-container" >
-                    <div class="b-card card scrollspy" id="card-2">
-                        <div class="card-image">
-                            <img src="img/photo7.jpg">
+
+                <div class="card-container" ng-controller="CardController as cardTimeline">
+                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.testData">
+                        <div class="bc-photo card-image">
+                            <img src="{{bc.imgUrl}}">
                         </div>
-                        <div class="card-content">
-                            <p>높이 올라가. 세상을 다 가져봐. 네버 배끼레 배끼리럽. 네버 터니럽 터니리러업. 예에. 할라 할로 할로 할로.</p>
+                        <div class="bc-content card-content">
+                            <p>{{bc.content}}</p>
                         </div>
-                        <div class="card-action">
-                            <div class="baby-chip chip right">
-                                <img src="img/baby2.jpeg" alt="Contact Person">
-                                다정이 3개월
+                        <div class="action card-action">
+                            <div class="bc-babychip" ng-repeat=" baby in bc.babies">
+                                <div class="baby-chip chip right">
+                                    <img src="{{baby.imgUrl}}" alt="Contact Person">{{baby.name}} {{baby.birth}}
+                                </div>
                             </div>
                             <div class="date-container">
-                                <a href="#">15.03.13</a>
+                                <a href="#">{{bc.modified}}</a>
                             </div>
                             <div class="btn-container">
                                 <div class="share-btn"></div>
@@ -182,9 +184,9 @@
                     <div class="row">
                         <ul class="section table-of-contents">
                             <li><a href="#card-now">지금 이 순간</a></li>
-                            <li><a href="#card-1">2015년 5월</a></li>
-                            <li><a href="#card-2">2015년 3월</a></li>
-                            <li><a href="#">태어남</a></li>
+                            <li><a href="#1">2015년 5월</a></li>
+                            <li><a href="#2">2015년 3월</a></li>
+                            <li><a href="#3">태어남</a></li>
                         </ul>
                     </div>
                 </div>
@@ -195,10 +197,11 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/vendor/materialize.js"></script>
         <script src="js/plugins.js"></script>
+        <script src="/node_modules/angular/angular.js"></script>
         <!-- <script src="js/vendor/timeline.js"></script> -->
         <script src="js/index.js"></script>
         <script src="js/vendor/steps-modal.js"></script>
         <script src="js/cardCRUD.js"></script>
-        <script src="node_modules/dropzone/dist/dropzone.js"></script>
+        <script src="/node_modules/dropzone/dist/dropzone.js"></script>
     </body>
 </html>

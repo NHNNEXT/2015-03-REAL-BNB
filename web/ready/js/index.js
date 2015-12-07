@@ -39,7 +39,35 @@ var Upload = {
             $('.upload-photo-box').css('display', 'none');
         });
     }
-}
+
+angular.module('balbumApp', [])
+.controller('CardController', function() {
+    var cardTimeline = this;
+    cardTimeline.testData = [{
+        content: "테스트 콘텐츠 지롱",
+        modified: '2015-04-02',
+        imgUrl: "img/photo1.jpg",
+        babies: [
+            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"},
+            {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
+        cId: 1
+        }, {
+        content: "테스트를 또 하지롱 다정이",
+        modified: '2015-04-05',
+        imgUrl: "img/photo2.jpg",
+        babies: [
+            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}],
+        cId: 2
+        }, {
+        content: "테스트를 또 하지롱 연우 ",
+        modified: '2015-04-07',
+        imgUrl: "img/photo3.jpg",
+        babies: [
+            {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
+        cId: 3
+        }
+    ];
+});
 
 $(function(){
     Start.init();
