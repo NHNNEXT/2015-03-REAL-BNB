@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Balbum</string>
+
+    <string name="facebook_app_id">333726796797560</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -8,8 +10,6 @@
     <string name="diary_sample">"오늘은 하늘이 하늘하늘 오늘도 경륜챙챙유림이 잘 크고 있다! 화이링화이링" </string>
     <string name="share_text">공유</string>
     <string name="save_text">저장</string>
-
-    <string name="facebook_app_id">743303165813558</string>
 
     <string name="photo_btn_hint">"ADD PHOTO"</string>
     <string name="memo_btn_hint">"우리 아이는 지금 무엇을 하고 있나요?"</string>

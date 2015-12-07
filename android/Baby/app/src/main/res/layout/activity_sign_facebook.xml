@@ -11,6 +11,8 @@
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
+        android:layout_below="@+id/sign_email_profile_photo"
+        android:id="@+id/edit_txt_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
