@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
@@ -19,9 +20,13 @@ public class SignFacebookActivity extends AppCompatActivity{
 
     Context context;
     ProfilePictureView profilePictureView;
-    EditText signEmail;
-    EditText signName;
+//    EditText signEmail;
+//    EditText signName;
     Button sign_btn;
+    TextView signEmail;
+    TextView signName;
+    EditText signRole;
+    String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +44,28 @@ public class SignFacebookActivity extends AppCompatActivity{
         profilePictureView = (ProfilePictureView) findViewById(R.id.image);
         profilePictureView.setProfileId(profileId);
 
-        signEmail = (EditText)findViewById(R.id.sign_email);
-        signEmail.setText(profileEmail);
+//        signEmail = (EditText)findViewById(R.id.sign_email);
+//        signEmail.setText(profileEmail);
+//
+//        signName = (EditText)findViewById(R.id.sign_name);
+//        signName.setText(profileName);
 
-        signName = (EditText)findViewById(R.id.sign_name);
+        signName = (TextView)findViewById(R.id.sign_email_tv);
         signName.setText(profileName);
+        signEmail = (TextView)findViewById(R.id.sign_name_tv);
+        signEmail.setText(profileEmail);
+        signRole =(EditText)findViewById(R.id.sign_role);
 
         sign_btn = (Button)findViewById(R.id.sign_btn);
         sign_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                role = signRole.getText().toString();
+                Log.d("test", "role" + role);
                 Intent intent = new Intent(SignFacebookActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
 
     }
 }

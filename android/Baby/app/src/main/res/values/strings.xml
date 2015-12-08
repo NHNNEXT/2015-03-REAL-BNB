@@ -20,4 +20,5 @@
     <string name="sign_facebook">facebook으로 가입하기</string>
     <string name="sign_email">email로 가입하기</string>
     <string name="ok">확인</string>
+    <string name="role">아이와 어떤 관계인가요?(예:슈퍼파월 엄마)"</string>
 </resources>

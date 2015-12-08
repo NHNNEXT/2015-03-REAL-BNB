@@ -45,11 +45,23 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/sign_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/role" />
+
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/sign_btn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_password"
+        android:layout_below="@+id/sign_role"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/primary_round"
