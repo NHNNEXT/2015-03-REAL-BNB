@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,12 +64,36 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
         holder.diary_text.setText(cards.get(position).content);
         holder.diary_text.setTypeface(typeface);
-//        holder.profile_container
+        babiesInfo(holder.profile_container, position);
 
     }
 
+    private void babiesInfo(LinearLayout profile_container, int position) {
+//        int idx = cards.get(position).babies.size();
+        int idx = 3;
+        LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 60);
 
+        for(int i=0; i<idx; i++){
 
+            LinearLayout linLayout = new LinearLayout(context);
+            linLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+            ImageView iv_profile = new ImageView(context);
+            iv_profile.setImageResource(R.mipmap.ic_launcher);
+
+            linLayout.addView(iv_profile, lpView);
+
+            TextView tv = new TextView(context);
+            tv.setText("13개월");
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            tv.setLayoutParams(lpView);
+            tv.setGravity(Gravity.CENTER);
+            linLayout.addView(tv);
+            ((LinearLayout) profile_container).addView(linLayout);
+
+        }
+    }
 
 
     @Override

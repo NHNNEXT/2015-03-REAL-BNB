@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         adapter = new RVAdapter(cardGeneralModelList, context);
-        Log.d("test", cardGeneralModelList.size()+"!!!");
         rv.setAdapter(adapter);
     }
 
