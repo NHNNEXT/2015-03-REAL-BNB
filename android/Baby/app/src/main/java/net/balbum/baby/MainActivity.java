@@ -30,6 +30,7 @@ import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.RVAdapter;
+import net.balbum.baby.adapter.RVAdapterLandscape;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout drawerLayout;
     private SharedPreferences sharedPreferences;
     RVAdapter adapter;
+    RVAdapterLandscape adapterLandscape;
     TaskService taskService;
 
     @Override
@@ -80,8 +82,8 @@ public class MainActivity extends AppCompatActivity
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         rv.setLayoutManager(sglm);
 
-        adapter = new RVAdapter(cardGeneralModelList, context);
-        rv.setAdapter(adapter);
+        adapterLandscape = new RVAdapterLandscape(cardGeneralModelList, context);
+        rv.setAdapter(adapterLandscape);
     }
 
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
@@ -296,6 +298,6 @@ public class MainActivity extends AppCompatActivity
     private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
             initView(cardGeneralModelList);
     }
-    
+
 }
 

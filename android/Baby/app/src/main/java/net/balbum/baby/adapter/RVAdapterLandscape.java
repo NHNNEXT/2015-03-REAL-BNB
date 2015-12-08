@@ -30,7 +30,7 @@ import java.util.List;
  * Created by hyes on 2015. 11. 10..
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
+public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.viewHolder> {
 
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
@@ -40,7 +40,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
             Animation anim;
 
 
-    public RVAdapter(List<GeneralCardVo> cards, Context context){
+    public RVAdapterLandscape(List<GeneralCardVo> cards, Context context){
         this.cards = cards;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
@@ -49,7 +49,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row_landscape, parent, false);
             viewHolder pvh = new viewHolder(v);
             return pvh;
         }
@@ -133,7 +133,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
 
     private void babiesInfo(LinearLayout profile_container, int position) {
 //        int idx = cards.get(position).babies.size();
-        int idx = 5;
+        int idx = 3;
         LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 60);
 
         for(int i=0; i<idx; i++){
