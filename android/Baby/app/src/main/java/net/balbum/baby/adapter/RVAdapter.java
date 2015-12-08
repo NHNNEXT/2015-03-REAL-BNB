@@ -1,6 +1,7 @@
 package net.balbum.baby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import net.balbum.baby.CardWritingActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Config;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -93,7 +95,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     }
 
     private void modifyCard(viewHolder holder, int position) {
-        Toast.makeText(context, "modify~~", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(context, CardWritingActivity.class);
+        intent.putExtra("cId", cards.get(position).cId);
+        context.startActivity(intent);
+
+
     }
 
     private void deleteCard(viewHolder holder, int position) {

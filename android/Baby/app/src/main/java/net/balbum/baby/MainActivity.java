@@ -3,6 +3,7 @@ package net.balbum.baby;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -57,13 +59,29 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         context = this;
         initToolbar();
         initNavigationView();
         initFab();
         initData();
-        initView(cardGeneralModelList);
+
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            initView(cardGeneralModelList);
+        }else{
+            initViewLandscpae(cardGeneralModelList);
+        }
 //
+    }
+
+    private void initViewLandscpae(List<GeneralCardVo> cardGeneralModelList) {
+
+        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        rv.setLayoutManager(sglm);
+
+        adapter = new RVAdapter(cardGeneralModelList, context);
+        rv.setAdapter(adapter);
     }
 
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
@@ -258,7 +276,7 @@ public class MainActivity extends AppCompatActivity
         taskService.getCard("token", new Callback<CardListVo>() {
             @Override
             public void success(CardListVo cardListVo, Response response) {
-                CardListVo cd =  cardListVo;
+                CardListVo cd = cardListVo;
                 Log.d("test", " getCard test success~");
                 cardGeneralModelList = cd.cardList;
                 Log.d("test", "size~: " + cardGeneralModelList.size());
@@ -271,12 +289,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void failure(RetrofitError error) {
                 Log.d("test", " taskService failure");
-          }
+            }
         });
     }
 
     private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
             initView(cardGeneralModelList);
     }
+    
 }
 
