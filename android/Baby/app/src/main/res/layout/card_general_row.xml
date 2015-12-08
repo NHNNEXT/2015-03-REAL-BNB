@@ -9,7 +9,7 @@
     android:elevation="5dp"
     app:cardCornerRadius="1dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/card_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +19,6 @@
             android:id="@+id/tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:paddingBottom="10dp"
@@ -30,19 +29,46 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
+            android:layout_below="@+id/tv_date"
             android:layout_gravity="center"
-            android:layout_weight="5"
-            android:background="@android:color/transparent"
+            android:background="@android:color/transparent" />
 
-            />
+        <LinearLayout
+            android:id="@+id/delete_modify_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_btn"
+                android:text="삭제하기"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/modify_btn"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_btn"
+                android:text="수정하기"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/iv_image"
             android:layout_gravity="bottom"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="horizontal" />
 
@@ -50,13 +76,13 @@
             android:id="@+id/diary_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_below="@+id/profile_container"
             android:gravity="center"
             android:padding="20dp"
             android:textColor="@color/text" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <!--<RelativeLayout-->
     <!--android:id="@+id/card_relative"-->

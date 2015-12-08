@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +28,7 @@ import java.util.List;
  * Created by hyes on 2015. 11. 10..
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> implements View.OnClickListener {
 
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
@@ -52,6 +54,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
 
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
+        final boolean[] flag = {false};
+
+
 
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
@@ -66,6 +71,35 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
         holder.diary_text.setTypeface(typeface);
         babiesInfo(holder.profile_container, position);
 
+        holder.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!flag[0]) {
+                    // holder.photo.setImageAlpha(64);
+                    //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
+
+                    flag[0] = !flag[0];
+
+                    holder.delete_modify_layout.setVisibility(View.VISIBLE);
+                    //  holder.diary_text.setVisibility(View.VISIBLE);
+
+                    //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
+                    holder.photo.setImageAlpha(65);
+//                    holder.cv.setAlpha(0.65f);
+
+                } else {
+                    holder.delete_modify_layout.setVisibility(View.INVISIBLE);
+                    holder.photo.setImageAlpha(255);
+                    flag[0] = !flag[0];
+                    //    holder.diary_text.setVisibility(View.INVISIBLE);
+
+                }
+            }
+        });
+
+        holder.delete_btn.setOnClickListener(this);
+        holder.modify_btn.setOnClickListener(this);
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
@@ -91,7 +125,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             tv.setGravity(Gravity.CENTER);
             linLayout.addView(tv);
             ((LinearLayout) profile_container).addView(linLayout);
-
         }
     }
 
@@ -105,11 +138,29 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             return cards.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch(id){
+            case R.id.delete_btn :
+                Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.modify_btn :
+                Toast.makeText(context, "modify~~", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+    }
+
     public class viewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView date, diary_text;
         ImageView photo;
         LinearLayout profile_container;
+        LinearLayout delete_modify_layout;
+        Button delete_btn;
+        Button modify_btn;
 
         viewHolder(View itemView) {
             super(itemView);
@@ -118,6 +169,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
             photo = (ImageView)itemView.findViewById(R.id.iv_image);
             diary_text = (TextView)itemView.findViewById(R.id.diary_text);
             profile_container = (LinearLayout) itemView.findViewById(R.id.profile_container);
+            delete_modify_layout = (LinearLayout)itemView.findViewById(R.id.delete_modify_layout);
+            delete_btn = (Button)itemView.findViewById(R.id.delete_btn);
+            modify_btn = (Button)itemView.findViewById(R.id.modify_btn);
         }
     }
 
@@ -125,7 +179,5 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
-
 
 }
