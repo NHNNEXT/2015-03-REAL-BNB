@@ -28,7 +28,7 @@ import java.util.List;
  * Created by hyes on 2015. 11. 10..
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> implements View.OnClickListener {
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
 
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
@@ -53,7 +53,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> implem
         }
 
     @Override
-    public void onBindViewHolder(final viewHolder holder, int position) {
+    public void onBindViewHolder(final viewHolder holder, final int position) {
         final boolean[] flag = {false};
 
 
@@ -74,32 +74,54 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> implem
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (!flag[0]) {
-                    // holder.photo.setImageAlpha(64);
-                    //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
-
-                    flag[0] = !flag[0];
-
-                    holder.delete_modify_layout.setVisibility(View.VISIBLE);
-                    //  holder.diary_text.setVisibility(View.VISIBLE);
-
-                    //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
-                    holder.photo.setImageAlpha(65);
-//                    holder.cv.setAlpha(0.65f);
-
-                } else {
-                    holder.delete_modify_layout.setVisibility(View.INVISIBLE);
-                    holder.photo.setImageAlpha(255);
-                    flag[0] = !flag[0];
-                    //    holder.diary_text.setVisibility(View.INVISIBLE);
-
-                }
+                showCardSetting(holder, flag);
             }
         });
 
-        holder.delete_btn.setOnClickListener(this);
-        holder.modify_btn.setOnClickListener(this);
+        holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCard(holder, position);
+            }
+        });
+        holder.modify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyCard(holder, position);
+            }
+        });
+    }
+
+    private void modifyCard(viewHolder holder, int position) {
+        Toast.makeText(context, "modify~~", Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteCard(viewHolder holder, int position) {
+        Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showCardSetting(viewHolder holder, boolean[] flag) {
+        if (!flag[0]) {
+            // holder.photo.setImageAlpha(64);
+            //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
+
+            flag[0] = !flag[0];
+
+            holder.delete_modify_layout.setVisibility(View.VISIBLE);
+            //  holder.diary_text.setVisibility(View.VISIBLE);
+
+            //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
+            holder.photo.setImageAlpha(65);
+//                    holder.cv.setAlpha(0.65f);
+
+        } else {
+            holder.delete_modify_layout.setVisibility(View.INVISIBLE);
+            holder.photo.setImageAlpha(255);
+            flag[0] = !flag[0];
+            //    holder.diary_text.setVisibility(View.INVISIBLE);
+
+        }
+
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
@@ -138,20 +160,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> implem
             return cards.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-
-        switch(id){
-            case R.id.delete_btn :
-                Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.modify_btn :
-                Toast.makeText(context, "modify~~", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-    }
 
     public class viewHolder extends RecyclerView.ViewHolder {
         CardView cv;

@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity
         File c = ConvertBitmapToFileUtil.convertFile(img3);
         File d = ConvertBitmapToFileUtil.convertFile(img4);
 
-        GeneralCardVo data1 = new GeneralCardVo("ririririskskdjfsldjfslkdj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
-        GeneralCardVo data2 = new GeneralCardVo("ririrasdasdaddj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
+        GeneralCardVo data1 = new GeneralCardVo("rirrriririskskdjfsldjfslkdjiririskskdjfsldjfslkdjriririskskdjfsldjfslkdjiririskskdjfsldjfslkdj", "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQV80K-5-fjT_RKsYIKFQjpVKhmQRH5k-xkq5yLKe9JslT0zasP", TimeUtil.getRecordedMoment());
+        GeneralCardVo data2 = new GeneralCardVo("ririrasriririskskdjfsldjfslkdjriririskskdjfsldjfslkdjdasdaddj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
 
 //        GeneralCardVo data3 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), c, names, "햇살 따듯, 한가로운 오후", "엄마");
 //        GeneralCardVo data4 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), d, names, "아무리봐도 아빠를 너무 닮은 것 같아 속상하다 크면서 바뀌겠지. 그래 그럴거야! 우리 아가는 점점 나를 닮아갈거야!!!", "엄마");

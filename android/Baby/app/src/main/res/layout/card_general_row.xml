@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="350dp"
             android:layout_below="@+id/tv_date"
             android:layout_gravity="center"
             android:background="@android:color/transparent" />
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_image"
             android:layout_gravity="bottom"
-            android:gravity="center_vertical"
+            android:gravity="center_horizontal"
             android:orientation="horizontal" />
 
         <TextView
@@ -77,9 +77,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_container"
-            android:gravity="center"
-            android:padding="20dp"
-            android:textColor="@color/text" />
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textColor="@color/text"
+            android:maxLines="5"
+            android:lineSpacingExtra="5dp" />
 
 
     </RelativeLayout>
