@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
         this.cards = cards;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
-//        anim = AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha);
+//       anim = AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha);
         }
 
     @Override
@@ -52,98 +51,23 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder>{
     @Override
     public void onBindViewHolder(final viewHolder holder, int position) {
 
-    final boolean[] flag = {false};
+        holder.diary_text.setText(cards.get(position).content);
+        holder.date.setText(cards.get(position).modifiedDate);
+        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
 
-            holder.diary_text.setText(cards.get(position).content);
-
-            holder.date.setText(cards.get(position).modifiedDate);
-           // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
-
-            Picasso.with(context)
-                .load((CORESERVER_URL+cards.get(position).imgUrl))
+        Picasso.with(context)
+                .load((cards.get(position).imgUrl))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.photo);
 
-            holder.diary_text.setText(cards.get(position).content);
-            holder.diary_text.setTypeface(typeface);
+        holder.diary_text.setText(cards.get(position).content);
+        holder.diary_text.setTypeface(typeface);
+//        holder.profile_container
 
-            holder.cv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (!flag[0]) {
-                        // holder.photo.setImageAlpha(64);
-                        //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
-
-                        flag[0] = !flag[0];
-                        //  holder.diary_text.setVisibility(View.VISIBLE);
-
-                        //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
-                        holder.photo.setImageAlpha(65);
-                        addUserTag(view);
-                    } else {
-                        holder.photo.setImageAlpha(255);
-                        flag[0] = !flag[0];
-                        //    holder.diary_text.setVisibility(View.INVISIBLE);
-                        removeUserTag(view);
-                    }
-                }
-            });
+    }
 
 
-    //        holder.cv.setOnTouchListener(new View.OnTouchListener() {
-    //            @Override
-    //            public boolean onTouch(View view, MotionEvent motionEvent) {
-    //               // view.getParent().requestDisallowInterceptTouchEvent(true);
-    //
-    //                if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_OUTSIDE) {
-    //                    holder.photo.setImageAlpha(255);
-    //                    flag[0] = !flag[0];
-    //                    holder.diary_text.setVisibility(View.GONE);
-    //                    removeUserTag(view);
-    //                }
-    //                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-    //                    holder.photo.setImageAlpha(64);
-    //                    flag[0] = !flag[0];
-    //                    holder.diary_text.setVisibility(View.VISIBLE);
-    //                    addUserTag(view);
-    //                }
-    //
-    //
-    //                return true;
-    //            }
-    //        });
-            }
 
-
-    private void addUserTag(View view) {
-
-            LinearLayout profile_container = (LinearLayout) view.findViewById(R.id.profile_container);
-
-                profile_container.setVisibility(View.VISIBLE);
-
-                LinearLayout linLayout = new LinearLayout(context);
-                linLayout.setOrientation(LinearLayout.HORIZONTAL);
-                linLayout.setGravity(Gravity.CENTER_VERTICAL);
-                LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                ImageView iv_profile = new ImageView(context);
-                iv_profile.setImageResource(R.mipmap.ic_launcher);
-                linLayout.addView(iv_profile, lpView);
-
-                TextView tv = new TextView(context);
-                tv.setText("똘똘이 13개월");
-                tv.setLayoutParams(lpView);
-                tv.setGravity(Gravity.CENTER);
-                linLayout.addView(tv);
-                ((LinearLayout) profile_container).addView(linLayout);
-
-            }
-
-    private void removeUserTag(View view) {
-            // view.setVisibility(View.GONE);
-            view.findViewById(R.id.profile_container).setVisibility(View.GONE);
-            }
 
 
     @Override

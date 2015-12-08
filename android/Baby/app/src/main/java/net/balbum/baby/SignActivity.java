@@ -49,8 +49,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.sign_facebook).setOnClickListener(this);
         findViewById(R.id.sign_email).setOnClickListener(this);
 
-
-
     }
 
     @Override
@@ -76,37 +74,32 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         // Set permissions
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_photos", "public_profile"));
         LoginManager.getInstance().registerCallback(callbackManagerSign, new FacebookCallback<LoginResult>() {
-
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("test", "onSuccess");
                 profileId = loginResult.getAccessToken().getUserId();
-               // profileEmail = loginResult.getAccessToken().
+                // profileEmail = loginResult.getAccessToken().
 
 
                 GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject json, GraphResponse response) {
+
                                 try {
-                                    profileName = json.getJSONObject("name").toString();
+                                    profileName = json.getString("name");
+                                    profileEmail = json.getString("email");
+                                    //사용자가 이메일 정보를 설정하고 있다고 하더라도 거부를 했거나
+                                    //내부적인 Permission설정에 따라 email 정보를 주지 않을 수도
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                String email = null;
-                                try {
-                                    email = response.getJSONObject().get("email").toString();
-                                    Log.d("test", email);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
                             }
                         }).executeAsync();
 
+
                 Handler handler = new Handler();
-                handler.postDelayed(runnable, 100);
+                handler.postDelayed(runnable, 1000);
 
             }
 
@@ -133,8 +126,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("test", error.toString());
             }
         });
-
-
 
     }
     @Override

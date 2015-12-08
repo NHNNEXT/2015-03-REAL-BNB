@@ -34,7 +34,7 @@ public class SignFacebookActivity extends AppCompatActivity{
         String profileId = intent.getStringExtra("profileId");
         String profileEmail = intent.getStringExtra("profileEmail");
         String profileName = intent.getStringExtra("profileName");
-        Log.d("test", "id : " + profileId + "profileEmail: " + profileEmail + "profileName: "+profileName);
+        Log.d("test", "id : " + profileId + " profileEmail: " + profileEmail + " profileName: "+profileName);
 
         profilePictureView = (ProfilePictureView) findViewById(R.id.image);
         profilePictureView.setProfileId(profileId);

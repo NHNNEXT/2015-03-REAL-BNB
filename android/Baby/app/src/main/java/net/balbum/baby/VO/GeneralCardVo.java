@@ -25,6 +25,12 @@ public class GeneralCardVo{
 
     }
 
+    public GeneralCardVo(String content, String imgUrl, String modifiedDate) {
+        this.content = content;
+        this.imgUrl = imgUrl;
+        this.modifiedDate = modifiedDate;
+    }
+
     public GeneralCardVo(List<Long> babies, long cId, String content, String imgUrl, String modifiedDate) {
         Log.d("test", "ㅎㄸㄸㄸㄷ옸따");
         this.babies = babies;

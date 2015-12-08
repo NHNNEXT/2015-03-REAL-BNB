@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.RVAdapter;
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initNavigationView();
         initFab();
-//        initData();
-//        initView(cardGeneralModelList);
+        initData();
+        initView(cardGeneralModelList);
 //
     }
 
@@ -201,15 +202,16 @@ public class MainActivity extends AppCompatActivity
         File c = ConvertBitmapToFileUtil.convertFile(img3);
         File d = ConvertBitmapToFileUtil.convertFile(img4);
 
-//        GeneralCardVo data1 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "오늘 날씨 맑음", "엄마");
-//        GeneralCardVo data2 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "오늘 우리 아가가 나를 보면서 빵긋 웃었다. 씩 모델해도 될 것 같다...", "아빠");
+        GeneralCardVo data1 = new GeneralCardVo("ririririskskdjfsldjfslkdj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
+        GeneralCardVo data2 = new GeneralCardVo("ririrasdasdaddj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
+
 //        GeneralCardVo data3 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), c, names, "햇살 따듯, 한가로운 오후", "엄마");
 //        GeneralCardVo data4 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), d, names, "아무리봐도 아빠를 너무 닮은 것 같아 속상하다 크면서 바뀌겠지. 그래 그럴거야! 우리 아가는 점점 나를 닮아갈거야!!!", "엄마");
 //        GeneralCardVo data5 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "아가들 씐나씐나", "아빠");
 //        GeneralCardVo data6 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "우리아가 이쁜이 옹알옹알 잘한다", "엄마");
 
-//        cardGeneralModelList.add(data1);
-//        cardGeneralModelList.add(data2);
+        cardGeneralModelList.add(data1);
+        cardGeneralModelList.add(data2);
 //        cardGeneralModelList.add(data3);
 //        cardGeneralModelList.add(data4);
 //        cardGeneralModelList.add(data5);
@@ -255,8 +257,6 @@ public class MainActivity extends AppCompatActivity
         taskService = ServiceGenerator.createService(TaskService.class);
         Log.d("test", " getCard시작?~");
         taskService.getCard("token", new Callback<CardListVo>() {
-
-
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd =  cardListVo;
@@ -265,25 +265,19 @@ public class MainActivity extends AppCompatActivity
                 Log.d("test", "size~: " + cardGeneralModelList.size());
                 getCardsFromServer(cardGeneralModelList);
                 //되는지 확인할 것
-//                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void failure(RetrofitError error) {
-                String a = "192.168.1.146:8080/img/asdf.jpeg";
-                Log.d("test", " string a :" + a);
-
-//                Url url = new URL(context, a);
-
-//                String decodeResult = URLDecoder.decode(String decodingString, String charsetName);
-            }
+                Log.d("test", " taskService failure");
+          }
         });
     }
 
     private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
             initView(cardGeneralModelList);
-
     }
 }
 
