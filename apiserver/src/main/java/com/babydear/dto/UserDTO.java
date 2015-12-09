@@ -16,10 +16,17 @@ import lombok.ToString;
 @ToString
 public class UserDTO {
 	private Long fId;
+	private Long uId;
 	@NotEmpty(message="no email")
 	private String email;
-	@NotEmpty(message="no password")
+//	@NotEmpty(message="no password")
 	private String password;
+	private String userImg;
 	private String nickname;
-	private List<Baby> babies;
+	private String role;
+	
+	public String getUrl() {
+		return "img/asdf1234.jpg";
+	}
+
 }

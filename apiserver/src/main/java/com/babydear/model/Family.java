@@ -15,4 +15,7 @@ public class Family {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long fId;
+	
+	private String updateDate;
+	private Long updateUId;
 }

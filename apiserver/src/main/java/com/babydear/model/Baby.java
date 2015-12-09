@@ -31,8 +31,8 @@ public class Baby {
 	private Long bId;
 	
 //	@JoinColumn(name = "oid", referencedColumnName="oid")
-	@ManyToOne
-	private Family fid;
+//	@ManyToOne
+	private Long fid;
 	
 	private String name;
 	

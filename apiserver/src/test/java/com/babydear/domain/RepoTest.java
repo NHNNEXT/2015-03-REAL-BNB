@@ -49,20 +49,20 @@ public class RepoTest {
 		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 		
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		User user = new User(userDTO);
 		userRepo.save(user);
 		
 		Baby baby = new Baby();
 		baby.setBirth(new Date());
 		baby.setName("dumdum");
 		baby.setSex(Baby.Sex.BOY);
-		baby.setFid(family);
+//		baby.setFid(family);
 		
 		Baby baby2 = new Baby();
 		baby2.setBirth(new Date());
 		baby2.setName("dumdum");
 		baby2.setSex(Baby.Sex.GIRL);
-		baby2.setFid(family);
+//		baby2.setFid(family);
 		
 		List<Baby> babies = Arrays.asList(baby, baby2);
 		babyRepo.save(babies);
@@ -95,7 +95,7 @@ public class RepoTest {
 		Card card3 = cardRepo.findOne(new Long(1));
 		
 		System.out.println("-------"+card2.getContent());
-		System.out.println("-------"+card3);
+//		System.out.println("-------"+card3);
 //		System.out.println(card3);
 		
 	}

@@ -1,7 +1,7 @@
-INSERT INTO family VALUES(1);
+INSERT INTO family VALUES(1, "2015-02-01", 1);
 
-INSERT INTO user VALUES(1, "erin314@naver.com", "엄마", "1234", NULL, NULL, "/img/asdf.jpeg", 1);
-INSERT INTO user VALUES(2, "erin314@daum.net", "아빠", "1234", NULL, NULL, "/img/asdf.jpeg", 1);
+INSERT INTO user VALUES(1, "erin314@naver.com", 1, "엄마", "1234", NULL, NULL, "/img/asdf.jpeg");
+INSERT INTO user VALUES(2, "erin314@daum.net", 1, "아빠", "1234", NULL, NULL, "/img/asdf.jpeg");
 
 
 INSERT INTO baby values(1, "2015-02-01", "하채영", 1, 1);

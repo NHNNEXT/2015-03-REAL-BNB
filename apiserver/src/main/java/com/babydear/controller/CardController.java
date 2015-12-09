@@ -1,6 +1,7 @@
 package com.babydear.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,11 @@ public class CardController {
 		System.out.println("it's uId");
 //		System.out.println(uId);
 //		System.out.println(user.getUId());
+		List<Card> cardList = cardRepo.findAll();
 		
-		
-		return new CardListDTO();
+		CardListDTO cardListDTO = new CardListDTO();
+//		cardListDTO.setCardList(cardList);
+		return cardListDTO;
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(User user, CardDTO cardDTO){
@@ -48,7 +51,15 @@ public class CardController {
 //		console.log(cardDTO);
 		System.out.println(cardDTO);
 		final Set<Baby> babies = tagService.processTags(cardDTO.getBabies());
-		final String image = imgService.processImg(cardDTO.getImage());
+		try {
+			final String image = imgService.processImg(cardDTO.getImage());
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		Card card = new Card(user.getFamily(), user, babies, image, cardDTO.getContent(), cardDTO.getModifiedDate());
 //		cardRepo.save(card);
 //		return "{ create : true, error: null }";

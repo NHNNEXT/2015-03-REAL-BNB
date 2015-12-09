@@ -18,10 +18,11 @@ import lombok.ToString;
 @ToString
 public class User {
 
-	public User(UserDTO userDTO, Family family) {
+	public User(UserDTO userDTO, Long fId) {
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword();
-		this.family = family;
+		this.fId = fId;
+		this.userImg = userDTO.getUserImg();
 	}
 	public User(UserDTO loginDTO) {
 		this(loginDTO, null);
@@ -50,8 +51,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long uId;
 	
-	@ManyToOne
-	private Family family;
+	private Long fId;
 	
 	private String userImg;
 	

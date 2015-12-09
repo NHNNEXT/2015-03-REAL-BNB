@@ -10,4 +10,11 @@ import lombok.ToString;
 public class ResponseDTO {
 	private Boolean state;
 	private String error;
+	
+	public ResponseDTO(){}
+	public ResponseDTO(Boolean state, String error) {
+		super();
+		this.state = state;
+		this.error = error;
+	}
 }
