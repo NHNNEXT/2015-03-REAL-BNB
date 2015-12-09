@@ -13,3 +13,5 @@ apiserver/src/main/resources/config.properties
 apiserver/src/main/resources/application.properties
 apiserver/src/main/webapp/img/sample
 
+*.log
+
