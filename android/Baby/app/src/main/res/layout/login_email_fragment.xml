@@ -2,14 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/sign_email_profile_photo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="50dp">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/sign_email"
@@ -38,10 +45,30 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <Button
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/sign_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/role" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/sign_btn"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/ok"/>
+        android:layout_below="@+id/sign_role"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/primary_round"
+        android:text="@string/ok"
+        android:textColor="@color/colorBase" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

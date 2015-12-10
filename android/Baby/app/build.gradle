@@ -27,7 +27,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'io.realm:realm-android:0.84.2'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.isseiaoki:simplecropview:1.0.11'

@@ -6,29 +6,34 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+        android:layout_height="500dp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher" />
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@drawable/balbum_logo" />-->
 
     <Button
         android:id="@+id/sign_facebook"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/primary_round"
         android:text="@string/sign_facebook"
-        android:textColor="@color/text" />
+        android:textColor="@color/colorBase" />
 
     <Button
         android:id="@+id/sign_email"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sign_facebook"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/primary_round"
         android:text="@string/sign_email"
-        android:textColor="@color/text" />
+        android:textColor="@color/colorBase"
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

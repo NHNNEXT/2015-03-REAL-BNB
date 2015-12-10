@@ -30,8 +30,8 @@ import java.util.List;
  * Created by hyes on 2015. 11. 10..
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
-    private static final int CARD_MODIFY = 1;
+public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.viewHolder> {
+
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
     private Context context;
@@ -40,7 +40,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
             Animation anim;
 
 
-    public RVAdapter(List<GeneralCardVo> cards, Context context){
+    public RVAdapterLandscape(List<GeneralCardVo> cards, Context context){
         this.cards = cards;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
@@ -49,7 +49,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row_landscape, parent, false);
             viewHolder pvh = new viewHolder(v);
             return pvh;
         }
@@ -83,47 +83,57 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         holder.delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCard(position);
+                deleteCard(holder, position);
             }
         });
         holder.modify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCard(position);
+                modifyCard(holder, position);
             }
         });
     }
 
-    private void modifyCard(int position) {
+    private void modifyCard(viewHolder holder, int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("type", CARD_MODIFY);
-        GeneralCardVo vo = cards.get(position);
-        intent.putExtra("generalCardVo", vo);
+        intent.putExtra("cId", cards.get(position).cId);
         context.startActivity(intent);
+
+
     }
 
-    private void deleteCard(int position) {
+    private void deleteCard(viewHolder holder, int position) {
         Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
     }
 
     private void showCardSetting(viewHolder holder, boolean[] flag) {
         if (!flag[0]) {
+            // holder.photo.setImageAlpha(64);
+            //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
+
             flag[0] = !flag[0];
+
             holder.delete_modify_layout.setVisibility(View.VISIBLE);
+            //  holder.diary_text.setVisibility(View.VISIBLE);
 
             //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
             holder.photo.setImageAlpha(65);
+//                    holder.cv.setAlpha(0.65f);
+
         } else {
             holder.delete_modify_layout.setVisibility(View.INVISIBLE);
             holder.photo.setImageAlpha(255);
             flag[0] = !flag[0];
+            //    holder.diary_text.setVisibility(View.INVISIBLE);
+
         }
+
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
 //        int idx = cards.get(position).babies.size();
-        int idx = 5;
+        int idx = 3;
         LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 60);
 
         for(int i=0; i<idx; i++){

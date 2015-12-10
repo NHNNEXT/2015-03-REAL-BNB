@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.CardFormVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -39,16 +40,24 @@ import retrofit.mime.TypedFile;
  * Created by hyes on 2015. 11. 10..
  */
 public class CardWritingActivity extends AppCompatActivity {
+    private static final int CARD_CREATE = 0;
+    private static final int CARD_MODIFY = 1;
+
+    private static final int GENERAL_CARD = 11;
+    private static final int EVENT_CARD = 12;
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
-
+    GeneralCardFragment generalCardFragment;
+    EventCardFragment eventCardFragment;
     Context context;
+    Intent intent;
     Toolbar toolbar;
     List<BabyTagVo> babyTagNamesList;
     TaskService taskService;
     ViewPager viewPager;
     BabyTagAdapter adapter;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,36 @@ public class CardWritingActivity extends AppCompatActivity {
         context = this;
         taskService = ServiceGenerator.createService(TaskService.class);
 
+        intent = getIntent();
+        type = intent.getIntExtra("type", 0);
+        generalCardFragment = new GeneralCardFragment();
+        eventCardFragment = new EventCardFragment();
+
+
         initToolbar();
         initData();
-        initViewPager();
+        initViewPager(generalCardFragment, eventCardFragment);
         initBabyTag();
+
+        if (type == CARD_MODIFY) {
+
+            GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("vo", cardVo);
+            // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+
+            if(cardVo.type == GENERAL_CARD) {
+                generalCardFragment.setArguments(bundle);
+                Log.d("test", "general");
+            }else if(cardVo.type == EVENT_CARD){
+                Log.d("test", "event");
+                viewPager.setCurrentItem(1);
+                eventCardFragment.setArguments(bundle);
+
+            }
+
+        }
+
     }
 
     private void initBabyTag() {
@@ -71,9 +106,9 @@ public class CardWritingActivity extends AppCompatActivity {
         rv_baby.setAdapter(adapter);
     }
 
-    private void initViewPager() {
+    private void initViewPager(GeneralCardFragment generalCardFragment, EventCardFragment eventCardFragment) {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        setupViewPager(viewPager);
+        setupViewPager(viewPager, generalCardFragment, eventCardFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -109,28 +144,11 @@ public class CardWritingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, GeneralCardFragment generalCardFragment, EventCardFragment eventCardFragment) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new GeneralCardFragment(), "일상의 순간");
-        adapter.addFrag(new EventCardFragment(), "특별한 순간");
+        adapter.addFrag(generalCardFragment, "일상의 순간");
+        adapter.addFrag(eventCardFragment, "특별한 순간");
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
 
@@ -156,7 +174,8 @@ public class CardWritingActivity extends AppCompatActivity {
                 Log.i("test", "current: " + currentItem);
 
 
-           // GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+            GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+            Log.d("test", vo.content.toString());
             Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
@@ -173,6 +192,17 @@ public class CardWritingActivity extends AppCompatActivity {
             String content = "asdasd";
             CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
 
+            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
+                @Override
+                public void success(ResponseVo responseVo, Response response) {
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
             taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
@@ -195,10 +225,8 @@ public class CardWritingActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("test", "여긴 어디1");
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
-
         }
     }
 
@@ -222,6 +250,8 @@ public class CardWritingActivity extends AppCompatActivity {
             fragmentList.add(fragment);
             fragmentTitleList.add(title);
         }
+
+
 
         @Override
         public CharSequence getPageTitle(int position) {

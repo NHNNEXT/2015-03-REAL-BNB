@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
@@ -30,17 +29,24 @@ import java.util.List;
 public class EventCardFragment extends Fragment implements OnGetCardListener{
 
     boolean isDone = false;
-    RelativeLayout photo_layout;
-    TextView photo_tv;
+    RelativeLayout event_container;
+    EditText date_et;
+    EditText memo_tv;
     List<BabyTagVo> babyTagNamesList;
     Context context;
     BabyTagAdapter adapter;
-
+    GeneralCardVo eventCardVo;
+    View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.card_event_fragment, container, false);
+        view = inflater.inflate(R.layout.card_event_fragment, container, false);
         context = this.getActivity();
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            eventCardVo = (GeneralCardVo) bundle.getParcelable("vo");
+        }
         return view;
     }
 
@@ -48,8 +54,16 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     public void onResume() {
         super.onResume();
         if(!isDone){
-            photo_layout = (RelativeLayout)this.getActivity().findViewById(R.id.photo_layout);
-            photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
+            event_container = (RelativeLayout)this.getActivity().findViewById(R.id.event_container);
+            memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv_event);
+            date_et = (EditText)this.getActivity().findViewById(R.id.date_et_event);
+
+            if(eventCardVo != null){
+                Log.d("test", "dddd");
+                memo_tv.setText(eventCardVo.content);
+                date_et.setText("checkcheck");
+            }
+
             isDone = true;
             initData();
         }
@@ -74,9 +88,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         babyTagNamesList.add(baby1);
         babyTagNamesList.add(baby2);
         babyTagNamesList.add(baby3);
-
     }
-
 
     @Override
     public GeneralCardVo getCardInfo() {
