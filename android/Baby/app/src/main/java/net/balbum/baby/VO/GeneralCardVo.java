@@ -1,5 +1,7 @@
 package net.balbum.baby.VO;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import io.realm.annotations.Required;
 /**
  * Created by hyes on 2015. 11. 10..
  */
-public class GeneralCardVo{
+public class GeneralCardVo implements Parcelable{
 
     //카드 생성일, 기록대상일, 아이이름[], 메모, 작성자, 상태(삭제여부 boolean)
     @Required
@@ -25,10 +27,15 @@ public class GeneralCardVo{
 
     }
 
+    public GeneralCardVo(Parcel in) {
+        readFromParcel(in);
+    }
+
     public GeneralCardVo(String content, String imgUrl, String modifiedDate) {
         this.content = content;
         this.imgUrl = imgUrl;
         this.modifiedDate = modifiedDate;
+
     }
 
     public GeneralCardVo(List<Long> babies, long cId, String content, String imgUrl, String modifiedDate) {
@@ -44,4 +51,40 @@ public class GeneralCardVo{
         }
 
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(modifiedDate);
+        dest.writeString(imgUrl);
+        dest.writeLong(cId);
+        dest.writeString(content);
+//        dest.writeTypedList(babies);
+//        dest.writeStringList(names);
+    }
+
+    private void readFromParcel(Parcel in){
+        modifiedDate = in.readString();
+        imgUrl = in.readString();
+        cId = in.readLong();
+        content = in.readString();
+//        babies = in.readList();
+//        names = in.readStringList();
+
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public GeneralCardVo createFromParcel(Parcel in) {
+            return new GeneralCardVo(in);
+        }
+
+        public GeneralCardVo[] newArray(int size) {
+            return new GeneralCardVo[size];
+        }
+    };
+
 }

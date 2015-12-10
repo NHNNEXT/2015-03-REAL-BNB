@@ -17,10 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.CardFormVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -39,16 +41,20 @@ import retrofit.mime.TypedFile;
  * Created by hyes on 2015. 11. 10..
  */
 public class CardWritingActivity extends AppCompatActivity {
+    private static final int CARD_CREATE = 0;
+    private static final int CARD_MODIFY = 1;
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
-
+    GeneralCardFragment generalCardFragment;
     Context context;
+    Intent intent;
     Toolbar toolbar;
     List<BabyTagVo> babyTagNamesList;
     TaskService taskService;
     ViewPager viewPager;
     BabyTagAdapter adapter;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +63,48 @@ public class CardWritingActivity extends AppCompatActivity {
         context = this;
         taskService = ServiceGenerator.createService(TaskService.class);
 
+        intent = getIntent();
+        type = intent.getIntExtra("type", 0);
+        generalCardFragment = new GeneralCardFragment();
+
         initToolbar();
         initData();
-        initViewPager();
+
+        Toast.makeText(context, "evjhgdd/?", Toast.LENGTH_SHORT).show();
+
+
+        if (type == CARD_MODIFY) {
+            //  viewPager.setCurrentItem(0);
+            Log.d("test", "before setCardListener");
+
+            GeneralCardVo generalCardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("vo", generalCardVo);
+
+            generalCardFragment.setArguments(bundle);
+//            ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+            // modifyCard(generalCardVo);
+            Log.d("test", "before setCardListener");
+
+
+
+
+//
+//
+//
+//
+        }
+
+        initViewPager(generalCardFragment);
         initBabyTag();
     }
+
+//    private void modifyCard(GeneralCardVo generalCardVo) {
+//
+//        ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+//    }
 
     private void initBabyTag() {
         RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
@@ -71,9 +114,9 @@ public class CardWritingActivity extends AppCompatActivity {
         rv_baby.setAdapter(adapter);
     }
 
-    private void initViewPager() {
+    private void initViewPager(GeneralCardFragment generalCardFragment) {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        setupViewPager(viewPager);
+        setupViewPager(viewPager, generalCardFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -109,28 +152,12 @@ public class CardWritingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, GeneralCardFragment generalCardFragment) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new GeneralCardFragment(), "일상의 순간");
+        adapter.addFrag(generalCardFragment, "일상의 순간");
         adapter.addFrag(new EventCardFragment(), "특별한 순간");
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
+        //viewPager.addOnPageChangeListener
     }
 
 
@@ -156,7 +183,8 @@ public class CardWritingActivity extends AppCompatActivity {
                 Log.i("test", "current: " + currentItem);
 
 
-           // GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+            GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
+            Log.d("test", vo.content.toString());
             Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
@@ -233,6 +261,7 @@ public class CardWritingActivity extends AppCompatActivity {
             fragmentList.add(fragment);
             fragmentTitleList.add(title);
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {

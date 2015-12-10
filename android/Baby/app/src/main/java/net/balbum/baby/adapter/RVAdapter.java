@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
-
+    private static final int CARD_MODIFY = 1;
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
     private Context context;
@@ -97,10 +97,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     private void modifyCard(viewHolder holder, int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("cId", cards.get(position).cId);
+        intent.putExtra("type", CARD_MODIFY);
+        GeneralCardVo vo = cards.get(position);
+        intent.putExtra("generalCardVo", vo);
         context.startActivity(intent);
-
-
     }
 
     private void deleteCard(viewHolder holder, int position) {
