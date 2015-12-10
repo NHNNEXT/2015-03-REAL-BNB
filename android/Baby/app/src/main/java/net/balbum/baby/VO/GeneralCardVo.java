@@ -25,7 +25,8 @@ public class GeneralCardVo implements Parcelable{
     public int type=12;
 
     public GeneralCardVo() {
-
+        babies = new ArrayList<>();
+        names = new ArrayList<>();
     }
 
     public GeneralCardVo(Parcel in) {
@@ -63,8 +64,7 @@ public class GeneralCardVo implements Parcelable{
         dest.writeString(imgUrl);
         dest.writeLong(cId);
         dest.writeString(content);
-//        dest.writeTypedList(babies);
-//        dest.writeStringList(names);
+        dest.writeList(babies);
     }
 
     private void readFromParcel(Parcel in){
@@ -72,8 +72,12 @@ public class GeneralCardVo implements Parcelable{
         imgUrl = in.readString();
         cId = in.readLong();
         content = in.readString();
-//        babies = in.readList();
-//        names = in.readStringList();
+        babies = new ArrayList<Long>();
+        in.readTypedList(babies, GeneralCardVo.CREATOR);
+        names = new ArrayList<String>();
+        for(int i = 0 ; i < babies.size(); i++){
+            names.add(babies.get(i).toString());
+        }
 
     }
 
