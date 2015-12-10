@@ -11,9 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -28,6 +33,10 @@ import java.util.List;
  */
 public class EventCardFragment extends Fragment implements OnGetCardListener{
 
+    private static final String BG1 = Config.EVENT_CARD_BG1;
+    private static final String BG2 = Config.EVENT_CARD_BG2;
+    private static final String BG3 = Config.EVENT_CARD_BG3;
+
     boolean isDone = false;
     RelativeLayout event_container;
     EditText date_et;
@@ -37,6 +46,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     BabyTagAdapter adapter;
     GeneralCardVo eventCardVo;
     View view;
+    Button bg1;
+    Button bg2;
+    Button bg3;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +69,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
             event_container = (RelativeLayout)this.getActivity().findViewById(R.id.event_container);
             memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv_event);
             date_et = (EditText)this.getActivity().findViewById(R.id.date_et_event);
-
+            bg1 = (Button)this.getActivity().findViewById(R.id.bg1);
+            bg2 = (Button)this.getActivity().findViewById(R.id.bg2);
+            bg3 = (Button)this.getActivity().findViewById(R.id.bg3);
             if(eventCardVo != null){
                 Log.d("test", "dddd");
                 memo_tv.setText(eventCardVo.content);
@@ -66,6 +80,40 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
 
             isDone = true;
             initData();
+        }
+
+        bg1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackground(v, BG1);
+            }
+        });
+        bg2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackground(v, BG2);
+            }
+        });
+        bg3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackground(v, BG3);
+            }
+        });
+
+    }
+
+    private void setBackground(View button, String type) {
+        Animation anim = AnimationUtils.loadAnimation(context, R.anim.event_background);
+        button.startAnimation(anim);
+
+        if(type == BG1){
+            Toast.makeText(context, "asdasd", Toast.LENGTH_SHORT).show();
+            event_container.setBackground(context.getResources().getDrawable(R.drawable.bg1));
+        }else if(type == BG2){
+            event_container.setBackground(context.getResources().getDrawable(R.drawable.bg2));
+        }else if(type == BG3) {
+            event_container.setBackground(context.getResources().getDrawable(R.drawable.bg3));
         }
     }
 
