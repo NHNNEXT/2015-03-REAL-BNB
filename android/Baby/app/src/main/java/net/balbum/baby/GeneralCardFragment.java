@@ -35,7 +35,6 @@ import java.util.List;
  */
 public class GeneralCardFragment extends Fragment implements View.OnClickListener, OnGetCardListener, OnSetCardListener {
     static final int PICTURE_EDIT_COMPLETE = 2;
-    private boolean isDone = false;
     private RelativeLayout photo_layout;
     private TextView photo_tv;
     private ImageView camera_iv, photo_iv;
@@ -55,7 +54,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Log.d("test", "------------------onCreateView");
         view = inflater.inflate(R.layout.card_general_fragment, container, false);
         context = this.getActivity();
-
 
         Bundle bundle = getArguments();
 
@@ -89,7 +87,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
         camera_iv.setOnClickListener(this);
-        isDone = true;
     }
 
     @Override

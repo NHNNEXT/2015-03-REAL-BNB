@@ -22,6 +22,7 @@ public class GeneralCardVo implements Parcelable{
     public String content;
     public List<Long> babies;
     public List<String> names;
+    public int type=12;
 
     public GeneralCardVo() {
 
@@ -35,7 +36,6 @@ public class GeneralCardVo implements Parcelable{
         this.content = content;
         this.imgUrl = imgUrl;
         this.modifiedDate = modifiedDate;
-
     }
 
     public GeneralCardVo(List<Long> babies, long cId, String content, String imgUrl, String modifiedDate) {

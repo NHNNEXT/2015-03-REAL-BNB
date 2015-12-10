@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
@@ -44,9 +43,13 @@ public class CardWritingActivity extends AppCompatActivity {
     private static final int CARD_CREATE = 0;
     private static final int CARD_MODIFY = 1;
 
+    private static final int GENERAL_CARD = 11;
+    private static final int EVENT_CARD = 12;
+
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
     GeneralCardFragment generalCardFragment;
+    EventCardFragment eventCardFragment;
     Context context;
     Intent intent;
     Toolbar toolbar;
@@ -66,45 +69,34 @@ public class CardWritingActivity extends AppCompatActivity {
         intent = getIntent();
         type = intent.getIntExtra("type", 0);
         generalCardFragment = new GeneralCardFragment();
+        eventCardFragment = new EventCardFragment();
+
 
         initToolbar();
         initData();
-
-        Toast.makeText(context, "evjhgdd/?", Toast.LENGTH_SHORT).show();
-
+        initViewPager(generalCardFragment, eventCardFragment);
+        initBabyTag();
 
         if (type == CARD_MODIFY) {
-            //  viewPager.setCurrentItem(0);
-            Log.d("test", "before setCardListener");
 
-            GeneralCardVo generalCardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("vo", cardVo);
             // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("vo", generalCardVo);
+            if(cardVo.type == GENERAL_CARD) {
+                generalCardFragment.setArguments(bundle);
+                Log.d("test", "general");
+            }else if(cardVo.type == EVENT_CARD){
+                Log.d("test", "event");
+                viewPager.setCurrentItem(1);
+                eventCardFragment.setArguments(bundle);
 
-            generalCardFragment.setArguments(bundle);
-//            ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
-            // modifyCard(generalCardVo);
-            Log.d("test", "before setCardListener");
+            }
 
-
-
-
-//
-//
-//
-//
         }
 
-        initViewPager(generalCardFragment);
-        initBabyTag();
     }
-
-//    private void modifyCard(GeneralCardVo generalCardVo) {
-//
-//        ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
-//    }
 
     private void initBabyTag() {
         RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
@@ -114,9 +106,9 @@ public class CardWritingActivity extends AppCompatActivity {
         rv_baby.setAdapter(adapter);
     }
 
-    private void initViewPager(GeneralCardFragment generalCardFragment) {
+    private void initViewPager(GeneralCardFragment generalCardFragment, EventCardFragment eventCardFragment) {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        setupViewPager(viewPager, generalCardFragment);
+        setupViewPager(viewPager, generalCardFragment, eventCardFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -152,12 +144,11 @@ public class CardWritingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setupViewPager(ViewPager viewPager, GeneralCardFragment generalCardFragment) {
+    private void setupViewPager(ViewPager viewPager, GeneralCardFragment generalCardFragment, EventCardFragment eventCardFragment) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(generalCardFragment, "일상의 순간");
-        adapter.addFrag(new EventCardFragment(), "특별한 순간");
+        adapter.addFrag(eventCardFragment, "특별한 순간");
         viewPager.setAdapter(adapter);
-        //viewPager.addOnPageChangeListener
     }
 
 
@@ -234,10 +225,8 @@ public class CardWritingActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("test", "여긴 어디1");
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
-
         }
     }
 
@@ -261,6 +250,7 @@ public class CardWritingActivity extends AppCompatActivity {
             fragmentList.add(fragment);
             fragmentTitleList.add(title);
         }
+
 
 
         @Override

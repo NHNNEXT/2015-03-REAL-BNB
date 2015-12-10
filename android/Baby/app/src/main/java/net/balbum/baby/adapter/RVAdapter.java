@@ -83,18 +83,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         holder.delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCard(holder, position);
+                deleteCard(position);
             }
         });
         holder.modify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCard(holder, position);
+                modifyCard(position);
             }
         });
     }
 
-    private void modifyCard(viewHolder holder, int position) {
+    private void modifyCard(int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", CARD_MODIFY);
@@ -103,32 +103,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         context.startActivity(intent);
     }
 
-    private void deleteCard(viewHolder holder, int position) {
+    private void deleteCard(int position) {
         Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
     }
 
     private void showCardSetting(viewHolder holder, boolean[] flag) {
         if (!flag[0]) {
-            // holder.photo.setImageAlpha(64);
-            //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
-
             flag[0] = !flag[0];
-
             holder.delete_modify_layout.setVisibility(View.VISIBLE);
-            //  holder.diary_text.setVisibility(View.VISIBLE);
 
             //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
             holder.photo.setImageAlpha(65);
-//                    holder.cv.setAlpha(0.65f);
-
         } else {
             holder.delete_modify_layout.setVisibility(View.INVISIBLE);
             holder.photo.setImageAlpha(255);
             flag[0] = !flag[0];
-            //    holder.diary_text.setVisibility(View.INVISIBLE);
-
         }
-
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
