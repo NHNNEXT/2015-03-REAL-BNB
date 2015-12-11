@@ -54,7 +54,7 @@ public class UserTest {
 		userDTO.setNickname("mome");
 
 		Baby baby = new Baby();
-		baby.setName("dumdum");
+		baby.setBabyName("dumdum");
 		List<Baby> babies = Arrays.asList(baby, baby);
 //		userDTO.setBabies(babies);
 
@@ -108,8 +108,8 @@ public class UserTest {
 		userDTO.setFId(family.getFId());
 		
 		Baby baby = new Baby();
-		baby.setBirth(new Date());
-		baby.setName("dumdum");
+//		baby.setBabyBirth(new Date());
+		baby.setBabyName("dumdum");
 		List<Baby> babies = Arrays.asList(baby, baby);
 //		userDTO.setBabies(babies);
 

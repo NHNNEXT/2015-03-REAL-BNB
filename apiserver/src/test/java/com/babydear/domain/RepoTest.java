@@ -53,15 +53,15 @@ public class RepoTest {
 		userRepo.save(user);
 		
 		Baby baby = new Baby();
-		baby.setBirth(new Date());
-		baby.setName("dumdum");
-		baby.setSex(Baby.Sex.BOY);
+//		baby.setBabyBirth(new Date());
+		baby.setBabyName("dumdum");
+		baby.setBabySex(Baby.Sex.BOY);
 //		baby.setFid(family);
 		
 		Baby baby2 = new Baby();
-		baby2.setBirth(new Date());
-		baby2.setName("dumdum");
-		baby2.setSex(Baby.Sex.GIRL);
+//		baby2.setBabyBirth(new Date());
+		baby2.setBabyName("dumdum");
+		baby2.setBabySex(Baby.Sex.GIRL);
 //		baby2.setFid(family);
 		
 		List<Baby> babies = Arrays.asList(baby, baby2);

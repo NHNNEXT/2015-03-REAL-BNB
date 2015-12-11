@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.babydear.dto.CardDTO;
 import com.babydear.dto.CardListDTO;
 import com.babydear.dto.ResponseDTO;
+import com.babydear.exception.NotGoodExtention;
 import com.babydear.model.Baby;
 import com.babydear.model.Card;
 import com.babydear.model.User;
@@ -52,11 +53,14 @@ public class CardController {
 		System.out.println(cardDTO);
 		final Set<Baby> babies = tagService.processTags(cardDTO.getBabies());
 		try {
-			final String image = imgService.processImg(cardDTO.getImage());
+			final String image = imgService.processImgCard(cardDTO.getImage());
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotGoodExtention e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

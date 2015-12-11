@@ -32,17 +32,13 @@ public class Baby {
 	
 //	@JoinColumn(name = "oid", referencedColumnName="oid")
 //	@ManyToOne
-	private Long fid;
+	private Long fId;
 	
-	private String name;
+	private String babyName;
 	
 //	@Enumerated(EnumType.STRING)
-	private Sex sex;
-	
-	@Temporal(TemporalType.DATE)
-	private Date birth;
+	private Sex babySex;
+	private String babyBirth;
+	private String babyImg;
 
-	public String getImg(){
-		return "/babyImg/b"+bId+".jpg";
-	}
 }

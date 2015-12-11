@@ -11,5 +11,9 @@ config.js
 
 apiserver/src/main/resources/config.properties
 apiserver/src/main/resources/application.properties
-apiserver/src/main/webapp/img/sample
+# apiserver/src/main/webapp/imgs/sample
+apiserver/src/main/webapp/imgs/user
+apiserver/src/main/webapp/imgs/card
+apiserver/src/main/webapp/imgs/baby
+
 
