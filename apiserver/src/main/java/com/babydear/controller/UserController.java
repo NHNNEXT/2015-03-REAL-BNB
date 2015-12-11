@@ -128,6 +128,7 @@ public class UserController {
 	@RequestMapping("/api/user/login")
 	public AuthDTO login(UserDTO userDTO) {
 		logger.info("/api/user/login:{}", userDTO);
+		System.out.println(userDTO);
 		User user = userRepo.findByEmail(userDTO.getEmail());
 		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
 		Boolean result = user.checkPW(userDTO.getPassword());
@@ -136,6 +137,17 @@ public class UserController {
 		} else {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}
+	}
+	
+	@RequestMapping("/api/user/token")
+	public ResponseDTO token(String token){
+		User user = null;
+		try {
+			user = authService.getUser(token);
+		} catch (NotToken e) {
+			return new ResponseDTO(false, "로그인이 필요한 사용자 입니다");
+		}
+		return new ResponseDTO(true, token);
 	}
 
 }

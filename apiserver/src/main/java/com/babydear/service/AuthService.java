@@ -43,6 +43,7 @@ public class AuthService {
 	public String setUser(Long uId, String token) {
 		ValueOperations<String, Long> ops = template.opsForValue();
 		ops.set(token, uId);
+		System.out.println(token);
 		return token;
 	}
 

@@ -32,8 +32,8 @@ public class InitDB {
 	@PostConstruct
 	public void init(){
 		User user = new User();
-		user.setEmail("erin314@naver.com");
-		user.setPassword("1234");
+		user.setEmail("a");
+		user.setPassword("a");
 		user.setNickname("엄마");
 		user.setUserImg("/imgs/sample/user.jpeg");
 		user = userRepo.save(user);

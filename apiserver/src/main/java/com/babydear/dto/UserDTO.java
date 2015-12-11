@@ -17,7 +17,7 @@ import lombok.ToString;
 public class UserDTO {
 	private Long fId;
 	private Long uId;
-	@NotEmpty(message="no email")
+//	@NotEmpty(message="no email")
 	private String email;
 //	@NotEmpty(message="no password")
 	private String password;
