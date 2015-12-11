@@ -47,10 +47,14 @@
         <activity android:name=".CardImageEditActivity">
         </activity>
 
-        <activity android:name=".StartActivity"/>
-        <activity android:name=".SignActivity"/>
-        <activity android:name=".SignEmailActivity"/>
-        <activity android:name=".SignFacebookActivity"/>
+        <activity android:name=".StartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignEmailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignFacebookActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
