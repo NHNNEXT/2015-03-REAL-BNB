@@ -22,12 +22,14 @@
     <string name="ok">확인</string>
     <string name="role">아이와 어떤 관계인가요?(예:슈퍼파월 엄마)"</string>
     <string name="add_baby1">처음 오셨어요?</string>
-    <string name="add_baby2">아이 정보를 등록하세요. </string>
+    <string name="add_baby2">새 BALBUM 만들기</string>
 
-    <string name="family_email_auth1">이미 Balbum에 가입한 가족이 있나요? </string>
-    <string name="family_email_auth2">가입된 가족 email로 가족 정보를 불러오세요.</string>
+    <string name="family_email_auth1">이미 가입한 가족이 있나요? </string>
+    <string name="family_email_auth2">BALBUM찾기</string>
 
     <string name ="family_email_auth3">이미 가입한 가족의 메일을 입력하세요</string>
+    <string name="register_later">다음에 할게요</string>
+
 
 
 

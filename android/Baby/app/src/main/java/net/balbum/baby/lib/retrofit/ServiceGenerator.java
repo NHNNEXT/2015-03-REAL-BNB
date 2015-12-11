@@ -14,7 +14,7 @@ public class ServiceGenerator {
 
     public static final String API_BASE_URL = Config.URL;
 //    public static final String API_BASE_URL = "http://dev.balbum.net";
-//    public static final String API_BASE_URL = "http://10.73.38.222:8080";
+//
 
 
     private static RestAdapter.Builder builder = new RestAdapter.Builder()

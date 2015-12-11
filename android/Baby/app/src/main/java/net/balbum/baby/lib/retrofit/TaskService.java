@@ -1,13 +1,10 @@
 package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
-import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.CardListVo;
-import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
 
 import retrofit.Callback;
-import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -20,8 +17,14 @@ import retrofit.mime.TypedFile;
  */
 public interface TaskService {
 
+    @GET("/api/user/token")
+    void tokenCheck(@Query("token") String token, Callback<ResponseVo> cb);
+
+//    @POST("/api/user/login")
+//    void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
+
     @POST("/api/user/login")
-    void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
+    void createLogin(@Part("email") String email, @Part("password") String password, Callback<AuthVo> cb);
 
 //    @GET("/api/card")
 //    void getCard(@Body GeneralCardVo)
@@ -34,9 +37,9 @@ public interface TaskService {
 //    CardFormVo cardFormVo
 
 
-    @Multipart
-    @POST("/api/card")
-    void createCard(@Body TypedFile file, @Body CardFormVo cardFormVo, Callback<ResponseVo> cb);
+//    @Multipart
+//    @POST("/api/card")
+//    void createCard(@Body TypedFile file, @Body CardFormVo cardFormVo, Callback<ResponseVo> cb);
 
   //Body body로 나눠 보내보기!
 

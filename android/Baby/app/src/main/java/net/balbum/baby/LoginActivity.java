@@ -154,9 +154,32 @@ public class LoginActivity extends FragmentActivity{
 
     private void doLogin() {
         emailString = email.getText().toString();
+
         passwordString = password.getText().toString();
         LoginVo loginVo = new LoginVo(emailString, passwordString);
-        taskService.createLogin(loginVo, new Callback<AuthVo>() {
+//        taskService.createLogin(loginVo, new Callback<AuthVo>() {
+//
+//
+//            @Override
+//            public void success(AuthVo authVo, Response response) {
+//                Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
+//
+//                Log.i("test", "task: " + authVo.token);
+//                saveTokenBalbum(context, authVo.token);
+//
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
+//                //실패시 토스트 메시니 또는 스낵바에 내용 띄워주기 추가할 것
+//
+//            }
+//        });
+
+        taskService.createLogin(emailString, passwordString, new Callback<AuthVo>() {
 
 
             @Override
@@ -187,6 +210,7 @@ public class LoginActivity extends FragmentActivity{
 
     private void saveTokenBalbum(Context context, String token) {
 
+        Log.d("test", "saveToken~");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("tokenB", token);

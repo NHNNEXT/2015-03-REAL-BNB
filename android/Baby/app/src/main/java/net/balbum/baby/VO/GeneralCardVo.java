@@ -22,7 +22,7 @@ public class GeneralCardVo implements Parcelable{
     public String content;
     public List<Long> babies;
     public List<String> names;
-    public int type=12;
+    public int type=11;
 
     public GeneralCardVo() {
         babies = new ArrayList<>();
@@ -74,10 +74,10 @@ public class GeneralCardVo implements Parcelable{
         content = in.readString();
         babies = new ArrayList<Long>();
         in.readTypedList(babies, GeneralCardVo.CREATOR);
-        names = new ArrayList<String>();
-        for(int i = 0 ; i < babies.size(); i++){
-            names.add(babies.get(i).toString());
-        }
+//        names = new ArrayList<String>();
+//        for(int i = 0 ; i < babies.size(); i++){
+//            names.add(babies.get(i).toString());
+//        }
 
     }
 

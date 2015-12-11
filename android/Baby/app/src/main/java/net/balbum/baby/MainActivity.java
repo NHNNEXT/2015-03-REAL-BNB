@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.CardListVo;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initNavigationView();
         initFab();
-        initData();
+       // initData();
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             initView(cardGeneralModelList);
@@ -274,6 +275,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         taskService = ServiceGenerator.createService(TaskService.class);
+        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Config.URL);
         Log.d("test", " getCard시작?~");
         taskService.getCard("token", new Callback<CardListVo>() {
             @Override
@@ -284,7 +286,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d("test", "size~: " + cardGeneralModelList.size());
                 getCardsFromServer(cardGeneralModelList);
                 //되는지 확인할 것
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
 
             }
 

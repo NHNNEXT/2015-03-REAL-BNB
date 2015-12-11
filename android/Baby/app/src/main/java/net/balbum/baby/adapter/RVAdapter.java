@@ -65,7 +65,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
 
         Picasso.with(context)
-                .load((cards.get(position).imgUrl))
+                .load((CORESERVER_URL + cards.get(position).imgUrl))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.photo);
 
