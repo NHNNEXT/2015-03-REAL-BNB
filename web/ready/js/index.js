@@ -1,3 +1,5 @@
+var address = "http://dev.balbum.net/";
+
 var Start = {
     init: function() {
         $('.button-collapse').sideNav();
@@ -39,9 +41,11 @@ var Upload = {
             $('.upload-photo-box').css('display', 'none');
         });
     }
+}
 
-angular.module('balbumApp', [])
-.controller('CardController', function() {
+var balbumApp = angular.module('balbumApp', []);
+
+balbumApp.controller('CardController', function($scope) {
     var cardTimeline = this;
     cardTimeline.testData = [{
         content: "테스트 콘텐츠 지롱",
@@ -67,6 +71,32 @@ angular.module('balbumApp', [])
         cId: 3
         }
     ];
+});
+
+// // Controller function and passing $http service and $scope var.
+balbumApp.controller('postController', function($scope, $http) {
+    // create a blank object to handle form data.
+    $scope.user = {};
+    // calling our submit function.
+    $scope.submitForm = function() {
+        // Posting data to php file
+        $http({
+            method  : 'POST',
+            url     : address + 'api/card',
+            data    : $scope.user, //forms user object
+            headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        })
+        .success(function(data) {
+            if (data.errors) {
+                // Showing errors.
+                $scope.errorName = data.errors.name;
+                $scope.errorUserName = data.errors.username;
+                $scope.errorEmail = data.errors.email;
+            } else {
+                $scope.message = data.message;
+            }
+        });
+    };
 });
 
 $(function(){
