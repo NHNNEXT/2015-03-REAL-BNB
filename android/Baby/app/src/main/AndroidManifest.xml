@@ -55,6 +55,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".SignFacebookActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".InitialSettingActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
