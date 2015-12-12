@@ -47,7 +47,8 @@
                     android:id="@+id/add_baby_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="아가의 생일을 입력하세요" />
+                    android:hint="아가의 생일을 입력하세요"
+                    android:focusable="false"/>
             </android.support.design.widget.TextInputLayout>
 
             <RadioGroup

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +41,16 @@ public class AddBabyFragment extends Fragment {
         add_baby_birthday = (EditText)this.getActivity().findViewById(R.id.add_baby_birthday);
 
 
+//        if(add_baby_birthday.hasFocus()){
+//            Log.d("test", "datepicker");
+//            DialogHandler pickerDialog = new DialogHandler();
+//            pickerDialog.show(getFragmentManager(),"date_picker");
+//        }
+
         add_baby_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "datepicker");
-                DialogHandler pickerDialog = new DialogHandler();
+                DialogHandler pickerDialog = new DialogHandler(v);
                 pickerDialog.show(getFragmentManager(),"date_picker");
             }
         });
