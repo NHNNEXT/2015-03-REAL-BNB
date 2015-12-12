@@ -45,9 +45,7 @@ var Upload = {
 
 var balbumApp = angular.module('balbumApp', []);
 
-balbumApp.controller('CardController', function($scope) {
-    var cardTimeline = this;
-    cardTimeline.testData = [{
+var testData = [{
         content: "테스트 콘텐츠 지롱",
         modified: '2015-04-02',
         imgUrl: "img/photo1.jpg",
@@ -71,15 +69,24 @@ balbumApp.controller('CardController', function($scope) {
         cId: 3
         }
     ];
+
+var addData = {
+        content: "",
+        modified: '2015-04-02',
+        imgUrl: "img/photo4.jpg",
+        babies: [
+            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}]   ,
+        cId: 1
+        };
+
+balbumApp.controller('CardController', function($scope) {
+    var cardTimeline = this;
+    this.testData = testData;
 });
 
-// // Controller function and passing $http service and $scope var.
 balbumApp.controller('postController', function($scope, $http) {
-    // create a blank object to handle form data.
     $scope.card = {};
-    // calling our submit function.
     $scope.submitForm = function() {
-        // Posting data to php file
         $http({
             method  : 'POST',
             url     : address + 'api/card',
@@ -87,13 +94,16 @@ balbumApp.controller('postController', function($scope, $http) {
             headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         })
         .success(function(data) {
+            console.log(data);
             if (data.errors) {
-                // Showing errors.
                 $scope.errorName = data.errors.name;
-                $scope.errorUserName = data.errors.username;
-                $scope.errorEmail = data.errors.email;
+
             } else {
                 $scope.message = data.message;
+                addData.content = $scope.card.content;
+                testData.unshift(addData);
+                $scope.card = '';
+
             }
         });
     };
