@@ -76,14 +76,14 @@ balbumApp.controller('CardController', function($scope) {
 // // Controller function and passing $http service and $scope var.
 balbumApp.controller('postController', function($scope, $http) {
     // create a blank object to handle form data.
-    $scope.user = {};
+    $scope.card = {};
     // calling our submit function.
     $scope.submitForm = function() {
         // Posting data to php file
         $http({
             method  : 'POST',
             url     : address + 'api/card',
-            data    : $scope.user, //forms user object
+            data    : $scope.card, //forms user object
             headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         })
         .success(function(data) {

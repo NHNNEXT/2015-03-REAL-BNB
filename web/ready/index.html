@@ -93,58 +93,45 @@
         </aside>
         <section class="main-container row">
             <article class="main-col col s12 m12 l8">
-                <div class="col-sm-8 col-sm-offset-2" ng-controller="postController">
-                    <div class="page-header"><h1>Post data using angularJS</h1></div>
+
+                <!-- <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController">
                     <form name="userForm" ng-submit="submitForm()">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control" ng-model="user.name">
-                            <span ng-show="errorName">{{errorName}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="username" class="form-control" ng-model="user.username">
-                            <span ng-show="errorUserName">{{errorUserName}}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" ng-model="user.email">
-                            <span ng-show="errorEmail">{{errorEmail}}</span>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-
-
-                <div class="postcard-container card row scrollspy" id="card-now">
-                    <div class="postcard-tabs col s12">
-                        <ul class="tabs">
-                            <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
-                            <li class="tab col s3"><a class="active" href="#event-tab">특별한 순간</a></li>
-                        </ul>
-                    </div>
-                    <div id="daily-tab" class="col row s12">
-                        <form class="disappear" id="upload-form" runat="server">
-                            <input type='file' id="upload-photo" />
-                        </form>
-                        <div class="upload-photo-box col s12">
-                            <i class="material-icons">add_a_photo</i>사진 추가하기
-                        </div>
-                        <img id="uploaded-photo" src="#" alt="uploaded photo" />
                         <div class="input-field col s12">
-                            <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" class="materialize-textarea" length="120"></textarea>
+                            <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" ng-model="card.content" class="materialize-textarea" length="120"></textarea>
                         </div>
-                    </div>
-                    <div id="event-tab" class="col row s12">
-                        <div class="date-container ">
-                            <input type="date" name="input" value="Type here" placeholder="생년월일">
+                        <button type="submit" class="btn btn-primary">Submit1</button>
+                    </form>
+                </div> -->
+
+                <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController">
+                    <form name="userForm" ng-submit="submitForm()">
+                        <div class="postcard-tabs col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
+                                <li class="tab col s3"><a class="active" href="#event-tab">특별한 순간</a></li>
+                            </ul>
                         </div>
-                        <div class="input-field col s6">
-                            <input placeholder="첫 옹알이" id="first_name" type="text" class="validate">
+                        <div id="daily-tab" class="col row s12">
+                            <!-- <form class="disappear" id="upload-form" runat="server">
+                                <input type='file' id="upload-photo" />
+                            </form> -->
+                            <div class="upload-photo-box col s12">
+                                <i class="material-icons">add_a_photo</i>사진 추가하기
+                            </div>
+                            <img id="uploaded-photo" src="#" alt="uploaded photo" />
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" ng-model="card.content" class="materialize-textarea" length="120"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="baby-check-container card-content">
-                        <form action="#">
+                        <div id="event-tab" class="col row s12">
+                            <div class="date-container ">
+                                <input type="date" name="input" value="Type here" ng-model="card.modified" placeholder="생년월일">
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
+                            </div>
+                        </div>
+                        <div class="baby-check-container card-content">
                             <p class="baby-check">
                                 <input type="checkbox" id="baby-check-1" />
                                 <label for="baby-check-1">연우
@@ -164,16 +151,15 @@
                                     </div>
                                 </label>
                             </p>
-                        </form>
-                    </div>
-                    <div class="action card-action row">
-                        <div class="date-container col s5">
-                            <input type="date" name="input" value="Type here" placeholder="생년월일">
                         </div>
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
-                    </div>
+                        <div class="action card-action row">
+                            <div class="date-container col s5">
+                                <input type="date" name="input" ng-model="card.modified" value="2015-04-27" placeholder="생년월일">
+                            </div>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
+                        </div>
+                    </form>
                 </div>
-
                 <div class="card-container" ng-controller="CardController as cardTimeline">
                     <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.testData">
                         <div class="bc-photo card-image">
