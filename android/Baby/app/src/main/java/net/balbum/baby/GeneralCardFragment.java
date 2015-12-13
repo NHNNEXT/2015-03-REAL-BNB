@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -59,7 +60,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
         if (bundle != null) {
             generalCardVo = (GeneralCardVo) bundle.getParcelable("vo");
-            Log.d("test", generalCardVo.imgUrl + "qweqwe");
+            Log.d("test", generalCardVo.cardImg + "qweqwe");
         }
 
         return view;
@@ -78,7 +79,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         if(generalCardVo != null){
             memo_tv.setText(generalCardVo.content);
             Picasso.with(context)
-                    .load((generalCardVo.imgUrl))
+                    .load((Config.URL+generalCardVo.cardImg))
                     .placeholder(R.mipmap.ic_launcher)
                     .into(photo_iv);
 
@@ -172,7 +173,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
 //        memo_tv.setText(card.content);
         Picasso.with(context)
-                .load((card.imgUrl))
+                .load((card.cardImg))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(photo_iv);
     }

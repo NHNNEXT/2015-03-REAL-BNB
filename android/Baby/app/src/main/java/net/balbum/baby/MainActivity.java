@@ -93,12 +93,12 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
 
-        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
-            @Override
-            public void onLoadMore(int current_page) {
-
-            }
-        });
+//        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
+//            @Override
+//            public void onLoadMore(int current_page) {
+//
+//            }
+//        });
 
         adapter = new RVAdapter(cardGeneralModelList, context);
         rv.setAdapter(adapter);
@@ -245,30 +245,6 @@ public class MainActivity extends AppCompatActivity
         return null;
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        taskService = ServiceGenerator.createService(TaskService.class);
-//
-//        taskService.getCard(new Callback<CardListVo>() {
-//            @Override
-//            public void success(CardListVo cardListVo, Response response) {
-//                Toast.makeText(context, "Toast.make", Toast.LENGTH_LONG).show();
-//                cardGeneralModelList = new ArrayList<>();
-//                if(cardListVo == null || cardListVo.cardList.size() == 0){
-//                    Toast.makeText(context, "card empty?null?", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    cardGeneralModelList = cardListVo.cardList;
-//                }
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Toast.makeText(context, "ERORRRRRRRR", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
-
 
     @Override
     protected void onResume() {
@@ -286,7 +262,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d("test", "size~: " + cardGeneralModelList.size());
                 getCardsFromServer(cardGeneralModelList);
                 //되는지 확인할 것
-                //adapter.notifyDataSetChanged();
+//                adapter.notifyDataSetChanged();
 
             }
 

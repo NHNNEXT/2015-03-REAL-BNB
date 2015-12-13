@@ -63,14 +63,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:text="남" />
+                    android:text="여" />
 
                 <RadioButton
                     android:id="@+id/radio1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:text="여" />
+                    android:text="남" />
 
                 <RadioButton
                     android:id="@+id/radio2"
@@ -108,4 +108,5 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="0.36" />
+
 </LinearLayout>

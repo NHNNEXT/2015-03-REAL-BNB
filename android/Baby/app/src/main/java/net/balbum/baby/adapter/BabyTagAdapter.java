@@ -105,7 +105,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //            viewHolder = (BabyViewHolder) convertView.getTag();
 //        }
 //
-//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).imgUrl));
+//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).cardImg));
 //        viewHolder.name.setText(names.get(position).name);
 //
 //

@@ -179,7 +179,7 @@ public class LoginActivity extends FragmentActivity{
 //            }
 //        });
 
-        taskService.createLogin(emailString, passwordString, new Callback<AuthVo>() {
+        taskService.createLogin(loginVo, new Callback<AuthVo>() {
 
 
             @Override

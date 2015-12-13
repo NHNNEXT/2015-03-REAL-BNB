@@ -43,9 +43,6 @@ public class CardWritingActivity extends AppCompatActivity {
     private static final int CARD_CREATE = 0;
     private static final int CARD_MODIFY = 1;
 
-    private static final int GENERAL_CARD = 11;
-    private static final int EVENT_CARD = 12;
-
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
     GeneralCardFragment generalCardFragment;
@@ -79,15 +76,18 @@ public class CardWritingActivity extends AppCompatActivity {
 
         if (type == CARD_MODIFY) {
 
+
             GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
             Bundle bundle = new Bundle();
             bundle.putParcelable("vo", cardVo);
+            Log.d("test", "modify start~" + cardVo.type);
             // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
-            if(cardVo.type == GENERAL_CARD) {
+            if(cardVo.type == GeneralCardVo.Type.NORMAL) {
                 generalCardFragment.setArguments(bundle);
                 Log.d("test", "general");
-            }else if(cardVo.type == EVENT_CARD){
+
+            }else if(cardVo.type == GeneralCardVo.Type.EVENT){
                 Log.d("test", "event");
                 viewPager.setCurrentItem(1);
                 eventCardFragment.setArguments(bundle);

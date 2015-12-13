@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     private static final int CARD_MODIFY = 1;
-    private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
     private Context context;
     private boolean open = true;
@@ -62,10 +62,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
 
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
-        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
+        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
+
+        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
         Picasso.with(context)
-                .load((CORESERVER_URL + cards.get(position).imgUrl))
+                .load((Config.URL + cards.get(position).cardImg))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.photo);
 

@@ -62,10 +62,10 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
 
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
-        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).imgUrl));
+        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
         Picasso.with(context)
-                .load((cards.get(position).imgUrl))
+                .load((cards.get(position).cardImg))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.photo);
 

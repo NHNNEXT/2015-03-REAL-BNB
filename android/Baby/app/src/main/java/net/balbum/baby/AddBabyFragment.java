@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,7 +29,9 @@ public class AddBabyFragment extends Fragment {
     EditText add_baby_birthday;
     ListView listView;
     RadioGroup radioGroup;
-    int baby_sex;
+    ImageView add_baby_image;
+    BabyVo.Gender baby_gender;
+    int temp_gender;
 
     @Nullable
     @Override
@@ -46,6 +50,7 @@ public class AddBabyFragment extends Fragment {
         register_later = (TextView)this.getActivity().findViewById(R.id.register_later);
         add_baby_name = (EditText)this.getActivity().findViewById(R.id.add_baby_name);
         add_baby_birthday = (EditText)this.getActivity().findViewById(R.id.add_baby_birthday);
+        add_baby_image = (ImageView)this.getActivity().findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup)this.getActivity().findViewById(R.id.add_baby_radiogroup);
         listView = (ListView)this.getActivity().findViewById(R.id.list);
 
@@ -53,7 +58,7 @@ public class AddBabyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogHandler pickerDialog = new DialogHandler(v);
-                pickerDialog.show(getFragmentManager(),"date_picker");
+                pickerDialog.show(getFragmentManager(), "date_picker");
             }
         });
 
@@ -67,7 +72,6 @@ public class AddBabyFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //아기 정보 저장하기 구현할 부분
                 createBabyInfo();
                 goToMainActivity();
             }
@@ -76,16 +80,20 @@ public class AddBabyFragment extends Fragment {
     }
 
     private void createBabyInfo() {
+        Log.d("test", "createBabyInfo");
         add_baby_birthday.getText().toString();
         add_baby_name.getText().toString();
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                baby_sex = radioGroup.indexOfChild(getActivity().findViewById(checkedId));
-            }
-        });
 
-        BabyVo babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), baby_sex, null);
+        BabyVo babyVo;
+        temp_gender =radioGroup.getCheckedRadioButtonId();
+        if(temp_gender == R.id.radio0){
+            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.GIRL, null);
+        }else if(temp_gender == R.id.radio1){
+            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.BOY, null);
+        }else{
+            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.UNDEFINED, null);
+        }
+
 
     }
 
