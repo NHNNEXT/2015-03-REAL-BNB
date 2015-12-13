@@ -122,7 +122,7 @@ public class CardWritingActivity extends AppCompatActivity {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
-                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bid, false, baby.babyName);
                       babyTagNamesList.add(babyTag);
                       initBabyTag();
                   }
@@ -186,11 +186,7 @@ public class CardWritingActivity extends AppCompatActivity {
         if (id == R.id.action_save) {
 
             int currentItem = viewPager.getCurrentItem();
-                Log.i("test", "current: " + currentItem);
-
-
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
-
 
             GeneralCardVo.Type temp_type = null;
             if(currentItem == 0){
@@ -200,10 +196,6 @@ public class CardWritingActivity extends AppCompatActivity {
             }
 
             File file = new File(vo.cardImg);
-
-            Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-            File a = ConvertBitmapToFileUtil.convertFile(img1);
-
             TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
             List<Long> asd = new ArrayList<Long>();
@@ -229,20 +221,38 @@ public class CardWritingActivity extends AppCompatActivity {
 //                    Log.d("test", "카드 POST 실패");
 //                }
 //            });
-            taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
-                @Override
-                public void success(ResponseVo responseVo, Response response) {
-                    Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
 
-                    Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+            if((Long)vo.cid == null) {
+                taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
+                    @Override
+                    public void success(ResponseVo responseVo, Response response) {
+                        Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.i("test", "card error: " + error);
-                }
-            });
+                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i("test", "card error: " + error);
+                    }
+                });
+            }else{
+                taskService.updateCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), vo.cid, new Callback<ResponseVo>() {
+                    @Override
+                    public void success(ResponseVo responseVo, Response response) {
+                        Log.i("test", "업데이트 성공!");
+                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i("test", "업데이트 실패!");
+                    }
+                });
+
+            }
 
 
 

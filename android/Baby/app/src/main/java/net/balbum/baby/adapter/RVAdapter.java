@@ -21,11 +21,19 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.CardWritingActivity;
+import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Config;
 import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -38,12 +46,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     private boolean open = true;
     private Typeface typeface;
             Animation anim;
-
+    TaskService taskService;
 
     public RVAdapter(List<GeneralCardVo> cards, Context context){
         this.cards = cards;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
+        taskService = ServiceGenerator.createService(TaskService.class);
 //       anim = AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha);
         }
 
@@ -82,6 +91,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         holder.delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("test", "position 넘기기 전: " + position);
                 deleteCard(position);
             }
         });
@@ -103,6 +113,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     }
 
     private void deleteCard(int position) {
+        taskService.deleteCard(cards.get(position).cid, new Callback<ResponseVo>() {
+            @Override
+            public void success(ResponseVo responseVo, Response response) {
+                Log.d("test", "state: " + responseVo.state);
+                Log.d("test", "delete 성공");
+
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("test", "delete 실패");
+            }
+        });
+
         Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
     }
 

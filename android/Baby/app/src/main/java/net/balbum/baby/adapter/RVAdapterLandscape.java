@@ -97,7 +97,7 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
     private void modifyCard(viewHolder holder, int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("cId", cards.get(position).cId);
+        intent.putExtra("cid", cards.get(position).cid);
         context.startActivity(intent);
 
 

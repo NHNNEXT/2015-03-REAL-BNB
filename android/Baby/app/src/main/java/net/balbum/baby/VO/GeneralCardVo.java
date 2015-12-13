@@ -29,7 +29,7 @@ public class GeneralCardVo implements Parcelable{
     @Required
     public String modifiedDate;
     public String cardImg;
-    public long cId;
+    public long cid;
     public String content;
     public List<BabyVo> babies;
     public List<Long> names;
@@ -44,20 +44,21 @@ public class GeneralCardVo implements Parcelable{
         readFromParcel(in);
     }
 
-    public GeneralCardVo(String content, String cardImg, String modifiedDate) {
+    public GeneralCardVo(String content, String cardImg, String modifiedDate, Long cid) {
         this.content = content;
         this.cardImg = cardImg;
         this.modifiedDate = modifiedDate;
+        this.cid = cid;
     }
 
-    public GeneralCardVo(String cardImg, long cId, String content, String modifiedDate, List<Long> names, Type type) {
+    public GeneralCardVo(String cardImg, long cid, String content, String modifiedDate, List<Long> names, Type type) {
         this.cardImg = cardImg;
-        this.cId = cId;
+        this.cid = cid;
         this.content = content;
         this.modifiedDate = modifiedDate;
         this.names = new ArrayList<Long>();
         for(int i = 0 ; i < babies.size(); i++) {
-            names.add(babies.get(i).bId);
+            names.add(babies.get(i).bid);
             this.type = type;
         }
     }
@@ -72,7 +73,7 @@ public class GeneralCardVo implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(modifiedDate);
         dest.writeString(cardImg);
-        dest.writeLong(cId);
+        dest.writeLong(cid);
         dest.writeString(content);
         dest.writeValue(type);
 //        dest.writeList(babies);
@@ -81,7 +82,7 @@ public class GeneralCardVo implements Parcelable{
     private void readFromParcel(Parcel in){
         modifiedDate = in.readString();
         cardImg = in.readString();
-        cId = in.readLong();
+        cid = in.readLong();
         content = in.readString();
         type = (Type) in.readValue(Type.class.getClassLoader());
 //        babies = new ArrayList<Long>();

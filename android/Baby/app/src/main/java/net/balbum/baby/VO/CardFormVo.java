@@ -6,7 +6,7 @@ import java.util.List;
  * Created by hyes on 2015. 11. 17..
  */
 public class CardFormVo {
-    public Long cId;
+    public Long cid;
     public String token;
     public List<Long> babies;
     public String content;
@@ -17,8 +17,8 @@ public class CardFormVo {
         this.content = content;
     }
 
-    public CardFormVo(Long cId, String token, List<Long> babies, String content, String modifiedDate) {
-        this.cId = cId;
+    public CardFormVo(Long cid, String token, List<Long> babies, String content, String modifiedDate) {
+        this.cid = cid;
         this.token = token;
         this.babies = babies;
         this.content = content;
