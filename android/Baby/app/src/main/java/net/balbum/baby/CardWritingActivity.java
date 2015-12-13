@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -51,6 +52,7 @@ public class CardWritingActivity extends AppCompatActivity {
     Intent intent;
     Toolbar toolbar;
     List<BabyTagVo> babyTagNamesList;
+    List<BabyVo> babyVoList;
     TaskService taskService;
     ViewPager viewPager;
     BabyTagAdapter adapter;
@@ -71,7 +73,7 @@ public class CardWritingActivity extends AppCompatActivity {
         initToolbar();
         initData();
         initViewPager(generalCardFragment, eventCardFragment);
-        initBabyTag();
+//        initBabyTag();
 
         if (type == CARD_MODIFY) {
 
@@ -112,9 +114,25 @@ public class CardWritingActivity extends AppCompatActivity {
 
     private Context initData(){
 
-
+        //기본 저장되어있는 아이 정보 불러와서 리스트 만들 부분
         babyTagNamesList = new ArrayList<>();
+        babyVoList = new ArrayList<>();
+        String token = "token";
+        taskService.getBabies(token, new Callback<ArrayList<BabyVo>>() {
+              @Override
+              public void success(ArrayList<BabyVo> babyVos, Response response) {
+                  for(BabyVo baby : babyVos){
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, false, baby.babyName);
+                      babyTagNamesList.add(babyTag);
+                      initBabyTag();
+                  }
+              }
 
+              @Override
+              public void failure(RetrofitError error) {
+
+              }
+        });
 
         Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
@@ -128,9 +146,9 @@ public class CardWritingActivity extends AppCompatActivity {
         BabyTagVo baby2 = new BabyTagVo(b, "연두");
         BabyTagVo baby3 = new BabyTagVo(c, "벌이");
 
-        babyTagNamesList.add(baby1);
-        babyTagNamesList.add(baby2);
-        babyTagNamesList.add(baby3);
+//        babyTagNamesList.add(baby1);
+//        babyTagNamesList.add(baby2);
+//        babyTagNamesList.add(baby3);
 
         return null;
 
@@ -186,8 +204,10 @@ public class CardWritingActivity extends AppCompatActivity {
             asd.add(new Long(4));
 
             Long l = new Long(2);
+
+
             String content = "asdasd";
-            CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
+            CardFormVo cardFormVo = new CardFormVo( asd, "경륜이랑 짝코딩딩딩", "1");
 
 //            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
 //                @Override

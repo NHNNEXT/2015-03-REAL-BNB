@@ -7,6 +7,7 @@ import java.io.File;
  */
 public class BabyTagVo {
     public File image;
+    public String babyImg;
     public String name;
     public boolean isSelected;
 
@@ -14,5 +15,11 @@ public class BabyTagVo {
         this.image = image;
         this.name = name;
         this.isSelected = false;
+    }
+
+    public BabyTagVo(String babyImg, boolean isSelected, String name) {
+        this.babyImg = babyImg;
+        this.isSelected = isSelected;
+        this.name = name;
     }
 }

@@ -24,4 +24,10 @@ public class CardFormVo {
         this.content = content;
         this.modifiedDate = modifiedDate;
     }
+
+    public CardFormVo(List<Long> babies, String modifiedDate, String content) {
+        this.babies = babies;
+        this.modifiedDate = modifiedDate;
+        this.content = content;
+    }
 }

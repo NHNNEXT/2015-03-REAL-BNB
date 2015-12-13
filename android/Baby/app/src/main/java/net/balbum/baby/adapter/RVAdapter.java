@@ -62,11 +62,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
         holder.date.setText(cards.get(position).modifiedDate);
         // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
-
         Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
         Picasso.with(context)
                 .load((Config.URL + cards.get(position).cardImg))
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
         holder.diary_text.setText(cards.get(position).content);

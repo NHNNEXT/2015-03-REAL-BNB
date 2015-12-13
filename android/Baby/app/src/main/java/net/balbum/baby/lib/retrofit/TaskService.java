@@ -6,7 +6,7 @@ import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -54,7 +54,8 @@ public interface TaskService {
 //    void createBabyInfo(@Part("image") TypedFile file, @Body BabyVo babyVo, Callback<ResponseVo> cb);
     void createBabyInfo(@Part("image") TypedFile file,  @Part("babyName") String name, @Part("babyBirth") String birth,  @Part("babyGender") String gender, Callback<ResponseVo> cb);
 
-
     @GET("/api/user/baby")
-    void getBabies(Callback<List<BabyVo>> cb);
+    void getBabies(@Query("token") String token, Callback<ArrayList<BabyVo>> cb);
+
+
 }

@@ -2,14 +2,17 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.balbum.baby.R;
-import net.balbum.baby.Util.ConvertFileToBitmapUtil;
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.VO.BabyTagVo;
 
 import java.util.ArrayList;
@@ -24,15 +27,15 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     private Context context;
     private ArrayList<String> selectedList =new ArrayList<String>();
 
-
-
-
     public BabyTagAdapter(List<BabyTagVo> names, Context context) {
         this.names = names;
         this.context = context;
 
+        Log.d("test", "도");
+        Log.d("test", "to the 착: " + names.size());
         if(names != null && names.size() == 1){
             names.get(0).isSelected = true;
+            Log.d("test", "for 걸림: " + names.size());
         }
     }
 
@@ -46,7 +49,10 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     @Override
     public void onBindViewHolder(final BabyViewHolder holder, final int position) {
-        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
+//        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
+
+        Picasso.with(context).load(Config.URL+names.get(position).babyImg).into(holder.photo);
+
         holder.name.setText(names.get(position).name);
 
         if (!names.get(position).isSelected) {
