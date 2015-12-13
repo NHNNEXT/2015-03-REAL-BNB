@@ -1,4 +1,5 @@
 //@TODO 일단 전역으로 뺐다..
+$(".button-collapse").sideNav();
 
 // token이 있으면(로그인 된 상태라면) mainPage로 간다
 if(localStorage.getItem("token")){

@@ -14,119 +14,126 @@
 		<link rel="stylesheet" type="text/css" href="css/landing1.css"/>
 	</head>
 	<body class="lp-body">
-		<!-- 상단바 @챙 TODO :(현재 윈도우 환경이라 gulp 세팅이 안되고 있어서 나중에 수정 ) -->
+		<!-- 상단바 -->
 		<div class="navbar-fixed">
             <nav class="nav-top" role="navigation">
                 <div class="nav-wrapper">
-                	<a id="logo-container" href="#" class="brand-logo">
-                		<!-- <img src="img/balbum-logo.png" alt="logo"> -->
+                	<a href="#" class="brand-logo">
+                		<img src="img/balbum-logo-1.png" alt="logo">
                 	</a>
-                    <ul class="right hide-on-small-only">
-                    	<li><a href="#">로그인</a></li>
-                        <li><a href="#">가입하기</a></li>	
-                    </ul>
-                </div>
-            </nav>
+	                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+	                 <ul class="right hide-on-med-and-down">
+	                  	<li><a href="#modal-login" class="modal-trigger">로그인</a></li>
+	                    <li><a href="#modal-signup" class="modal-trigger">가입하기</a></li>
+	                 </ul>
+	                 <ul class="side-nav" id="mobile-demo">
+	                   	<li><a href="#modal-login" class="modal-trigger">로그인</a></li>
+	                    <li><a href="#modal-signup" class="modal-trigger">가입하기</a></li>
+	                 </ul>
+               </div>
+             </nav>
         </div>
         <!-- //상단바 -->
 
+		<section class="lp-container">
+	        <div class="inner">	            
+		        <h1 class="col s12 m6">가장 아름다운 육아일기</h1>
+		        <h2 class="col s12 m6">우리 아이의 소중한 순간을, Balbum에 남기세요. 아이의 일상의 순간, 특별한 순간까지 편하게 기록할 수 있도록 도와줍니다.</h2>
 
-		<div class="lp-container">
-	        <div class="bg-box">
-				<img src="img/landingBackground.jpg" class="bg_img">
-			</div>
-			<div class="lp-content row">
-				<div class="msg col s12">
-					<span>우리 아이의 소중한 순간을<br>벨범에 남기세요.(찡긋~)</span>
-				</div>
+			    <div class="lp-content">
+			    	<!-- Modal Trigger -->
+			    	<a class="waves-effect waves-light btn-large modal-trigger s12" href="#modal-login">로그인</a>
+			    	<a class="waves-effect waves-light btn-large modal-trigger s12" href="#modal-signup">가입하기</a>
 
-				<!-- Modal Trigger -->
-				<a class="waves-effect waves-light btn-large modal-trigger" href="#modal-login">로그인</a>
-				<a class="waves-effect waves-light btn-large modal-trigger" href="#modal-signup">가입하기</a>
+			    	<!-- Modal Structure -->
+			    	<div id="modal-login" class="modal">
+			    		<div class="modal-content">
+			    			<h4>로그인하기</h4>
+			    			<div>// 소셜 로그인 부분</div>
+			    			<!-- 소셜 로그인 
+			    			<img src="img/facebook_login.png" class="login_btn" alt="">
+			    			<img src="img/kakao_login.png" class="login_btn" alt="">
+			    			<img src="img/naver_login.png" class="login_btn" alt=""> -->
 
-				<!-- Modal Structure -->
-				<div id="modal-login" class="modal">
-					<div class="modal-content">
-						<h4>로그인하기</h4>
-						<div>// 소셜 로그인 부분</div>
-						<!-- 소셜 로그인 
-						<img src="img/facebook_login.png" class="login_btn" alt="">
-						<img src="img/kakao_login.png" class="login_btn" alt="">
-						<img src="img/naver_login.png" class="login_btn" alt=""> -->
+			    			<div class="login_box col s12">
+			    				<form id="login_form" class="col s12">
+			    					<div class="row">
+			    						<div class="input-field  s12">
+			    							<input id="login-email" type="email" class="validate">
+			    							<label for="email">Email</label>
+			    						</div>
+			    					</div>
+			    					<div class="row">
+			    					    <div class="input-field s12">
+			    					    	<input id="login-password" type="password" class="validate">
+			    					    	<label for="password">Password</label>
+			    					    </div>
+			    					</div>
+			    					<button name="submit" type="submit" class="login_btn modal-action modal-close waves-effect waves-light btn-large">로그인</button>
+			    				</form>
+			    			</div>
+			    		</div>
+			    	</div>
 
-						<div class="login_box col s12">
-							<form id="login_form" class="col s12">
-								<div class="row">
-									<div class="input-field  s12">
-										<input id="login-email" type="email" class="validate">
-										<label for="email">Email</label>
-									</div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="login-password" type="password" class="validate">
-								    	<label for="password">Password</label>
-								    </div>
-								</div>
-								<button name="submit" type="submit" class="login_btn modal-action modal-close waves-effect waves-light btn-large">로그인</button>
-							</form>
-						</div>
-					</div>
-				</div>
+			    	<div id="modal-signup" class="modal">
+			    		<div class="modal-content">
+			    			<h4>회원가입하기</h4>
+			    			<div>// 소셜 회원가입 부분</div>
+			    			<!-- 소셜 회원가입 
+			    			<img src="img/facebook_signup.png" class="signup_btn" alt="">
+			    			<img src="img/kakao_signup.png" class="signup_btn" alt="">
+			    			<img src="img/naver_signup.png" class="signup_btn" alt=""> -->
+			    			<div class="signup_box col s12">
+			    				<form id="signup_form" class="col s12" enctype="multipart/form-data">
+			    					<div class="row">
+			    						<div class="input-field s12">
+			    							<input type="file" name="uploadfile" />
+			    							<input type="button" id="uploadbutton"  value="파일업로드" />
+			    						</div>
+			    					</div>
+			    					<div class="row">
+			    						<div class="input-field s12">
+			    							<input id="signup-email" type="email" class="validate" onblur="emailValidation()">
+			    							<label for="email">Email</label>
+			    						</div>
+			    					</div>
+			    					<div class="row">
+			    					    <div class="input-field s12">
+			    					    	<input id="signup-password" type="password" class="validate">
+			    					    	<label for="password">Password</label>
+			    					    </div>
+			    					</div>
+			    					<div class="row">
+			    					    <div class="input-field s12">
+			    					    	<input id="signup-confirm-password" type="password" class="validate" onblur="passwordValidation()">
+			    					    	<label for="confirm-password">Confirm Password</label>
+			    					    </div>
+			    					</div>
+			    					<div class="row ">
+			    						<div class="input-field  s12">
+			    							<input id="signup-role" type="text" class="validate">
+			    							<label for="role">Role</label>
+			    						</div>
+			    					</div>
+			    					<div class="row">
+			    						<div id="errors"></div>
+			    					</div>
+			    					<button name="submit" type="submit" value="submit" class="signup_btn modal-action modal-close waves-effect waves-light btn-large">계정 만들기</button>
+			    				</form>
+			    			</div>
+			    		</div>
+			    	</div>
+		    	</div>
+		    </div>
+		</section>
 
-				<div id="modal-signup" class="modal">
-					<div class="modal-content">
-						<h4>회원가입하기</h4>
-						<div>// 소셜 회원가입 부분</div>
-						<!-- 소셜 회원가입 
-						<img src="img/facebook_signup.png" class="signup_btn" alt="">
-						<img src="img/kakao_signup.png" class="signup_btn" alt="">
-						<img src="img/naver_signup.png" class="signup_btn" alt=""> -->
-						<div class="signup_box col s12">
-							<form id="signup_form" class="col s12" enctype="multipart/form-data">
-								<div class="row">
-									<div class="input-field s12">
-										<input type="file" name="uploadfile" />
-										<input type="button" id="uploadbutton"  value="파일업로드" />
-									</div>
-								</div>
-								<div class="row">
-									<div class="input-field s12">
-										<input id="signup-email" type="email" class="validate" onblur="emailValidation()">
-										<label for="email">Email</label>
-									</div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="signup-password" type="password" class="validate">
-								    	<label for="password">Password</label>
-								    </div>
-								</div>
-								<div class="row">
-								    <div class="input-field s12">
-								    	<input id="signup-confirm-password" type="password" class="validate" onblur="passwordValidation()">
-								    	<label for="confirm-password">Confirm Password</label>
-								    </div>
-								</div>
-								<div class="row ">
-									<div class="input-field  s12">
-										<input id="signup-role" type="text" class="validate">
-										<label for="role">Role</label>
-									</div>
-								</div>
-								<div class="row">
-									<div id="errors"></div>
-								</div>
-								<button name="submit" type="submit" value="submit" class="signup_btn modal-action modal-close waves-effect waves-light btn-large">계정 만들기</button>
-							</form>
-						</div>
-					</div>
-				</div>
-		</div>
+		<section class="example">
+			<img src="img/landingExample.png">
+		</section>
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="js/jqery.form.js"></script>
+		<script type="text/javascript" src="js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/vendor/materialize.js"></script>
 		<script type="text/javascript" src="js/landing1.js"></script>
 	</body>

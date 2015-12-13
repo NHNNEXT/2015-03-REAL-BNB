@@ -1,3 +1,4 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 html {
   height: 100%;
 }
@@ -16,91 +17,82 @@ li {
   list-style-type: none;
 }
 .lp-body {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  background: #f3ede8;
 }
-.bg-box {
-  overflow: hidden;
-  width: 100%;
-  /*height: 100%;*/
-  min-width: 1024px;
-  min-height: 768px;
-  left: 0;
-  top: 0;
-  position: fixed;
-  background-color: #896DA5;
-  z-index: -1;
+button {
+  background: #896DA5 !important;
 }
-.bg-box .bg-img {
-  width: 100%;
-  height: 100%;
+nav.nav-top {
+  background-color: rgba(255, 251, 245, 0.9);
+  box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
+}
+nav.nav-top .brand-logo {
+  margin-top: 7px;
+  color: #896DA5;
+  font-weight: 900;
+}
+nav.nav-top .brand-logo img {
+  height: 35px;
+}
+nav.nav-top .button-collapse {
+  left: 10px;
+}
+nav.nav-top .button-collapse i {
+  font-size: 2rem !important;
+}
+nav.nav-top a {
+  color: #896DA5;
+}
+section.lp-container {
+  background: #e1e1e1 no-repeat center center;
   background-size: cover;
+  background-image: url('../img/bg2-1.jpg');
+  padding: 130px 0;
 }
-.lp-container {
-  position: absolute;
-  text-align: center;
-  left: 50%;
-  top: 50%;
-  margin: -250px auto 0 -150px;
-  /* lp_content의 height와 width의 절반값 참고 */
-  width: 300px;
-}
-.lp-container .lp-content {
-  /*border: solid 1px;*/
+section.lp-container .inner {
   position: relative;
-  width: 300px;
-  height: 500px;
-  /*background-color: #eee;*/
-  margin: 0 auto;
+  padding: 0 50px;
+  margin: auto;
 }
-.lp-container .lp-content .msg {
-  float: left;
-  width: 300px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 1.5em;
-  color: #fff;
+section.lp-container .inner h1 {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.2em;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
 }
-.lp-container .lp-content .lp-logo {
-  width: 90px;
-  height: 90px;
-  margin: 40px;
-  left: 65px;
-  /*top: 40px;*/
-  background: url("../img/bablum_logo2.png") no-repeat;
-  background-size: 100%;
+section.lp-container .inner h2 {
+  font-size: 20px;
+  padding-bottom: 0;
+  max-width: 450px;
+  line-height: 33px;
+  font-weight: normal;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
+}
+.lp-content {
   position: relative;
 }
-.lp-container .lp-content .signup-box,
-.lp-container .lp-content .login-box {
+.lp-content .signup-box,
+.lp-content .login-box {
   /*width: 245px;*/
   /*margin: 0 auto;*/
 }
-.lp-container .lp-content .signup-box .row input:focus,
-.lp-container .lp-content .login-box .row input:focus {
+.lp-content .signup-box .row input:focus,
+.lp-content .login-box .row input:focus {
   border-bottom: 1px solid #64b5f6 !important;
   box-shadow: 0 1px 0 0 #64b5f6 !important;
 }
-.lp-container .lp-content .signup-btn,
-.lp-container .lp-content .login-btn {
+.lp-content a {
+  background: #896DA5 !important;
+}
+.lp-content button {
   width: 100%;
-  background-color: #64b5f6;
 }
-.lp-container .lp-content .signup-btn:hover,
-.lp-container .lp-content .login-btn:hover {
-  background-color: #90caf9;
-}
-.lp-container .lp-content .goto-login,
-.lp-container .lp-content .goto-signup {
-  margin: 12px auto;
-  width: 105px;
-  font-size: 13px;
-  color: #fff;
-  display: block;
-  cursor: pointer;
-}
-.lp-container .lp-content .goto-login:hover,
-.lp-container .lp-content .goto-signup:hover {
-  color: #64b5f6;
+.example img {
+  width: 100%;
+  background: #e1e1e1 no-repeat center center;
+  background-size: cover;
 }
