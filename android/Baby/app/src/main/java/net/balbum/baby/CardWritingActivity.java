@@ -68,7 +68,6 @@ public class CardWritingActivity extends AppCompatActivity {
         generalCardFragment = new GeneralCardFragment();
         eventCardFragment = new EventCardFragment();
 
-
         initToolbar();
         initData();
         initViewPager(generalCardFragment, eventCardFragment);
@@ -93,9 +92,7 @@ public class CardWritingActivity extends AppCompatActivity {
                 eventCardFragment.setArguments(bundle);
 
             }
-
         }
-
     }
 
     private void initBabyTag() {

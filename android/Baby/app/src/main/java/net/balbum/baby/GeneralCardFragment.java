@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private TextView photo_tv;
     private ImageView camera_iv, photo_iv;
     private EditText memo_tv;
+    RecyclerView baby_list;
     Context context;
 
     BabyTagAdapter adapter;
@@ -75,6 +77,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv);
         camera_iv = (ImageView)this.getActivity().findViewById(R.id.camera_iv);
         photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
+        baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
 
         if(generalCardVo != null){
             memo_tv.setText(generalCardVo.content);
@@ -84,6 +87,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
                     .into(photo_iv);
 
         }
+
 
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);

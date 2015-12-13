@@ -1,9 +1,12 @@
 package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -46,6 +49,12 @@ public interface TaskService {
     @GET("/api/card")
     void getCard(@Query("token") String token, Callback<CardListVo> cb);
 
+    @Multipart
     @POST("/api/user/baby/create")
-    void createBabyInfo(@Part("email") String email, @Part("password") String password, Callback<AuthVo> cb);
+//    void createBabyInfo(@Part("image") TypedFile file, @Body BabyVo babyVo, Callback<ResponseVo> cb);
+    void createBabyInfo(@Part("image") TypedFile file,  @Part("babyName") String name, @Part("babyBirth") String birth,  @Part("babyGender") String gender, Callback<ResponseVo> cb);
+
+
+    @GET("/api/user/baby")
+    void getBabies(Callback<List<BabyVo>> cb);
 }

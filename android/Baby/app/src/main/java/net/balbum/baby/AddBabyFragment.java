@@ -2,6 +2,8 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,18 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyVo;
+import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import java.io.File;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 /**
  * Created by hyes on 2015. 12. 11..
@@ -32,6 +45,10 @@ public class AddBabyFragment extends Fragment {
     ImageView add_baby_image;
     BabyVo.Gender baby_gender;
     int temp_gender;
+    TypedFile a;
+
+
+    TaskService taskService;
 
     @Nullable
     @Override
@@ -46,6 +63,8 @@ public class AddBabyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        taskService = ServiceGenerator.createService(TaskService.class);
+
         ok_btn = (Button)this.getActivity().findViewById(R.id.add_baby_btn);
         register_later = (TextView)this.getActivity().findViewById(R.id.register_later);
         add_baby_name = (EditText)this.getActivity().findViewById(R.id.add_baby_name);
@@ -71,9 +90,7 @@ public class AddBabyFragment extends Fragment {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 createBabyInfo();
-                goToMainActivity();
             }
         });
 
@@ -81,20 +98,36 @@ public class AddBabyFragment extends Fragment {
 
     private void createBabyInfo() {
         Log.d("test", "createBabyInfo");
-        add_baby_birthday.getText().toString();
-        add_baby_name.getText().toString();
+        BabyVo babyVo = new BabyVo();
+        babyVo.babyBirth = add_baby_birthday.getText().toString();
+        babyVo.babyName = add_baby_name.getText().toString();
 
-        BabyVo babyVo;
         temp_gender =radioGroup.getCheckedRadioButtonId();
         if(temp_gender == R.id.radio0){
-            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.GIRL, null);
+            babyVo.babyGender = BabyVo.Gender.GIRL;
         }else if(temp_gender == R.id.radio1){
-            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.BOY, null);
-        }else{
-            babyVo = new BabyVo(add_baby_birthday.getText().toString(), add_baby_name.getText().toString(), BabyVo.Gender.UNDEFINED, null);
+            babyVo.babyGender = BabyVo.Gender.BOY;
+        }else if(temp_gender == R.id.radio2) {
+            babyVo.babyGender = BabyVo.Gender.PREGNANCY;
         }
+        Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
+        File ab = ConvertBitmapToFileUtil.convertFile(img);
+        TypedFile a = new TypedFile("multipart/form-data", ab);
+        if(babyVo.babyGender == null){
+            babyVo.babyGender = BabyVo.Gender.UNDEFINED;
+        }
+        taskService.createBabyInfo(a, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
+            @Override
+            public void success(ResponseVo responseVo, Response response) {
+                Log.d("test", "baby post success");
+                goToMainActivity();
+            }
 
-
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("test", "baby post fail");
+            }
+        });
     }
 
     private void goToMainActivity() {
