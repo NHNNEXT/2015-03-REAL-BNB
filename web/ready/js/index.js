@@ -79,9 +79,21 @@ var addData = {
         cId: 1
         };
 
-balbumApp.controller('CardController', function($scope) {
+balbumApp.controller('CardController', function($scope, $http) {
     var cardTimeline = this;
-    this.testData = testData;
+
+    $http.get(address + 'api/card').then( function(res) {
+        console.log('success', res.data.cardList);
+        var testData = res.data.cardList;
+        console.log('success2', testData);
+        cardTimeline.testData = testData;
+    }, function() {
+        console.log('error');
+    });
+
+
+
+    // this.testData = testData;
 });
 
 balbumApp.controller('postController', function($scope, $http) {
@@ -91,7 +103,8 @@ balbumApp.controller('postController', function($scope, $http) {
             method  : 'POST',
             url     : address + 'api/card',
             data    : $scope.card, //forms user object
-            headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            headers : {'Content-Type': 'multipart/form-data; charset=UTF-8;', 'Accept':'application/json, text/javascript'}
+            // headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         })
         .success(function(data) {
             console.log(data);
@@ -103,10 +116,11 @@ balbumApp.controller('postController', function($scope, $http) {
                 addData.content = $scope.card.content;
                 testData.unshift(addData);
                 $scope.card = '';
-
             }
         });
     };
+
+
 });
 
 $(function(){

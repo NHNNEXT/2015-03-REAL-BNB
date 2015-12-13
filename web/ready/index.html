@@ -102,9 +102,24 @@
                         <button type="submit" class="btn btn-primary">Submit1</button>
                     </form>
                 </div> -->
+                <form id="ajaxform" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                        <input type="text" name="test2"/><br/>
+                        <textarea rows="10" cols="10" name="test3"></textarea><br/>
+                        <input type="file" name="test4" />
+                        <input type="submit" value="SubmitA" />
+                </form>
+                <form id="ajaxform" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                            <input type="text" name="token" value="token" /><br/>
+                            <input type="text" name="content" value="content" /><br/>
+                            <input type="text" name="modifiedDate" value="2001-02-30" /><br/>
+                            <input type="text" name="type" value="NORMAL"><br/>
+                            <!— <input type="file" name="test4" /> —>
+                            <input type="submit" value="SubmitB" />
+                    </form>
 
                 <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController">
-                    <form name="userForm" ng-submit="submitForm()">
+                    <form name="userForm" ng-submit="submitForm()" enctype="multipart/form-data">
+                        <input name="file" type="file" id="file" file-model="fileToUpload" />
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">
                                 <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
@@ -163,7 +178,7 @@
                 <div class="card-container" ng-controller="CardController as cardTimeline">
                     <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.testData">
                         <div class="bc-photo card-image">
-                            <img src="{{bc.imgUrl}}">
+                            <img src=" http://dev.balbum.net{{bc.cardImg}}">
                         </div>
                         <div class="bc-content card-content">
                             <p>{{bc.content}}</p>
@@ -171,7 +186,7 @@
                         <div class="action card-action">
                             <div class="bc-babychip" ng-repeat=" baby in bc.babies">
                                 <div class="baby-chip chip right">
-                                    <img src="{{baby.imgUrl}}" alt="Contact Person">{{baby.name}} {{baby.birth}}
+                                    <img src="http://dev.balbum.net{{baby.babyImg}}" alt="Contact Person">{{baby.babyName}} {{baby.babyBirth}}
                                 </div>
                             </div>
                             <div class="date-container">
