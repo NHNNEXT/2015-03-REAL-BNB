@@ -50,6 +50,13 @@ public class UserController {
 	public List<User> user() {
 		return userRepo.findAll();
 	}
+	
+	@RequestMapping("/api/user/isNewEmail")
+	public ResponseDTO isNewEmail(String email){
+		if(email == null || email.isEmpty()) return new ResponseDTO(false, "이메일을 입력해 주세요");
+		if(userRepo.findByEmail(email) != null) return new ResponseDTO(false, "이미 존재하는 이메일 입니다.");
+		return new ResponseDTO(true, "이 이메일은 사용가능합니다.");
+	}
 
 	@RequestMapping("/api/user/find")
 	public User user(UserDTO userDTO) {

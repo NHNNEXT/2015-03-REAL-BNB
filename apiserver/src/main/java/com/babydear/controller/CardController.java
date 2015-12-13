@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,6 @@ import com.babydear.service.TagService;
 import com.mysql.fabric.Response;
 
 import sun.net.www.protocol.http.AuthScheme;
-
 
 @RestController
 //@RequestMapping(value = "/api/card")
@@ -123,5 +123,13 @@ public class CardController {
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);
 	}
-
+	@RequestMapping(value = "/api/card", method = RequestMethod.DELETE)
+	public ResponseDTO deleteCId(Long cId){
+//		if(cId)
+		Card card = cardRepo.findOne(cId);
+		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요", card);
+		card.setDeleted(true);
+		card = cardRepo.save(card);
+		return new ResponseDTO(true, "null", card);
+	}
 }
