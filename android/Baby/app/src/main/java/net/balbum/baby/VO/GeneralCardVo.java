@@ -58,7 +58,7 @@ public class GeneralCardVo implements Parcelable{
         this.modifiedDate = modifiedDate;
         this.names = new ArrayList<Long>();
         for(int i = 0 ; i < babies.size(); i++) {
-            names.add(babies.get(i).bid);
+            names.add(babies.get(i).bId);
             this.type = type;
         }
     }

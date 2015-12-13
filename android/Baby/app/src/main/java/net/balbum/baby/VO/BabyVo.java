@@ -14,7 +14,7 @@ public class BabyVo {
             return value;
         }
     }
-    public Long bid;
+    public Long bId;
     public String babyImg;
     public String babyName;
     public String babyBirth;
@@ -23,11 +23,11 @@ public class BabyVo {
     public BabyVo() {
     }
 
-    public BabyVo(String babyName, String babyBirth, Gender babyGender, String image, Long bid) {
+    public BabyVo(String babyName, String babyBirth, Gender babyGender, String image, Long bId) {
         this.babyName = babyName;
         this.babyBirth = babyBirth;
         this.babyGender = babyGender;
         this.babyImg = image;
-        this.bid = bid;
+        this.bId = bId;
     }
 }

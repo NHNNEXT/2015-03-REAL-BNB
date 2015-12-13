@@ -34,14 +34,14 @@ public interface TaskService {
 
     @Multipart
     @POST("/api/card")
-    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bids[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
 
     @Multipart
     @POST("/api/card/update")
-    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bids[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cid") Long cId, Callback<ResponseVo> cb);
+    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cid") Long cId, Callback<ResponseVo> cb);
 
     @GET("/api/card/delete")
-    void deleteCard(@Query("cid") Long cid, Callback<ResponseVo> cb);
+    void deleteCard(@Query("cId") Long cId, Callback<ResponseVo> cb);
 
 //    @Multipart
 //    @PUT("/api/card")

@@ -122,7 +122,7 @@ public class CardWritingActivity extends AppCompatActivity {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
-                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bid, false, baby.babyName);
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
                       babyTagNamesList.add(babyTag);
                       initBabyTag();
                   }

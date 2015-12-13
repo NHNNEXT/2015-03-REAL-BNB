@@ -93,6 +93,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
             public void onClick(View v) {
                 Log.d("test", "position 넘기기 전: " + position);
                 deleteCard(position);
+                Log.d("test", "cid" + cards.get(position).cid);
             }
         });
         holder.modify_btn.setOnClickListener(new View.OnClickListener() {
