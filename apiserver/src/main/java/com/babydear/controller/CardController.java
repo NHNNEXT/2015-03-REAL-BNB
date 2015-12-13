@@ -93,24 +93,17 @@ public class CardController {
 	}
 	
 	@RequestMapping(value = "/api/card/update", method = RequestMethod.POST)
-	public ResponseDTO updateCard(String token, Card card, MultipartFile image){
-		logger.info(card.toString());
+	public ResponseDTO updateCard(String token, Card cardDTO, MultipartFile image){
+		logger.info(cardDTO.toString());
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
-		try {
-			User user = authService.getUser(token);
-			card.setFId(user.getFId());
-			card.setUId(user.getUId());
-		} catch (NotToken e1) {
-			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
-		}
-		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
+		if(cardDTO.getCId() == null || cardDTO.getCId() == 0) return new ResponseDTO(false, "수정할 카드의 id가 없습니다.");
+		Card card = cardRepo.findOne(cardDTO.getCId());
+		final List<Baby> babies = tagService.processTags(cardDTO.getBIds(), cardDTO.getBabies());
 		card.setBabies(babies);
-		card.setDeleted(false);
-		card.setCreateDate(new Date());
 		card.setUpdateDate(new Date());
-		
 		try {
-			card.setCardImg(imgService.processImgCard(image));
+			if(!(image == null || image.isEmpty()))
+				cardDTO.setCardImg(imgService.processImgCard(image));
 		} catch (IllegalStateException e) {
 			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
 		} catch (IOException e) {
