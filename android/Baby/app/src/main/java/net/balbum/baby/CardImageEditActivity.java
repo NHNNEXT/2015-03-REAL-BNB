@@ -38,7 +38,6 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     ImageView croppedImageView;
     static Bitmap croppedBitmap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

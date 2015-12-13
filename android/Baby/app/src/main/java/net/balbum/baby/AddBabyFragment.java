@@ -2,9 +2,12 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,8 +20,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.GetExifOrientationUtil;
+import net.balbum.baby.Util.GetRotatedBitmapUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -46,6 +53,8 @@ public class AddBabyFragment extends Fragment {
     BabyVo.Gender baby_gender;
     int temp_gender;
     TypedFile a;
+    Bitmap bitmap;
+    String selectedImagePath;
 
 
     TaskService taskService;
@@ -72,6 +81,20 @@ public class AddBabyFragment extends Fragment {
         add_baby_image = (ImageView)this.getActivity().findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup)this.getActivity().findViewById(R.id.add_baby_radiogroup);
         listView = (ListView)this.getActivity().findViewById(R.id.list);
+
+        add_baby_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pictureActionIntent = null;
+
+                pictureActionIntent = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(
+                        pictureActionIntent,
+                        Config.GALLERY_PICTURE);
+            }
+        });
 
         add_baby_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,4 +157,43 @@ public class AddBabyFragment extends Fragment {
         Intent intent = new Intent(context, MainActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        bitmap = null;
+        selectedImagePath = null;
+
+
+        if (resultCode == getActivity().RESULT_OK && requestCode == Config.GALLERY_PICTURE) {
+            if (data != null) {
+
+                Uri selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+                Cursor c = context.getContentResolver().query(selectedImage, filePath,
+                        null, null, null);
+                c.moveToFirst();
+                int columnIndex = c.getColumnIndex(filePath[0]);
+                selectedImagePath = c.getString(columnIndex);
+                c.close();
+
+                //                if (selectedImagePath != null) {
+                //                    txt_image_path.setText(selectedImagePath);
+                //                }
+
+                bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
+                // preview cardImg
+                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
+
+                bitmap = GetRotatedBitmapUtil.GetRotatedBitmap(bitmap, GetExifOrientationUtil.GetExifOrientation(selectedImagePath));
+                add_baby_image.setImageBitmap(bitmap);
+
+            } else {
+                Toast.makeText(context, "Cancelled",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
