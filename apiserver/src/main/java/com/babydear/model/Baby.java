@@ -24,7 +24,8 @@ public class Baby {
 	public enum Gender {
 		GIRL,
 		BOY,
-		UNDEFIEND
+		PREGNANCY,
+		UNDEFINED
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +38,7 @@ public class Baby {
 	private String babyName;
 	
 //	@Enumerated(EnumType.STRING)
-	private Gender babySex;
+	private Gender babyGender;
 	private String babyBirth;
 	private String babyImg;
 

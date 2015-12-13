@@ -125,7 +125,7 @@ public class UserController {
 		return new ResponseDTO(true, null, baby);
 	}
 	
-	@RequestMapping("/api/user/baby/")
+	@RequestMapping("/api/user/baby")
 	public List<Baby> findBaby() {
 		return babyRepo.findAll();
 	}

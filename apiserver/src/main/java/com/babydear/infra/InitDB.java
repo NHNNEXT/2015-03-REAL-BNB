@@ -53,7 +53,7 @@ public class InitDB {
 		Baby baby1 = new Baby();
 		baby1.setBabyBirth("2015-02-02");
 		baby1.setBabyImg("/imgs/dummy/baby1.jpeg");
-		baby1.setBabySex(Baby.Gender.GIRL);
+		baby1.setBabyGender(Baby.Gender.GIRL);
 		baby1.setBabyName("하채영");
 		baby1.setFId(family.getFId());
 		baby1 = babyRepo.save(baby1);
@@ -61,7 +61,7 @@ public class InitDB {
 		Baby baby2 = new Baby();
 		baby2.setBabyBirth("2016-01-03");
 		baby2.setBabyImg("/imgs/dummy/baby2.jpeg");
-		baby2.setBabySex(Baby.Gender.UNDEFIEND);
+		baby2.setBabyGender(Baby.Gender.PREGNANCY);
 		baby2.setBabyName("꽁꽁이");
 		baby2.setFId(family.getFId());
 		baby2 = babyRepo.save(baby2);
