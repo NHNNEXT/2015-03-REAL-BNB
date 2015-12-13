@@ -83,7 +83,12 @@ public class InitDB {
 		card2.setBabies(Arrays.asList(baby1));
 		card2.setCardImg("/imgs/dummy/photo2.jpg");
 		card2.setModifiedDate("2015-03-30");
-		card2.setContent("안녕 우리 아가 미소가 참 예뻐 무럭무럭 자라렴");
+		card2.setContent("우리 사랑하는 뿅이 안녕!!벌써 새해 구나."
+				+ "우리 뿅이를 만날날도 얼마 남지 않았다는걸 생각하니"
+				+ "본격적으로 두근거리고 설레이는 구나. "
+				+ "그동안 왜 진작 너에게 일기를 써보지 않았을까 하는 후회와 함께"
+				+ "너를 맞이 하기 전까지 좀더 부지런한 엄마가 되기로 마음 먹었단다. "
+				+ "화이팅 ~!!");
 		card2.setType(Card.Type.NORMAL);
 		card2.setUId(user.getUId());
 		card2.setFId(family.getFId());
@@ -97,7 +102,9 @@ public class InitDB {
 		card3.setBabies(Arrays.asList(baby1, baby2));
 		card3.setCardImg("/imgs/dummy/photo3.jpg");
 		card3.setModifiedDate("2015-03-30");
-		card3.setContent("안녕 우리 아가 미소가 참 예뻐 무럭무럭 자라렴");
+		card3.setContent("오늘은 니가 생긴지 26주하고 5일째 되는 날이란다. /n"
+				+ "엄마 배가 드럼이 되어 잠을 못자도 좋으니 뱃속에서 활발하게 /n"
+				+ "놀아다오./n");
 		card3.setType(Card.Type.NORMAL);
 		card3.setUId(user.getUId());
 		card3.setFId(family.getFId());
@@ -147,7 +154,7 @@ public class InitDB {
 		card7.setBabies(Arrays.asList(baby2));
 		card7.setCardImg("/imgs/dummy/photo7.jpg");
 		card7.setModifiedDate("2015-03-30");
-		card7.setContent("안녕 우리 아가 미소가 참 예뻐 무럭무럭 자라렴");
+		card7.setContent("높이 올라가. 세상을 다 가져봐. 네버 배끼레 배끼리럽. 네버 터니럽 터니리러업. 예에. 할라 할로 할로 할로.");
 		card7.setUId(user.getUId());
 		card7.setFId(family.getFId());
 		card7.setCreateDate(new Date());
@@ -179,6 +186,6 @@ public class InitDB {
 		card9.setDeleted(false);
 		cardRepo.save(card9);
 		
-		String token = authService.setUser(user.getUId(), "1234");
+		String token = authService.setUser(user.getUId(), "token");
 	}
 }

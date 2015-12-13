@@ -10,14 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
-import com.babydear.dto.CardDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,6 +51,8 @@ public class Card {
 	private List<Baby> babies;
 
 	private String cardImg;
+	@Lob
+	@Column( length = 100000 )
 	private String content;
 	private String modifiedDate;
 

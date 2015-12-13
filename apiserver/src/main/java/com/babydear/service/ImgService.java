@@ -40,7 +40,7 @@ public class ImgService {
 		ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY+localUrl);
 		File fileStorePath = new File(FILE_STORAGE_DIRECTORY+localUrl+name);
 		image.transferTo(fileStorePath);
-		return "/imgs/user/"+name;
+		return localUrl+name;
 	}
 	
     private String getName(MultipartFile file) {
