@@ -14,11 +14,12 @@ public class ResponseDTO {
 	
 	public ResponseDTO(){}
 	public ResponseDTO(Boolean state, String error) {
-		super();
 		this.state = state;
 		this.error = error;
 	}
-	public ResponseDTO(Boolean state, Object error, Object res) {
+	public ResponseDTO(Boolean state, String error, Object res) {
+		this.state = state;
+		this.error = error;
 		this.res = res;
 	}
 }
