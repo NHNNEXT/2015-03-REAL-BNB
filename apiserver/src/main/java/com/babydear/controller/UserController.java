@@ -73,7 +73,7 @@ public class UserController {
 		User user = new User(userDTO);
 		user = userRepo.save(user);
 		mailService.sendSignUpMail();
-		return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
+		return new AuthDTO(authService.setUser(user.getUid()), new Date().toString());
 	}
 
 	@RequestMapping("/api/user/family/find")
@@ -101,9 +101,9 @@ public class UserController {
 		if (user == null) return new ResponseDTO(false, "토큰이 유효한 값이 아닙니다.");
 		Family family = new Family();
 		family.setUpdateDate(new Date());
-		family.setUpdateUId(user.getUId());
+		family.setUpdateUId(user.getUid());
 		family = familyRepo.save(new Family());
-		user.setFId(family.getFId());
+		user.setFid(family.getFid());
 		userRepo.save(user);
 		return new ResponseDTO(true, null, family);
 	}
@@ -149,7 +149,7 @@ public class UserController {
 		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
 		Boolean result = user.checkPW(userDTO.getPassword());
 		if (result) {
-			return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
+			return new AuthDTO(authService.setUser(user.getUid()), new Date().toString());
 		} else {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}

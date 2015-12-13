@@ -68,12 +68,12 @@ public class CardController {
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			card.setFid(user.getFId());
-			card.setUid(user.getUId());
+			card.setFid(user.getFid());
+			card.setUid(user.getUid());
 		} catch (NotToken e1) {
 			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
 		}
-		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
+		final List<Baby> babies = tagService.processTags(card.getBids(), card.getBabies());
 		card.setBabies(babies);
 		card.setDeleted(false);
 		card.setCreateDate(new Date());
@@ -98,12 +98,12 @@ public class CardController {
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			card.setFid(user.getFId());
-			card.setUid(user.getUId());
+			card.setFid(user.getFid());
+			card.setUid(user.getUid());
 		} catch (NotToken e1) {
 			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
 		}
-		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
+		final List<Baby> babies = tagService.processTags(card.getBids(), card.getBabies());
 		card.setBabies(babies);
 		card.setDeleted(false);
 		card.setCreateDate(new Date());

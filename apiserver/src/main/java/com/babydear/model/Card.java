@@ -45,7 +45,7 @@ public class Card {
 	private Long uid;
 
 	@Transient
-	private List<Long> bIds;
+	private List<Long> bids;
 //	@Transient
 	@ManyToMany
 	private List<Baby> babies;

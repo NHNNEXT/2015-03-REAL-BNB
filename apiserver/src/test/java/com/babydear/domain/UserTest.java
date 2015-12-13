@@ -76,7 +76,7 @@ public class UserTest {
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
 		userDTO.setNickname("mome");
-		userDTO.setFId(family.getFId());
+		userDTO.setFId(family.getFid());
 
 		User user = new User(userDTO);
 		userRepo.save(user);
@@ -105,7 +105,7 @@ public class UserTest {
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
 		userDTO.setNickname("mome");
-		userDTO.setFId(family.getFId());
+		userDTO.setFId(family.getFid());
 		
 		Baby baby = new Baby();
 //		baby.setBabyBirth(new Date());
@@ -127,7 +127,7 @@ public class UserTest {
 		userDTO.setEmail("erin314@naver.com");
 		userDTO.setPassword("1234");
 		userDTO.setNickname("mome");
-		userDTO.setFId(family.getFId());
+		userDTO.setFId(family.getFid());
 		User user = new User(userDTO);
 		userRepo.save(user);
 		

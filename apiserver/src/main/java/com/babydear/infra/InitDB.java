@@ -44,10 +44,10 @@ public class InitDB {
 		
 		Family family = new Family();
 		family.setUpdateDate(new Date());
-		family.setUpdateUId(user.getUId());
+		family.setUpdateUId(user.getUid());
 		family = familyRepo.save(family);
 		
-		user.setFId(family.getFId());
+		user.setFid(family.getFid());
 		user = userRepo.save(user);
 		
 		Baby baby1 = new Baby();
@@ -55,7 +55,7 @@ public class InitDB {
 		baby1.setBabyImg("/imgs/dummy/baby1.jpeg");
 		baby1.setBabyGender(Baby.Gender.GIRL);
 		baby1.setBabyName("하채영");
-		baby1.setFId(family.getFId());
+		baby1.setFid(family.getFid());
 		baby1 = babyRepo.save(baby1);
 		
 		Baby baby2 = new Baby();
@@ -63,7 +63,7 @@ public class InitDB {
 		baby2.setBabyImg("/imgs/dummy/baby2.jpeg");
 		baby2.setBabyGender(Baby.Gender.PREGNANCY);
 		baby2.setBabyName("꽁꽁이");
-		baby2.setFId(family.getFId());
+		baby2.setFid(family.getFid());
 		baby2 = babyRepo.save(baby2);
 		
 		Card card1 = new Card();
@@ -72,8 +72,8 @@ public class InitDB {
 		card1.setModifiedDate("2015-03-30");
 		card1.setContent("안녕 우리 아가 미소가 참 예뻐 무럭무럭 자라렴");
 		card1.setType(Card.Type.NORMAL);
-		card1.setUid(user.getUId());
-		card1.setFid(family.getFId());
+		card1.setUid(user.getUid());
+		card1.setFid(family.getFid());
 		card1.setCreateDate(new Date());
 		card1.setUpdateDate(new Date());
 		card1.setDeleted(false);
@@ -90,8 +90,8 @@ public class InitDB {
 				+ "너를 맞이 하기 전까지 좀더 부지런한 엄마가 되기로 마음 먹었단다. "
 				+ "화이팅 ~!!");
 		card2.setType(Card.Type.NORMAL);
-		card2.setUid(user.getUId());
-		card2.setFid(family.getFId());
+		card2.setUid(user.getUid());
+		card2.setFid(family.getFid());
 		card2.setCreateDate(new Date());
 		card2.setUpdateDate(new Date());
 		card2.setDeleted(false);
@@ -186,6 +186,6 @@ public class InitDB {
 //		card9.setDeleted(false);
 //		cardRepo.save(card9);
 		
-		String token = authService.setUser(user.getUId(), "token");
+		String token = authService.setUser(user.getUid(), "token");
 	}
 }
