@@ -17,10 +17,10 @@ public class TagService {
 	private static final Logger logger = LoggerFactory.getLogger(TagService.class);
 	@Autowired BabyRepository babyRepo;
 
-	public List<Baby> processTags(List<Long> bIds) {
+	public List<Baby> processTags(List<Long> bIds, List<Baby> babies) {
 		if(bIds == null || bIds.isEmpty()) {
-			logger.info("bIds null");
-			return null;
+			logger.info(babies.toString());
+			return babies;
 		}
 		List<Baby> babyList = new ArrayList<Baby>();
 		for (Long bId : bIds) {

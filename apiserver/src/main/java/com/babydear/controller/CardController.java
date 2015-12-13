@@ -50,7 +50,11 @@ public class CardController {
 //		System.out.println(uId);
 //		System.out.println(user.getUId());
 		List<Card> cardList = cardRepo.findAllByOrderByCIdDesc();
-		
+		for(Card card : cardList){
+			if(card.getDeleted()){
+				cardList.remove(card);
+			}
+		}
 		CardListDTO cardListDTO = new CardListDTO();
 		cardListDTO.setCardList(cardList);
 		return cardListDTO;
@@ -61,11 +65,17 @@ public class CardController {
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
+			card.setFId(user.getFId());
+			card.setUId(user.getUId());
 		} catch (NotToken e1) {
 			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
 		}
-		final List<Baby> babies = tagService.processTags(card.getBIds());
+		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
 		card.setBabies(babies);
+		card.setDeleted(false);
+		card.setCreateDate(new Date());
+		card.setUpdateDate(new Date());
+		
 		try {
 			card.setCardImg(imgService.processImgCard(image));
 		} catch (IllegalStateException e) {

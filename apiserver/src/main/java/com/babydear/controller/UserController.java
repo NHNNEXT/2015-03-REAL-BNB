@@ -110,6 +110,7 @@ public class UserController {
 
 	@RequestMapping("/api/user/baby/create")
 	public ResponseDTO createBaby(String token, Baby baby, MultipartFile image) {
+		if(baby.getBabyGender().equals(Baby.Gender.UNDEFINED)) return new ResponseDTO(true, null);
 		try {
 			baby.setBabyImg(imgService.processImgBaby(image));
 		} catch (IllegalStateException | IOException e) {
@@ -134,8 +135,8 @@ public class UserController {
 //		} catch (NotToken e) {
 //			return null;
 //		}
-//		return babyRepo.findAll();
-		return babyRepo.findByBabyName("꽁꽁이");
+		return babyRepo.findAll();
+//		return babyRepo.findByBabyName("꽁꽁이");
 	}
 	
 	
