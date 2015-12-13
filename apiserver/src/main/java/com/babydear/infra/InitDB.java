@@ -72,8 +72,8 @@ public class InitDB {
 		card1.setModifiedDate("2015-03-30");
 		card1.setContent("안녕 우리 아가 미소가 참 예뻐 무럭무럭 자라렴");
 		card1.setType(Card.Type.NORMAL);
-		card1.setUId(user.getUId());
-		card1.setFId(family.getFId());
+		card1.setUid(user.getUId());
+		card1.setFid(family.getFId());
 		card1.setCreateDate(new Date());
 		card1.setUpdateDate(new Date());
 		card1.setDeleted(false);
@@ -90,8 +90,8 @@ public class InitDB {
 				+ "너를 맞이 하기 전까지 좀더 부지런한 엄마가 되기로 마음 먹었단다. "
 				+ "화이팅 ~!!");
 		card2.setType(Card.Type.NORMAL);
-		card2.setUId(user.getUId());
-		card2.setFId(family.getFId());
+		card2.setUid(user.getUId());
+		card2.setFid(family.getFId());
 		card2.setCreateDate(new Date());
 		card2.setUpdateDate(new Date());
 		card2.setDeleted(false);
