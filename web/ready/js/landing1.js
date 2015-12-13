@@ -63,7 +63,7 @@ var ajaxPostLogin =  function() {
  });
 
  var ajaxPostSignup =  function() {
-    // var formData = new FormData();
+    var formData = new FormData();
     // formData.append("uploadfile",$("input[name=uploadfile]")[0].files[0]);
      var elEmail = $('#signup-email');
      var elPassword = $('#signup-password');
@@ -81,7 +81,9 @@ var ajaxPostLogin =  function() {
      $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
          type: "POST",
          url: url + "api/user/create",
-         data: postString,
+         data: formData,
+         processData: false,
+         contentType: false,
          success: function(res) {  //성공시 이 함수를 호출한다.
              if(res.token != null){
                  console.log("성공데스네");
