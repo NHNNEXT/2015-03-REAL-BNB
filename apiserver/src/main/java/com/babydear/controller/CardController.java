@@ -89,14 +89,43 @@ public class CardController {
 		return new ResponseDTO(true, "null", card);
 	}
 	
-	@RequestMapping(value = "/api/card", method = RequestMethod.PUT)
-	public String updateCard(){
-		logger.info("hahah");
-		return " { update : true, error: null }";
+	@RequestMapping(value = "/api/card/update", method = RequestMethod.POST)
+	public ResponseDTO updateCard(String token, Card card, MultipartFile image){
+		logger.info(card.toString());
+		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
+		try {
+			User user = authService.getUser(token);
+			card.setFId(user.getFId());
+			card.setUId(user.getUId());
+		} catch (NotToken e1) {
+			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
+		}
+		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
+		card.setBabies(babies);
+		card.setDeleted(false);
+		card.setCreateDate(new Date());
+		card.setUpdateDate(new Date());
+		
+		try {
+			card.setCardImg(imgService.processImgCard(image));
+		} catch (IllegalStateException e) {
+			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
+		} catch (IOException e) {
+			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
+		} catch (NotGoodExtention e) {
+			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
+		}
+		card = cardRepo.save(card);
+		return new ResponseDTO(true, "null", card);
 	}
-	@RequestMapping(value = "/api/card", method = RequestMethod.DELETE)
-	public String deleteCard(){
-		return " { delete: true, error: null }";
+	
+	@RequestMapping(value = "/api/card/delete", method = RequestMethod.GET)
+	public ResponseDTO deleteCard(Long cId){
+		Card card = cardRepo.findOne(cId);
+		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요", card);
+		card.setDeleted(true);
+		card = cardRepo.save(card);
+		return new ResponseDTO(true, "null", card);
 	}
 
 }

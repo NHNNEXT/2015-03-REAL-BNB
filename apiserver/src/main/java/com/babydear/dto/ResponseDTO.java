@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ResponseDTO {
-	private Boolean state;
+	private boolean state;
 	private String error;
 	private Object res;
 	
