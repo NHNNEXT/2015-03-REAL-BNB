@@ -40,9 +40,9 @@ public class Card {
 	// Long(1));
 	// }
 	@Id @GeneratedValue(strategy = GenerationType.AUTO) 
-	private Long cid;
-	private Long fid;
-	private Long uid;
+	private Long cId;
+	private Long fId;
+	private Long uId;
 
 	@Transient
 	private List<Long> bIds;

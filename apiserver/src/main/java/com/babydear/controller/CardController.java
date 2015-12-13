@@ -68,8 +68,8 @@ public class CardController {
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			card.setFid(user.getFId());
-			card.setUid(user.getUId());
+			card.setFId(user.getFId());
+			card.setUId(user.getUId());
 		} catch (NotToken e1) {
 			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
 		}
@@ -98,8 +98,8 @@ public class CardController {
 		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			card.setFid(user.getFId());
-			card.setUid(user.getUId());
+			card.setFId(user.getFId());
+			card.setUId(user.getUId());
 		} catch (NotToken e1) {
 			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
 		}
