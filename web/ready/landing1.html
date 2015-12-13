@@ -92,7 +92,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field s12">
-										<input id="signup-email" type="email" class="validate">
+										<input id="signup-email" type="email" class="validate" onblur="emailValidation()">
 										<label for="email">Email</label>
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 								</div>
 								<div class="row">
 								    <div class="input-field s12">
-								    	<input id="signup-confirm-password" type="password" class="validate">
+								    	<input id="signup-confirm-password" type="password" class="validate" onblur="passwordValidation()">
 								    	<label for="confirm-password">Confirm Password</label>
 								    </div>
 								</div>
@@ -113,6 +113,9 @@
 										<input id="signup-role" type="text" class="validate">
 										<label for="role">Role</label>
 									</div>
+								</div>
+								<div class="row">
+									<div id="errors"></div>
 								</div>
 								<button name="submit" type="submit" value="submit" class="signup_btn modal-action modal-close waves-effect waves-light btn-large">계정 만들기</button>
 							</form>

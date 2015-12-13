@@ -50,8 +50,7 @@ var ajaxPostLogin =  function() {
             $('#login_form').html(Start.resetLogin); // form창 초기화
        },
        error: function(res){
-            debugger;
-            console.log("실패라능");
+            console.log("[ajaxPostLogin] ajax 실패라능");
        }
     });
  };
@@ -63,6 +62,7 @@ var ajaxPostLogin =  function() {
  });
 
  var ajaxPostSignup =  function() {
+    // form 형식에 enctype="multipart/form-data" 을 추가했다면 ajax의 data를 보낼때 FormData 객체 형태로 보내야함. 또한 processData, contentType 코드도 추가해야한다.
     var formData = new FormData();
     // formData.append("uploadfile",$("input[name=uploadfile]")[0].files[0]);
      var elEmail = $('#signup-email');
@@ -73,38 +73,68 @@ var ajaxPostLogin =  function() {
      var url = "http://dev.balbum.net/";  
      var postString = "";       // post방식으로 처리하기 위한 파라미터들
      
-     postString  = "email=" + elEmail.val();
-     postString += "&password=" + elPassword.val();
-     // postString += "&image=" + formData;
-     postString += "&role=" + elRole.val();
+     
+    postString  = "email=" + elEmail.val();
+    postString += "&password=" + elPassword.val();
+    // postString += "&image=" + formData;
+    postString += "&role=" + elRole.val();
 
-     $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
-         type: "POST",
-         url: url + "api/user/create",
-         data: formData,
-         processData: false,
-         contentType: false,
-         success: function(res) {  //성공시 이 함수를 호출한다.
-             if(res.token != null){
-                 console.log("성공데스네");
 
-                 localStorage.setItem("token", res.token); // token을 localStorage에 저장
-
-                 window.location.assign("/"); // mainPage로 감 // @TODO 나중에 아이추가 모달로 가는걸로 바꿔야함
-             }
-             else{
-                // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
-             }
-             $('#signup_form').html(Start.resetSignup); // form창 초기화
-        },
-        error: function(res){
-             debugger;
-             console.log("실패라능");
-        }
-     });
+    $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
+        type: "POST",
+        url: url + "api/user/create",
+        data: formData, // 
+        processData: false,
+        contentType: false,
+        success: function(res) {  //성공시 이 함수를 호출한다.
+            if(res.token != null){
+                localStorage.setItem("token", res.token); // token을 localStorage에 저장
+                window.location.assign("/"); // mainPage로 감 // @TODO 나중에 아이추가 모달로 가는걸로 바꿔야함
+            }
+            else{
+               // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
+            }
+            $('#signup_form').html(Start.resetSignup); // form창 초기화
+       },
+       error: function(res){
+            console.log("[ajaxPostSignup] ajax 실패라능");
+       }
+    });
+     
   };
 
+// 회원가입 모달에서, 이메일 주소가 이미 가입되어있는 이메일인지 확인하는 함수 
+var emailValidation = function(){
+    var elEmail = $('#signup-email');
+    var url = "http://dev.balbum.net/";  
+    var postString = "";       // post방식으로 처리하기 위한 파라미터들
+    
+    postString  = "email=" + elEmail.val();
+    $.ajax({                  
+        type: "GET",
+        url: url + "/api/user/isNewEmail",
+        data: postString,
+        success: function(res) {  //성공시 이 함수를 호출한다.
+            console.log(res.state, res.error);
+            $('#errors').text(res.error);
+            
+       },
+       error: function(res){
+            console.log("[emailValidation] ajax 실패라능");
+       }
+    });
 
+}
+
+// 회원가입 모달에서, 비번/비번 확인이 같은지 체크하는 함수 
+var passwordValidation = function(){
+    var password = $('#signup-password').val();
+    var confirmPassword = $('#signup-confirm-password').val();
+
+    if(password != confirmPassword){
+        $('#errors').text('비밀번호를 다시 확인해주세요.');
+    }
+}
 
 $(function(){
     Start.init();
