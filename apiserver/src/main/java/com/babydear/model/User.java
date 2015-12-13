@@ -21,7 +21,7 @@ public class User {
 	public User(UserDTO userDTO, Long fId) {
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword();
-		this.fid = fId;
+		this.fId = fId;
 		this.userImg = userDTO.getUserImg();
 	}
 	public User(UserDTO loginDTO) {
@@ -49,9 +49,9 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long uid;
+	private Long uId;
 	
-	private Long fid;
+	private Long fId;
 	
 	private String userImg;
 	

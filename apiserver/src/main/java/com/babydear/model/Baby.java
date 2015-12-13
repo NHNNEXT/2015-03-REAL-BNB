@@ -29,11 +29,11 @@ public class Baby {
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long bid;
+	private Long bId;
 	
 //	@JoinColumn(name = "oid", referencedColumnName="oid")
 //	@ManyToOne
-	private Long fid;
+	private Long fId;
 	
 	private String babyName;
 	

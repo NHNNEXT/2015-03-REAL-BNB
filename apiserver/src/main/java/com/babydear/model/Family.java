@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Family {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long fid;
+	private Long fId;
 	
 	private Date updateDate;
 	private Long updateUId;
