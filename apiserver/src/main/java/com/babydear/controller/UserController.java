@@ -110,6 +110,7 @@ public class UserController {
 
 	@RequestMapping("/api/user/baby/create")
 	public ResponseDTO createBaby(String token, Baby baby, MultipartFile image) {
+		if(baby.getBabyGender() == null) return new ResponseDTO(false, "아기 정보를 제대로 입력해 주세요: 성별입력 않되어 있어요");
 		if(baby.getBabyGender().equals(Baby.Gender.UNDEFINED)) return new ResponseDTO(true, null);
 		try {
 			baby.setBabyImg(imgService.processImgBaby(image));
