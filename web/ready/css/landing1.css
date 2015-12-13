@@ -75,20 +75,55 @@ section.lp-container .inner h2 {
 .lp-content {
   position: relative;
 }
-.lp-content .signup-box,
-.lp-content .login-box {
-  /*width: 245px;*/
-  /*margin: 0 auto;*/
-}
-.lp-content .signup-box .row input:focus,
-.lp-content .login-box .row input:focus {
-  border-bottom: 1px solid #64b5f6 !important;
-  box-shadow: 0 1px 0 0 #64b5f6 !important;
-}
 .lp-content a {
   background: #896DA5 !important;
 }
-.lp-content button {
+.lp-content .modal {
+  max-width: 400px !important;
+}
+.lp-content .modal .caption {
+  font-weight: bold;
+  float: left;
+}
+.lp-content .modal .close-btn {
+  width: 15px;
+  float: right;
+  cursor: pointer;
+}
+.lp-content .modal .modal-box {
+  padding: 30px;
+  position: relative;
+  top: 15px;
+}
+.lp-content .modal .modal-box .fb-login {
+  width: 100%;
+}
+.lp-content .modal .modal-box .separator {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 0;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+.lp-content .modal .modal-box .separator div {
+  position: absolute;
+  padding: 0 16px;
+  color: #ccc;
+  background: #fafafa;
+  font-size: 11px;
+  text-shadow: 0 1px 0 white;
+  text-transform: uppercase;
+  top: -7px;
+  left: 40%;
+}
+.lp-content .modal .modal-box input:focus {
+  border-bottom: 1px solid #896DA5 !important;
+  box-shadow: 0 1px 0 0 #896DA5 !important;
+}
+.lp-content .modal .modal-box label:active {
+  color: #896DA5 !important;
+}
+.lp-content .modal .modal-box button {
   width: 100%;
 }
 .example img {

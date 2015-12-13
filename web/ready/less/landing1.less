@@ -74,7 +74,7 @@ section.lp-container {
 		h2 {
 			font-size: 20px;
 		    padding-bottom: 0;
-		    max-width: 450px;
+		    max-width: 430px;
 		    line-height: 33px;
 		    font-weight: normal;
 		    color: white;
@@ -92,26 +92,74 @@ section.lp-container {
 	position: relative;
 	// width: 300px;
 	// height: 500px;
-
-	.signup-box, .login-box {
-		/*width: 245px;*/
-		/*margin: 0 auto;*/
-
-		.row input{
-
-			&:focus{
-				border-bottom: 1px solid #64b5f6 !important;
-				box-shadow: 0 1px 0 0 #64b5f6 !important;
-			}
-		}
+	
+	a {
+		background: @primary !important;
 	}
 
- 	a {
- 		background: @primary !important;
- 	}
-	
-	button{
-		width: 100%;
+	.modal {
+		max-width: 400px !important;
+
+		.caption {
+			font-weight: bold;
+			float: left;
+		}
+
+		.close-btn {
+			width: 15px;
+			float: right;
+			cursor: pointer;
+		}
+
+		.modal-box {
+			padding: 30px;
+			position: relative;
+			top: 15px;
+
+			.fb-login {
+				width: 100%;
+			}
+
+			.fb-signup { // 이게 왜 적용이 안되고 있는건지 모르겠다.. 
+				width: 100%;
+			}
+			
+			.separator {
+				margin-top: 30px;
+				margin-bottom: 30px;
+				height: 0;
+				border-top: 1px solid #ddd;
+				position: relative;
+
+				div{
+					position: absolute;
+					padding: 0 16px;
+					color: #ccc;
+					background: #fafafa;
+					font-size: 11px;
+					text-shadow: 0 1px 0 white;
+					text-transform: uppercase;
+					top: -7px;
+					left: 40%;
+				}
+			}
+
+			input:focus{
+					border-bottom: 1px solid @primary !important;
+					box-shadow: 0 1px 0 0 @primary !important;		
+			}
+
+			// @TODO 이부분 css가 안됨..ㅠㅠ 
+			// input[type=email]:focus:not([readonly]) + label {
+			// 	color: @primary !important; 
+			// }
+
+			button{
+				width: 100%;
+			}		
+				
+		}
+		
 	}
 }
 

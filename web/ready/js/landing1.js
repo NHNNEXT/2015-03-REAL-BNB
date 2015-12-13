@@ -1,5 +1,19 @@
 //@TODO 일단 전역으로 뺐다..
+
+// 반응형 메뉴 등장하는 함수 (모바일 크기일때 등장)
 $(".button-collapse").sideNav();
+
+
+// login창에서 닫기 버튼을 눌렀을 때, 로그인 모달창 닫기
+$('#close-login').click(function(){
+    $('#modal-login').closeModal();
+});
+
+$('#close-signup').click(function(){
+    $('#modal-signup').closeModal();
+});
+
+
 
 // token이 있으면(로그인 된 상태라면) mainPage로 간다
 if(localStorage.getItem("token")){
