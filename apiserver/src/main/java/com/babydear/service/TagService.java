@@ -19,6 +19,7 @@ public class TagService {
 
 	public List<Baby> processTags(List<Long> bIds, List<Baby> babies) {
 		if(bIds == null || bIds.isEmpty()) {
+			if(babies == null) return null;
 			logger.info(babies.toString());
 			return babies;
 		}

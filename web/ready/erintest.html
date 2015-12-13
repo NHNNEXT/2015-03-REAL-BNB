@@ -7,9 +7,25 @@
 	<button onclick="userLoginLocal()">로컬로그인</button>
 
 	<button onclick="userLoginGlobal()">글로벌로그인</button>
+
+	<form id="ajaxform" action="http://dev.balbum.net/api/card" method="POST" enctype="multipart/form-data" onsubmit="cardCreate()">
+	<!-- <form id="ajaxform" action="http://localhost:8080/api/card" method="POST"> -->
+			<input type="text" name="token" value="token" /><br/>
+			<!-- <input type="text" name="content" value="content" /><br/> -->
+			<!-- <input type="text" name="modifiedDate" value="2001-02-30" /><br/> -->
+			<!-- <input type="text" name="type" value="NORMAL"><br/> -->
+			<!-- <input type="text" name="bIds" value="1"> -->
+			<!-- <input type="file" name="test4" /> -->
+			<input type="submit" value="Submit" />
+	</form>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
+	function cardCreate (argument) {
+		$.ajax({
+			
+		})
+	}
 	function userLoginLocal () {
 		$.ajax({
 		    type: "POST",
