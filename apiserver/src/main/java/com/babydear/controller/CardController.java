@@ -59,7 +59,7 @@ public class CardController {
 			}
 		}
 		CardListDTO cardListDTO = new CardListDTO();
-		cardListDTO.setCardList(cardList);
+		cardListDTO.setCardList(cardResponseList);
 		return cardListDTO;
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
