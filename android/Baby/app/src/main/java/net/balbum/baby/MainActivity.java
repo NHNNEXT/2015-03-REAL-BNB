@@ -93,12 +93,12 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
 
-//        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
-//            @Override
-//            public void onLoadMore(int current_page) {
-//
-//            }
-//        });
+        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
+            @Override
+            public void onLoadMore(int current_page) {
+                Log.d("test", "add on Scroll.~~");
+            }
+        });
 
         adapter = new RVAdapter(cardGeneralModelList, context);
         rv.setAdapter(adapter);
@@ -257,7 +257,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
-                Log.d("test", " getCard test success~");
                 cardGeneralModelList = cd.cardList;
                 Log.d("test", "size~: " + cardGeneralModelList.size());
                 getCardsFromServer(cardGeneralModelList);

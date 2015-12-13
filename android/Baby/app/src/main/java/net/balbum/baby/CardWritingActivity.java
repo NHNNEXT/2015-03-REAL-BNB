@@ -190,13 +190,14 @@ public class CardWritingActivity extends AppCompatActivity {
 
 
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
-            Log.d("test", vo.content.toString());
-            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+
+
+            File file = new File(vo.cardImg);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
             File a = ConvertBitmapToFileUtil.convertFile(img1);
 
-            TypedFile typedFile = new TypedFile("multipart/form-data", a);
+            TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
             List<Long> asd = new ArrayList<Long>();
             asd.add(new Long(2));
@@ -207,23 +208,27 @@ public class CardWritingActivity extends AppCompatActivity {
 
 
             String content = "asdasd";
-            CardFormVo cardFormVo = new CardFormVo( asd, "경륜이랑 짝코딩딩딩", "1");
+            CardFormVo cardFormVo = new CardFormVo(asd, vo.content, vo.modifiedDate, "token", GeneralCardVo.Type.NORMAL);
 
 //            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
 //                @Override
 //                public void success(ResponseVo responseVo, Response response) {
+//                    Log.d("test", "카드 POST 성공");
 //
 //                }
 //
 //                @Override
 //                public void failure(RetrofitError error) {
-//
+//                    Log.d("test", "카드 POST 실패");
 //                }
 //            });
-            taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
+            taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
-                    Log.i("test", "card success" + responseVo.state + ", error: "+ responseVo.error);
+                    Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+
+                    Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
 
                 @Override
@@ -232,7 +237,7 @@ public class CardWritingActivity extends AppCompatActivity {
                 }
             });
 
-            startActivity(intent);
+
 
             return true;
         }

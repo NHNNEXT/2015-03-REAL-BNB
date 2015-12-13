@@ -4,9 +4,12 @@ package net.balbum.baby;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +31,7 @@ import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +141,9 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedList();
 
+        Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
+        String filePath = getRealPathFromURI(tempUri);
+        tempVo.cardImg = filePath;
 
         return tempVo;
     }
@@ -154,12 +161,10 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Log.d("test", "resultCode: " + resultCode + "," + Activity.RESULT_OK);
         Log.d("test", "requestCode: "+requestCode+ "," +  PICTURE_EDIT_COMPLETE);
 
-
         if (resultCode == Activity.RESULT_OK && requestCode == PICTURE_EDIT_COMPLETE) {
             Log.d("test", "activity for result!");
             this.setSelectedImage(CardImageEditActivity.croppedBitmap);
         }
-
     }
 
     @Override
@@ -182,6 +187,19 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
                 .into(photo_iv);
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
     //
 //    public interface CustomOnClickListener{
 //        public void onClicked(int id);

@@ -13,6 +13,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Part;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
@@ -34,10 +35,12 @@ public interface TaskService {
 
     @Multipart
     @POST("/api/card")
-    void createCard(@Part("image") TypedFile file, @Part("cId") Long l, @Part("token") String token, @Part("babies[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
-//    void createCard(@Part("cardImg") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
-//    CardFormVo cardFormVo
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
 
+
+    @Multipart
+    @PUT("/api/card")
+    void updateCard(@Part("image") TypedFile file, @Part("cId") Long l, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
 
 //    @Multipart
 //    @POST("/api/card")
