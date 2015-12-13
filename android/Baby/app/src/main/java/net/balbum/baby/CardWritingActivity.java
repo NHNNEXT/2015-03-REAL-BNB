@@ -222,7 +222,7 @@ public class CardWritingActivity extends AppCompatActivity {
 //                }
 //            });
 
-            if((Long)vo.cid == null) {
+            if((Long)vo.cid == 0) {
                 taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
