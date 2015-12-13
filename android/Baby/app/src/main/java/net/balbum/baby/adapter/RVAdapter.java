@@ -58,8 +58,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     public void onBindViewHolder(final viewHolder holder, final int position) {
         final boolean[] flag = {false};
 
-
-
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
         // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
@@ -124,25 +122,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.viewHolder> {
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
-//        int idx = cards.get(position).babies.size();
-        int idx = 5;
-        LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 60);
+        int idx = cards.get(position).babies.size();
+        Log.d("test", "애기 수 : " + idx);
 
+        LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
+        LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
         for(int i=0; i<idx; i++){
-
             LinearLayout linLayout = new LinearLayout(context);
             linLayout.setOrientation(LinearLayout.HORIZONTAL);
             linLayout.setGravity(Gravity.CENTER_VERTICAL);
-
             ImageView iv_profile = new ImageView(context);
-            iv_profile.setImageResource(R.mipmap.ic_launcher);
-
-            linLayout.addView(iv_profile, lpView);
-
+            iv_profile.setImageResource(R.drawable.eggplant);
+            linLayout.addView(iv_profile, imageParam);
             TextView tv = new TextView(context);
             tv.setText("13개월");
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
-            tv.setLayoutParams(lpView);
+            tv.setLayoutParams(tvParam);
             tv.setGravity(Gravity.CENTER);
             linLayout.addView(tv);
             ((LinearLayout) profile_container).addView(linLayout);

@@ -24,7 +24,7 @@ public class GeneralCardVo implements Parcelable{
     public String cardImg;
     public long cId;
     public String content;
-//    public List<Long> babies;
+    public List<BabyVo> babies;
     public List<String> names;
     public Type type;
 
