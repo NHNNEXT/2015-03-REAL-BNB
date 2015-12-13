@@ -1,6 +1,7 @@
 package com.babydear.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -50,9 +51,11 @@ public class CardController {
 //		System.out.println(uId);
 //		System.out.println(user.getUId());
 		List<Card> cardList = cardRepo.findAllByOrderByCIdDesc();
+		List<Card> cardResponseList = new ArrayList<Card>();
+		
 		for(Card card : cardList){
-			if(card.getDeleted()){
-				cardList.remove(card);
+			if(!card.getDeleted()){
+				cardResponseList.add(card);
 			}
 		}
 		CardListDTO cardListDTO = new CardListDTO();
