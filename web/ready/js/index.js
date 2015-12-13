@@ -85,7 +85,6 @@ balbumApp.controller('CardController', function($scope, $http) {
     $http.get(address + 'api/card').then( function(res) {
         console.log('success', res.data.cardList);
         var testData = res.data.cardList;
-        console.log('success2', testData);
         cardTimeline.testData = testData;
     }, function() {
         console.log('error');
@@ -98,12 +97,21 @@ balbumApp.controller('CardController', function($scope, $http) {
 
 balbumApp.controller('postController', function($scope, $http) {
     $scope.card = {};
+
+     var data = {}; //file object
+
+        var fd = new FormData();
+        fd.append('file', $scope.card.file);
     $scope.submitForm = function() {
         $http({
             method  : 'POST',
             url     : address + 'api/card',
             data    : $scope.card, //forms user object
-            headers : {'Content-Type': 'multipart/form-data; charset=UTF-8;', 'Accept':'application/json, text/javascript'}
+            processData: false,
+            contentType: false,
+            headers : {'Content-Type': undefined},
+            transformRequest: angular.identity,
+            // headers : {'Content-Type': 'multipart/form-data; charset=UTF-8;', 'Accept':'application/json, text/javascript'}
             // headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         })
         .success(function(data) {
@@ -126,5 +134,10 @@ balbumApp.controller('postController', function($scope, $http) {
 $(function(){
     Start.init();
     Upload.init();
+    console.log('ha');
+    $('#ajaxForm').submit(function(e) {
+        e.preventDefault();
+    });
+
 });
 
