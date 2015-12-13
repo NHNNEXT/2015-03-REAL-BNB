@@ -35,7 +35,7 @@ public interface TaskService {
 
     @Multipart
     @POST("/api/card")
-    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
 
 
     @Multipart

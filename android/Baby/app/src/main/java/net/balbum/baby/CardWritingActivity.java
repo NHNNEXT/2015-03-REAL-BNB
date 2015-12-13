@@ -122,7 +122,7 @@ public class CardWritingActivity extends AppCompatActivity {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
-                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, false, baby.babyName);
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
                       babyTagNamesList.add(babyTag);
                       initBabyTag();
                   }
@@ -192,6 +192,13 @@ public class CardWritingActivity extends AppCompatActivity {
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
 
 
+            GeneralCardVo.Type temp_type = null;
+            if(currentItem == 0){
+                temp_type = GeneralCardVo.Type.NORMAL;
+            }else if(currentItem == 1){
+                temp_type = GeneralCardVo.Type.EVENT;
+            }
+
             File file = new File(vo.cardImg);
 
             Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
@@ -222,7 +229,7 @@ public class CardWritingActivity extends AppCompatActivity {
 //                    Log.d("test", "카드 POST 실패");
 //                }
 //            });
-            taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, new Callback<ResponseVo>() {
+            taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
                 @Override
                 public void success(ResponseVo responseVo, Response response) {
                     Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);

@@ -23,19 +23,19 @@ import java.util.List;
  */
 public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyViewHolder> {
 
-    private List<BabyTagVo> names;
+    private List<BabyTagVo> babyTag;
     private Context context;
-    private ArrayList<String> selectedList =new ArrayList<String>();
+    private ArrayList<Long> selectedList =new ArrayList<Long>();
 
-    public BabyTagAdapter(List<BabyTagVo> names, Context context) {
-        this.names = names;
+
+    public BabyTagAdapter(List<BabyTagVo> babyTag, Context context) {
+        this.babyTag = babyTag;
         this.context = context;
 
-        Log.d("test", "도");
-        Log.d("test", "to the 착: " + names.size());
-        if(names != null && names.size() == 1){
-            names.get(0).isSelected = true;
-            Log.d("test", "for 걸림: " + names.size());
+        Log.d("test", "to the 착: " + babyTag.size());
+        if(babyTag != null && babyTag.size() == 1){
+            babyTag.get(0).isSelected = true;
+            Log.d("test", "for 걸림: " + babyTag.size());
         }
     }
 
@@ -49,13 +49,13 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     @Override
     public void onBindViewHolder(final BabyViewHolder holder, final int position) {
-//        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).image));
+//        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(babyTag.get(position).image));
 
-        Picasso.with(context).load(Config.URL+names.get(position).babyImg).into(holder.photo);
+        Picasso.with(context).load(Config.URL+ babyTag.get(position).babyImg).into(holder.photo);
 
-        holder.name.setText(names.get(position).name);
+        holder.name.setText(babyTag.get(position).name);
 
-        if (!names.get(position).isSelected) {
+        if (!babyTag.get(position).isSelected) {
             holder.photo.setAlpha(0.3f);
         } else {
             holder.photo.setAlpha(1.0f);
@@ -64,25 +64,35 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                names.get(position).isSelected = !names.get(position).isSelected;
+                babyTag.get(position).isSelected = !babyTag.get(position).isSelected;
                 notifyDataSetChanged();
 
             }
         });
     }
 
-    public ArrayList<String> getSelectedNames(){
-        for(int i =0; i< names.size(); i++){
-            if(names.get(i).isSelected){
-                selectedList.add(names.get(i).name.toString());
+    public ArrayList<Long> getSelectedNames(){
+        for(int i =0; i< babyTag.size(); i++){
+            if(babyTag.get(i).isSelected){
+                selectedList.add(babyTag.get(i).bId);
+                Log.d("test", "bId넣어지는지 " + babyTag.get(i).bId);
             }
         }
         return selectedList;
     }
 
+//    public ArrayList<String> getSelectedNames(){
+//        for(int i =0; i< babyTag.size(); i++){
+//            if(babyTag.get(i).isSelected){
+//                selectedList.add(babyTag.get(i).name.toString());
+//            }
+//        }
+//        return selectedList;
+//    }
+
     @Override
     public int getItemCount() {
-        return names.size();
+        return babyTag.size();
     }
 
     @Override
@@ -111,15 +121,15 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //            viewHolder = (BabyViewHolder) convertView.getTag();
 //        }
 //
-//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(names.get(position).cardImg));
-//        viewHolder.name.setText(names.get(position).name);
+//        viewHolder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(babyTag.get(position).cardImg));
+//        viewHolder.name.setText(babyTag.get(position).name);
 //
 //
 //        return convertView;
 //    }
 
 
-    public ArrayList<String> getSelectedList() {
+    public ArrayList<Long> getSelectedList() {
         return selectedList;
     }
 

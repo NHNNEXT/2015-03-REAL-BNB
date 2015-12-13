@@ -16,7 +16,14 @@ import io.realm.annotations.Required;
 public class GeneralCardVo implements Parcelable{
 
     public enum Type{
-        BAD, NORMAL, EVENT
+        BAD("BAD"), NORMAL("NORMAL"), EVENT("EVENT");
+        private final String value;
+        Type(String value){
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
     }
 
     @Required
@@ -25,7 +32,7 @@ public class GeneralCardVo implements Parcelable{
     public long cId;
     public String content;
     public List<BabyVo> babies;
-    public List<String> names;
+    public List<Long> names;
     public Type type;
 
     public GeneralCardVo() {
@@ -43,15 +50,16 @@ public class GeneralCardVo implements Parcelable{
         this.modifiedDate = modifiedDate;
     }
 
-    public GeneralCardVo(String cardImg, long cId, String content, String modifiedDate, List<String> names, Type type) {
+    public GeneralCardVo(String cardImg, long cId, String content, String modifiedDate, List<Long> names, Type type) {
         this.cardImg = cardImg;
         this.cId = cId;
         this.content = content;
         this.modifiedDate = modifiedDate;
-        this.names = new ArrayList<String>();
-//        for(int i = 0 ; i < babies.size(); i++){
-//            names.add(babies.get(i).toString());
-        this.type = type;
+        this.names = new ArrayList<Long>();
+        for(int i = 0 ; i < babies.size(); i++) {
+            names.add(babies.get(i).bId);
+            this.type = type;
+        }
     }
 
 
