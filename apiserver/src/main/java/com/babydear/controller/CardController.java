@@ -42,7 +42,7 @@ public class CardController {
 		List<Card> cardList = cardRepo.findAll();
 		
 		CardListDTO cardListDTO = new CardListDTO();
-//		cardListDTO.setCardList(cardList);
+		cardListDTO.setCardList(cardList);
 		return cardListDTO;
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)

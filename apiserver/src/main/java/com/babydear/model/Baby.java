@@ -21,7 +21,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Baby {
-	public enum Sex {
+	public enum Gender {
 		GIRL,
 		BOY,
 		UNDEFIEND
@@ -37,7 +37,7 @@ public class Baby {
 	private String babyName;
 	
 //	@Enumerated(EnumType.STRING)
-	private Sex babySex;
+	private Gender babySex;
 	private String babyBirth;
 	private String babyImg;
 

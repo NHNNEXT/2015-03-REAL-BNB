@@ -55,13 +55,13 @@ public class RepoTest {
 		Baby baby = new Baby();
 //		baby.setBabyBirth(new Date());
 		baby.setBabyName("dumdum");
-		baby.setBabySex(Baby.Sex.BOY);
+		baby.setBabySex(Baby.Gender.BOY);
 //		baby.setFid(family);
 		
 		Baby baby2 = new Baby();
 //		baby2.setBabyBirth(new Date());
 		baby2.setBabyName("dumdum");
-		baby2.setBabySex(Baby.Sex.GIRL);
+		baby2.setBabySex(Baby.Gender.GIRL);
 //		baby2.setFid(family);
 		
 		List<Baby> babies = Arrays.asList(baby, baby2);
@@ -71,23 +71,23 @@ public class RepoTest {
 		Card card = new Card();
 		Set<Baby> set = new HashSet<Baby>();
 		set.add(temp);
-		card.setBabies(set);
+//		card.setBabies(set);
 		card.setContent("content");
 		card.setCreateDate(new Date());
 		card.setUpdateDate(new Date());
 		card.setDeleted(new Boolean(false));
-		card.setFId(family);
+//		card.setFId(family);
 		card.setModifiedDate("2015-03-13");
 		
 		Card card1 = new Card();
 		Set<Baby> set1 = new HashSet<Baby>();
 		set1.add(temp);
-		card1.setBabies(set1);
+//		card1.setBabies(set1);
 		card1.setContent("content");
 		card1.setUpdateDate(new Date());
 		card1.setCreateDate(new Date());
 		card1.setDeleted(new Boolean(true));
-		card1.setFId(family);
+//		card1.setFId(family);
 		card1.setModifiedDate("2015-03-13");
 		cardRepo.save(card1);
 		

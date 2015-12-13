@@ -34,7 +34,7 @@ public class CardDTO {
 	public void createCard(){
 		Card card =  new Card();
 		card.setContent(content);
-		card.setImage(image.getOriginalFilename());
+		card.setCardImg(image.getOriginalFilename());
 		card.setModifiedDate(modifiedDate);
 		card.setDeleted(true);
 		card.setCreateDate(new Date());

@@ -23,9 +23,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CardListDTO {
-	private String error = "adsf";
-	private Integer startCard = 10;
-	public Integer count = 10;
-	public List<CardShowDTO> cardList = Arrays.asList(
-			new CardShowDTO(),new CardShowDTO());
+	private String error;
+	private Integer startCard;
+	public Integer count;
+	public List<Card> cardList;
 }

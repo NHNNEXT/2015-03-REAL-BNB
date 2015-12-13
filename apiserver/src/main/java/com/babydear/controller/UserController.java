@@ -109,7 +109,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/api/user/baby/create")
-	public ResponseDTO createBaby(User user, Baby baby, MultipartFile image) {
+	public ResponseDTO createBaby(String token, Baby baby, MultipartFile image) {
 		try {
 			baby.setBabyImg(imgService.processImgBaby(image));
 		} catch (IllegalStateException | IOException e) {
@@ -119,11 +119,17 @@ public class UserController {
 		} catch (StringIndexOutOfBoundsException e) {
 			return new ResponseDTO(false, "이미지 형식이 없네요");
 		}
-		baby.setFId(user.getFId());
+//		baby.setFId(user.getFId());
 		logger.info("baby :{}", baby);
 		babyRepo.save(baby);
 		return new ResponseDTO(true, null, baby);
 	}
+	
+	@RequestMapping("/api/user/baby/")
+	public List<Baby> findBaby() {
+		return babyRepo.findAll();
+	}
+	
 	
 	@RequestMapping("/api/user/login")
 	public AuthDTO login(UserDTO userDTO) {
