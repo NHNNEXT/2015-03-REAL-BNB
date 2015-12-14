@@ -84,11 +84,31 @@ balbumApp.controller('CardController', function($scope, $http) {
 
     $http.get(address + 'api/card').then( function(res) {
         console.log('success', res.data.cardList);
-        var testData = res.data.cardList;
-        cardTimeline.testData = testData;
+        cardTimeline.testData = res.data.cardList;
     }, function() {
         console.log('error');
     });
+
+    $('#ajaxForm').ajaxForm({
+           //보내기전 validation check가 필요할경우
+            beforeSubmit: function (data, frm, opt) {
+                            // alert("전송전!!");
+                            return true;
+                          },
+            //submit이후의 처리
+            success: function(responseText, statusText){
+                console.log("submit 성공했음");
+                alert("전송성공!!");
+                addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
+                console.log($scope.testData);
+                cardTimeline.testData.push(addData);
+                $('#ajaxForm').clearForm();
+            },
+            //ajax error
+            error: function(){
+                alert("에러발생!!");
+            }
+          });
 
 
 
@@ -134,9 +154,33 @@ balbumApp.controller('postController', function($scope, $http) {
 $(function(){
     Start.init();
     Upload.init();
-    console.log('ha');
-    $('#ajaxForm').submit(function(e) {
-        e.preventDefault();
+
+        // $('#ajaxForm').ajaxForm({
+        //    //보내기전 validation check가 필요할경우
+        //     beforeSubmit: function (data, frm, opt) {
+        //                     alert("전송전!!");
+        //                     return true;
+        //                   },
+        //     //submit이후의 처리
+        //     success: function(responseText, statusText){
+        //         console.log("submit 성공했음");
+        //         alert("전송성공!!");
+        //         addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
+        //         testData.unshift(addData);
+        //         $('#ajaxForm').clearForm();
+        //     },
+        //     //ajax error
+        //     error: function(){
+        //         alert("에러발생!!");
+        //     }
+        //   });
+        // alert( "Handler for .submit() called." );
+
+    $("#ajaxForm").submit(function(event ) {
+        console.log('submitted!');
+        event.preventDefault();
+        return false;
+
     });
 
 });
