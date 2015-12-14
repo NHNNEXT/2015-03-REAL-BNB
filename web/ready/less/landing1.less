@@ -1,3 +1,6 @@
+@import (once) "var";
+// @left-col-width: 230px;
+
 html {
 	height: 100%;
 }
@@ -12,100 +15,182 @@ li {
 	list-style-type: none;
 }
 
-.lp_body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+.lp-body {
+	background: #f3ede8;
+	// position: relative;
+	// width: 100%;
+	// height: 100%;
 }
 
-.bg_box {
-	overflow: hidden;
-	width: 100%;
-	/*height: 100%;*/
-	min-width: 1024px;
-	min-height: 768px;
-	left: 0;
-	top: 0;
-	position: fixed;
-	background-color: #896DA5;
-	z-index: -1;
-
-	.bg_img {
-		width: 100%;
-		height: 100%;
-		background-size: cover;
-	}
+button {
+    background: @primary !important;
 }
 
-.lp_container {
-	position: absolute;
-	text-align: center;
-	left: 50%;
-	top: 50%;
-	margin: -250px auto 0 -150px; /* lp_content의 height와 width의 절반값 참고 */
-	width: 300px;
+//*-- 상단바 --*//
+nav.nav-top {
+    background-color: rgba(255, 251, 245, 0.9);
+    box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
+  
+    .brand-logo {
+    	margin-top: 7px; 
+        color: @primary;
+        font-weight: 900;
+        img {
+            height: 35px;
+        }
+    }
+    .button-collapse {
+    	left: 10px;
+    	i {
+    		font-size: 2rem !important;
+    	}
+    }
+    a {
+        color: @primary;
+    }
+}
 
-	.lp_content {
-		/*border: solid 1px;*/
+
+section.lp-container {
+	background: #e1e1e1 no-repeat center center;
+	background-size: cover;
+	background-image: url('../img/bg2-1.jpg');
+	padding: 130px 0;
+
+	.inner {
 		position: relative;
-		width: 300px;
-		height: 500px;
-		/*background-color: #eee;*/
-		margin: 0 auto;
+		padding: 0 50px;
+		margin: auto;
 
-		.msg {
+		h1 {
+			font-size: 40px;
+			font-weight: 400;
+		    line-height: 1.2em;
+		    color: white;
+		    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+		    -webkit-font-smoothing: antialiased; // 글씨 굵기 얇아짐 
+		    
+		}
+		h2 {
+			font-size: 20px;
+		    padding-bottom: 0;
+		    max-width: 430px;
+		    line-height: 33px;
+		    font-weight: normal;
+		    color: white;
+		    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+		    -webkit-font-smoothing: antialiased; // 글씨 굵기 얇아짐 
+		    
+		}
+	}
+
+}
+
+
+
+.lp-content {
+	position: relative;
+	// width: 300px;
+	// height: 500px;
+	
+	a {
+		background: @primary !important;
+	}
+
+	.modal {
+		max-width: 400px !important;
+		max-height: 100%;
+		overflow: hidden;
+
+		.caption {
+			font-weight: bold;
 			float: left;
-			width: 300px;
-			margin: 0 auto;
-			text-align: center;
-			font-size: 1.5em;
-			color: #fff;
 		}
 
-		.lp_logo {
-			width: 90px;
-			height: 90px;
-			margin: 40px;
-			left: 65px;
-			/*top: 40px;*/
-			background: url("../img/bablum_logo2.png") no-repeat;
-			background-size: 100%;
+		.close-btn {
+			width: 15px;
+			float: right;
+			cursor: pointer;
+		}
+
+		.modal-box {
+			padding: 30px;
 			position: relative;
-		}
+			top: 15px;
 
-		.signup_box, .login_box {
-			/*width: 245px;*/
-			/*margin: 0 auto;*/
+			.fb-login {
+				width: 100%;
+			}
 
-			.row input{
+			.fb-signup { 
+				width: 100%;
+			}
+			
+			.separator {
+				margin-top: 30px;
+				margin-bottom: 30px;
+				height: 0;
+				border-top: 1px solid #ddd;
+				position: relative;
 
-				&:focus{
-					border-bottom: 1px solid #64b5f6 !important;
-					box-shadow: 0 1px 0 0 #64b5f6 !important;
+				div{
+					position: absolute;
+					padding: 0 16px;
+					color: #ccc;
+					background: #fafafa;
+					font-size: 11px;
+					text-shadow: 0 1px 0 white;
+					text-transform: uppercase;
+					top: -7px;
+					left: 40%;
 				}
 			}
-		}
+			
 
-		.signup_btn, .login_btn{
-			width: 100%;
-			background-color: #64b5f6;
-
-			&:hover{
-				background-color: #90caf9;
+			// @TODO image preview 사진 업로드 되기 전에 왜 네모 모양이지..?
+			// @TODO 일단 강제로 가운데 정렬 
+			#upload-preview {
+				left: 88.5px;
+				width: 100px;
+				height: 100px;
+				position: relative;
+				// left: 40%;
+				// border-radius: 50%;
+				// background-repeat: no-repeat; 
+				// background-position: center center;
+				// background-size: cover;
 			}
-		}
 
-		.goto_login, .goto_signup {
-			margin: 12px auto;
-			width: 105px;
-			font-size: 13px;
-			color: #fff;
-			display: block;
-			cursor: pointer;
-
-			&:hover {
-				color:#64b5f6;
+			#signup-file {
+				left: 60px;
+				 position: relative;
 			}
+
+			input:focus{
+					border-bottom: 1px solid @primary !important;
+					box-shadow: 0 1px 0 0 @primary !important;		
+			}
+
+			// @TODO 이부분 css가 안됨..ㅠㅠ 
+			// input[type=email]:focus:not([readonly]) + label {
+			// 	color: @primary !important; 
+			// }
+
+			button{
+				width: 100%;
+			}		
+				
 		}
+		
 	}
 }
+
+.example{
+	img {
+		width: 100%;
+		background: #e1e1e1 no-repeat center center;
+		background-size: cover;
+		
+	}
+}
+

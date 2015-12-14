@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+    로그아웃 하시려면 옆에 있는 버튼을 눌러주세요.
+    <button id='logout-btn'>로그아웃</button>
+
+     <script>
+         document.getElementById("logout-btn").addEventListener("click",function(){
+            if(localStorage.getItem("token")){
+                console.log("로그인 되어있으니 로그아웃하겠습니다.");
+                localStorage.clear(); // token 지우기
+                window.location.assign("/landing1.html");
+            }
+            else{
+                console.log("이미 로그아웃 되었습니다.");
+            }
+         });
+    </script>
+
+</body>
+
+</html>

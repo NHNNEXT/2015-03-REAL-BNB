@@ -42,7 +42,7 @@ public class UserTest {
 		Family family = new Family();
 		family = familyRepo.save(family);
 
-		User user = new User(userDTO, family);
+		User user = new User(userDTO, null);
 		userRepo.save(user);
 	}
 
@@ -54,16 +54,16 @@ public class UserTest {
 		userDTO.setNickname("mome");
 
 		Baby baby = new Baby();
-		baby.setName("dumdum");
+		baby.setBabyName("dumdum");
 		List<Baby> babies = Arrays.asList(baby, baby);
-		userDTO.setBabies(babies);
+//		userDTO.setBabies(babies);
 
 		Family family = new Family();
 		family = familyRepo.save(family);
 
-		User user = new User(userDTO, family);
+		User user = new User(userDTO, null);
 		userRepo.save(user);
-		babyRepo.save(userDTO.getBabies());
+//		babyRepo.save(userDTO.getBabies());
 
 	}
 
@@ -78,7 +78,7 @@ public class UserTest {
 		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
 
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		User user = new User(userDTO);
 		userRepo.save(user);
 	}
 	@Test
@@ -92,7 +92,7 @@ public class UserTest {
 		userDTO.setNickname("mome");
 		userDTO.setFId(new Long(1234));
 
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		User user = new User(userDTO, null);
 		userRepo.save(user);
 	}
 
@@ -108,12 +108,12 @@ public class UserTest {
 		userDTO.setFId(family.getFId());
 		
 		Baby baby = new Baby();
-		baby.setBirth(new Date());
-		baby.setName("dumdum");
+//		baby.setBabyBirth(new Date());
+		baby.setBabyName("dumdum");
 		List<Baby> babies = Arrays.asList(baby, baby);
-		userDTO.setBabies(babies);
+//		userDTO.setBabies(babies);
 
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		User user = new User(userDTO);
 		userRepo.save(user);
 		babyRepo.save(babies);
 	}
@@ -128,7 +128,7 @@ public class UserTest {
 		userDTO.setPassword("1234");
 		userDTO.setNickname("mome");
 		userDTO.setFId(family.getFId());
-		User user = new User(userDTO, familyRepo.findOne(userDTO.getFId()));
+		User user = new User(userDTO);
 		userRepo.save(user);
 		
 		UserDTO loginDTO = new UserDTO();

@@ -51,7 +51,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:hint="@string/memo_btn_hint"
-            android:textColor="@color/text"/>
+            android:textColor="@color/text"
+            android:maxLength="100" />
 
     </LinearLayout>
 

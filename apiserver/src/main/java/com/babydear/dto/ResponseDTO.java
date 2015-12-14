@@ -8,6 +8,18 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ResponseDTO {
-	private Boolean state;
+	private boolean state;
 	private String error;
+	private Object res;
+	
+	public ResponseDTO(){}
+	public ResponseDTO(Boolean state, String error) {
+		this.state = state;
+		this.error = error;
+	}
+	public ResponseDTO(Boolean state, String error, Object res) {
+		this.state = state;
+		this.error = error;
+		this.res = res;
+	}
 }

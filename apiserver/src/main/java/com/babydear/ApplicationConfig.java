@@ -15,7 +15,10 @@ public class ApplicationConfig {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**");
+				registry.addMapping("/api/**")
+//				.allowedOrigins("http://dev.balbum.net", "http://localhost:8080", "http://"))
+				.allowedMethods("GET", "POST", "PUT", "DELETE")
+				.allowCredentials(false).maxAge(3600);
 			}
 		};
 	}

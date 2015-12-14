@@ -1,0 +1,199 @@
+<html>
+<head>
+ 
+<script src='http://code.jquery.com/jquery-1.9.0.min.js'></script>
+<script>
+    $(document).ready(function(){
+        //숫자만 가능하게 하기
+        numberStyle("#number");
+ 
+        $("#testDiv").click(function(){
+ 
+            if( !validation("#id", "아이디를 확인해주세요.", {min:8, max:16} ) ){
+                return false;
+            }
+             
+            var pwCallback = function(i){
+                if(i==0){
+                    alert("패스워드 길이에러");
+                    $(this.id).focus();
+                }else if(i==1){
+                    alert("패스워드 특수문자");
+                    $(this.id).focus();
+                }else if(i==2){
+                    alert("패스워드 숫자");
+                    $(this.id).focus();
+                }else if(i==3){
+                    alert("패스워드 연속숫자");
+                    $(this.id).focus();
+                }
+            }
+            if( !validation("#passwd", "패스워드를 확인해주세요.", {password:true,  consecutively:true}, pwCallback)){
+                return false;
+            }
+ 
+            if( !validation("#content", "내용을 확인해주세요.") ){
+                return false;
+            }
+ 
+            if( !validation("#number", "숫자를 확인해주세요.", {number:true}) ){
+                return false;
+            }
+             
+ 
+            alert("성공");
+        });
+ 
+    });
+</script>
+ 
+ 
+<script>
+ 
+    /**************************************/
+    /* validation Check 
+    /*
+    /*  param:
+    /*      ob              : 해당 객체 셀렉조건
+    /*      msg             : 커스텀콜백 사용안할시 얼럿 메시지
+    /*      customOptions   : max(최대), min(최소), password(비번스타일), consecutively(연속문자체크), consecutivelyNum(연속문자수), number(숫자형)
+    /*      customCallback  : 첫번째 파라미터로 에러처리
+    /*          0               : 길이 체크 에러
+    /*          1               : 특수문자 체크 에러 (password시)
+    /*          2               : 숫자 체크 에러 (password시)
+    /*          3               : 연속된 문자 체크에러 (consecutivelyNum시)
+    /*          4               : 숫자형일때 체크에러 (number 시)
+    /*
+    /**************************************/
+    function validation(ob, msg, customOptions, customCallback){
+        var returnFlag = false;
+        var options = {
+            max : 99999999,         // 최대 글자수
+            min : 1,                // 최소 글자수
+            password : false,       // 비밀번호 패턴 특수문자, 숫자 포함하기
+            consecutively : false,  // 연속된 문자 방지하기
+            consecutivelyNum : 3,   // 연속된 문자 제한수
+            number : false          // 숫자형 체크
+        };
+        $.extend(options, customOptions);
+ 
+ 
+        var callback = function(i,e){
+            validationLog(e);
+            validationLog(typeof customCallback);
+             
+            if( typeof customCallback == "function" ){
+                customCallback.prototype = {id:ob};
+                new customCallback(i);
+            }else{
+                alert(msg);
+                $(ob).focus();
+            }
+        };
+ 
+        var validationLog = function(s){
+            console.log("validationLog: "+s);
+        }
+ 
+ 
+        var value = $(ob).val();
+ 
+        //최소, 최대값 체크하기. (빈값체크)
+        if( value.length < options.min || value.length > options.max ){
+            callback(0,"Error 최소 최대값 체크" + options.min + " < " + value.length + " < "+ options.max);
+            return false;
+        }
+ 
+        //패스워드 스타일 체크 특수문자, 숫자 필수
+        if(options.password){
+            var special_pattern = /[`~!@+_#$%^&*|\\\'\";:\/?]/gi;
+            if( special_pattern.test(value) == false ){
+                callback(1,"Error 특수문자가 없을 때 " +value);
+                return false;
+            }
+             
+            special_pattern = /[0-9]/gi;
+            if( special_pattern.test(value) == false ){
+                callback(2,"Error 숫자가 없을 때 "+value);
+                return false;
+            }
+        }
+ 
+        //연속된 문자 체크 
+        if(options.consecutively){
+            var t = "";
+            var c = 0;
+            for(var i=0; i<value.length; i++){
+                var v = value.charAt(i);
+                if( t == v ){
+                    c++;
+                    validationLog(t+"_"+v);
+                }else{
+                    c = 0;
+                }
+                t = v;
+ 
+                if(c >= options.consecutivelyNum - 1){
+                    callback(3,"Error 연속된 문자 이상 "+value );
+                    return false;
+                    break;
+                }
+            }
+        }
+         
+        //숫자형체크
+        if(options.number){
+            var myregexp = /^[0-9]+$/;
+    
+            if( !myregexp.test(value) )  {
+                callback(4,"Error 숫자형타입 아님 "+value );
+                return false;
+            }
+        }
+ 
+ 
+        validationLog(value);
+        return true;
+    }
+     
+    /**************************************/
+    /* numberStyle 
+    /*
+    /*  param:
+    /*      ob              : 해당 객체 셀렉조건
+    /**************************************/
+    function numberStyle(ob){
+        var checkNumber = function (evt){
+            var keyCode; 
+            var isNetscape = (navigator.appName == "Netscape") ? 1 : 0; 
+            if(isNetscape){ 
+                keyCode=evt.which; 
+                if((keyCode >13 && keyCode < 48) || keyCode > 57){ 
+                    evt.preventDefault();  
+                } 
+            }else{ 
+                keyCode = event.keyCode; 
+                if ((keyCode >13 && keyCode < 48) || keyCode > 57){ 
+                    event.returnValue=false; 
+                } 
+            } 
+        };
+         
+        $(ob).keydown(checkNumber);
+    }
+     
+</script>
+</head>
+<body>
+    ID:
+    <input type="text" id="id" />
+    <br /> PW:
+    <input type="password" id="passwd" />
+    <br /> CON:
+    <input type="text" id="content" />
+    <br /> NUM:
+    <input type="text" id="number" />
+    <br />
+    <button id='testDiv'>이버튼 동작</button>
+</body>
+</html>

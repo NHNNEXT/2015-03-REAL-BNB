@@ -7,6 +7,7 @@
     android:layout_centerInParent="true"
     android:layout_marginLeft="4dp">
 
+
     <ImageView
         android:id="@+id/baby_iv"
         android:layout_width="match_parent"

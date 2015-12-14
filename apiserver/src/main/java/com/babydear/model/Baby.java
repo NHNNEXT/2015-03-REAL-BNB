@@ -21,28 +21,25 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Baby {
-	public enum Sex {
+	public enum Gender {
 		GIRL,
 		BOY,
-		UNDEFIEND
+		PREGNANCY,
+		UNDEFINED
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long bId;
 	
 //	@JoinColumn(name = "oid", referencedColumnName="oid")
-	@ManyToOne
-	private Family fid;
+//	@ManyToOne
+	private Long fId;
 	
-	private String name;
+	private String babyName;
 	
 //	@Enumerated(EnumType.STRING)
-	private Sex sex;
-	
-	@Temporal(TemporalType.DATE)
-	private Date birth;
+	private Gender babyGender;
+	private String babyBirth;
+	private String babyImg;
 
-	public String getImg(){
-		return "/babyImg/b"+bId+".jpg";
-	}
 }
