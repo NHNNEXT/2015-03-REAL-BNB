@@ -4,11 +4,15 @@ package net.balbum.baby;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +24,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private TextView photo_tv;
     private ImageView camera_iv, photo_iv;
     private EditText memo_tv;
+    RecyclerView baby_list;
     Context context;
 
     BabyTagAdapter adapter;
@@ -59,7 +66,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
         if (bundle != null) {
             generalCardVo = (GeneralCardVo) bundle.getParcelable("vo");
-            Log.d("test", generalCardVo.imgUrl + "qweqwe");
+            Log.d("test", generalCardVo.cardImg + "qweqwe");
         }
 
         return view;
@@ -74,15 +81,17 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv);
         camera_iv = (ImageView)this.getActivity().findViewById(R.id.camera_iv);
         photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
+        baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
 
         if(generalCardVo != null){
             memo_tv.setText(generalCardVo.content);
             Picasso.with(context)
-                    .load((generalCardVo.imgUrl))
+                    .load((Config.URL+generalCardVo.cardImg))
                     .placeholder(R.mipmap.ic_launcher)
                     .into(photo_iv);
 
         }
+
 
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
@@ -132,6 +141,9 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedList();
 
+        Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
+        String filePath = getRealPathFromURI(tempUri);
+        tempVo.cardImg = filePath;
 
         return tempVo;
     }
@@ -149,12 +161,10 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Log.d("test", "resultCode: " + resultCode + "," + Activity.RESULT_OK);
         Log.d("test", "requestCode: "+requestCode+ "," +  PICTURE_EDIT_COMPLETE);
 
-
         if (resultCode == Activity.RESULT_OK && requestCode == PICTURE_EDIT_COMPLETE) {
             Log.d("test", "activity for result!");
             this.setSelectedImage(CardImageEditActivity.croppedBitmap);
         }
-
     }
 
     @Override
@@ -172,11 +182,24 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
 //        memo_tv.setText(card.content);
         Picasso.with(context)
-                .load((card.imgUrl))
+                .load((card.cardImg))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(photo_iv);
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
     //
 //    public interface CustomOnClickListener{
 //        public void onClicked(int id);

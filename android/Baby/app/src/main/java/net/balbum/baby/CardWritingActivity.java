@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -43,9 +44,6 @@ public class CardWritingActivity extends AppCompatActivity {
     private static final int CARD_CREATE = 0;
     private static final int CARD_MODIFY = 1;
 
-    private static final int GENERAL_CARD = 11;
-    private static final int EVENT_CARD = 12;
-
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> fragmentTitleList = new ArrayList<>();
     GeneralCardFragment generalCardFragment;
@@ -54,6 +52,7 @@ public class CardWritingActivity extends AppCompatActivity {
     Intent intent;
     Toolbar toolbar;
     List<BabyTagVo> babyTagNamesList;
+    List<BabyVo> babyVoList;
     TaskService taskService;
     ViewPager viewPager;
     BabyTagAdapter adapter;
@@ -71,31 +70,31 @@ public class CardWritingActivity extends AppCompatActivity {
         generalCardFragment = new GeneralCardFragment();
         eventCardFragment = new EventCardFragment();
 
-
         initToolbar();
         initData();
         initViewPager(generalCardFragment, eventCardFragment);
-        initBabyTag();
+//        initBabyTag();
 
         if (type == CARD_MODIFY) {
+
 
             GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
             Bundle bundle = new Bundle();
             bundle.putParcelable("vo", cardVo);
+            Log.d("test", "modify start~" + cardVo.type);
             // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
-            if(cardVo.type == GENERAL_CARD) {
+            if(cardVo.type == GeneralCardVo.Type.NORMAL) {
                 generalCardFragment.setArguments(bundle);
                 Log.d("test", "general");
-            }else if(cardVo.type == EVENT_CARD){
+
+            }else if(cardVo.type == GeneralCardVo.Type.EVENT){
                 Log.d("test", "event");
                 viewPager.setCurrentItem(1);
                 eventCardFragment.setArguments(bundle);
 
             }
-
         }
-
     }
 
     private void initBabyTag() {
@@ -115,9 +114,25 @@ public class CardWritingActivity extends AppCompatActivity {
 
     private Context initData(){
 
-
+        //기본 저장되어있는 아이 정보 불러와서 리스트 만들 부분
         babyTagNamesList = new ArrayList<>();
+        babyVoList = new ArrayList<>();
+        String token = "token";
+        taskService.getBabies(token, new Callback<ArrayList<BabyVo>>() {
+              @Override
+              public void success(ArrayList<BabyVo> babyVos, Response response) {
+                  for(BabyVo baby : babyVos){
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
+                      babyTagNamesList.add(babyTag);
+                      initBabyTag();
+                  }
+              }
 
+              @Override
+              public void failure(RetrofitError error) {
+
+              }
+        });
 
         Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
@@ -131,9 +146,9 @@ public class CardWritingActivity extends AppCompatActivity {
         BabyTagVo baby2 = new BabyTagVo(b, "연두");
         BabyTagVo baby3 = new BabyTagVo(c, "벌이");
 
-        babyTagNamesList.add(baby1);
-        babyTagNamesList.add(baby2);
-        babyTagNamesList.add(baby3);
+//        babyTagNamesList.add(baby1);
+//        babyTagNamesList.add(baby2);
+//        babyTagNamesList.add(baby3);
 
         return null;
 
@@ -171,17 +186,17 @@ public class CardWritingActivity extends AppCompatActivity {
         if (id == R.id.action_save) {
 
             int currentItem = viewPager.getCurrentItem();
-                Log.i("test", "current: " + currentItem);
-
-
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
-            Log.d("test", vo.content.toString());
-            Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
 
-            Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-            File a = ConvertBitmapToFileUtil.convertFile(img1);
+            GeneralCardVo.Type temp_type = null;
+            if(currentItem == 0){
+                temp_type = GeneralCardVo.Type.NORMAL;
+            }else if(currentItem == 1){
+                temp_type = GeneralCardVo.Type.EVENT;
+            }
 
-            TypedFile typedFile = new TypedFile("multipart/form-data", a);
+            File file = new File(vo.cardImg);
+            TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
             List<Long> asd = new ArrayList<Long>();
             asd.add(new Long(2));
@@ -189,33 +204,57 @@ public class CardWritingActivity extends AppCompatActivity {
             asd.add(new Long(4));
 
             Long l = new Long(2);
+
+
             String content = "asdasd";
-            CardFormVo cardFormVo = new CardFormVo(l, "token", asd, "경륜이랑 짝코딩딩딩", "1");
+            CardFormVo cardFormVo = new CardFormVo(asd, vo.content, vo.modifiedDate, "token", GeneralCardVo.Type.NORMAL);
 
-            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
-                @Override
-                public void success(ResponseVo responseVo, Response response) {
+//            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
+//                @Override
+//                public void success(ResponseVo responseVo, Response response) {
+//                    Log.d("test", "카드 POST 성공");
+//
+//                }
+//
+//                @Override
+//                public void failure(RetrofitError error) {
+//                    Log.d("test", "카드 POST 실패");
+//                }
+//            });
 
-                }
+            if((Long)vo.cid == 0) {
+                taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
+                    @Override
+                    public void success(ResponseVo responseVo, Response response) {
+                        Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
 
-                @Override
-                public void failure(RetrofitError error) {
+                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
 
-                }
-            });
-            taskService.createCard(typedFile, l, "token", l, "3qe", "20302030", new Callback<ResponseVo>() {
-                @Override
-                public void success(ResponseVo responseVo, Response response) {
-                    Log.i("test", "card success" + responseVo.state + ", error: "+ responseVo.error);
-                }
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i("test", "card error: " + error);
+                    }
+                });
+            }else{
+                taskService.updateCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), vo.cid, new Callback<ResponseVo>() {
+                    @Override
+                    public void success(ResponseVo responseVo, Response response) {
+                        Log.i("test", "업데이트 성공!");
+                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.i("test", "card error: " + error);
-                }
-            });
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i("test", "업데이트 실패!");
+                    }
+                });
 
-            startActivity(intent);
+            }
+
+
 
             return true;
         }

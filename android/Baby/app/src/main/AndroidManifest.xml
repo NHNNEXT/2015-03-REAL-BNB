@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/eggplant"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -36,7 +36,8 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".LoadingActivity">
+        <activity android:name=".LoadingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,10 +48,16 @@
         <activity android:name=".CardImageEditActivity">
         </activity>
 
-        <activity android:name=".StartActivity"/>
-        <activity android:name=".SignActivity"/>
-        <activity android:name=".SignEmailActivity"/>
-        <activity android:name=".SignFacebookActivity"/>
+        <activity android:name=".StartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignEmailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignFacebookActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InitialSettingActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

@@ -38,7 +38,6 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     ImageView croppedImageView;
     static Bitmap croppedBitmap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +83,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 
                 Toast.makeText(context,
 
-                        "Error while capturing imgUrl", Toast.LENGTH_LONG)
+                        "Error while capturing cardImg", Toast.LENGTH_LONG)
 
                         .show();
 
@@ -149,7 +148,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 //                }
 
                 bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
-                // preview imgUrl
+                // preview cardImg
                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
                 bitmap = GetRotatedBitmap(bitmap, GetExifOrientation(selectedImagePath));

@@ -62,7 +62,7 @@ public class SignFacebookActivity extends AppCompatActivity{
             public void onClick(View v) {
                 role = signRole.getText().toString();
                 Log.d("test", "role" + role);
-                Intent intent = new Intent(SignFacebookActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignFacebookActivity.this, InitialSettingActivity.class);
                 startActivity(intent);
             }
         });

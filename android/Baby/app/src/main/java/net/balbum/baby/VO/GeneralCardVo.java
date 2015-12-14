@@ -2,7 +2,6 @@ package net.balbum.baby.VO;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,45 +11,58 @@ import io.realm.annotations.Required;
 /**
  * Created by hyes on 2015. 11. 10..
  */
+
+
 public class GeneralCardVo implements Parcelable{
 
-    //카드 생성일, 기록대상일, 아이이름[], 메모, 작성자, 상태(삭제여부 boolean)
+    public enum Type{
+        BAD("BAD"), NORMAL("NORMAL"), EVENT("EVENT");
+        private final String value;
+        Type(String value){
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+
     @Required
     public String modifiedDate;
-    public String imgUrl;
-    public long cId;
+    public String cardImg;
+    public long cid;
     public String content;
-    public List<Long> babies;
-    public List<String> names;
-    public int type=12;
+    public List<BabyVo> babies;
+    public List<Long> names;
+    public Type type;
 
     public GeneralCardVo() {
-
+//        babies = new ArrayList<>();
+        names = new ArrayList<>();
     }
 
     public GeneralCardVo(Parcel in) {
         readFromParcel(in);
     }
 
-    public GeneralCardVo(String content, String imgUrl, String modifiedDate) {
+    public GeneralCardVo(String content, String cardImg, String modifiedDate, Long cid) {
         this.content = content;
-        this.imgUrl = imgUrl;
+        this.cardImg = cardImg;
         this.modifiedDate = modifiedDate;
+        this.cid = cid;
     }
 
-    public GeneralCardVo(List<Long> babies, long cId, String content, String imgUrl, String modifiedDate) {
-        Log.d("test", "ㅎㄸㄸㄸㄷ옸따");
-        this.babies = babies;
-        this.cId = cId;
+    public GeneralCardVo(String cardImg, long cid, String content, String modifiedDate, List<Long> names, Type type) {
+        this.cardImg = cardImg;
+        this.cid = cid;
         this.content = content;
-        this.imgUrl = imgUrl;
         this.modifiedDate = modifiedDate;
-        this.names = new ArrayList<String>();
-        for(int i = 0 ; i < babies.size(); i++){
-            names.add(babies.get(i).toString());
+        this.names = new ArrayList<Long>();
+        for(int i = 0 ; i < babies.size(); i++) {
+            names.add(babies.get(i).bId);
+            this.type = type;
         }
-
     }
+
 
     @Override
     public int describeContents() {
@@ -60,20 +72,25 @@ public class GeneralCardVo implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(modifiedDate);
-        dest.writeString(imgUrl);
-        dest.writeLong(cId);
+        dest.writeString(cardImg);
+        dest.writeLong(cid);
         dest.writeString(content);
-//        dest.writeTypedList(babies);
-//        dest.writeStringList(names);
+        dest.writeValue(type);
+//        dest.writeList(babies);
     }
 
     private void readFromParcel(Parcel in){
         modifiedDate = in.readString();
-        imgUrl = in.readString();
-        cId = in.readLong();
+        cardImg = in.readString();
+        cid = in.readLong();
         content = in.readString();
-//        babies = in.readList();
-//        names = in.readStringList();
+        type = (Type) in.readValue(Type.class.getClassLoader());
+//        babies = new ArrayList<Long>();
+//        in.readTypedList(babies, GeneralCardVo.CREATOR);
+//        names = new ArrayList<String>();
+//        for(int i = 0 ; i < babies.size(); i++){
+//            names.add(babies.get(i).toString());
+//        }
 
     }
 

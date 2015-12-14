@@ -5,8 +5,8 @@ package net.balbum.baby.VO;
  */
 public class LoginVo {
 
-    private String email;
-    private String password;
+    public String email;
+    public String password;
     private String token;
 
     public LoginVo(String email, String password) {

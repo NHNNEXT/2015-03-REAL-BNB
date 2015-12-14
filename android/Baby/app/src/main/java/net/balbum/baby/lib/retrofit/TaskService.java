@@ -1,10 +1,12 @@
 package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
-import net.balbum.baby.VO.CardFormVo;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -20,6 +22,9 @@ import retrofit.mime.TypedFile;
  */
 public interface TaskService {
 
+    @GET("/api/user/token")
+    void tokenCheck(@Query("token") String token, Callback<ResponseVo> cb);
+
     @POST("/api/user/login")
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
@@ -29,19 +34,36 @@ public interface TaskService {
 
     @Multipart
     @POST("/api/card")
-    void createCard(@Part("image") TypedFile file, @Part("cId") Long l, @Part("token") String token, @Part("babies[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
-//    void createCard(@Part("imgUrl") TypedFile file, @Part("content") String content, Callback<ResponseVo> cb);
-//    CardFormVo cardFormVo
-
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
 
     @Multipart
-    @POST("/api/card")
-    void createCard(@Body TypedFile file, @Body CardFormVo cardFormVo, Callback<ResponseVo> cb);
+    @POST("/api/card/update")
+    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
+
+    @GET("/api/card/delete")
+    void deleteCard(@Query("cId") Long cId, Callback<ResponseVo> cb);
+
+//    @Multipart
+//    @PUT("/api/card")
+//    void updateCard(@Part("image") TypedFile file, @Part("cid") Long l, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, Callback<ResponseVo> cb);
+
+//    @Multipart
+//    @POST("/api/card")
+//    void createCard(@Body TypedFile file, @Body CardFormVo cardFormVo, Callback<ResponseVo> cb);
 
   //Body body로 나눠 보내보기!
 
 
     @GET("/api/card")
     void getCard(@Query("token") String token, Callback<CardListVo> cb);
+
+    @Multipart
+    @POST("/api/user/baby/create")
+//    void createBabyInfo(@Part("image") TypedFile file, @Body BabyVo babyVo, Callback<ResponseVo> cb);
+    void createBabyInfo(@Part("image") TypedFile file,  @Part("babyName") String name, @Part("babyBirth") String birth,  @Part("babyGender") String gender, Callback<ResponseVo> cb);
+
+    @GET("/api/user/baby")
+    void getBabies(@Query("token") String token, Callback<ArrayList<BabyVo>> cb);
+
 
 }
