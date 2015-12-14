@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationView();
         initFab();
        // initData();
-        
+
     }
 
     private void initViewLandscpae(List<GeneralCardVo> cardGeneralModelList) {
