@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,30 +21,40 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.CardWritingActivity;
+import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Config;
 import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by hyes on 2015. 11. 10..
  */
 
 public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.viewHolder> {
-
+    private static final int CARD_MODIFY = 1;
     private static final String CORESERVER_URL = Config.URL;
     private List<GeneralCardVo> cards;
     private Context context;
     private boolean open = true;
     private Typeface typeface;
             Animation anim;
+    TaskService taskService;
 
 
     public RVAdapterLandscape(List<GeneralCardVo> cards, Context context){
         this.cards = cards;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
+        taskService = ServiceGenerator.createService(TaskService.class);
 //       anim = AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha);
         }
 
@@ -58,15 +69,14 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
     public void onBindViewHolder(final viewHolder holder, final int position) {
         final boolean[] flag = {false};
 
-
-
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
         // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
+        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
         Picasso.with(context)
-                .load((cards.get(position).cardImg))
-                .placeholder(R.mipmap.ic_launcher)
+                .load((Config.URL + cards.get(position).cardImg))
+                .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
         holder.diary_text.setText(cards.get(position).content);
@@ -83,74 +93,79 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
         holder.delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCard(holder, position);
+                Log.d("test", "position 넘기기 전: " + position);
+                deleteCard(position);
+                Log.d("test", "cid" + cards.get(position).cid);
             }
         });
         holder.modify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCard(holder, position);
+                modifyCard(position);
             }
         });
     }
 
-    private void modifyCard(viewHolder holder, int position) {
+    private void modifyCard(int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("cid", cards.get(position).cid);
+        intent.putExtra("type", CARD_MODIFY);
+        GeneralCardVo vo = cards.get(position);
+        intent.putExtra("generalCardVo", vo);
         context.startActivity(intent);
-
-
     }
 
-    private void deleteCard(viewHolder holder, int position) {
+    private void deleteCard(int position) {
+        taskService.deleteCard(cards.get(position).cid, new Callback<ResponseVo>() {
+            @Override
+            public void success(ResponseVo responseVo, Response response) {
+                Log.d("test", "state: " + responseVo.state);
+                Log.d("test", "delete 성공");
+
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("test", "delete 실패");
+            }
+        });
+
         Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
     }
 
     private void showCardSetting(viewHolder holder, boolean[] flag) {
         if (!flag[0]) {
-            // holder.photo.setImageAlpha(64);
-            //   holder.photo.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha));
-
             flag[0] = !flag[0];
-
             holder.delete_modify_layout.setVisibility(View.VISIBLE);
-            //  holder.diary_text.setVisibility(View.VISIBLE);
 
             //    holder.diary_text.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha2));
             holder.photo.setImageAlpha(65);
-//                    holder.cv.setAlpha(0.65f);
-
         } else {
             holder.delete_modify_layout.setVisibility(View.INVISIBLE);
             holder.photo.setImageAlpha(255);
             flag[0] = !flag[0];
-            //    holder.diary_text.setVisibility(View.INVISIBLE);
-
         }
-
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
-//        int idx = cards.get(position).babies.size();
-        int idx = 3;
-        LinearLayout.LayoutParams lpView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 60);
+        int idx = cards.get(position).babies.size();
+        Log.d("test", "애기 수 : " + idx);
 
+        LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
+        LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
         for(int i=0; i<idx; i++){
-
             LinearLayout linLayout = new LinearLayout(context);
             linLayout.setOrientation(LinearLayout.HORIZONTAL);
             linLayout.setGravity(Gravity.CENTER_VERTICAL);
-
             ImageView iv_profile = new ImageView(context);
-            iv_profile.setImageResource(R.mipmap.ic_launcher);
-
-            linLayout.addView(iv_profile, lpView);
-
+            iv_profile.setImageResource(R.drawable.eggplant);
+            linLayout.addView(iv_profile, imageParam);
             TextView tv = new TextView(context);
             tv.setText("13개월");
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
-            tv.setLayoutParams(lpView);
+            tv.setLayoutParams(tvParam);
             tv.setGravity(Gravity.CENTER);
             linLayout.addView(tv);
             ((LinearLayout) profile_container).addView(linLayout);
@@ -164,7 +179,7 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
         if(cards == null || cards.size() ==0){
             return 0;
         }
-            return cards.size();
+        return cards.size();
     }
 
 

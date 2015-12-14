@@ -67,13 +67,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationView();
         initFab();
        // initData();
-
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            initView(cardGeneralModelList);
-        }else{
-            initViewLandscpae(cardGeneralModelList);
-        }
-//
+        
     }
 
     private void initViewLandscpae(List<GeneralCardVo> cardGeneralModelList) {
@@ -275,7 +269,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
+
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             initView(cardGeneralModelList);
+
+        }else {
+            initViewLandscpae(cardGeneralModelList);
+            Log.d("test", "landscape");
+        }
     }
 
 }
