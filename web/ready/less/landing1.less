@@ -99,6 +99,8 @@ section.lp-container {
 
 	.modal {
 		max-width: 400px !important;
+		max-height: 100%;
+		overflow: hidden;
 
 		.caption {
 			font-weight: bold;
@@ -120,7 +122,7 @@ section.lp-container {
 				width: 100%;
 			}
 
-			.fb-signup { // 이게 왜 적용이 안되고 있는건지 모르겠다.. 
+			.fb-signup { 
 				width: 100%;
 			}
 			
@@ -142,6 +144,26 @@ section.lp-container {
 					top: -7px;
 					left: 40%;
 				}
+			}
+			
+
+			// @TODO image preview 사진 업로드 되기 전에 왜 네모 모양이지..?
+			// @TODO 일단 강제로 가운데 정렬 
+			#upload-preview {
+				left: 88.5px;
+				width: 100px;
+				height: 100px;
+				position: relative;
+				// left: 40%;
+				// border-radius: 50%;
+				// background-repeat: no-repeat; 
+				// background-position: center center;
+				// background-size: cover;
+			}
+
+			#signup-file {
+				left: 60px;
+				 position: relative;
 			}
 
 			input:focus{

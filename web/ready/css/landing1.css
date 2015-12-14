@@ -65,7 +65,7 @@ section.lp-container .inner h1 {
 section.lp-container .inner h2 {
   font-size: 20px;
   padding-bottom: 0;
-  max-width: 450px;
+  max-width: 430px;
   line-height: 33px;
   font-weight: normal;
   color: white;
@@ -80,6 +80,8 @@ section.lp-container .inner h2 {
 }
 .lp-content .modal {
   max-width: 400px !important;
+  max-height: 100%;
+  overflow: hidden;
 }
 .lp-content .modal .caption {
   font-weight: bold;
@@ -96,6 +98,9 @@ section.lp-container .inner h2 {
   top: 15px;
 }
 .lp-content .modal .modal-box .fb-login {
+  width: 100%;
+}
+.lp-content .modal .modal-box .fb-signup {
   width: 100%;
 }
 .lp-content .modal .modal-box .separator {
@@ -116,12 +121,19 @@ section.lp-container .inner h2 {
   top: -7px;
   left: 40%;
 }
+.lp-content .modal .modal-box #upload-preview {
+  left: 88.5px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.lp-content .modal .modal-box #signup-file {
+  left: 60px;
+  position: relative;
+}
 .lp-content .modal .modal-box input:focus {
   border-bottom: 1px solid #896DA5 !important;
   box-shadow: 0 1px 0 0 #896DA5 !important;
-}
-.lp-content .modal .modal-box label:active {
-  color: #896DA5 !important;
 }
 .lp-content .modal .modal-box button {
   width: 100%;

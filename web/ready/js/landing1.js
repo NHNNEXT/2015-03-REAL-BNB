@@ -4,15 +4,37 @@
 $(".button-collapse").sideNav();
 
 
-// login창에서 닫기 버튼을 눌렀을 때, 로그인 모달창 닫기
+// login창에서 닫기 버튼을 눌렀을 때, login창 닫기
 $('#close-login').click(function(){
     $('#modal-login').closeModal();
 });
 
+// signup창에서 닫기 버튼을 눌렀을 때, signup창 닫기
 $('#close-signup').click(function(){
     $('#modal-signup').closeModal();
 });
 
+
+
+function readURL(input) {
+  console.log(input.files);
+  console.log(input.files[0]);
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          console.log(e.target);
+            $('#upload-preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#signup-file").change(function () {
+    readURL(this);
+});
 
 
 // token이 있으면(로그인 된 상태라면) mainPage로 간다
@@ -25,11 +47,11 @@ var Start = {
     init: function() {
 	    $('.modal-trigger').leanModal(); // modal을 활성화하는 오브젝트
     },
-    resetLogin: $('#login_form').html(), // login form 부분 초기화를 위한 오브젝트 
-    resetSignup: $('#signup_form').html() // signup form 부분 초기화를 위한 오브젝트 
+    resetLogin: $('#login-form').html(), // login form 부분 초기화를 위한 오브젝트 
+    resetSignup: $('#signup-form').html() // signup form 부분 초기화를 위한 오브젝트 
 };
 
-$('.login_btn').click(function(e){
+$('.login-btn').click(function(e){
     // e.stopPropagation(); // 상위 엘리먼트에 걸려있는 이벤트의 전파를 막는 함수 
     e.preventDefault(); // 브라우저에 기본으로 걸려있는 이벤트를 막는 함수
     ajaxPostLogin();
@@ -62,7 +84,7 @@ var ajaxPostLogin =  function() {
             else{
                 // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
             }
-            $('#login_form').html(Start.resetLogin); // form창 초기화
+            $('#login-form').html(Start.resetLogin); // form창 초기화
        },
        error: function(res){
             console.log("[ajaxPostLogin] ajax 실패라능");
@@ -70,7 +92,7 @@ var ajaxPostLogin =  function() {
     });
  };
 
- $('.signup_btn').click(function(e){
+ $('.signup-btn').click(function(e){
      // e.stopPropagation(); // 상위 엘리먼트에 걸려있는 이벤트의 전파를 막는 함수 
      e.preventDefault(); // 브라우저에 기본으로 걸려있는 이벤트를 막는 함수
      ajaxPostSignup();
@@ -109,7 +131,7 @@ var ajaxPostLogin =  function() {
             else{
                // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
             }
-            $('#signup_form').html(Start.resetSignup); // form창 초기화
+            $('#signup-form').html(Start.resetSignup); // form창 초기화
        },
        error: function(res){
             console.log("[ajaxPostSignup] ajax 실패라능");
