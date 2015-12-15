@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -26,16 +24,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.balbum.baby.Util.Config;
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
-import net.balbum.baby.adapter.RVAdapter;
-import net.balbum.baby.adapter.RVAdapterLandscape;
+import net.balbum.baby.adapter.CardViewAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -45,16 +39,15 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context;
-    private List<GeneralCardVo> cardGeneralModelList;
-    private FloatingActionButton fab;
-    private NavigationView navigationView;
-    private Toolbar toolbar;
-    private LinearLayout drawerLayout;
-    private SharedPreferences sharedPreferences;
-    RVAdapter adapter;
-    RVAdapterLandscape adapterLandscape;
-    TaskService taskService;
+    Context context;
+    RecyclerView recyclerView;
+    List<GeneralCardVo> cardGeneralModelList;
+    FloatingActionButton fab;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    LinearLayout drawerLayout;
+    SharedPreferences sharedPreferences;
+    CardViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,35 +59,48 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initNavigationView();
         initFab();
+        getData();
        // initData();
 
     }
 
-    private void initViewLandscpae(List<GeneralCardVo> cardGeneralModelList) {
+    private void getData() {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Config.URL);
+        Log.d("test", " getCard시작?~");
+        taskService.getCard("token", new Callback<CardListVo>() {
+            @Override
+            public void success(CardListVo cardListVo, Response response) {
+                CardListVo cd = cardListVo;
+                cardGeneralModelList = cd.cardList;
+                Log.d("test", "size~: " + cardGeneralModelList.get(0).cid);
+                initView(cardGeneralModelList);
+            }
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
-        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        rv.setLayoutManager(sglm);
-
-        adapterLandscape = new RVAdapterLandscape(cardGeneralModelList, context);
-        rv.setAdapter(adapterLandscape);
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("test", " taskService failure");
+            }
+        });
     }
 
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
-        LinearLayoutManager llm = new LinearLayoutManager(context);
-        rv.setLayoutManager(llm);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
 
-        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(llm) {
-            @Override
-            public void onLoadMore(int current_page) {
-                Log.d("test", "add on Scroll.~~");
-            }
-        });
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            adapter = new CardViewAdapter(cardGeneralModelList, context, R.layout.card_general_row_portrait);
 
-        adapter = new RVAdapter(cardGeneralModelList, context);
-        rv.setAdapter(adapter);
+        }else {
+            StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(sglm);
+            adapter = new CardViewAdapter(cardGeneralModelList, context, R.layout.card_general_row_landscape);
+            Log.d("test", "landscape");
+        }
+
+        recyclerView.setAdapter(adapter);
     }
 
     private void initFab() {
@@ -193,90 +199,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private Context initData(){
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("산체");
-        names.add("벌이");
-
-        cardGeneralModelList = new ArrayList<>();
-//        cardGeneralModelList.add("String1");
-//        cardGeneralModelList.add("String2");
-//        cardGeneralModelList.add("String3");
-
-        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.img1);
-        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.img2);
-        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.img3);
-        Bitmap img4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
-
-        File a = ConvertBitmapToFileUtil.convertFile(img1);
-        File b = ConvertBitmapToFileUtil.convertFile(img2);
-        File c = ConvertBitmapToFileUtil.convertFile(img3);
-        File d = ConvertBitmapToFileUtil.convertFile(img4);
-
-//        GeneralCardVo data1 = new GeneralCardVo("rirrriririskskdjfsldjfslkdjiririskskdjfsldjfslkdjriririskskdjfsldjfslkdjiririskskdjfsldjfslkdj", "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQV80K-5-fjT_RKsYIKFQjpVKhmQRH5k-xkq5yLKe9JslT0zasP", TimeUtil.getRecordedMoment());
-//        GeneralCardVo data2 = new GeneralCardVo("ririrasriririskskdjfsldjfslkdjriririskskdjfsldjfslkdjdasdaddj", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYgdGMhHf6TaMiIwvslhKy-FfL77RLopOlYEAXOhyIwtBQbyZT",TimeUtil.getRecordedMoment());
-
-//        GeneralCardVo data3 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), c, names, "햇살 따듯, 한가로운 오후", "엄마");
-//        GeneralCardVo data4 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), d, names, "아무리봐도 아빠를 너무 닮은 것 같아 속상하다 크면서 바뀌겠지. 그래 그럴거야! 우리 아가는 점점 나를 닮아갈거야!!!", "엄마");
-//        GeneralCardVo data5 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), b, names, "아가들 씐나씐나", "아빠");
-//        GeneralCardVo data6 = new GeneralCardVo(new Date().toString(), TimeUtil.getRecordedMoment(), a, names, "우리아가 이쁜이 옹알옹알 잘한다", "엄마");
-
-//        cardGeneralModelList.add(data1);
-//        cardGeneralModelList.add(data2);
-//        cardGeneralModelList.add(data3);
-//        cardGeneralModelList.add(data4);
-//        cardGeneralModelList.add(data5);
-//        cardGeneralModelList.add(data6);
-
-//        cardGeneralModelList.add(new CardGeneralModel("2015.10.10", R.drawable.img1, "륜이 12개월", "챙챙 12개월", "오늘은 하늘이 하늘하늘"));
-//        cardGeneralModelList.add(new CardGeneralModel("2015.10.22",  R.drawable.img2, "챙챙 12개월", "유림 12개월", "꺄르르 까궁!"));
-//        cardGeneralModelList.add(new CardGeneralModel("2015.10.28", R.drawable.img3, "유림 12개월", "륜이12개월", "우리아가들 잘도 잔다. 무럭무럭 건강하게만 자라다오(..아마 10년 뒤엔 공부하라고 하겠지?)"));
-//        cardGeneralModelList.add(new CardGeneralModel("2015.11.03", R.drawable.img6, "유림 13개월", "륜이13개월", "오늘도 맑음"));
-//        cardGeneralModelList.add(new CardGeneralModel("2015.11.04", R.drawable.img5, "유림 13개월", "오늘의 일과는 블라블라블라~~~~"));
-        return null;
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        taskService = ServiceGenerator.createService(TaskService.class);
-        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Config.URL);
-        Log.d("test", " getCard시작?~");
-        taskService.getCard("token", new Callback<CardListVo>() {
-            @Override
-            public void success(CardListVo cardListVo, Response response) {
-                CardListVo cd = cardListVo;
-                cardGeneralModelList = cd.cardList;
-                Log.d("test", "size~: " + cardGeneralModelList.get(0).cid);
-                getCardsFromServer(cardGeneralModelList);
-                //되는지 확인할 것
-//                adapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("test", " taskService failure");
-            }
-        });
-
-
-    }
-
-    private void getCardsFromServer(List<GeneralCardVo> cardGeneralModelList) {
-
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            initView(cardGeneralModelList);
-
-        }else {
-            initViewLandscpae(cardGeneralModelList);
-            Log.d("test", "landscape");
-        }
     }
 
 }

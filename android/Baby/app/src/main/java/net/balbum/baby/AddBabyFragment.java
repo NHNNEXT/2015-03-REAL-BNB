@@ -70,29 +70,32 @@ public class AddBabyFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         taskService = ServiceGenerator.createService(TaskService.class);
 
-        ok_btn = (Button)this.getActivity().findViewById(R.id.add_baby_btn);
-        register_later = (TextView)this.getActivity().findViewById(R.id.register_later);
-        add_baby_name = (EditText)this.getActivity().findViewById(R.id.add_baby_name);
-        add_baby_birthday = (EditText)this.getActivity().findViewById(R.id.add_baby_birthday);
-        add_baby_image = (ImageView)this.getActivity().findViewById(R.id.add_baby_photo);
-        radioGroup = (RadioGroup)this.getActivity().findViewById(R.id.add_baby_radiogroup);
-        listView = (ListView)this.getActivity().findViewById(R.id.list);
+        ok_btn = (Button) getActivity().findViewById(R.id.add_baby_btn);
+        register_later = (TextView) this.getActivity().findViewById(R.id.register_later);
+        add_baby_name = (EditText) this.getActivity().findViewById(R.id.add_baby_name);
+        add_baby_birthday = (EditText) this.getActivity().findViewById(R.id.add_baby_birthday);
+        add_baby_image = (ImageView) this.getActivity().findViewById(R.id.add_baby_photo);
+        radioGroup = (RadioGroup) this.getActivity().findViewById(R.id.add_baby_radiogroup);
+        listView = (ListView) this.getActivity().findViewById(R.id.list);
 
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pictureActionIntent = null;
 
-                pictureActionIntent = new Intent(
-                        Intent.ACTION_PICK,
+                pictureActionIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(
-                        pictureActionIntent,
-                        Config.GALLERY_PICTURE);
+                startActivityForResult(pictureActionIntent, Config.GALLERY_PICTURE);
             }
         });
 
@@ -125,20 +128,24 @@ public class AddBabyFragment extends Fragment {
         babyVo.babyBirth = add_baby_birthday.getText().toString();
         babyVo.babyName = add_baby_name.getText().toString();
 
-        temp_gender =radioGroup.getCheckedRadioButtonId();
-        if(temp_gender == R.id.radio0){
+        temp_gender = radioGroup.getCheckedRadioButtonId();
+
+        if (temp_gender == R.id.radio0) {
             babyVo.babyGender = BabyVo.Gender.GIRL;
-        }else if(temp_gender == R.id.radio1){
+        } else if (temp_gender == R.id.radio1) {
             babyVo.babyGender = BabyVo.Gender.BOY;
-        }else if(temp_gender == R.id.radio2) {
+        } else if (temp_gender == R.id.radio2) {
             babyVo.babyGender = BabyVo.Gender.PREGNANCY;
         }
+
         Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
         File ab = ConvertBitmapToFileUtil.convertFile(img);
         TypedFile a = new TypedFile("multipart/form-data", ab);
-        if(babyVo.babyGender == null){
+
+        if (babyVo.babyGender == null) {
             babyVo.babyGender = BabyVo.Gender.UNDEFINED;
         }
+
         taskService.createBabyInfo(a, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
@@ -171,12 +178,12 @@ public class AddBabyFragment extends Fragment {
 
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
-                Cursor c = context.getContentResolver().query(selectedImage, filePath,
+                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
                         null, null, null);
-                c.moveToFirst();
-                int columnIndex = c.getColumnIndex(filePath[0]);
-                selectedImagePath = c.getString(columnIndex);
-                c.close();
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePath[0]);
+                selectedImagePath = cursor.getString(columnIndex);
+                cursor.close();
 
                 //                if (selectedImagePath != null) {
                 //                    txt_image_path.setText(selectedImagePath);

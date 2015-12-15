@@ -24,11 +24,13 @@ public class InitialSettingActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_setting);
+
         context = this;
 
         findViewById(R.id.add_baby).setOnClickListener(this);
         findViewById(R.id.family_email_auth).setOnClickListener(this);
-        fragment_container = (FrameLayout)findViewById(R.id.fragment_container);
+
+        fragment_container = (FrameLayout) findViewById(R.id.fragment_container);
 
     }
 
@@ -36,13 +38,15 @@ public class InitialSettingActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         int id = v.getId();
         prepareFragment();
-        switch(id){
+
+        switch (id) {
             case R.id.add_baby:
                 Fragment fragment = new AddBabyFragment();
-                if(fragment_container.getVisibility() == View.GONE){
+
+                if (fragment_container.getVisibility() == View.GONE) {
                     fragment_container.setVisibility(View.VISIBLE);
                     setFragment(fragment);
-                }else if(fragment_container.getVisibility() == View.VISIBLE){
+                } else if (fragment_container.getVisibility() == View.VISIBLE) {
                     replaceFragment(fragment);
                 }
 
@@ -50,10 +54,11 @@ public class InitialSettingActivity extends AppCompatActivity implements View.On
 
             case R.id.family_email_auth:
                 Fragment fragment1 = new FamilyAuthFragment();
-                if(fragment_container.getVisibility() == View.GONE){
+
+                if (fragment_container.getVisibility() == View.GONE) {
                     fragment_container.setVisibility(View.VISIBLE);
                     setFragment(fragment1);
-                }else if(fragment_container.getVisibility() == View.VISIBLE){
+                } else if (fragment_container.getVisibility() == View.VISIBLE) {
                     replaceFragment(fragment1);
                 }
         }
@@ -68,7 +73,7 @@ public class InitialSettingActivity extends AppCompatActivity implements View.On
         fragmentTransaction.add(R.id.fragment_container, fragment).commit();
     }
 
-    private void prepareFragment(){
+    private void prepareFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
     }

@@ -39,28 +39,26 @@ import retrofit.client.Response;
  * Created by hyes on 2015. 11. 10..
  */
 
-public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.viewHolder> {
-    private static final int CARD_MODIFY = 1;
-    private static final String CORESERVER_URL = Config.URL;
-    private List<GeneralCardVo> cards;
-    private Context context;
-    private boolean open = true;
-    private Typeface typeface;
+public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHolder> {
+    static final int CARD_MODIFY = 1;
+    List<GeneralCardVo> cards;
+    int layout;
+    Context context;
+    boolean open = true;
+    Typeface typeface;
             Animation anim;
     TaskService taskService;
 
-
-    public RVAdapterLandscape(List<GeneralCardVo> cards, Context context){
+    public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout){
         this.cards = cards;
         this.context = context;
+        this.layout = layout;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
-        taskService = ServiceGenerator.createService(TaskService.class);
-//       anim = AnimationUtils.loadAnimation(context, R.anim.anim_card_alpha);
-        }
+    }
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_general_row_landscape, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
             viewHolder pvh = new viewHolder(v);
             return pvh;
         }
@@ -116,6 +114,7 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
     }
 
     private void deleteCard(int position) {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
         taskService.deleteCard(cards.get(position).cid, new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
@@ -179,7 +178,7 @@ public class RVAdapterLandscape extends RecyclerView.Adapter<RVAdapterLandscape.
         if(cards == null || cards.size() ==0){
             return 0;
         }
-        return cards.size();
+            return cards.size();
     }
 
 
