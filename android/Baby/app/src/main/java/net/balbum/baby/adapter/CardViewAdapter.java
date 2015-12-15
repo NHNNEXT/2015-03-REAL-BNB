@@ -11,19 +11,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.CardWritingActivity;
 import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
+import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -40,16 +40,12 @@ import retrofit.client.Response;
  */
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHolder> {
-    static final int CARD_MODIFY = 1;
     List<GeneralCardVo> cards;
     int layout;
     Context context;
-    boolean open = true;
     Typeface typeface;
-            Animation anim;
-    TaskService taskService;
 
-    public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout){
+    public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout) {
         this.cards = cards;
         this.context = context;
         this.layout = layout;
@@ -58,10 +54,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
     @Override
     public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-            viewHolder pvh = new viewHolder(v);
-            return pvh;
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+        viewHolder pvh = new viewHolder(view);
+        return pvh;
+    }
 
     @Override
     public void onBindViewHolder(final viewHolder holder, final int position) {
@@ -107,22 +103,23 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     private void modifyCard(int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("type", CARD_MODIFY);
+        intent.putExtra("type", Config.CARD_MODIFY);
         GeneralCardVo vo = cards.get(position);
         intent.putExtra("generalCardVo", vo);
         context.startActivity(intent);
     }
 
     private void deleteCard(int position) {
+
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
+
         taskService.deleteCard(cards.get(position).cid, new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "state: " + responseVo.state);
                 Log.d("test", "delete 성공");
 
-                Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);
+                ActivityUtil.goToActivity(context, MainActivity.class);
             }
 
             @Override
@@ -131,7 +128,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             }
         });
 
-        Toast.makeText(context, "delete~~", Toast.LENGTH_SHORT).show();
+        ToastUtil.show(context, "delete");
     }
 
     private void showCardSetting(viewHolder holder, boolean[] flag) {
@@ -149,21 +146,27 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
+
+        profile_container.removeAllViews();
+
         int idx = cards.get(position).babies.size();
-        Log.d("test", "애기 수 : " + idx);
 
         LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
         LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
-        for(int i=0; i<idx; i++){
+
+        for (int i = 0; i < idx; i++) {
+
             LinearLayout linLayout = new LinearLayout(context);
             linLayout.setOrientation(LinearLayout.HORIZONTAL);
             linLayout.setGravity(Gravity.CENTER_VERTICAL);
+
             ImageView iv_profile = new ImageView(context);
             iv_profile.setImageResource(R.drawable.eggplant);
             linLayout.addView(iv_profile, imageParam);
+
             TextView tv = new TextView(context);
             tv.setText("13개월");
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             tv.setLayoutParams(tvParam);
             tv.setGravity(Gravity.CENTER);
             linLayout.addView(tv);
@@ -175,10 +178,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     @Override
     public int getItemCount() {
 
-        if(cards == null || cards.size() ==0){
+        if (cards == null || cards.size() == 0) {
             return 0;
         }
-            return cards.size();
+        return cards.size();
     }
 
 
@@ -193,14 +196,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         viewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            date = (TextView)itemView.findViewById(R.id.tv_date);
-            photo = (ImageView)itemView.findViewById(R.id.iv_image);
-            diary_text = (TextView)itemView.findViewById(R.id.diary_text);
+            cv = (CardView) itemView.findViewById(R.id.cv);
+            date = (TextView) itemView.findViewById(R.id.tv_date);
+            photo = (ImageView) itemView.findViewById(R.id.iv_image);
+            diary_text = (TextView) itemView.findViewById(R.id.diary_text);
             profile_container = (LinearLayout) itemView.findViewById(R.id.profile_container);
-            delete_modify_layout = (LinearLayout)itemView.findViewById(R.id.delete_modify_layout);
-            delete_btn = (Button)itemView.findViewById(R.id.delete_btn);
-            modify_btn = (Button)itemView.findViewById(R.id.modify_btn);
+            delete_modify_layout = (LinearLayout) itemView.findViewById(R.id.delete_modify_layout);
+            delete_btn = (Button) itemView.findViewById(R.id.delete_btn);
+            modify_btn = (Button) itemView.findViewById(R.id.modify_btn);
         }
     }
 

@@ -8,15 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -26,14 +23,13 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
+
 /**
  * Created by hyes on 2015. 12. 3..
  */
 public class SignActivity extends AppCompatActivity implements View.OnClickListener {
     CallbackManager callbackManagerSign;
-    AccessTokenTracker accessTokenTracker;
-    AccessToken accessToken;
-    ProfileTracker profileTracker;
     Context context;
     String profileId;
     String profileEmail;
@@ -43,6 +39,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_signin);
 
@@ -57,13 +54,9 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.sign_facebook:
                 signFacebook();
-//
-//                Intent intentFacebook = new Intent(SignActivity.this, SignFacebookActivity.class);
-//                startActivity(intentFacebook);
                 break;
             case R.id.sign_email:
-                Intent intentEmail = new Intent(SignActivity.this, SignEmailActivity.class);
-                startActivity(intentEmail);
+                goToActivity(SignActivity.this, SignEmailActivity.class);
                 break;
         }
     }
@@ -79,7 +72,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("test", "onSuccess");
                 profileId = loginResult.getAccessToken().getUserId();
                 // profileEmail = loginResult.getAccessToken().
-
 
                 GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {

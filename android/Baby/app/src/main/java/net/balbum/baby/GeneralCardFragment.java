@@ -125,9 +125,9 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img1);
-        File b = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img2);
-        File c = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img3);
+        File a = BitmapUtil.ConvertBitmapToFile(img1);
+        File b = BitmapUtil.ConvertBitmapToFile(img2);
+        File c = BitmapUtil.ConvertBitmapToFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");

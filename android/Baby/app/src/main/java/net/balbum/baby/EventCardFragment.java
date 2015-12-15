@@ -16,10 +16,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import net.balbum.baby.Util.BitmapUtil;
 import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -33,11 +33,6 @@ import java.util.List;
  */
 public class EventCardFragment extends Fragment implements OnGetCardListener{
 
-    private static final String BG1 = Config.EVENT_CARD_BG1;
-    private static final String BG2 = Config.EVENT_CARD_BG2;
-    private static final String BG3 = Config.EVENT_CARD_BG3;
-
-    boolean isDone = false;
     RelativeLayout event_container;
     EditText date_et;
     EditText memo_tv;
@@ -49,6 +44,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     Button bg1;
     Button bg2;
     Button bg3;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,56 +59,54 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if(!isDone){
-            event_container = (RelativeLayout)this.getActivity().findViewById(R.id.event_container);
-            memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv_event);
-            date_et = (EditText)this.getActivity().findViewById(R.id.date_et_event);
-            bg1 = (Button)this.getActivity().findViewById(R.id.bg1);
-            bg2 = (Button)this.getActivity().findViewById(R.id.bg2);
-            bg3 = (Button)this.getActivity().findViewById(R.id.bg3);
-            if(eventCardVo != null){
-                Log.d("test", "dddd");
-                memo_tv.setText(eventCardVo.content);
-                date_et.setText("checkcheck");
-            }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-            isDone = true;
-            initData();
+        event_container = (RelativeLayout) view.findViewById(R.id.event_container);
+        memo_tv = (EditText) view.findViewById(R.id.memo_tv_event);
+        date_et = (EditText) view.findViewById(R.id.date_et_event);
+        bg1 = (Button) view.findViewById(R.id.bg1);
+        bg2 = (Button) view.findViewById(R.id.bg2);
+        bg3 = (Button) view.findViewById(R.id.bg3);
+
+        if(eventCardVo != null){
+            Log.d("test", "dddd");
+            memo_tv.setText(eventCardVo.content);
+            date_et.setText("checkcheck");
         }
+
+        initData();
 
         bg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, BG1);
+                setBackground(v, Config.EVENT_CARD_BG1);
             }
         });
         bg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, BG2);
+                setBackground(v, Config.EVENT_CARD_BG2);
             }
         });
         bg3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, BG3);
+                setBackground(v, Config.EVENT_CARD_BG3);
             }
         });
-
     }
 
     private void setBackground(View button, String type) {
         Animation anim = AnimationUtils.loadAnimation(context, R.anim.event_background);
         button.startAnimation(anim);
 
-        if(type == BG1){
-            Toast.makeText(context, "asdasd", Toast.LENGTH_SHORT).show();
+        if(type == Config.EVENT_CARD_BG1){
+            ToastUtil.show(context, "show");
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg1));
-        }else if(type == BG2){
+        }else if(type == Config.EVENT_CARD_BG2){
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg2));
-        }else if(type == BG3) {
+        }else if(type == Config.EVENT_CARD_BG3) {
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg3));
         }
     }
@@ -125,9 +119,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img1);
-        File b = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img2);
-        File c = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img3);
+        File a = BitmapUtil.ConvertBitmapToFile(img1);
+        File b = BitmapUtil.ConvertBitmapToFile(img2);
+        File c = BitmapUtil.ConvertBitmapToFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");

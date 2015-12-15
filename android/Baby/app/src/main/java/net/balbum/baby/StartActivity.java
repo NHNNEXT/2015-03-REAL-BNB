@@ -1,23 +1,29 @@
 package net.balbum.baby;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+
+import net.balbum.baby.Util.ActivityUtil;
+
 
 /**
  * Created by hyes on 2015. 12. 3..
  */
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fisrt);
+        context = this;
 
-        findViewById(R.id.start_btn).setOnClickListener(this);
-        findViewById(R.id.already_signed_tv).setOnClickListener(this);
-
+        findViewById(R.id.start).setOnClickListener(this);
+        findViewById(R.id.already_signed).setOnClickListener(this);
     }
 
     @Override
@@ -25,14 +31,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         int id =  v.getId();
 
         switch(id){
-            case R.id.start_btn :
-                Intent intentSign = new Intent(StartActivity.this, SignActivity.class);
-                startActivity(intentSign);
+            case R.id.start:
+                Log.d("test", "잉befor");
+                ActivityUtil.goToActivity(context, SignActivity.class);
+                Log.d("test", "잉after");
                 break;
-            case R.id.already_signed_tv :
-                Intent intentLogin = new Intent(StartActivity.this, LoginActivity.class);
-                startActivity(intentLogin);
+            case R.id.already_signed:
+                ActivityUtil.goToActivity(context, LoginActivity.class);
+                break;
         }
-
     }
 }

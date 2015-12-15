@@ -1,9 +1,10 @@
 package net.balbum.baby;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
 
 
 /**
@@ -16,12 +17,11 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_email_fragment);
 
-        findViewById(R.id.sign_btn).setOnClickListener(this);
+        findViewById(R.id.sign).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(SignEmailActivity.this, MainActivity.class);
-        startActivity(intent);
+        goToActivity(SignEmailActivity.this, MainActivity.class);
     }
 }
