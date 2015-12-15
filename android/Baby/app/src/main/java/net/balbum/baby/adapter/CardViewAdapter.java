@@ -29,6 +29,7 @@ import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -154,6 +155,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
         LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
 
+        //이 가족이 가진 애기 리스트를 가지고 loop돌림
+        List<Integer> baby_list = new ArrayList();
+        baby_list.add(R.drawable.b1);
+        baby_list.add(R.drawable.b2);
+        baby_list.add(R.drawable.b3);
+
         for (int i = 0; i < idx; i++) {
 
             LinearLayout linLayout = new LinearLayout(context);
@@ -161,7 +168,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             linLayout.setGravity(Gravity.CENTER_VERTICAL);
 
             ImageView iv_profile = new ImageView(context);
-            iv_profile.setImageResource(R.drawable.eggplant);
+            iv_profile.setImageResource(baby_list.get(i));
+            iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
             linLayout.addView(iv_profile, imageParam);
 
             TextView tv = new TextView(context);

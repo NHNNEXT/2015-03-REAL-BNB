@@ -96,7 +96,7 @@ public class CardWritingActivity extends AppCompatActivity {
     }
 
     private void initViewPager(GeneralCardFragment generalCardFragment, EventCardFragment eventCardFragment) {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager, generalCardFragment, eventCardFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
