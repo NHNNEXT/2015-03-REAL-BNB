@@ -22,10 +22,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.balbum.baby.Util.BitmapUtil;
 import net.balbum.baby.Util.Config;
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
-import net.balbum.baby.Util.GetExifOrientationUtil;
-import net.balbum.baby.Util.GetRotatedBitmapUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -139,7 +137,7 @@ public class AddBabyFragment extends Fragment {
         }
 
         Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
-        File ab = ConvertBitmapToFileUtil.convertFile(img);
+        File ab = BitmapUtil.ConvertBitmapToFile(img);
         TypedFile a = new TypedFile("multipart/form-data", ab);
 
         if (babyVo.babyGender == null) {
@@ -193,7 +191,7 @@ public class AddBabyFragment extends Fragment {
                 // preview cardImg
                 // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
-                bitmap = GetRotatedBitmapUtil.GetRotatedBitmap(bitmap, GetExifOrientationUtil.GetExifOrientation(selectedImagePath));
+                bitmap = BitmapUtil.GetRotatedBitmap(bitmap, BitmapUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
 
             } else {

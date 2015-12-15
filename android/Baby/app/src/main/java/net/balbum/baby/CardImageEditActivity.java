@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
 
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.BitmapUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -291,7 +291,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     }
 
     private void saveBitmap(Bitmap croppedBitmap) {
-        File a = ConvertBitmapToFileUtil.convertFile(croppedBitmap);
+        File a = BitmapUtil.ConvertBitmapToFileUtil.convertFile(croppedBitmap);
 
     }
 

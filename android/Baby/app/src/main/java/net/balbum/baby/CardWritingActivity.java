@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.BitmapUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardFormVo;
@@ -138,9 +138,9 @@ public class CardWritingActivity extends AppCompatActivity {
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = ConvertBitmapToFileUtil.convertFile(img1);
-        File b = ConvertBitmapToFileUtil.convertFile(img2);
-        File c = ConvertBitmapToFileUtil.convertFile(img3);
+        File a = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img1);
+        File b = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img2);
+        File c = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");

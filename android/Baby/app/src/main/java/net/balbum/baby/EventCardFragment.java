@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import net.balbum.baby.Util.BitmapUtil;
 import net.balbum.baby.Util.Config;
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -125,9 +125,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = ConvertBitmapToFileUtil.convertFile(img1);
-        File b = ConvertBitmapToFileUtil.convertFile(img2);
-        File c = ConvertBitmapToFileUtil.convertFile(img3);
+        File a = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img1);
+        File b = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img2);
+        File c = BitmapUtil.ConvertBitmapToFileUtil.convertFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");
