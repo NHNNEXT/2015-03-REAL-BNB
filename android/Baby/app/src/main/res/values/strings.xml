@@ -30,6 +30,11 @@
     <string name ="family_email_auth3">이미 가입한 가족의 메일을 입력하세요</string>
     <string name="register_later">다음에 할게요</string>
 
+    <string name="camera">카메라</string>
+    <string name="gallery">갤러리</string>
+    <string name="crop">자르기</string>
+
+
 
 
 

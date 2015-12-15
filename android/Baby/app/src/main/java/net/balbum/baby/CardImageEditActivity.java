@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
@@ -33,7 +34,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
      Bitmap bitmap;
     String selectedImagePath;
     CropImageView cropImageView;
-    ImageView cropButton;
+    TextView cropButton;
     Context context;
     ImageView croppedImageView;
     static Bitmap croppedBitmap;
@@ -46,13 +47,13 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 
 
         cropImageView = (CropImageView) findViewById(R.id.cropImageView);
-        cropButton = (ImageView) findViewById(R.id.crop_button);
+        cropButton = (TextView) findViewById(R.id.crop_button);
         croppedImageView = (ImageView) findViewById(R.id.croppedImageView);
 
 
-        ImageView camera_btn = (ImageView) findViewById(R.id.camera_btn);
-        ImageView gallery_btn = (ImageView) findViewById(R.id.gallery_btn);
-        ImageView confirm_btn = (ImageView) findViewById(R.id.confirm_button);
+        TextView camera_btn = (TextView) findViewById(R.id.camera_btn);
+        TextView gallery_btn = (TextView) findViewById(R.id.gallery_btn);
+        TextView confirm_btn = (TextView) findViewById(R.id.confirm_button);
 
         cropButton.setOnClickListener(this);
         camera_btn.setOnClickListener(this);
