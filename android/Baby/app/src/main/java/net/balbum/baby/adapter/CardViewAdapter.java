@@ -2,7 +2,10 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -29,6 +33,9 @@ import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +52,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     int layout;
     Context context;
     Typeface typeface;
+
 
     public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout) {
         this.cards = cards;
@@ -68,7 +76,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         holder.date.setText(cards.get(position).modifiedDate);
         // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
-        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
+//        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
         Picasso.with(context)
                 .load((Config.URL + cards.get(position).cardImg))
                 .placeholder(R.drawable.eggplant)
@@ -99,6 +107,19 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
                 modifyCard(position);
             }
         });
+
+        holder.container.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                cardCapture(holder.cv, cards.get(position).cid);
+
+            }
+        },1000);
+        //poster test 카드 화면 view 생
+//        Log.d("test", "dt width: " + holder.diary_text.getWidth());
+//        Log.d("test", "cv width: " + holder.diary_text.getText());
+
     }
 
     private void modifyCard(int position) {
@@ -180,6 +201,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             linLayout.addView(tv);
             ((LinearLayout) profile_container).addView(linLayout);
         }
+
     }
 
 
@@ -201,9 +223,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         LinearLayout delete_modify_layout;
         Button delete_btn;
         Button modify_btn;
+        RelativeLayout container;
 
         viewHolder(View itemView) {
             super(itemView);
+            container = (RelativeLayout)itemView.findViewById(R.id.card_layout);
             cv = (CardView) itemView.findViewById(R.id.cv);
             date = (TextView) itemView.findViewById(R.id.tv_date);
             photo = (ImageView) itemView.findViewById(R.id.iv_image);
@@ -218,6 +242,68 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+
+    }
+
+    public void cardCapture(View container, long i){
+
+//        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+//
+//        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
+
+
+
+        container.setDrawingCacheEnabled(true);
+
+        container.buildDrawingCache(true);
+
+
+/***********************핵심부분**********************************/
+        Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
+
+                container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas screenShotCanvas = new Canvas(captureView);
+
+        container.draw(screenShotCanvas);
+/***********************핵심부분*****************************************/
+
+
+        FileOutputStream fos;
+
+
+        File fileRoute = null;
+
+        fileRoute = Environment.getExternalStorageDirectory();
+
+        String str_name = i+"";
+
+
+        try {
+
+            File path = new File(fileRoute,"temp");
+
+            if(!path.exists()){//if(!path.isDirectory()){
+
+                path.mkdirs();
+
+            }
+
+
+
+            fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
+
+            captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
+
+            container.setDrawingCacheEnabled(false);
+
+
+
+        }catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+
+        }
     }
 
 }

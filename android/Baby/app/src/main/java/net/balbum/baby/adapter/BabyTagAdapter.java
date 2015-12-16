@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyViewHolder> {
 
-    private List<BabyTagVo> babyTag;
-    private Context context;
-    private ArrayList<Long> selectedList =new ArrayList<Long>();
+    List<BabyTagVo> babyTag;
+    Context context;
+    ArrayList<Long> selectedList =new ArrayList<Long>();
 
 
     public BabyTagAdapter(List<BabyTagVo> babyTag, Context context) {

@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Config;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            ActivityUtil.goToActivity(context, PosterMakingActivity.class);
 
         } else if ( id == R.id.logout){
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -200,7 +202,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }
 

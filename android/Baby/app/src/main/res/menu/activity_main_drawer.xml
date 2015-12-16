@@ -30,11 +30,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@android:drawable/ic_menu_share"
-                android:title="공유" />
+                android:title="vhmxj" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@android:drawable/ic_menu_send"
-                android:title="포토카드" />
+                android:title="포스터" />
         </menu>
     </item>
     <item android:title="setting">
