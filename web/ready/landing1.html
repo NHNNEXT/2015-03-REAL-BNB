@@ -54,7 +54,9 @@
 			    			</div>
 	
 			    			<div class="modal-box col s12">
-			    				<img src="img/fb-login.png" class="fb-login" alt="facebook-login">
+			    				<!-- <img src="img/fb-login.png" class="fb-login" alt="facebook-login"> -->
+			    				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+			    				</fb:login-button>
 			    				
 			    				<div class="separator">
 			    					<div>또는</div>
@@ -72,6 +74,9 @@
 			    					    	<input id="login-password" type="password" class="validate">
 			    					    	<label for="password">Password</label>
 			    					    </div>
+			    					</div>
+			    					<div class="row">
+			    						<div id="errors1"></div>
 			    					</div>
 			    					<button name="submit" type="submit" class="login-btn modal-action modal-close waves-effect waves-light btn-large">로그인</button>
 			    				</form>
@@ -145,5 +150,6 @@
 		<script type="text/javascript" src="js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/vendor/materialize.js"></script>
 		<script type="text/javascript" src="js/landing1.js"></script>
+		<script type="text/javascript" src="js/facebookLogin.js"></script>
 	</body>
 </html>
