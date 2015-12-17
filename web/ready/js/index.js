@@ -44,128 +44,94 @@ var Upload = {
     }
 }
 
+var cardCRUD = {
+    init: function() {
+
+    },
+    get: function($http, cardTimeline) {
+        $http.get(address + 'api/card').then( function(res) {
+            cardTimeline.cardList = res.data.cardList;
+        }, function() {
+            alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
+        });
+    },
+    post: function($scope, cardTimeline) {
+        $('#ajaxForm').submit(function() {
+            $(this).ajaxSubmit({
+               //보내기전 validation check가 필요할경우
+               beforeSubmit: function (data, frm, opt) {
+                    return true;
+                },
+                //submit이후의 처리
+                success: function(responseText, statusText, xhr, $form){
+                    cardTimeline.cardList.unshift(responseText.res);
+                    addData = responseText.res;
+                    $('#ajaxForm').clearForm();
+                    $scope.$apply();
+                },
+                //ajax error
+                error: function(){
+                    alert("문제가 생겼어요, 다시 올려주시겠어요?");
+                }
+            });
+            return false;
+        });
+    }
+}
+
 var balbumApp = angular.module('balbumApp', []);
-
-// var testData = [{
-//         content: "테스트 콘텐츠 지롱",
-//         modified: '2015-04-02',
-//         imgUrl: "img/photo1.jpg",
-//         babies: [
-//             {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"},
-//             {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
-//         cId: 1
-//         }, {
-//         content: "테스트를 또 하지롱 다정이",
-//         modified: '2015-04-05',
-//         imgUrl: "img/photo2.jpg",
-//         babies: [
-//             {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}],
-//         cId: 2
-//         }, {
-//         content: "테스트를 또 하지롱 연우 ",
-//         modified: '2015-04-07',
-//         imgUrl: "img/photo3.jpg",
-//         babies: [
-//             {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
-//         cId: 3
-//         }
-//     ];
-
-// var addData = {
-//         content: "",
-//         modified: '2015-04-02',
-//         imgUrl: "img/photo4.jpg",
-//         babies: [
-//             {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}]   ,
-//         cId: 1
-//         };
-
 balbumApp.controller('CardController', function($scope, $http) {
     var cardTimeline = this;
-    cardTimeline.cardList = [];
-    var addData;
+    cardTimeline.cardList;
 
-    $http.get(address + 'api/card').then( function(res) {
-        console.log('card get is success');
-        cardTimeline.cardList = res.data.cardList;
-    }, function() {
-        console.log('error');
-    });
-    cardTimeline.postCard = function() {
-    }
-
-    $('#ajaxForm').submit(function(e) {
-        $(this).ajaxSubmit({
-           //보내기전 validation check가 필요할경우
-           beforeSubmit: function (data, frm, opt) {
-                return true;
-            },
-            //submit이후의 처리
-            success: function(responseText, statusText, xhr, $form){
-                console.log("submit 성공했음");
-                cardTimeline.cardList.unshift(responseText.res);
-                console.log('이거다!', responseText.res);
-                addData = responseText.res;
-                console.log('카드리스트!', cardTimeline.cardList);
-                $('#ajaxForm').clearForm();
-                $scope.$apply();
-            },
-            //ajax error
-            error: function(){
-                alert("에러발생!!");
-            }
-        });
-        e.preventDefault();
-        return false;
-    });
-
-
-    // $scope.submitForm = function() {
-    //     console.log('go to http!');
-    //     $http({
-    //         method  : 'POST',
-    //         // method  : 'JSONP',
-    //         url     : address + 'api/card',
-    //         headers : {'Content-Type': 'multipart/form-data'},
-    //         data    : $scope.card, //forms user object
-    //         data: {
-    //             email: "test1",
-    //             token: "token",
-    //             upload: $scope.file
-    //         },
-    //         transformRequest: function (data, headersGetter) {
-    //             var formData = new FormData();
-    //             angular.forEach(data, function (value, key) {
-    //                 formData.append(key, value);
-    //             });
-
-    //             var headers = headersGetter();
-    //             delete headers['Content-Type'];
-    //             return formData;
-    //         }
-    //     })
-    //     .success(function(data) {
-    //         console.log(data);
-    //         if (data.errors) {
-    //             $scope.errorName = data.errors.name;
-
-    //         } else {
-    //             $scope.message = data.message;
-    //             addData.content = $scope.card.content;
-    //             testData.unshift(addData);
-    //             $scope.card = '';
-    //         }
-    //     });
-    // };
+    /* 서버에 저장된 카드 가져오기 */
+    cardCRUD.get($http, this);
+    /* 카드를 서버에 저장하기 */
+    cardCRUD.post($scope, this);
 });
 
+/*
 balbumApp.controller('postController', function($scope, $http) {
     $scope.card = {};
+    $scope.submitForm = function() {
+        console.log('go to http!');
+        $http({
+            method  : 'POST',
+            // method  : 'JSONP',
+            url     : address + 'api/card',
+            headers : {'Content-Type': 'multipart/form-data'},
+            data    : $scope.card, //forms user object
+            data: {
+                email: "test1",
+                token: "token",
+                upload: $scope.file
+            },
+            transformRequest: function (data, headersGetter) {
+                var formData = new FormData();
+                angular.forEach(data, function (value, key) {
+                    formData.append(key, value);
+                });
 
-    // var data = {}; //file object
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+                return formData;
+            }
+        })
+        .success(function(data) {
+            console.log(data);
+            if (data.errors) {
+                $scope.errorName = data.errors.name;
 
-
+            } else {
+                $scope.message = data.message;
+                addData.content = $scope.card.content;
+                testData.unshift(addData);
+                $scope.card = '';
+            }
+        });
+    };
 });
+*/
 
 $(function(){
     Start.init();
