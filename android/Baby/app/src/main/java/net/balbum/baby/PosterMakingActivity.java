@@ -59,8 +59,6 @@ public class PosterMakingActivity extends AppCompatActivity {
         ImageView p11 = (ImageView)findViewById(R.id.p11);
         ImageView p12 = (ImageView)findViewById(R.id.p12);
 
-
-
         p1.setImageBitmap(map[0]);
         p2.setImageBitmap(map[1]);
         p3.setImageBitmap(map[2]);
