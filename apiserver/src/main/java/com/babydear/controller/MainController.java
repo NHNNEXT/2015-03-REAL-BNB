@@ -17,4 +17,5 @@ public class MainController {
 	public String user() {
 		return "userPage.html";
 	}
+	
 }

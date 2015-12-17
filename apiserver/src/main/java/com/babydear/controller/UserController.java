@@ -3,13 +3,12 @@ package com.babydear.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.NonUniqueResultException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,36 +34,38 @@ import com.babydear.service.TagService;
 // @RequestMapping(value = "/api/card")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	@Autowired RedisTemplate<String, Long> template;
 
 	@Autowired TagService tagService;
 	@Autowired ImgService imgService;
 	@Autowired MailService mailService;
 	@Autowired AuthService authService;
+	
 	@Autowired CardRepository cardRepo;
 	@Autowired UserRepository userRepo;
 	@Autowired BabyRepository babyRepo;
 	@Autowired FamilyRepository familyRepo;
-
-	@RequestMapping("/api/user")
-	public List<User> user() {
-		return userRepo.findAll();
+	
+	@RequestMapping("/haha")
+	public String userss(String token) throws NotGoodExtention {
+		throw new NotGoodExtention(token);
 	}
 	
+	// user들을 전부 보여준다 : 
+	@RequestMapping("/api/user")
+	public List<User> user(String token) {
+		if(token == "token") return userRepo.findAll();
+		else return null;
+	}
+	
+	// 입력한 이메일으로 회원가입 가능한지
 	@RequestMapping("/api/user/isNewEmail")
 	public ResponseDTO isNewEmail(String email){
 		if(email == null || email.isEmpty()) return new ResponseDTO(false, "이메일을 입력해 주세요");
 		if(userRepo.findByEmail(email) != null) return new ResponseDTO(false, "이미 존재하는 이메일 입니다.");
-		return new ResponseDTO(true, "이 이메일은 사용가능합니다.");
+		return new ResponseDTO(true, null);
 	}
-
-	@RequestMapping("/api/user/find")
-	public User user(UserDTO userDTO) {
-		if (userDTO.getEmail() != null) return userRepo.findByEmail(userDTO.getEmail());
-		if (userDTO.getUId() != null) return userRepo.findOne(userDTO.getUId());
-		return null;
-	}
-
+	
+	// 회원가입 폼을 받아 User을 create 합니다.
 	@RequestMapping("/api/user/create")
 	public AuthDTO create(UserDTO userDTO, MultipartFile image) {
 		if (userRepo.findByEmail(userDTO.getEmail()) != null) return new AuthDTO(null, "이메일이 이미 존재 합니다");
@@ -82,7 +83,21 @@ public class UserController {
 		mailService.sendSignUpMail();
 		return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
 	}
-
+	// 가족의 이메일을 받아 FID를 넣어 줍니다.
+	@RequestMapping("/api/user/family/findFromMail")
+	public ResponseDTO findFamily(String email, String token) {
+		if(email == null) return new ResponseDTO(false, "이메일을 넣어 주세요");
+		if(token == null) return new ResponseDTO(false, "토큰을 넣어 주세요");
+		try {
+			User user = authService.getUser(token);
+			User some = userRepo.findByEmail(email);
+			user.setFId(some.getFId());
+			return new ResponseDTO(true, null);
+		} catch (Exception e) {
+			return new ResponseDTO(false, e.getMessage());
+		}
+	}
+	
 	@RequestMapping("/api/user/family/find")
 	public ResponseDTO findFamily(Long fId, String token) {
 		User user;
@@ -148,20 +163,19 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/api/user/login")
-	public AuthDTO login(UserDTO userDTO) {
+	@RequestMapping(value = "/api/user/login", consumes ="application/json")
+	public AuthDTO login(@RequestBody Map<String, Object> userDTO) {
 		logger.info("/api/user/login:{}", userDTO);
-		System.out.println(userDTO);
-		User user = userRepo.findByEmail(userDTO.getEmail());
+		User user = userRepo.findByEmail((String)userDTO.get("email"));
 		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
-		Boolean result = user.checkPW(userDTO.getPassword());
+		Boolean result = user.checkPW((String)userDTO.get("password"));
 		if (result) {
 			return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
 		} else {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}
 	}
-	
+
 	@RequestMapping("/api/user/token")
 	public ResponseDTO token(String token){
 		User user = null;

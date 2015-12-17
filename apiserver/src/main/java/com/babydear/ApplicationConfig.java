@@ -10,15 +10,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class ApplicationConfig {
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**")
-//				.allowedOrigins("http://dev.balbum.net", "http://localhost:8080", "http://"))
-				.allowedMethods("GET", "POST", "PUT", "DELETE")
-				.allowCredentials(false).maxAge(3600);
+				registry.addMapping("/api/**");
+						// .allowedOrigins("http://dev.balbum.net",
+						// "http://localhost:8080", "http://"))
+//						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTION");
+//						.allowCredentials(false).maxAge(3600);
 			}
 		};
 	}

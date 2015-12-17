@@ -114,6 +114,28 @@ public class CardController {
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);
 	}
+	@RequestMapping(value = "/api/card", method = RequestMethod.PUT)
+	public ResponseDTO putCard(String token, Card cardDTO, MultipartFile image){
+		logger.info(cardDTO.toString());
+		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
+		if(cardDTO.getCId() == null || cardDTO.getCId() == 0) return new ResponseDTO(false, "수정할 카드의 id가 없습니다.");
+		Card card = cardRepo.findOne(cardDTO.getCId());
+		final List<Baby> babies = tagService.processTags(cardDTO.getBIds(), cardDTO.getBabies());
+		card.setBabies(babies);
+		card.setUpdateDate(new Date());
+		try {
+			if(!(image == null || image.isEmpty()))
+				cardDTO.setCardImg(imgService.processImgCard(image));
+		} catch (IllegalStateException e) {
+			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
+		} catch (IOException e) {
+			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
+		} catch (NotGoodExtention e) {
+			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
+		}
+		card = cardRepo.save(card);
+		return new ResponseDTO(true, "null", card);
+	}
 	
 	@RequestMapping(value = "/api/card/delete", method = RequestMethod.GET)
 	public ResponseDTO deleteCard(Long cId){
@@ -125,9 +147,9 @@ public class CardController {
 	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.DELETE)
 	public ResponseDTO deleteCId(Long cId){
-//		if(cId)
+		if(cId== null) return new ResponseDTO(false, "카드 id 를 입력해 주세요");
 		Card card = cardRepo.findOne(cId);
-		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요", card);
+		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요 카드 아이디가 맞나요? ID:"+cId, card);
 		card.setDeleted(true);
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);

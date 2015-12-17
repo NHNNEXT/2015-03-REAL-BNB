@@ -3,6 +3,8 @@ package com.babydear.service;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -14,6 +16,7 @@ import com.babydear.repository.UserRepository;
 
 @Service
 public class AuthService {
+	private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 	@Autowired RedisTemplate<String, Long> template;
 	@Autowired UserRepository userRepo;
 
@@ -43,7 +46,7 @@ public class AuthService {
 	public String setUser(Long uId, String token) {
 		ValueOperations<String, Long> ops = template.opsForValue();
 		ops.set(token, uId);
-		System.out.println(token);
+		logger.info(token);
 		return token;
 	}
 
