@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/poster_bg6">
@@ -9,7 +8,7 @@
         android:layout_width="290dp"
         android:layout_height="310dp"
         android:layout_centerInParent="true"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 
     <LinearLayout
         android:id="@+id/top"
@@ -23,22 +22,19 @@
             android:id="@+id/p1"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p2"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p3"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="9dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="9dp" />
 
     </LinearLayout>
 
@@ -48,29 +44,25 @@
         android:layout_height="125dp"
         android:layout_below="@+id/top"
         android:layout_marginLeft="59dp"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:id="@+id/p4"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p5"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p6"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="9dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="9dp" />
 
     </LinearLayout>
 
@@ -87,22 +79,19 @@
             android:id="@+id/p10"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p11"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p12"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="9dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="9dp" />
 
     </LinearLayout>
 
@@ -118,22 +107,19 @@
             android:id="@+id/p7"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p8"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="13dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="13dp" />
 
         <ImageView
             android:id="@+id/p9"
             android:layout_width="90dp"
             android:layout_height="130dp"
-            android:layout_marginRight="9dp"
-            android:elevation="2dp" />
+            android:layout_marginRight="9dp" />
 
     </LinearLayout>
 

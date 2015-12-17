@@ -3,7 +3,6 @@ package net.balbum.baby;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import net.balbum.baby.Util.ActivityUtil;
@@ -32,9 +31,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         switch(id){
             case R.id.start:
-                Log.d("test", "잉befor");
                 ActivityUtil.goToActivity(context, SignActivity.class);
-                Log.d("test", "잉after");
                 break;
             case R.id.already_signed:
                 ActivityUtil.goToActivity(context, LoginActivity.class);

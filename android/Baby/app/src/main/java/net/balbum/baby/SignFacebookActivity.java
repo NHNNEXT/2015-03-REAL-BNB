@@ -13,6 +13,16 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
 
+import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.LoginVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import static net.balbum.baby.Util.ActivityUtil.goToActivity;
 
 /**
@@ -34,9 +44,10 @@ public class SignFacebookActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         String profileId = intent.getStringExtra("profileId");
-        String profileEmail = intent.getStringExtra("profileEmail");
+        final String profileEmail = intent.getStringExtra("profileEmail");
         String profileName = intent.getStringExtra("profileName");
-        Log.d("test", "id : " + profileId + " profileEmail: " + profileEmail + " profileName: "+profileName);
+        final String token= intent.getStringExtra("token");
+        Log.d("test", "token: "+token);
 
         ProfilePictureView  profilePictureView = (ProfilePictureView) findViewById(R.id.image);
         profilePictureView.setProfileId(profileId);
@@ -44,7 +55,7 @@ public class SignFacebookActivity extends AppCompatActivity{
         TextView signName = (TextView)findViewById(R.id.sign_email_tv);
         signName.setText(profileName);
 
-        TextView signEmail = (TextView)findViewById(R.id.sign_name_tv);
+        final TextView signEmail = (TextView)findViewById(R.id.sign_name_tv);
         signEmail.setText(profileEmail);
 
         final EditText signRole =(EditText)findViewById(R.id.sign_role);
@@ -53,8 +64,27 @@ public class SignFacebookActivity extends AppCompatActivity{
         sign_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String role = signRole.getText().toString();
-                goToActivity(context, InitialSettingActivity.class);
+
+                final String role = signRole.getText().toString();
+
+                if(role.matches("")){
+                    ToastUtil.show(context, "역할을 입력해주세요.");
+                }else {
+                    TaskService taskService = ServiceGenerator.createService(TaskService.class);
+                    taskService.createSign(new LoginVo(role, token), new Callback<AuthVo>() {
+                        @Override
+                        public void success(AuthVo authVo, Response response) {
+                            ToastUtil.show(context, "토큰이랑 롤이 갔을겨 " + role);
+                            goToActivity(context, InitialSettingActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+
+                }
             }
         });
 

@@ -33,6 +33,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         if(sharedPreferences.contains("tokenB")) {
             String t = sharedPreferences.getString("tokenB", "");
             Log.d("test", "token~~" + t);

@@ -34,6 +34,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     String profileId;
     String profileEmail;
     String profileName;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,60 +65,65 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     private void signFacebook() {
         callbackManagerSign = CallbackManager.Factory.create();
 
-        // Set permissions
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_photos", "public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
         LoginManager.getInstance().registerCallback(callbackManagerSign, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("test", "onSuccess");
-                profileId = loginResult.getAccessToken().getUserId();
-                // profileEmail = loginResult.getAccessToken().
+             @Override
+             public void onSuccess(LoginResult loginResult) {
 
-                GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject json, GraphResponse response) {
-
-                                try {
-                                    profileName = json.getString("name");
-                                    profileEmail = json.getString("email");
-                                    //사용자가 이메일 정보를 설정하고 있다고 하더라도 거부를 했거나
-                                    //내부적인 Permission설정에 따라 email 정보를 주지 않을 수도
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).executeAsync();
+                 token = loginResult.getAccessToken().getToken();
+                 profileId = loginResult.getAccessToken().getUserId();
 
 
-                Handler handler = new Handler();
-                handler.postDelayed(runnable, 1000);
+                 GraphRequest request = GraphRequest.newMeRequest(
+                         loginResult.getAccessToken(),
+                         new GraphRequest.GraphJSONObjectCallback() {
+                             @Override
+                             public void onCompleted(JSONObject json, GraphResponse response) {
 
-            }
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SignActivity.this, SignFacebookActivity.class);
-                    intent.putExtra("profileId", profileId);
-                    intent.putExtra("profileEmail", profileEmail);
-                    intent.putExtra("profileName", profileName);
-                    startActivity(intent);
-                    finish();
-                }
-            };
+                                 try {
+                                     profileName = json.getString("name");
+                                     profileEmail = json.getString("email");
 
 
-            @Override
-            public void onCancel() {
-                Log.d("test", "On cancel");
-            }
+                                 } catch (JSONException e) {
+                                     e.printStackTrace();
+                                 }
+                             }
+                         });
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("test", error.toString());
-            }
-        });
+                 Bundle parameters = new Bundle();
+                 parameters.putString("fields", "id,name,email");
+                 request.setParameters(parameters);
+                 request.executeAsync();
+
+                 Handler handler = new Handler();
+                 handler.postDelayed(runnable, 1000);
+             }
+
+             Runnable runnable = new Runnable() {
+                 @Override
+                 public void run() {
+                     Intent intent = new Intent(SignActivity.this, SignFacebookActivity.class);
+                     intent.putExtra("profileId", profileId);
+                     intent.putExtra("profileEmail", profileEmail);
+                     intent.putExtra("profileName", profileName);
+                     intent.putExtra("token", token);
+                     startActivity(intent);
+                     finish();
+                 }
+             };
+
+
+             @Override
+             public void onCancel() {
+                 Log.d("test", "On cancel");
+             }
+
+             @Override
+             public void onError(FacebookException error) {
+                 Log.d("test", error.toString());
+             }
+         });
 
     }
     @Override
