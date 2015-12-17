@@ -97,6 +97,7 @@ public class AddBabyFragment extends Fragment {
                 goToActivity(context, MainActivity.class);
             }
         });
+        
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,8 +109,15 @@ public class AddBabyFragment extends Fragment {
 
     private void createBabyInfo() {
         BabyVo babyVo = new BabyVo();
-        babyVo.babyBirth = add_baby_birthday.getText().toString();
-        babyVo.babyName = add_baby_name.getText().toString();
+
+        if(add_baby_birthday.getText().toString().matches("")){
+            ToastUtil.show(context, "아기 이름을 입력해주세요. ");
+        }else if(add_baby_name.getText().toString().matches("")){
+            ToastUtil.show(context, "아기 생일(예정일)을 입력해주세요. ");
+        }else{
+            babyVo.babyBirth = add_baby_birthday.getText().toString();
+            babyVo.babyName = add_baby_name.getText().toString();
+        }
 
         temp_gender = radioGroup.getCheckedRadioButtonId();
 

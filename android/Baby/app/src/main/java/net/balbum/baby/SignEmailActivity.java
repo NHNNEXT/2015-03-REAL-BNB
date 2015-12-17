@@ -70,9 +70,9 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
 
     private boolean getInfo() {
 
-        if(email.getText().toString() == null){
+        if(email.getText().toString().matches("")){
             ToastUtil.show(context, "메일을 입력하세요");
-        }else if(password.getText().toString() == null){
+        }else if(password.getText().toString().matches("")){
             ToastUtil.show(context, "비밀번호를 입력하세요");
         }else{
              loginVo = new LoginVo(email.getText().toString(), password.getText().toString());
