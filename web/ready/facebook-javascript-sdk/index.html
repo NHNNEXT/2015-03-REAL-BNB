@@ -52,8 +52,8 @@
 	}
 
   function getUserInfo() {
-	    FB.api('/me', function(response) {
-
+	    FB.api('/me',{ locale: 'en_US', fields: 'name, email' }, function(response) {
+	    	debugger;
 	  var str="<b>Name</b> : "+response.name+"<br>";
 	  	  str +="<b>Link: </b>"+response.link+"<br>";
 	  	  str +="<b>Username:</b> "+response.username+"<br>";
