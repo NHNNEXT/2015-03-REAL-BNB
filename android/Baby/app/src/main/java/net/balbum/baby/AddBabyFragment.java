@@ -97,7 +97,7 @@ public class AddBabyFragment extends Fragment {
                 goToActivity(context, MainActivity.class);
             }
         });
-        
+
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

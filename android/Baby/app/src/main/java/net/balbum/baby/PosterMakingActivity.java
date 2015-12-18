@@ -22,10 +22,9 @@ public class PosterMakingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poster_making);
+        setContentView(R.layout.activity_poster_making2);
 
         initDummy();
-
 
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
             String path = Environment.getExternalStorageDirectory()+"/temp";
@@ -55,9 +54,9 @@ public class PosterMakingActivity extends AppCompatActivity {
         ImageView p8 = (ImageView)findViewById(R.id.p8);
         ImageView p9 = (ImageView)findViewById(R.id.p9);
 
-        ImageView p10 = (ImageView)findViewById(R.id.p10);
-        ImageView p11 = (ImageView)findViewById(R.id.p11);
-        ImageView p12 = (ImageView)findViewById(R.id.p12);
+//        ImageView p10 = (ImageView)findViewById(R.id.p10);
+//        ImageView p11 = (ImageView)findViewById(R.id.p11);
+//        ImageView p12 = (ImageView)findViewById(R.id.p12);
 
         p1.setImageBitmap(map[0]);
         p2.setImageBitmap(map[1]);
@@ -68,9 +67,9 @@ public class PosterMakingActivity extends AppCompatActivity {
         p7.setImageBitmap(map[6]);
         p8.setImageBitmap(map[7]);
         p9.setImageBitmap(map[8]);
-        p10.setImageBitmap(map[9]);
-        p11.setImageBitmap(map[10]);
-        p12.setImageBitmap(map[11]);
+//        p10.setImageBitmap(map[9]);
+//        p11.setImageBitmap(map[10]);
+//        p12.setImageBitmap(map[11]);
 //        p1.setImageResource(posterImages.get(0));
 //        p2.setImageResource(posterImages.get(1));
 //        p3.setImageResource(posterImages.get(2));
