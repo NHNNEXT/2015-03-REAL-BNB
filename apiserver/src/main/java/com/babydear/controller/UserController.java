@@ -175,6 +175,21 @@ public class UserController {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}
 	}
+	
+	@RequestMapping(value = "/api/user/login/fb", consumes ="application/json")
+	public AuthDTO loginFb(@RequestBody Map<String, Object> userDTO) {
+		logger.info("/api/user/login:{}", userDTO);
+		
+		return new AuthDTO("asdf1234", "good");
+//		User user = userRepo.findByEmail((String)userDTO.get("email"));
+//		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
+//		Boolean result = user.checkPW((String)userDTO.get("password"));
+//		if (result) {
+//			return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
+//		} else {
+//			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
+//		}
+	}
 
 	@RequestMapping("/api/user/token")
 	public ResponseDTO token(String token){
