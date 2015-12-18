@@ -83,56 +83,63 @@ balbumApp.controller('CardController', function($scope, $http) {
     var cardTimeline = this;
 
     $http.get(address + 'api/card').then( function(res) {
-        console.log('success', res.data.cardList);
+        console.log('card get is success');
         cardTimeline.testData = res.data.cardList;
     }, function() {
         console.log('error');
     });
 
-    $('#ajaxForm').ajaxForm({
-           //보내기전 validation check가 필요할경우
-            beforeSubmit: function (data, frm, opt) {
-                            // alert("전송전!!");
-                            return true;
-                          },
-            //submit이후의 처리
-            success: function(responseText, statusText){
-                console.log("submit 성공했음");
-                alert("전송성공!!");
-                addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
-                console.log($scope.testData);
-                cardTimeline.testData.push(addData);
-                $('#ajaxForm').clearForm();
-            },
-            //ajax error
-            error: function(){
-                alert("에러발생!!");
-            }
-          });
+    // $('#ajaxForm').ajaxForm({
+    //    //보내기전 validation check가 필요할경우
+    //    beforeSubmit: function (data, frm, opt) {
+    //                     // alert("전송전!!");
+    //                     return true;
+    //                 },
+    //     //submit이후의 처리
+    //     success: function(responseText, statusText){
+    //         console.log("submit 성공했음");
+    //         alert("전송성공!!");
+    //         addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
+    //         console.log($scope.testData);
+    //         cardTimeline.testData.push(addData);
+    //         $('#ajaxForm').clearForm();
+    //     },
+    //     //ajax error
+    //     error: function(){
+    //         alert("에러발생!!");
+    //     }
+    // });
 
-
-
-    // this.testData = testData;
+        // this.testData = testData;
 });
 
 balbumApp.controller('postController', function($scope, $http) {
     $scope.card = {};
 
-     var data = {}; //file object
-
-        var fd = new FormData();
-        fd.append('file', $scope.card.file);
+    var data = {}; //file object
     $scope.submitForm = function() {
+        console.log('go to http!');
         $http({
             method  : 'POST',
+            // method  : 'JSONP',
             url     : address + 'api/card',
+            headers : {'Content-Type': 'multipart/form-data'},
             data    : $scope.card, //forms user object
-            processData: false,
-            contentType: false,
-            headers : {'Content-Type': undefined},
-            transformRequest: angular.identity,
-            // headers : {'Content-Type': 'multipart/form-data; charset=UTF-8;', 'Accept':'application/json, text/javascript'}
-            // headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            data: {
+                email: "test1",
+                token: "token",
+                upload: $scope.file
+            },
+            transformRequest: function (data, headersGetter) {
+                var formData = new FormData();
+                angular.forEach(data, function (value, key) {
+                    formData.append(key, value);
+                });
+
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+                return formData;
+            }
         })
         .success(function(data) {
             console.log(data);
@@ -146,6 +153,7 @@ balbumApp.controller('postController', function($scope, $http) {
                 $scope.card = '';
             }
         });
+
     };
 
 
@@ -176,12 +184,12 @@ $(function(){
         //   });
         // alert( "Handler for .submit() called." );
 
-    $("#ajaxForm").submit(function(event ) {
-        console.log('submitted!');
-        event.preventDefault();
-        return false;
+    // $("#ajaxForm").submit(function(event ) {
+    //     console.log('submitted!');
+    //     event.preventDefault();
+    //     return false;
 
-    });
+    // });
 
 });
 
