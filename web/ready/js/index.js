@@ -35,14 +35,18 @@ var Upload = {
     uploadPhoto: function() {
         // 업로드버튼이나 올려진 사진을 누르면 hidden된 form을 누른다.
         $('.upload-photo-box, #uploaded-photo').click(function(event) {
-            $("#upload-photo").click();
+            $("#upload-photo-input").click();
         });
 
         // form이 변경되면 fileread를 한다.
-        $("#upload-photo").change(function(){
+        $("#upload-photo-input").change(function(){
             Upload.readURL(this);
             $('.upload-photo-box').css('display', 'none');
         });
+    },
+    resetPhoto: function() {
+        $('.upload-photo-box').css('display', 'block');
+        $('#uploaded-photo').css('display', 'none');
     }
 }
 
@@ -71,6 +75,7 @@ var cardCRUD = {
                     $('#ajaxForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
+                    Upload.resetPhoto();
                 },
                 //ajax error
                 error: function(){
