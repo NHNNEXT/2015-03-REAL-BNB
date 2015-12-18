@@ -1,8 +1,10 @@
 var address = "http://dev.balbum.net/";
 // var address = "http://192.168.1.146:8080/";
+var token = localStorage.getItem('token');
 
 var Start = {
     init: function() {
+        $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -68,6 +70,7 @@ var cardCRUD = {
                     addData = responseText.res;
                     $('#ajaxForm').clearForm();
                     $scope.$apply();
+                    $("input[name='token']").val(token);
                 },
                 //ajax error
                 error: function(){
@@ -86,6 +89,7 @@ balbumApp.controller('CardController', function($scope, $http) {
 
     /* 서버에 저장된 카드 가져오기 */
     cardCRUD.get($http, this);
+
     /* 카드를 서버에 저장하기 */
     cardCRUD.post($scope, this);
 });
