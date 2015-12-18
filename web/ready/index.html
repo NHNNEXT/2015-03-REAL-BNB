@@ -92,7 +92,7 @@
             </ul>
         </aside>
         <section class="main-container row">
-            <article class="main-col col s12 m12 l8">
+            <article class="main-col col s12 m12 l8" ng-controller="CardController as cardTimeline">
 
                 <!-- <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController">
                     <form name="userForm" ng-submit="submitForm()">
@@ -120,11 +120,11 @@
                             <input type="submit" value="SubmitB" />
                     </form> -->
 
-                <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController">
+                <!-- <div class="postcard-container card row scrollspy" id="card-now" ng-controller="postController"> -->
+                <div class="postcard-container card row scrollspy" id="card-now">
                     <!-- <form id="ajaxForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data"> -->
-                    <form id="ajaxForm" data-ng-submit="submitForm()">
+                    <!-- <form id="ajaxForm" data-ng-submit="submitForm()">
                         <input type="text" name="token" value="token" /><br/>
-                        <!-- <input type="hidden" name="token" value="token" />><br/> -->
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">
                                 <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
@@ -135,7 +135,6 @@
                             <div class="upload-photo-box col s12">
                                 <i class="material-icons">add_a_photo</i>사진 추가하기
                             </div>
-                            <!-- <input type="file" name="image"> -->
                             <input type="file" file="file" name="image"  />
                             <img id="uploaded-photo" src="#" alt="uploaded photo" />
                             <div class="input-field col s12">
@@ -177,8 +176,9 @@
                             </div>
                             <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                         </div>
-                    </form>
-                    <!-- <form id="ajaxForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    </form> -->
+
+                    <form id="ajaxForm" ng-submit="cardTimeline.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                         <input type="text" name="token" value="token" /><br/>
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">
@@ -231,12 +231,13 @@
                             </div>
                             <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                         </div>
-                    </form> -->
+                    </form>
 
 
                 </div>
-                <div class="card-container" ng-controller="CardController as cardTimeline">
-                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.testData">
+                <!-- <div class="card-container" ng-controller="CardController as cardTimeline"> -->
+                <div class="card-container">
+                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.cardList">
                         <div class="bc-photo card-image">
                             <img src=" http://dev.balbum.net{{bc.cardImg}}">
                         </div>
