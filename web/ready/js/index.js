@@ -1,7 +1,13 @@
 var address = "http://dev.balbum.net/";
+// var address = "http://192.168.1.146:8080/";
+// var token = localStorage.getItem('token');
+var token = 'token';
+
+var testData;
 
 var Start = {
     init: function() {
+        $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -32,107 +38,136 @@ var Upload = {
     uploadPhoto: function() {
         // 업로드버튼이나 올려진 사진을 누르면 hidden된 form을 누른다.
         $('.upload-photo-box, #uploaded-photo').click(function(event) {
-            $("#upload-photo").click();
+            $("#upload-photo-input").click();
         });
 
         // form이 변경되면 fileread를 한다.
-        $("#upload-photo").change(function(){
+        $("#upload-photo-input").change(function(){
             Upload.readURL(this);
             $('.upload-photo-box').css('display', 'none');
+        });
+    },
+    resetPhoto: function() {
+        $('.upload-photo-box').css('display', 'block');
+        $('#uploaded-photo').css('display', 'none');
+    }
+}
+
+var User = {
+    get: function($http) {
+        $http({
+            url: address + 'api/user',
+            method: "GET",
+            params: {token: token}
+        }).then( function(res) {
+            console.log("res:", res);
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
+        });
+    },
+    getBaby: function($http, bMain) {
+        $http({
+            url: address + 'api/user/baby',
+            method: "GET",
+            params: {token: token}
+        }).then( function(res) {
+            bMain.babyList = res.data;
+            console.log("res:", bMain.babyList);
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
+        });
+    }
+}
+
+var cardCRUD = {
+    init: function() {
+
+    },
+    get: function($http, bMain) {
+        $http.get(address + 'api/card').then( function(res) {
+            bMain.cardList = res.data.cardList;
+        }, function() {
+            alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
+        });
+    },
+    post: function($scope, bMain) {
+        $('#ajaxForm').submit(function() {
+            $(this).ajaxSubmit({
+               //보내기전 validation check가 필요할경우
+               beforeSerialize: function($form, options) {
+                 var bids = {'bids':[1,2]};
+                 // $form.push(bids);
+                 console.log("폼이다", $form);
+               },
+               beforeSubmit: function (data, $form, opt) {
+                testData = data;
+                console.log('data', testData);
+
+                testData.map(function(item) {
+                  if(item.name=='babies'){
+                    console.log(item);
+                  }
+                });
+                return true;
+            },
+                //submit이후의 처리
+                success: function(responseText, statusText, xhr, $form){
+                    bMain.cardList.unshift(responseText.res);
+                    addData = responseText.res;
+                    $('#ajaxForm').clearForm();
+                    $scope.$apply();
+                    $("input[name='token']").val(token);
+                    Upload.resetPhoto();
+                },
+                //ajax error
+                error: function(){
+                    alert("문제가 생겼어요, 다시 올려주시겠어요?");
+                }
+            });
+            return false;
         });
     }
 }
 
 var balbumApp = angular.module('balbumApp', []);
+balbumApp.controller('MainController', function($scope, $http) {
+    var bMain = this;
+    bMain.babyList;
+    bMain.cardList;
 
-var testData = [{
-        content: "테스트 콘텐츠 지롱",
-        modified: '2015-04-02',
-        imgUrl: "img/photo1.jpg",
-        babies: [
-            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"},
-            {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
-        cId: 1
-        }, {
-        content: "테스트를 또 하지롱 다정이",
-        modified: '2015-04-05',
-        imgUrl: "img/photo2.jpg",
-        babies: [
-            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}],
-        cId: 2
-        }, {
-        content: "테스트를 또 하지롱 연우 ",
-        modified: '2015-04-07',
-        imgUrl: "img/photo3.jpg",
-        babies: [
-            {name: "연우",birth: "2살", imgUrl: "img/baby2.jpeg"}],
-        cId: 3
-        }
-    ];
-
-var addData = {
-        content: "",
-        modified: '2015-04-02',
-        imgUrl: "img/photo4.jpg",
-        babies: [
-            {name: "다정이",birth: "3개월", imgUrl: "img/baby1.jpeg"}]   ,
-        cId: 1
-        };
-
-balbumApp.controller('CardController', function($scope, $http) {
-    var cardTimeline = this;
-
-    $http.get(address + 'api/card').then( function(res) {
-        console.log('success', res.data.cardList);
-        cardTimeline.testData = res.data.cardList;
-    }, function() {
-        console.log('error');
-    });
-
-    $('#ajaxForm').ajaxForm({
-           //보내기전 validation check가 필요할경우
-            beforeSubmit: function (data, frm, opt) {
-                            // alert("전송전!!");
-                            return true;
-                          },
-            //submit이후의 처리
-            success: function(responseText, statusText){
-                console.log("submit 성공했음");
-                alert("전송성공!!");
-                addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
-                console.log($scope.testData);
-                cardTimeline.testData.push(addData);
-                $('#ajaxForm').clearForm();
-            },
-            //ajax error
-            error: function(){
-                alert("에러발생!!");
-            }
-          });
+    User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
 
 
-
-    // this.testData = testData;
+    cardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
+    cardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
 });
 
+/*
 balbumApp.controller('postController', function($scope, $http) {
     $scope.card = {};
-
-     var data = {}; //file object
-
-        var fd = new FormData();
-        fd.append('file', $scope.card.file);
     $scope.submitForm = function() {
+        console.log('go to http!');
         $http({
             method  : 'POST',
+            // method  : 'JSONP',
             url     : address + 'api/card',
+            headers : {'Content-Type': 'multipart/form-data'},
             data    : $scope.card, //forms user object
-            processData: false,
-            contentType: false,
-            headers : {'Content-Type': undefined},
-            transformRequest: angular.identity,
-            // headers : {'Content-Type': 'multipart/form-data; charset=UTF-8;', 'Accept':'application/json, text/javascript'}
-            // headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            data: {
+                email: "test1",
+                token: "token",
+                upload: $scope.file
+            },
+            transformRequest: function (data, headersGetter) {
+                var formData = new FormData();
+                angular.forEach(data, function (value, key) {
+                    formData.append(key, value);
+                });
+
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+                return formData;
+            }
         })
         .success(function(data) {
             console.log(data);
@@ -147,41 +182,12 @@ balbumApp.controller('postController', function($scope, $http) {
             }
         });
     };
-
-
 });
+*/
 
 $(function(){
     Start.init();
     Upload.init();
-
-        // $('#ajaxForm').ajaxForm({
-        //    //보내기전 validation check가 필요할경우
-        //     beforeSubmit: function (data, frm, opt) {
-        //                     alert("전송전!!");
-        //                     return true;
-        //                   },
-        //     //submit이후의 처리
-        //     success: function(responseText, statusText){
-        //         console.log("submit 성공했음");
-        //         alert("전송성공!!");
-        //         addData.content = $('#ajaxForm textarea[name*="content"]').fieldValue();
-        //         testData.unshift(addData);
-        //         $('#ajaxForm').clearForm();
-        //     },
-        //     //ajax error
-        //     error: function(){
-        //         alert("에러발생!!");
-        //     }
-        //   });
-        // alert( "Handler for .submit() called." );
-
-    $("#ajaxForm").submit(function(event ) {
-        console.log('submitted!');
-        event.preventDefault();
-        return false;
-
-    });
 
 });
 
