@@ -62,6 +62,23 @@ public class CardController {
 		cardListDTO.setCardList(cardResponseList);
 		return cardListDTO;
 	}
+	@RequestMapping(value = "/api/card/filter",  method = RequestMethod.GET)
+	public CardListDTO selectCards(Long bId){
+		System.out.println("it's uId");
+//		System.out.println(uId);
+//		System.out.println(user.getUId());
+		List<Card> cardList = cardRepo.findAllByOrderByCIdDesc();
+		List<Card> cardResponseList = new ArrayList<Card>();
+		
+		for(Card card : cardList){
+			if(!card.getDeleted()){
+				cardResponseList.add(card);
+			}
+		}
+		CardListDTO cardListDTO = new CardListDTO();
+		cardListDTO.setCardList(cardResponseList);
+		return cardListDTO;
+	}
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(String token, Card card, MultipartFile image){
 		logger.info(card.toString());
