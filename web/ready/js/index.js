@@ -94,9 +94,13 @@ var cardCRUD = {
         $('#ajaxForm').submit(function() {
             $(this).ajaxSubmit({
                //보내기전 validation check가 필요할경우
+               beforeSerialize: function($form, options) {
+                 var bids = {'bids':[1,2]};
+                 // $form.push(bids);
+                 console.log("폼이다", $form);
+               },
                beforeSubmit: function (data, $form, opt) {
-                testData = $form;
-                console.log('data', data);
+                testData = data;
                 console.log('data', testData);
 
                 testData.map(function(item) {

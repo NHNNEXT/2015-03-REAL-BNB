@@ -121,7 +121,9 @@
                             </div>
                         </div>
                         <div class="baby-check-container card-content">
+                            <input type="object" name="bids" value='[1, 2]'/>
                             <p class="baby-check" ng-repeat="baby in bMain.babyList">
+                            <!-- <input type="" name="bids[{{$index}}]" value="{{baby.bid}}"/> -->
                                 <input type="checkbox" name="babies" id="{{baby.bid}}" />
                                 <label for="{{baby.bid}}">
                                     <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
