@@ -55,7 +55,7 @@
             </li> -->
 
     </head>
-    <body>
+    <body ng-controller="MainController as bMain">
         <div class="navbar-fixed">
             <nav class="nav-top" role="navigation">
                 <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
@@ -92,9 +92,9 @@
             </ul>
         </aside>
         <section class="main-container row">
-            <article class="main-col col s12 m12 l8" ng-controller="CardController as cardTimeline">
+            <article class="main-col col s12 m12 l8">
                 <div class="postcard-container card row scrollspy" id="card-now">
-                    <form id="ajaxForm" ng-submit="cardTimeline.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <form id="ajaxForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="token"/>
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">
@@ -121,23 +121,11 @@
                             </div>
                         </div>
                         <div class="baby-check-container card-content">
-                            <p class="baby-check">
-                                <input type="checkbox" id="baby-check-1" />
-                                <label for="baby-check-1">연우
-                                    <div class="baby-chip chip">
-                                        <img src="img/baby1.jpeg" alt="Contact Person">
-                                        연우 1개월
-                                    </div>
-
-                                </label>
-                            </p>
-                            <p class="baby-check">
-                                <input type="checkbox" id="baby-check-2" />
-                                <label for="baby-check-2">다정이
-                                    <div class="baby-chip chip">
-                                        <img src="img/baby2.jpeg" alt="Contact Person">
-                                        다정이 3개월
-                                    </div>
+                            <p class="baby-check" ng-repeat="baby in bMain.babyList">
+                                <input type="checkbox" name="babies" id="{{baby.bid}}" />
+                                <label for="{{baby.bid}}">
+                                    <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                    {{baby.babyName}} {{baby.babyBirth}}
                                 </label>
                             </p>
                         </div>
@@ -151,9 +139,9 @@
 
 
                 </div>
-                <!-- <div class="card-container" ng-controller="CardController as cardTimeline"> -->
+                <!-- <div class="card-container" ng-controller="CardController as bMain"> -->
                 <div class="card-container">
-                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in cardTimeline.cardList">
+                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in bMain.cardList">
                         <div class="bc-photo card-image">
                             <img src=" http://dev.balbum.net{{bc.cardImg}}">
                         </div>

@@ -1,6 +1,9 @@
 var address = "http://dev.balbum.net/";
 // var address = "http://192.168.1.146:8080/";
-var token = localStorage.getItem('token');
+// var token = localStorage.getItem('token');
+var token = 'token';
+
+var testData;
 
 var Start = {
     init: function() {
@@ -50,27 +53,62 @@ var Upload = {
     }
 }
 
+var User = {
+    get: function($http) {
+        $http({
+            url: address + 'api/user',
+            method: "GET",
+            params: {token: token}
+        }).then( function(res) {
+            console.log("res:", res);
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
+        });
+    },
+    getBaby: function($http, bMain) {
+        $http({
+            url: address + 'api/user/baby',
+            method: "GET",
+            params: {token: token}
+        }).then( function(res) {
+            bMain.babyList = res.data;
+            console.log("res:", bMain.babyList);
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
+        });
+    }
+}
+
 var cardCRUD = {
     init: function() {
 
     },
-    get: function($http, cardTimeline) {
+    get: function($http, bMain) {
         $http.get(address + 'api/card').then( function(res) {
-            cardTimeline.cardList = res.data.cardList;
+            bMain.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
         });
     },
-    post: function($scope, cardTimeline) {
+    post: function($scope, bMain) {
         $('#ajaxForm').submit(function() {
             $(this).ajaxSubmit({
                //보내기전 validation check가 필요할경우
-               beforeSubmit: function (data, frm, opt) {
-                    return true;
-                },
+               beforeSubmit: function (data, $form, opt) {
+                testData = $form;
+                console.log('data', data);
+                console.log('data', testData);
+
+                testData.map(function(item) {
+                  if(item.name=='babies'){
+                    console.log(item);
+                  }
+                });
+                return true;
+            },
                 //submit이후의 처리
                 success: function(responseText, statusText, xhr, $form){
-                    cardTimeline.cardList.unshift(responseText.res);
+                    bMain.cardList.unshift(responseText.res);
                     addData = responseText.res;
                     $('#ajaxForm').clearForm();
                     $scope.$apply();
@@ -88,15 +126,16 @@ var cardCRUD = {
 }
 
 var balbumApp = angular.module('balbumApp', []);
-balbumApp.controller('CardController', function($scope, $http) {
-    var cardTimeline = this;
-    cardTimeline.cardList;
+balbumApp.controller('MainController', function($scope, $http) {
+    var bMain = this;
+    bMain.babyList;
+    bMain.cardList;
 
-    /* 서버에 저장된 카드 가져오기 */
-    cardCRUD.get($http, this);
+    User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
 
-    /* 카드를 서버에 저장하기 */
-    cardCRUD.post($scope, this);
+
+    cardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
+    cardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
 });
 
 /*
@@ -145,5 +184,6 @@ balbumApp.controller('postController', function($scope, $http) {
 $(function(){
     Start.init();
     Upload.init();
+
 });
 
