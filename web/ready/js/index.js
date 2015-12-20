@@ -14,7 +14,7 @@ var Start = {
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
         $('.scrollspy').scrollSpy();
-        $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top })
+        $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top });
     }
 
 }
@@ -79,7 +79,7 @@ var User = {
     }
 }
 
-var cardCRUD = {
+var CardCRUD = {
     init: function() {
 
     },
@@ -95,23 +95,29 @@ var cardCRUD = {
             $(this).ajaxSubmit({
                //보내기전 validation check가 필요할경우
                beforeSerialize: function($form, options) {
-                 var bids = {'bids':[1,2]};
-                 // $form.push(bids);
-                 console.log("폼이다", $form);
+                   // var bids = {'bids':[1,2]};
+                   // $form.push(bids);
+                   // console.log("폼이다", $form);
                },
                beforeSubmit: function (data, $form, opt) {
+                // $('.baby-check input:checked').attr('type', 'text').attr('value', function(arr) {
+                //     return this.id;
+                // });
                 testData = data;
                 console.log('data', testData);
+                // var bids = {'name':'bids','value':[1,2]};
+                // data.push(bids);
+                // console.log("데이터다", data);
 
                 testData.map(function(item) {
                   if(item.name=='babies'){
-                    console.log(item);
-                  }
-                });
+                    // console.log(item);
+                }
+            });
                 return true;
             },
                 //submit이후의 처리
-                success: function(responseText, statusText, xhr, $form){
+            success: function(responseText, statusText, xhr, $form){
                     bMain.cardList.unshift(responseText.res);
                     addData = responseText.res;
                     $('#ajaxForm').clearForm();
@@ -134,12 +140,34 @@ balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
     bMain.babyList;
     bMain.cardList;
+    bMain.isBabyChecked = "haha";
+
+    $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
+        // $scope.checkedBid = bid;
+        // $(this).closest('.baby-check').find('.check-hidden').attr('value', isBabyChecked? null : bid);
+        // $(this).closest('.baby-check').find('.check-hidden').attr('value', $(this));
+        // $('.check-hidden[name="bIds[index]"]')
+        // $('.check-hidden[name="bIds[' + index + ']"]').attr('value', bId);
+        var bIdsArr = "bIds[" + index + "]";
+        if(isBabyChecked){
+            $('.check-hidden').eq(index).attr({
+                name: bIdsArr,
+                value: bId
+            });
+        } else {
+            $('.check-hidden').eq(index).removeAttr('name').removeAttr('value');
+        }
+    }
 
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
 
 
-    cardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
-    cardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
+    CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
+    CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
+
+    // $('input').on('change', function() {
+    //     console.log("dkafjlawkfjwkl");
+    // });
 });
 
 /*
@@ -188,6 +216,12 @@ balbumApp.controller('postController', function($scope, $http) {
 $(function(){
     Start.init();
     Upload.init();
+    CardCRUD.init();
+    // $(".baby-check-input").change(function() {
+    //     $(this).closest('.baby-check').find('.check-hidden').attr('value', $(this).attr('value')? null : $(this).attr('id'));
+    //     console.log($(this).closest('.baby-check').find('.check-hidden').attr('value'));
+    // }).change();
 
+    // $( "input" ).change(function() {console.log("changed")});
 });
 
