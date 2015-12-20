@@ -78,4 +78,5 @@ public class InitialSettingActivity extends AppCompatActivity implements View.On
         fragmentTransaction = fragmentManager.beginTransaction();
     }
 
+
 }

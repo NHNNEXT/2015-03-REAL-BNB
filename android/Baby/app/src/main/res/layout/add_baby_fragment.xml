@@ -104,7 +104,7 @@
         android:text="@string/register_later"
         android:textColor="@color/text" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="100dp"

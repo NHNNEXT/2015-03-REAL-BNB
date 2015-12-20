@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -26,10 +29,13 @@ import net.balbum.baby.Util.Config;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.adapter.BabyListAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -46,22 +52,42 @@ public class AddBabyFragment extends Fragment {
 
     EditText add_baby_name;
     EditText add_baby_birthday;
-    ListView listView;
+    RecyclerView recyclerView;
     RadioGroup radioGroup;
     ImageView add_baby_image;
     int temp_gender;
+    View view;
+    BabyListAdapter adapter;
+
+    List<BabyVo> babyVoList = new ArrayList<>();
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_baby_fragment, container, false);
-        context = this.getActivity();
+        view = inflater.inflate(R.layout.add_baby_fragment, container, false);
+        context = getActivity();
+
+
+        babyVoList.add(new BabyVo("까꿍", "2013.12.12", BabyVo.Gender.BOY, "123.img", new Long(1)));
+
+//        if(babyVoList.size() > 0){
+//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+//            recyclerView.setLayoutManager(linearLayoutManager);
+//
+////            BabyListAdapter adapter = new BabyListAdapter(babyVoList, context);
+////            recyclerView.setAdapter(adapter);
+//            Log.d("test", "new~ start: " + babyVoList.size());
+//        }
+
+
+
+
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Button ok_btn = (Button) view.findViewById(R.id.add_baby_btn);
@@ -70,7 +96,15 @@ public class AddBabyFragment extends Fragment {
         add_baby_birthday = (EditText) view.findViewById(R.id.add_baby_birthday);
         add_baby_image = (ImageView) view.findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup) view.findViewById(R.id.add_baby_radiogroup);
-        listView = (ListView) view.findViewById(R.id.list);
+//        recyclerView = (RecyclerView) view.findViewById(R.id.list);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+
+        adapter = new BabyListAdapter(babyVoList);
+        recyclerView.setAdapter(adapter);
 
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +136,8 @@ public class AddBabyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createBabyInfo();
+
+
             }
         });
 
@@ -137,12 +173,19 @@ public class AddBabyFragment extends Fragment {
             babyVo.babyGender = BabyVo.Gender.UNDEFINED;
         }
 
+        babyVoList.add(babyVo);
+        Log.d("test", "after add: " + babyVoList.size());
+
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "baby post success");
-                goToActivity(context, MainActivity.class);
+                Fragment fragment = new AddBabyFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+//                goToActivity(context, MainActivity.class);
             }
 
             @Override
