@@ -47,13 +47,14 @@ var Upload = {
             $('.upload-photo-box').css('display', 'none');
         });
     },
-    resetPhoto: function() {
+    resetPhotoBox: function() {
         $('.upload-photo-box').css('display', 'block');
         $('#uploaded-photo').css('display', 'none');
     }
 }
 
 var User = {
+    babyIdx: 0,
     get: function($http) {
         $http({
             url: address + 'api/user',
@@ -76,6 +77,21 @@ var User = {
         }, function() {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
+    },
+    /* 카드 올릴 때 아이를 체크 */
+    checkBaby: function(index, bId, isBabyChecked) {
+        $('.check-hidden[name="bIds[' + index + ']"]').attr('value', bId);
+        var bIdsArr = "bIds[" + User.babyIdx + "]";
+        if(isBabyChecked){
+            $('.check-hidden').eq(index).attr({
+                name: bIdsArr,
+                value: bId
+            });
+            User.babyIdx++;
+        } else {
+            $('.check-hidden').eq(index).removeAttr('name').removeAttr('value');
+            User.babyIdx--;
+        }
     }
 }
 
@@ -93,37 +109,18 @@ var CardCRUD = {
     post: function($scope, bMain) {
         $('#ajaxForm').submit(function() {
             $(this).ajaxSubmit({
-               //보내기전 validation check가 필요할경우
-               beforeSerialize: function($form, options) {
-                   // var bids = {'bids':[1,2]};
-                   // $form.push(bids);
-                   // console.log("폼이다", $form);
-               },
-               beforeSubmit: function (data, $form, opt) {
-                // $('.baby-check input:checked').attr('type', 'text').attr('value', function(arr) {
-                //     return this.id;
-                // });
-                testData = data;
-                console.log('data', testData);
-                // var bids = {'name':'bids','value':[1,2]};
-                // data.push(bids);
-                // console.log("데이터다", data);
-
-                testData.map(function(item) {
-                  if(item.name=='babies'){
-                    // console.log(item);
-                }
-            });
-                return true;
-            },
-                //submit이후의 처리
-            success: function(responseText, statusText, xhr, $form){
+                //보내기전 validation check가 필요할경우
+                beforeSubmit: function (data, $form, opt) {
+                    return true;
+                },
+                /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
+                success: function(responseText, statusText, xhr, $form){
                     bMain.cardList.unshift(responseText.res);
                     addData = responseText.res;
                     $('#ajaxForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
-                    Upload.resetPhoto();
+                    Upload.resetPhotoBox();
                 },
                 //ajax error
                 error: function(){
@@ -138,36 +135,18 @@ var CardCRUD = {
 var balbumApp = angular.module('balbumApp', []);
 balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
+
     bMain.babyList;
     bMain.cardList;
-    bMain.isBabyChecked = "haha";
 
+    /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
+    /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
-        // $scope.checkedBid = bid;
-        // $(this).closest('.baby-check').find('.check-hidden').attr('value', isBabyChecked? null : bid);
-        // $(this).closest('.baby-check').find('.check-hidden').attr('value', $(this));
-        // $('.check-hidden[name="bIds[index]"]')
-        // $('.check-hidden[name="bIds[' + index + ']"]').attr('value', bId);
-        var bIdsArr = "bIds[" + index + "]";
-        if(isBabyChecked){
-            $('.check-hidden').eq(index).attr({
-                name: bIdsArr,
-                value: bId
-            });
-        } else {
-            $('.check-hidden').eq(index).removeAttr('name').removeAttr('value');
-        }
+        return User.checkBaby(index, bId, isBabyChecked);
     }
-
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
-
-
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
-
-    // $('input').on('change', function() {
-    //     console.log("dkafjlawkfjwkl");
-    // });
 });
 
 /*
@@ -217,11 +196,5 @@ $(function(){
     Start.init();
     Upload.init();
     CardCRUD.init();
-    // $(".baby-check-input").change(function() {
-    //     $(this).closest('.baby-check').find('.check-hidden').attr('value', $(this).attr('value')? null : $(this).attr('id'));
-    //     console.log($(this).closest('.baby-check').find('.check-hidden').attr('value'));
-    // }).change();
-
-    // $( "input" ).change(function() {console.log("changed")});
 });
 
