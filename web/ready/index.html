@@ -67,8 +67,7 @@
                     <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
                         <li><a href="#">모바일슬라이드다</a></li>
                         <li><a href="#">타임라인</a></li>
-                        <li><a href="#">다정이</a></li>
-                        <li><a href="#">연우</a></li>
+                        <li ng-repeat="baby in bMain.babyList"><a href="#">{{baby.babyName}}</a></li>
                         <li><a href="#">설정</a></li>
                     </ul>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -85,10 +84,9 @@
 
         <aside class="left-col hide-on-small-only">
             <ul>
-                <li>타임라인</li>
-                <li>다정이</li>
-                <li>연우</li>
-                <li>설정</li>
+                <li><a href="#">타임라인</a></li>
+                <li ng-repeat="baby in bMain.babyList"><a href="#">{{baby.babyName}}</a></li>
+                <li><a href="#">설정</a></li>
             </ul>
         </aside>
         <section class="main-container row">
@@ -122,12 +120,9 @@
                             </div>
                         </div>
                         <div class="baby-check-container card-content">
-                            <!-- <input type="" name="bIds[0]" value="1"/> -->
-                            <!-- <input type="" name="bIds[1]" value="2"/> -->
                             <input id="check1" type="checkbox">
                             <label for="check1">Check me</label>
                             <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                                <!-- <input class="check-hidden" type="hidden" name="bIds[{{$index}}]" data-bId="{{$index}}" /> -->
                                 <input class="check-hidden" type="hidden"/>
                                 <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
                                 <label for="{{baby.bid}}">
