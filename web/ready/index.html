@@ -120,8 +120,6 @@
                             </div>
                         </div>
                         <div class="baby-check-container card-content">
-                            <input id="check1" type="checkbox">
-                            <label for="check1">Check me</label>
                             <p class="baby-check" ng-repeat="baby in bMain.babyList">
                                 <input class="check-hidden" type="hidden"/>
                                 <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
