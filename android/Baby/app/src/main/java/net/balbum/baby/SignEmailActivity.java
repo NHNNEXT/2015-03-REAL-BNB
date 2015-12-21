@@ -70,14 +70,28 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
 
     private boolean getInfo() {
 
-        if(email.getText().toString().matches("")){
+        if (email.getText().toString().matches("")) {
             ToastUtil.show(context, "메일을 입력하세요");
-        }else if(password.getText().toString().matches("")){
+        } else if (password.getText().toString().matches("")) {
             ToastUtil.show(context, "비밀번호를 입력하세요");
-        }else{
-             loginVo = new LoginVo(email.getText().toString(), password.getText().toString());
+        } else if(role.getText().toString().matches("")){
+            ToastUtil.show(context, "역할을 입력하세요");
+        } else {
+            if (!isValidEmail((CharSequence) email.getText().toString())) {
+                ToastUtil.show(context, "메일형식을 확인하세요");
+                return false;
+            }
+            loginVo = new LoginVo(email.getText().toString(), password.getText().toString());
             return true;
         }
         return false;
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null)
+            return false;
+
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }
