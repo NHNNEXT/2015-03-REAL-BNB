@@ -121,8 +121,78 @@ section.main-container {
         }
 
         //*-- 작성된 카드들 컨테이너 --*//
-        .card-container {
+        div.card-container {
+            div.baby-card {
+                .bc-content {
 
+                }
+                .bc-action {
+                    .date-container {
+
+                    }
+                    .babies-container {
+                        .baby {
+                            img {
+                                width: 2em;
+                                height: 2em
+                            }
+                        }
+                    }
+                    .btn-container {
+                        .action-btn {
+                            display: inline-block;
+                            float: right;
+
+                        }
+                        .action-dropdown-menu {
+                            position: absolute;
+                            top: 70%;
+                            right: 20px;
+                            z-index: 1000;
+                            font-size: 14px;
+                            text-align: left;
+                            background-color: #fff;
+                            border: 1px solid #ccc;
+                            border: 1px solid rgba(0,0,0,0.15);
+                            border-radius: 4px;
+                            box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+                            background-clip: padding-box;
+                            -webkit-transition: all 0.2s ease;
+                            opacity:0;
+                            -webkit-transform-origin: right top 0px;
+                            -webkit-transform: scale(0);
+
+                            ul {
+                                min-width: 160px;
+                                padding: 5px 0;
+                                margin: 2px 0 0;
+                                list-style: none;
+                                position:relative;
+                                li {
+                                    color:#666;
+                                    margin: 0;
+                                    padding: 5px 0 5px 15px;
+                                    height: 24px;
+                                    list-style: none;
+                                    opacity: 0;
+                                    transform: translateY(0px);
+                                    -webkit-transition: all 0.3s ease;
+                                    transform: translateY(-30%);
+                                }
+                            }
+                            &.active {
+                                opacity:1;
+                                -webkit-transform-origin: right top 0px;
+                                -webkit-transform: scale(1);
+                                li {
+                                    opacity: 1;
+                                    transform: translateY(0px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

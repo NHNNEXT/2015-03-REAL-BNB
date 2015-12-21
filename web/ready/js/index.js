@@ -15,6 +15,17 @@ var Start = {
         });
         $('.scrollspy').scrollSpy();
         $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top });
+
+        $('html').click(function() {
+            $('.action-dropdown-menu').removeClass("active");
+        });
+
+        $('.action-dropdown-menu').click (function(e){ // 필요한지 의문
+            e.stopPropagation();
+        });
+
+
+
     }
 
 }
@@ -147,6 +158,12 @@ balbumApp.controller('MainController', function($scope, $http) {
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
+
+    $scope.cardActionDropdownClick = function($event, cid) {
+        $event.stopPropagation();
+        $('.baby-card[data-cid="' + cid + '"]').find('.action-dropdown-menu').toggleClass("active");
+    }
+
 });
 
 /*

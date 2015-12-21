@@ -136,32 +136,32 @@
                             <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                         </div>
                     </form>
-
-
                 </div>
-                <!-- <div class="card-container" ng-controller="CardController as bMain"> -->
                 <div class="card-container">
-                    <div class="baby-card card scrollspy" id="{{bc.cId}}" ng-repeat="bc in bMain.cardList">
+                    <div class="baby-card card scrollspy" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in bMain.cardList">
                         <div class="bc-photo card-image">
                             <img src=" http://dev.balbum.net{{bc.cardImg}}">
                         </div>
                         <div class="bc-content card-content">
                             <p>{{bc.content}}</p>
                         </div>
-                        <div class="action card-action">
-                            <div class="bc-babychip" ng-repeat=" baby in bc.babies">
-                                <div class="baby-chip chip right">
-                                    <img src="http://dev.balbum.net{{baby.babyImg}}" alt="Contact Person">{{baby.babyName}} {{baby.babyBirth}}
-                                </div>
-                            </div>
+                        <div class="bc-action card-action">
                             <div class="date-container">
                                 <a href="#">{{bc.modifiedDate}}</a>
                             </div>
+                            <div class="babies-container" ng-repeat=" baby in bc.babies">
+                                <div class="baby">
+                                    <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyBirth}}
+                                </div>
+                            </div>
                             <div class="btn-container">
-                                <div class="share-btn"></div>
-                                <div class="ctrl-btn">
-                                    <div class="modify-btn"></div>
-                                    <div class="delete-btn"></div>
+                                <div class='action-dropdown-btn action-btn' ng-click="cardActionDropdownClick($event, bc.cid)"><i class="material-icons">more_horiz</i></div>
+                                <div class="share-btn action-btn"><i class="material-icons">share</i></div>
+                                <div class="action-dropdown-menu">
+                                    <ul>
+                                        <li><a href="#!">수정</a></li>
+                                        <li><a href="#!">삭제</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
