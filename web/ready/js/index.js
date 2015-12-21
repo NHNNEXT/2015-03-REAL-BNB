@@ -23,9 +23,6 @@ var Start = {
         $('.action-dropdown-menu').click (function(e){ // 필요한지 의문
             e.stopPropagation();
         });
-
-
-
     }
 
 }
