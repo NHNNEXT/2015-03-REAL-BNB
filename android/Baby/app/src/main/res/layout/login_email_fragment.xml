@@ -18,56 +18,64 @@
         android:paddingRight="20dp"
         android:paddingTop="50dp">
 
-    <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_email_profile_photo">
-
-        <EditText
-            android:id="@+id/sign_email"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="baby@nhnnext.org" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_email">
-
-        <EditText
-            android:id="@+id/sign_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="암호 입력!" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/sign_role"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/role" />
+            android:layout_below="@+id/sign_email_profile_photo">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/sign_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="baby@nhnnext.org"
+                android:nextFocusDown="@+id/sign_password"
+                android:singleLine="true" />
 
-    <Button
-        android:id="@+id/sign"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_role"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/primary_round"
-        android:text="@string/ok"
-        android:textColor="@color/colorBase" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_email"
+
+            >
+
+            <EditText
+                android:id="@+id/sign_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="암호 입력!"
+                android:nextFocusDown="@+id/sign_role"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/sign_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/role"
+                android:singleLine="true"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/sign"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_role"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/primary_round"
+            android:text="@string/ok"
+            android:textColor="@color/colorBase" />
 
     </LinearLayout>
 
