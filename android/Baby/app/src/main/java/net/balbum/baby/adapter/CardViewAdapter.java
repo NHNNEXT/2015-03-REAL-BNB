@@ -14,7 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -86,36 +86,34 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         holder.diary_text.setTypeface(typeface);
         babiesInfo(holder.profile_container, position);
 
-        holder.photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCardSetting(holder, flag);
-            }
-        });
-
-        holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+        holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "position 넘기기 전: " + position);
                 deleteCard(position);
-                Log.d("test", "cid" + cards.get(position).cid);
             }
         });
-        holder.modify_btn.setOnClickListener(new View.OnClickListener() {
+        holder.modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 modifyCard(position);
             }
         });
 
-        holder.container.postDelayed(new Runnable() {
+        holder.more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-
-                cardCapture(holder.cv, cards.get(position).cid);
-
+            public void onClick(View v) {
+                showCardSetting(holder, flag);
             }
-        },1000);
+        });
+
+//        holder.container.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                cardCapture(holder.cv, cards.get(position).cid);
+//
+//            }
+//        },10);
         //poster test 카드 화면 view 생
 //        Log.d("test", "dt width: " + holder.diary_text.getWidth());
 //        Log.d("test", "cv width: " + holder.diary_text.getText());
@@ -221,9 +219,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         ImageView photo;
         LinearLayout profile_container;
         LinearLayout delete_modify_layout;
-        Button delete_btn;
-        Button modify_btn;
+        TextView delete;
+        TextView modify;
+        ImageButton more_btn;
         RelativeLayout container;
+
 
         viewHolder(View itemView) {
             super(itemView);
@@ -234,8 +234,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             diary_text = (TextView) itemView.findViewById(R.id.diary_text);
             profile_container = (LinearLayout) itemView.findViewById(R.id.profile_container);
             delete_modify_layout = (LinearLayout) itemView.findViewById(R.id.delete_modify_layout);
-            delete_btn = (Button) itemView.findViewById(R.id.delete_btn);
-            modify_btn = (Button) itemView.findViewById(R.id.modify_btn);
+            delete = (TextView) itemView.findViewById(R.id.delete_btn);
+            modify = (TextView) itemView.findViewById(R.id.modify_btn);
+            more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
         }
     }
 
