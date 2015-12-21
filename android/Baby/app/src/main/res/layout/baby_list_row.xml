@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="2dp">
 
 
     <ImageView
+        android:layout_marginLeft="30dp"
         android:id="@+id/baby_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:scaleType="centerCrop"
         android:src="@android:drawable/ic_menu_camera" />
 
-    <LinearLayout
 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/baby_name"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/baby_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/baby_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="10dp" />
 
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/baby_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:gravity="center_vertical"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/baby_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="10dp" />
 
     </LinearLayout>
 

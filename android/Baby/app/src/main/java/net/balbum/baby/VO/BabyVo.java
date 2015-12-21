@@ -30,4 +30,11 @@ public class BabyVo {
         this.babyImg = image;
         this.bId = bId;
     }
+
+    public BabyVo(String babyName, String babyBirth, Gender babyGender, String image) {
+        this.babyName = babyName;
+        this.babyBirth = babyBirth;
+        this.babyGender = babyGender;
+        this.babyImg = image;
+    }
 }

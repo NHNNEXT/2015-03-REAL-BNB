@@ -58,7 +58,6 @@ public class AddBabyFragment extends Fragment {
     int temp_gender;
     View view;
     BabyListAdapter adapter;
-
     List<BabyVo> babyVoList = new ArrayList<>();
 
 
@@ -67,61 +66,64 @@ public class AddBabyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.add_baby_fragment, container, false);
         context = getActivity();
-
-
-        babyVoList.add(new BabyVo("까꿍", "2013.12.12", BabyVo.Gender.BOY, "123.img", new Long(1)));
-
-//        if(babyVoList.size() > 0){
-//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-//            recyclerView.setLayoutManager(linearLayoutManager);
-//
-////            BabyListAdapter adapter = new BabyListAdapter(babyVoList, context);
-////            recyclerView.setAdapter(adapter);
-//            Log.d("test", "new~ start: " + babyVoList.size());
-//        }
-
-
-
-
+        initData();
         return view;
+    }
+
+    private void initData() {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+            @Override
+            public void success(ArrayList<BabyVo> babyVos, Response response) {
+                babyVoList = babyVos;
+                initBabyList();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    private void initBabyList() {
+        adapter = new BabyListAdapter(babyVoList, context);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button ok_btn = (Button) view.findViewById(R.id.add_baby_btn);
+        Button add_btn = (Button) view.findViewById(R.id.add_baby_btn);
+        Button complete_btn = (Button) view.findViewById(R.id.add_complete_btn);
         TextView register_later = (TextView) view.findViewById(R.id.register_later);
         add_baby_name = (EditText) view.findViewById(R.id.add_baby_name);
         add_baby_birthday = (EditText) view.findViewById(R.id.add_baby_birthday);
         add_baby_image = (ImageView) view.findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup) view.findViewById(R.id.add_baby_radiogroup);
-//        recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        adapter = new BabyListAdapter(babyVoList);
-        recyclerView.setAdapter(adapter);
-
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent pictureActionIntent = null;
+                Intent pictureActionIntent = null;
 
-            pictureActionIntent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(pictureActionIntent, Config.GALLERY_PICTURE);
+                pictureActionIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pictureActionIntent, Config.GALLERY_PICTURE);
             }
         });
 
         add_baby_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            DialogHandler pickerDialog = new DialogHandler(v);
-            pickerDialog.show(getFragmentManager(), "date_picker");
+                DialogHandler pickerDialog = new DialogHandler(v);
+                pickerDialog.show(getFragmentManager(), "date_picker");
             }
         });
 
@@ -132,12 +134,17 @@ public class AddBabyFragment extends Fragment {
             }
         });
 
-        ok_btn.setOnClickListener(new View.OnClickListener() {
+        complete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(context, MainActivity.class);
+            }
+        });
+
+        add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createBabyInfo();
-
-
             }
         });
 
@@ -173,9 +180,6 @@ public class AddBabyFragment extends Fragment {
             babyVo.babyGender = BabyVo.Gender.UNDEFINED;
         }
 
-        babyVoList.add(babyVo);
-        Log.d("test", "after add: " + babyVoList.size());
-
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
             @Override
@@ -185,7 +189,6 @@ public class AddBabyFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
-//                goToActivity(context, MainActivity.class);
             }
 
             @Override

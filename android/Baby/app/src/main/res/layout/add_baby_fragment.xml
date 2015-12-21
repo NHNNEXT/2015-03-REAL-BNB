@@ -34,7 +34,9 @@
                     android:id="@+id/add_baby_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="우리 사랑스러운 아가의 이름은" />
+                    android:hint="우리 사랑스러운 아가의 이름은"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/add_baby_birthday"/>
 
 
             </android.support.design.widget.TextInputLayout>
@@ -85,14 +87,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
     <Button
         android:id="@+id/add_baby_btn"
-        android:layout_width="300dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/primary_round"
+        android:text="@string/add"
+        android:textColor="@color/colorBase"
+        android:layout_marginRight="5dp"/>
+
+    <Button
+        android:id="@+id/add_complete_btn"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/primary_round"
         android:text="@string/ok"
-        android:textColor="@color/colorBase" />
+        android:textColor="@color/colorBase"
+        android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/register_later"
