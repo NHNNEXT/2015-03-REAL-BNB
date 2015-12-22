@@ -1,8 +1,11 @@
 package net.balbum.baby.VO;
 
+import org.parceler.Parcel;
+
 /**
  * Created by hyes on 2015. 12. 12..
  */
+@Parcel
 public class BabyVo {
     public enum Gender {
         GIRL("GIRL"), BOY("BOY"), PREGNANCY("PREGNANCY"), UNDEFINED("UNDEFINED");

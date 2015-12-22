@@ -33,6 +33,8 @@ import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import org.parceler.Parcels;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -110,10 +112,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 //            @Override
 //            public void run() {
 //
-//                cardCapture(holder.cv, cards.get(position).cid);
+//                cardCapture(holder.container, cards.get(position).cid);
 //
 //            }
-//        },10);
+//        },1000);
         //poster test 카드 화면 view 생
 //        Log.d("test", "dt width: " + holder.diary_text.getWidth());
 //        Log.d("test", "cv width: " + holder.diary_text.getText());
@@ -125,7 +127,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Config.CARD_MODIFY);
         GeneralCardVo vo = cards.get(position);
-        intent.putExtra("generalCardVo", vo);
+        intent.putExtra("generalCardVo", Parcels.wrap(vo));
         context.startActivity(intent);
     }
 
@@ -271,34 +273,21 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
 
         FileOutputStream fos;
-
-
         File fileRoute = null;
-
         fileRoute = Environment.getExternalStorageDirectory();
-
         String str_name = i+"";
-
 
         try {
 
             File path = new File(fileRoute,"temp");
 
             if(!path.exists()){//if(!path.isDirectory()){
-
                 path.mkdirs();
-
             }
 
-
-
             fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
-
             captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
-
             container.setDrawingCacheEnabled(false);
-
-
 
         }catch (FileNotFoundException e) {
 

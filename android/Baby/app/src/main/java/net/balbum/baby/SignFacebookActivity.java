@@ -2,7 +2,9 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -74,7 +76,11 @@ public class SignFacebookActivity extends AppCompatActivity{
                     taskService.createSign(new LoginVo(role, token), new Callback<AuthVo>() {
                         @Override
                         public void success(AuthVo authVo, Response response) {
-                            ToastUtil.show(context, "토큰이랑 롤이 갔을겨 " + role);
+
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("tokenB", token);
+                            editor.commit();
                             goToActivity(context, InitialSettingActivity.class);
                         }
 
@@ -83,12 +89,8 @@ public class SignFacebookActivity extends AppCompatActivity{
 
                         }
                     });
-
                 }
-
-
             }
         });
-
     }
 }

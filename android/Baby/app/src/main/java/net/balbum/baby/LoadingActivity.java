@@ -36,7 +36,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         if(sharedPreferences.contains("tokenB")) {
             String t = sharedPreferences.getString("tokenB", "");
-            Log.d("test", "token~~" + t);
+            Log.d("test", "Loading page: token~~" + t);
 
             //서버한테 토큰 보내서 유효성 확인인 후 success면 이거 인텐
             taskService.tokenCheck(t, new Callback<ResponseVo>() {

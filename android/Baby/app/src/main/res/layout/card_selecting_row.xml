@@ -4,70 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv"
     android:layout_width="match_parent"
-    android:layout_height="530dp"
-    android:layout_marginBottom="10dp"
+    android:layout_height="210dp"
+    android:layout_margin="1dp"
     android:elevation="5dp"
     app:cardCornerRadius="1dp">
-
-    <RelativeLayout
-        android:id="@+id/card_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/more_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_more_horiz_black_24dp" />
-
-        <LinearLayout
-            android:id="@+id/delete_modify_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/more_btn"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:gravity="right">
-
-            <TextView
-                android:id="@+id/delete_btn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimary"
-                android:layout_marginBottom="2dp"
-                android:gravity="center"
-                android:text="삭제하기"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/modify_btn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="수정하기"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-
 
         <RelativeLayout
             android:id="@+id/card_layout"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent" />
 
@@ -78,9 +31,9 @@
                 android:layout_below="@+id/iv_image"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:paddingBottom="10dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/purple2"
-                android:textSize="14dp"
+                android:textSize="8dp"
                 android:textStyle="italic" />
 
             <HorizontalScrollView
@@ -106,11 +59,10 @@
                 android:layout_below="@+id/scrollView"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="5dp"
-                android:maxLines="5"
+                android:maxLines="3"
                 android:padding="10dp"
-                android:textColor="@color/text" />
+                android:textColor="@color/text"
+                android:ellipsize="end" />
         </RelativeLayout>
-
-    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

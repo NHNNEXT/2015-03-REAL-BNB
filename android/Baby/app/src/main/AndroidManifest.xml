@@ -34,7 +34,8 @@
         <activity
             android:name=".CardWritingActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".LoadingActivity"
             android:screenOrientation="portrait">
@@ -65,6 +66,8 @@
             <!--</intent-filter>-->
 
         </activity>
+        <activity android:name=".PosterCardSelectingActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

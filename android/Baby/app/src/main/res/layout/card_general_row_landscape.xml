@@ -22,7 +22,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_more_horiz_black_24dp" />
+            android:src="@drawable/ic_more_horiz_purple_24dp"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:id="@+id/delete_modify_layout"

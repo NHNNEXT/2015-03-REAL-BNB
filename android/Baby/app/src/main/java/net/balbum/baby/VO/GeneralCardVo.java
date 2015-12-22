@@ -12,7 +12,6 @@ import io.realm.annotations.Required;
  * Created by hyes on 2015. 11. 10..
  */
 
-
 public class GeneralCardVo implements Parcelable{
 
     public enum Type{
@@ -94,7 +93,7 @@ public class GeneralCardVo implements Parcelable{
 
     }
 
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+    public static final Creator CREATOR = new Creator() {
         public GeneralCardVo createFromParcel(Parcel in) {
             return new GeneralCardVo(in);
         }
