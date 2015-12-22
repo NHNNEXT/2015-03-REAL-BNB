@@ -33,7 +33,8 @@
             android:layout_marginRight="20dp"
             android:gravity="right"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
             <TextView
                 android:id="@+id/delete_btn"
