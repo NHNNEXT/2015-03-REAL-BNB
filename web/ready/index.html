@@ -21,10 +21,6 @@
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
-
-        <!-- <link rel="stylesheet" type="text/css" href="css/calendar.css"> -->
-        <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  -->
-
         <script type="text/javascript" src="js/vendor/handlebars-v3.0.3.js"></script>
         <script id="card-template" type="text/x-handlebars-template">
             <div class="b-card card scrollspy" id="card-1">
@@ -50,6 +46,13 @@
                 </div>
             </div>
         </script>
+            <!-- <li class="{{completed}}" data-key="{{key}}">
+                <div class="view">
+                    <input class="toggle" type="checkbox" {}>
+                    <label>{{todoName}}</label>
+                    <button class="destroy"></button>
+                </div>
+            </li> -->
 
     </head>
     <body ng-controller="MainController as bMain">
@@ -110,7 +113,6 @@
                         </div>
                         <div id="event-tab" class="col row s12">
                             <div class="date-container ">
-                                <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
                                 <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
                             </div>
                             <div class="input-field col s6">
@@ -129,7 +131,6 @@
                         </div>
                         <div class="action card-action row">
                             <div class="date-container col s5">
-                                <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
                                 <input type="text" name="modifiedDate" value="2001-02-30" /><br/>
                             </div>
                             <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
@@ -192,9 +193,5 @@
         <script src="js/vendor/steps-modal.js"></script>
         <!-- <script src="js/cardCRUD.js"></script> -->
         <script src="/node_modules/dropzone/dist/dropzone.js"></script>
-
-        <!-- calendar -->
-        <!-- // <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
-        <!-- // <script type="text/javascript" src="js/calendar.js"></script> -->
     </body>
 </html>
