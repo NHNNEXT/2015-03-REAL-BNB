@@ -1,12 +1,17 @@
 package net.balbum.baby.Util;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -108,6 +113,20 @@ public class BitmapUtil {
         }
 
         return bitmap;
+    }
+
+    public static Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public static String getRealPathFromURI(Context context, Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
     }
 
 }

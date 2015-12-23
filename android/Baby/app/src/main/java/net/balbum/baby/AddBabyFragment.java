@@ -59,6 +59,7 @@ public class AddBabyFragment extends Fragment {
     View view;
     BabyListAdapter adapter;
     List<BabyVo> babyVoList = new ArrayList<>();
+    String finalFilePath;
 
 
     @Nullable
@@ -172,8 +173,7 @@ public class AddBabyFragment extends Fragment {
             babyVo.babyGender = BabyVo.Gender.PREGNANCY;
         }
 
-        Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
-        File file = BitmapUtil.ConvertBitmapToFile(img);
+        File file = new File(finalFilePath);
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
         if (babyVo.babyGender == null) {
@@ -207,6 +207,7 @@ public class AddBabyFragment extends Fragment {
 
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
+
                 Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
                         null, null, null);
                 cursor.moveToFirst();
@@ -214,16 +215,14 @@ public class AddBabyFragment extends Fragment {
                 String selectedImagePath = cursor.getString(columnIndex);
                 cursor.close();
 
-                //                if (selectedImagePath != null) {
-                //                    txt_image_path.setText(selectedImagePath);
-                //                }
-
-                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
-                // preview cardImg
-                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
-
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
                 bitmap = BitmapUtil.GetRotatedBitmap(bitmap, BitmapUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
+
+                Uri tempUri = BitmapUtil.getImageUri(context, bitmap);
+//                Uri temp = Uri.parse(selectedImagePath);
+                finalFilePath = BitmapUtil.getRealPathFromURI(context, tempUri);
+
 
             } else {
                 ToastUtil.cancle(context);
