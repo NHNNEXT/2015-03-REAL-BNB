@@ -24,10 +24,12 @@ public class BabyListAdapter extends RecyclerView.Adapter<BabyListAdapter.BabyVo
 
     List<BabyVo> babyVoList;
     Context context;
+    int layout;
 
-    public BabyListAdapter(List<BabyVo> babyVoList, Context context) {
+    public BabyListAdapter(List<BabyVo> babyVoList, Context context, int layout) {
         this.babyVoList = babyVoList;
         this.context = context;
+        this.layout = layout;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BabyListAdapter extends RecyclerView.Adapter<BabyListAdapter.BabyVo
 
     @Override
     public BabyVoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.baby_list_row, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         BabyVoHolder pvh = new BabyVoHolder(v);
         return pvh;
     }

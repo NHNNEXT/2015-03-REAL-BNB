@@ -7,8 +7,6 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -29,9 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
@@ -100,22 +99,24 @@ public class MainActivity extends AppCompatActivity
             final String profileImage = sharedPreferences.getString("profileImage", "");
             final Bitmap[] bitmap = {null};
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    bitmap[0] = ImageUtil.getBitmapFromURL(profileImage);
-                    Log.d("test", "bitmap[0]: " + bitmap[0].getByteCount());
-                    Bitmap roundBitmap = ImageUtil.getRoundedCornerBitmap(bitmap[0]);
-                    Log.d("test", "bitmap size: " + roundBitmap.getByteCount());
-                    Message message = new Message();
-                    message.obj = roundBitmap;
-                    handler.sendMessage(message);
-//
-//
-//                    uri[0] = ImageUtil.getImageUri(context, roundBitmap);
-//                    handler.sendEmptyMessage(0);
-                }
-            }).start();
+            Picasso.with(context).load(profileImage).into(imageView);
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    bitmap[0] = ImageUtil.getBitmapFromURL(profileImage);
+//                    Log.d("test", "bitmap[0]: " + bitmap[0].getByteCount());
+//                    Bitmap roundBitmap = ImageUtil.getRoundedCornerBitmap(bitmap[0]);
+//                    Log.d("test", "bitmap size: " + roundBitmap.getByteCount());
+//                    Message message = new Message();
+//                    message.obj = roundBitmap;
+//                    handler.sendMessage(message);
+////
+////
+////                    uri[0] = ImageUtil.getImageUri(context, roundBitmap);
+////                    handler.sendEmptyMessage(0);
+//                }
+//            }).start();
         }
         if(sharedPreferences.contains("profileRole")) {
             String profileRole = sharedPreferences.getString("profileRole", "");
@@ -124,21 +125,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    Handler handler = new Handler(new Handler.Callback(){
-
-
-        @Override
-        public boolean handleMessage(Message msg) {
-            if(msg != null){
-                Bitmap bitmap = (Bitmap) msg.obj;
-                Log.d("test", "handler size: "+bitmap.getWidth());
-                imageView.setImageBitmap(bitmap);
-//                Picasso.with(context).load(uri[0]).into(imageView);
-
-            }
-            return false;
-        }
-    });
+//    Handler handler = new Handler(new Handler.Callback(){
+//
+//
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            if(msg != null){
+//                Bitmap bitmap = (Bitmap) msg.obj;
+//                Log.d("test", "handler size: "+bitmap.getWidth());
+//                imageView.setImageBitmap(bitmap);
+////                Picasso.with(context).load(uri[0]).into(imageView);
+//
+//            }
+//            return false;
+//        }
+//    });
 
     private void getBabyInfo() {
         babyList = new ArrayList<BabyTagVo>();

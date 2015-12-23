@@ -88,7 +88,7 @@ public class AddBabyFragment extends Fragment {
     }
 
     private void initBabyList() {
-        adapter = new BabyListAdapter(babyVoList, context);
+        adapter = new BabyListAdapter(babyVoList, context, R.layout.baby_list_row);
         recyclerView.setAdapter(adapter);
     }
 
