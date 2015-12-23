@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:net.balbum.baby="http://schemas.android.com/tools">
 
     <group android:checkableBehavior="single">
         <!--<item-->
-            <!--android:id="@+id/nav_camara"-->
-            <!--android:icon="@android:drawable/ic_menu_camera"-->
-            <!--android:title="Import" />-->
+        <!--android:id="@+id/nav_camara"-->
+        <!--android:icon="@android:drawable/ic_menu_camera"-->
+        <!--android:title="Import" />-->
         <!--<item-->
-            <!--android:id="@+id/nav_gallery"-->
-            <!--android:icon="@android:drawable/ic_menu_gallery"-->
-            <!--android:title="Gallery" />-->
+        <!--android:id="@+id/nav_gallery"-->
+        <!--android:icon="@android:drawable/ic_menu_gallery"-->
+        <!--android:title="Gallery" />-->
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@android:drawable/ic_menu_slideshow"
             android:title="아기별 묶어보기" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_setting"
             android:icon="@android:drawable/ic_menu_manage"
-            app:actionLayout="@layout/action_view_switch"
             android:title="가족 설정"
-            app:showAsAction="always"
-            />
+            app:actionLayout="@layout/action_view_switch"
+            app:showAsAction="always" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="vhmxj" />
-            <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_poster"
                 android:icon="@android:drawable/ic_menu_send"
                 android:title="포스터" />
         </menu>

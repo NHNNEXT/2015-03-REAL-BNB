@@ -66,6 +66,8 @@
             <!--</intent-filter>-->
 
         </activity>
+        <activity android:name=".FamilySettingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".PosterCardSelectingActivity"
             android:screenOrientation="portrait"/>
 
