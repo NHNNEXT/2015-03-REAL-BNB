@@ -32,10 +32,8 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
         this.babyTag = babyTag;
         this.context = context;
 
-        Log.d("test", "to the 착: " + babyTag.size());
         if(babyTag != null && babyTag.size() == 1){
             babyTag.get(0).isSelected = true;
-            Log.d("test", "for 걸림: " + babyTag.size());
         }
     }
 

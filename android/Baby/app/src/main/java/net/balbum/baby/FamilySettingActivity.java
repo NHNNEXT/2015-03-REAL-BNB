@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ImageView;
@@ -13,7 +14,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.VO.BabyVo;
+import net.balbum.baby.VO.FamilyVo;
 import net.balbum.baby.adapter.BabyListAdapter;
+import net.balbum.baby.adapter.FamilyInfoAdapter;
+import net.balbum.baby.adapter.WaitingFamilyAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -67,11 +71,15 @@ public class FamilySettingActivity extends AppCompatActivity{
     }
 
     private void initFamilyMember() {
-        RecyclerView familyRv = (RecyclerView)findViewById(R.id.setting_babies);
+        RecyclerView familyRv = (RecyclerView)findViewById(R.id.setting_family_member);
+
+        List<FamilyVo> familyList = new ArrayList<FamilyVo>();
+        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "김밸범", "삼촌", false));
+
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         familyRv.setLayoutManager(sglm);
-        //adapter = new CardViewAdapter(cardGeneralModelList, context, R.layout.card_general_row_landscape);
-        //familyRv.setAdapter(adapter);
+        FamilyInfoAdapter adapter = new FamilyInfoAdapter(familyList, context);
+        familyRv.setAdapter(adapter);
 
     }
 
@@ -103,6 +111,17 @@ public class FamilySettingActivity extends AppCompatActivity{
 
     private void initWaitingMember() {
         RecyclerView waitingRv = (RecyclerView)findViewById(R.id.setting_family_waiting);
+
+        List<FamilyVo> familyList = new ArrayList<FamilyVo>();
+        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "홍밸범", "수퍼히어로아빠", false));
+        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450843303888635a1c73b662482ca42e0b956b981d3b.png", "아기하", "이모", false));
+
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        waitingRv.setLayoutManager(llm);
+
+        WaitingFamilyAdapter adapter = new WaitingFamilyAdapter(familyList, context);
+        waitingRv.setAdapter(adapter);
     }
 
 }

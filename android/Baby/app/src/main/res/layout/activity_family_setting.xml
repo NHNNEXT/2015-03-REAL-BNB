@@ -79,6 +79,7 @@
             android:textColor="@color/colorBase" />
 
         <android.support.v7.widget.RecyclerView
+            android:layout_margin="5dp"
             android:id="@+id/setting_family_member"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -103,7 +104,7 @@
             android:id="@+id/setting_babies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="3dp"
             />
 
     </LinearLayout>
