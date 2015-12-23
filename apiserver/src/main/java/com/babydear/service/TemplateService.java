@@ -1,9 +1,12 @@
 package com.babydear.service;
 
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,24 +28,60 @@ import com.babydear.repository.BabyRepository;
 @Service
 @PropertySource("classpath:config.properties")
 public class TemplateService {
-	 @Value("${FILE_UPLOAD_PATH}")
-	 private String FILE_STORAGE_DIRECTORY;
+	@Value("${FILE_UPLOAD_PATH}")
+	private String FILE_STORAGE_DIRECTORY;
+	private static final int IMG_WIDTH = 100;
+	private static final int IMG_HEIGHT = 100;
+	private static final Font f = new Font("Dialog", Font.PLAIN, 12);
 
 	public void setFILE_STORAGE_DIRECTORY(String fILE_STORAGE_DIRECTORY) {
 		FILE_STORAGE_DIRECTORY = fILE_STORAGE_DIRECTORY;
 	}
 
-
 	public void processTags(List<Long> cIds) throws IOException {
-		BufferedImage originalImage = ImageIO.read(new File(FILE_STORAGE_DIRECTORY+"imgs/sample/phoster_template.jpg"));
-		int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-		BufferedImage photo1 = ImageIO.read(new File(FILE_STORAGE_DIRECTORY+"imgs/dummy/photo1.jpg"));
-		BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-		ImageIO.write(originalImage, "jpg", new File(FILE_STORAGE_DIRECTORY+"imgs/sample/asdf.jpg")); 
+		BufferedImage originTemplate = ImageIO
+				.read(new File(FILE_STORAGE_DIRECTORY + "imgs/sample/phoster_template.jpg"));
+		int type = originTemplate.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originTemplate.getType();
+		BufferedImage originalImage = resizeImage(originTemplate, type, 738, 1042);
+
+		BufferedImage photo1 = ImageIO.read(new File(FILE_STORAGE_DIRECTORY + "imgs/dummy/photo1.jpg"));
+		BufferedImage resizeImageJpg = resizeImage(photo1, type);
+		BufferedImage putImageJpg = addImage(originalImage, Arrays.asList(photo1));
+		ImageIO.write(putImageJpg, "jpg", new File(FILE_STORAGE_DIRECTORY + "imgs/sample/asdf.jpg"));
+		// ImageIO.write(resizeImageJpg, "jpg", new File(FILE_STORAGE_DIRECTORY
+		// + "imgs/sample/asdf.jpg"));
+		// ImageIO.write(originalImage, "jpg", new File(FILE_STORAGE_DIRECTORY +
+		// "imgs/sample/asdf.jpg"));
+
 	}
-	
+
+	private BufferedImage addImage(BufferedImage originalImage, List<BufferedImage> photos) {
+		// BufferedImage resizedImage = new
+		// BufferedImage(originalImage.getWidth(), originalImage.getHeight(),
+		// originalImage.getType());
+		BufferedImage resizedImage = originalImage;
+		Graphics2D g = resizedImage.createGraphics();
+		// g.drawImage(originalImage, 0, 0, originalImage.getWidth(),
+		// originalImage.getHeight(), null);
+		for (int i = 0; i < photos.size(); i++) {
+			g.setFont(f);
+			g.drawImage(photos.get(i), 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+			g.drawString("우리아기 무럭무럭 자라렴", 200, 200);
+		}
+		g.dispose();
+		return resizedImage;
+	}
+
+	private BufferedImage resizeImage(BufferedImage originalImage, int type, int width, int height) {
+		BufferedImage resizedImage = new BufferedImage(width, height, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, width, height, null);
+		g.dispose();
+		return resizedImage;
+	}
+
 	private BufferedImage resizeImage(BufferedImage originalImage, int type) {
-		// TODO Auto-generated method stub
-		return null;
+		return resizeImage(originalImage, type, IMG_HEIGHT, IMG_WIDTH);
 	}
+
 }
