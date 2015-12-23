@@ -25,12 +25,16 @@ import android.widget.Toast;
 
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Config;
+import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.adapter.CardViewAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -49,11 +53,13 @@ public class MainActivity extends AppCompatActivity
     LinearLayout drawerLayout;
     SharedPreferences sharedPreferences;
     CardViewAdapter adapter;
+    List<BabyTagVo> babyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         context = this;
@@ -62,7 +68,35 @@ public class MainActivity extends AppCompatActivity
         initFab();
         getData();
        // initData();
+        getBabyInfo();
+    }
 
+    private void getBabyInfo() {
+        babyList = new ArrayList<BabyTagVo>();
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+            @Override
+            public void success(ArrayList<BabyVo> babyVos, Response response) {
+                for (BabyVo baby : babyVos) {
+                    BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
+                    babyList.add(babyTag);
+                    initNavRecyclerView();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    private void initNavRecyclerView() {
+        RecyclerView navRecyclerView = (RecyclerView)findViewById(R.id.nav_recycler_view);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        navRecyclerView.setLayoutManager(sglm);
+        BabyTagAdapter adapter = new BabyTagAdapter(babyList, context);
+        navRecyclerView.setAdapter(adapter);
     }
 
     private void getData() {
@@ -98,7 +132,6 @@ public class MainActivity extends AppCompatActivity
             StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(sglm);
             adapter = new CardViewAdapter(cardGeneralModelList, context, R.layout.card_general_row_landscape);
-            Log.d("test", "landscape");
         }
 
         recyclerView.setAdapter(adapter);
@@ -186,8 +219,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_setting) {
             ActivityUtil.goToActivity(context, FamilySettingActivity.class);
-
-        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_poster) {
             ActivityUtil.goToActivity(context, PosterMakingActivity.class);

@@ -12,14 +12,16 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/profile_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/nav_profile_imageView"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
-        android:id="@+id/profile_id"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/nav_profile_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -27,9 +29,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_profile_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="눈누난나~~" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nav_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
 
 </LinearLayout>
