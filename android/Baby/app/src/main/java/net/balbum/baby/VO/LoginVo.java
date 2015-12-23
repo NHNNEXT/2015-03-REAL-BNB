@@ -7,11 +7,18 @@ public class LoginVo {
 
     public String email;
     public String password;
-    private String token;
+    public String role;
+    public String fb;
 
-    public LoginVo(String email, String password) {
+    public LoginVo(String role, String fb) {
+        this.role = role;
+        this.fb = fb;
+    }
+
+    public LoginVo(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     @Override
@@ -19,11 +26,8 @@ public class LoginVo {
         return "LoginVo{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
-    }
-
-    public String getToken() {
-        return token;
     }
 
 }

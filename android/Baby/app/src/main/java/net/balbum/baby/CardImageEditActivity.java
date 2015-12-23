@@ -15,25 +15,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
 
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by hyes on 2015. 11. 20..
  */
 public class CardImageEditActivity extends AppCompatActivity implements View.OnClickListener {
-    static final int CAMERA_REQUEST = 0;
-    static final int GALLERY_PICTURE = 1;
-     Bitmap bitmap;
+
     String selectedImagePath;
     CropImageView cropImageView;
-    ImageView cropButton;
+    TextView cropButton;
     Context context;
     ImageView croppedImageView;
     static Bitmap croppedBitmap;
@@ -42,17 +41,16 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_edit);
+
         context = this;
 
-
         cropImageView = (CropImageView) findViewById(R.id.cropImageView);
-        cropButton = (ImageView) findViewById(R.id.crop_button);
+        cropButton = (TextView) findViewById(R.id.crop_button);
         croppedImageView = (ImageView) findViewById(R.id.croppedImageView);
 
-
-        ImageView camera_btn = (ImageView) findViewById(R.id.camera_btn);
-        ImageView gallery_btn = (ImageView) findViewById(R.id.gallery_btn);
-        ImageView confirm_btn = (ImageView) findViewById(R.id.confirm_button);
+        TextView camera_btn = (TextView) findViewById(R.id.camera_btn);
+        TextView gallery_btn = (TextView) findViewById(R.id.gallery_btn);
+        TextView confirm_btn = (TextView) findViewById(R.id.confirm_button);
 
         cropButton.setOnClickListener(this);
         camera_btn.setOnClickListener(this);
@@ -65,10 +63,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        bitmap = null;
-        selectedImagePath = null;
-
-        if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
+        if (resultCode == RESULT_OK && requestCode == Define.CAMERA_REQUEST) {
 
             File f = new File(Environment.getExternalStorageDirectory().toString());
 
@@ -93,7 +88,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 
             try {
 
-                bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+                Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
 
                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
 
@@ -131,7 +126,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                 e.printStackTrace();
             }
 
-        } else if (resultCode == RESULT_OK && requestCode == GALLERY_PICTURE) {
+        } else if (resultCode == RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
@@ -147,11 +142,11 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 //                    txt_image_path.setText(selectedImagePath);
 //                }
 
-                bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
                 // preview cardImg
                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
-                bitmap = GetRotatedBitmap(bitmap, GetExifOrientation(selectedImagePath));
+                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 cropImageView.setImageBitmap(bitmap);
 
             } else {
@@ -160,79 +155,6 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
             }
         }
 
-    }
-
-    /*
-  * 해당 각도만큼 회전시킨 bitmap을 return
-  */
-    public synchronized static Bitmap GetRotatedBitmap(Bitmap bitmap, int degrees)
-    {
-        if ( degrees != 0 && bitmap != null )
-        {
-            Matrix m = new Matrix();
-            m.setRotate(degrees, (float) bitmap.getWidth(), (float) bitmap.getHeight());
-            try
-            {
-                Bitmap b2 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
-                if (bitmap != b2)
-                {
-                    bitmap.recycle();
-                    bitmap = b2;
-                }
-            }
-            catch (OutOfMemoryError ex)
-            {
-                // We have no memory to rotate. Return the original bitmap.
-            }
-        }
-
-        return bitmap;
-    }
-
-    /*
-     * 해당 파일의 exif정보로 회전각도 가져오기
-     */
-    public synchronized static int GetExifOrientation(String filepath)
-    {
-        int degree = 0;
-        ExifInterface exif = null;
-
-        try
-        {
-            exif = new ExifInterface(filepath);
-        }
-        catch (IOException e)
-        {
-            Log.e("TAG", "cannot read exif");
-            e.printStackTrace();
-        }
-
-        if (exif != null)
-        {
-            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1);
-
-            if (orientation != -1)
-            {
-                // We only recognize a subset of orientation tag values.
-                switch(orientation)
-                {
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        degree = 90;
-                        break;
-
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        degree = 180;
-                        break;
-
-                    case ExifInterface.ORIENTATION_ROTATE_270:
-                        degree = 270;
-                        break;
-                }
-
-            }
-        }
-
-        return degree;
     }
 
     @Override
@@ -249,7 +171,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         Uri.fromFile(f));
 
                 startActivityForResult(intent,
-                        CAMERA_REQUEST);
+                        Define.CAMERA_REQUEST);
                 break;
 
             case R.id.gallery_btn:
@@ -260,7 +182,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(
                         pictureActionIntent,
-                        GALLERY_PICTURE);
+                        Define.GALLERY_PICTURE);
                 break;
 
             case R.id.crop_button:
@@ -271,11 +193,8 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                 break;
 
             case R.id.confirm_button:
-                Log.d("test", "눌림");
-
                 Intent intent1 = getIntent();
                 setResult(RESULT_OK, intent1);
-                Log.d("test", "눌림after setResult");
                 finish();
 
 
@@ -283,14 +202,13 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 //                Intent intent1 = new Intent(CardImageEditActivity.this, CardWritingActivity.class);
 //                intent1.putExtra("bitmap", (Bitmap)croppedBitmap);
 //                setResult(intent1, PICTURE_EDIT_COMPLETE);
-
                 break;
 
         }
     }
 
     private void saveBitmap(Bitmap croppedBitmap) {
-        File a = ConvertBitmapToFileUtil.convertFile(croppedBitmap);
+        File a = ImageUtil.ConvertBitmapToFile(croppedBitmap);
 
     }
 

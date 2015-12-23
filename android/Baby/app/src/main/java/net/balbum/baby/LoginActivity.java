@@ -52,14 +52,6 @@ public class LoginActivity extends FragmentActivity{
         super.onResume();
         taskService = ServiceGenerator.createService(TaskService.class);
 
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        if(sharedPreferences.contains("tokenB")) {
-//            String t = sharedPreferences.getString("tokenB", "");
-//            Log.i("test", "hello~~"+ t);
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//
-//        }
     }
 
     @Override
@@ -70,6 +62,7 @@ public class LoginActivity extends FragmentActivity{
         linear = (LinearLayout)findViewById(R.id.layout);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
         setContentView(R.layout.login_activity);
 
         password = (EditText)findViewById(R.id.user_password);
@@ -80,37 +73,20 @@ public class LoginActivity extends FragmentActivity{
         login_button_origin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doLogin();
-                Toast.makeText(context, "Email: "+ email.getText().toString() + " password: "+ password.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                emailString = email.getText().toString();
+
+                passwordString = password.getText().toString();
+                LoginVo loginVo = new LoginVo(emailString, passwordString);
+                Log.d("test", emailString + ", " + passwordString);
+                doLogin(loginVo);
+//                Toast.makeText(context, "Email: "+ email.getText().toString() + " password: "+ password.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-//        login_button_origin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                {
-//                    if (email.toString() == null) {
-//                        Snackbar.make(linear, "Fill in username.", Snackbar.LENGTH_SHORT).show();
-//
-//                    } else if (password.toString() == null) {
-//                        Snackbar.make(linear, "Fill in password.", Snackbar.LENGTH_SHORT).setAction("Clear", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//
-//                            }
-//                        }).show();
-//                    } else{
-////                        Snackbar.make(linear, "You are logged in.", Snackbar.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
 
         LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
         info = (TextView)findViewById(R.id.info);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-
-
 
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -152,45 +128,18 @@ public class LoginActivity extends FragmentActivity{
         });
     }
 
-    private void doLogin() {
-        emailString = email.getText().toString();
-
-        passwordString = password.getText().toString();
-        LoginVo loginVo = new LoginVo(emailString, passwordString);
-//        taskService.createLogin(loginVo, new Callback<AuthVo>() {
-//
-//
-//            @Override
-//            public void success(AuthVo authVo, Response response) {
-//                Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
-//
-//                Log.i("test", "task: " + authVo.token);
-//                saveTokenBalbum(context, authVo.token);
-//
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
-//                //실패시 토스트 메시니 또는 스낵바에 내용 띄워주기 추가할 것
-//
-//            }
-//        });
-
+    private void doLogin(final LoginVo loginVo) {
+        Log.i("test", "task: emil" + loginVo.email);
         taskService.createLogin(loginVo, new Callback<AuthVo>() {
-
-
             @Override
             public void success(AuthVo authVo, Response response) {
                 Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
 
                 Log.i("test", "task: " + authVo.token);
+                Log.i("test", "task: " + authVo.message);
                 saveTokenBalbum(context, authVo.token);
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+
             }
 
             @Override
@@ -202,20 +151,17 @@ public class LoginActivity extends FragmentActivity{
         });
     }
 
-    private void goMainActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-
-    }
 
     private void saveTokenBalbum(Context context, String token) {
 
-        Log.d("test", "saveToken~");
+        Log.d("test", "saveToken~ token: " + token);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("tokenB", token);
         Toast.makeText(context, "tokenB저" + token, Toast.LENGTH_SHORT).show();
         editor.commit();
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
 
     }
 

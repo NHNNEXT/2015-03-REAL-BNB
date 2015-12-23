@@ -21,7 +21,7 @@
             android:layout_marginRight="30dp">
 
             <EditText
-                android:id="@+id/add_baby_name"
+                android:id="@+id/add_family_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이미 가입한 가족의 메일을 입력하세요" />

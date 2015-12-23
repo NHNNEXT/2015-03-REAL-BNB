@@ -1,9 +1,22 @@
 package net.balbum.baby;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
+
+import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.LoginVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
 
 
 /**
@@ -11,17 +24,74 @@ import android.view.View;
  */
 public class SignEmailActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Context context;
+
+    EditText email;
+    EditText password;
+    EditText role;
+
+    LoginVo loginVo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_email_fragment);
 
-        findViewById(R.id.sign_btn).setOnClickListener(this);
+        context = this;
+        findViewById(R.id.sign).setOnClickListener(this);
+
+        email = (EditText)findViewById(R.id.sign_email);
+        password = (EditText)findViewById(R.id.sign_password);
+        role = (EditText)findViewById(R.id.sign_role);
+
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(SignEmailActivity.this, MainActivity.class);
-        startActivity(intent);
+
+
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+
+        if(getInfo()) {
+            taskService.createLogin(loginVo, new Callback<AuthVo>() {
+                @Override
+                public void success(AuthVo authVo, Response response) {
+                    goToActivity(context, MainActivity.class);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+        }
+
+    }
+
+    private boolean getInfo() {
+
+        if (email.getText().toString().matches("")) {
+            ToastUtil.show(context, "메일을 입력하세요");
+        } else if (password.getText().toString().matches("")) {
+            ToastUtil.show(context, "비밀번호를 입력하세요");
+        } else if(role.getText().toString().matches("")){
+            ToastUtil.show(context, "역할을 입력하세요");
+        } else {
+            if (!isValidEmail((CharSequence) email.getText().toString())) {
+                ToastUtil.show(context, "메일형식을 확인하세요");
+                return false;
+            }
+            loginVo = new LoginVo(email.getText().toString(), password.getText().toString());
+            return true;
+        }
+        return false;
+    }
+
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null)
+            return false;
+
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }

@@ -28,6 +28,11 @@ public interface TaskService {
     @POST("/api/user/login")
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
+
+    @POST("/api/user/login/fb")
+    void createSign(@Body LoginVo task, Callback<AuthVo> cb);
+
+
 //    @GET("/api/card")
 //    void getCard(@Body GeneralCardVo)
 //    @POST("/api/card")

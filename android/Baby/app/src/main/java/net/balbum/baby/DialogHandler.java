@@ -14,6 +14,10 @@ import java.util.Calendar;
 public class DialogHandler extends DialogFragment {
 
     View view;
+
+    public DialogHandler() {
+    }
+
     public DialogHandler(View view) {
         this.view = view;
     }
