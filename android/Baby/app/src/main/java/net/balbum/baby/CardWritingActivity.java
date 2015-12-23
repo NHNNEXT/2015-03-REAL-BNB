@@ -2,8 +2,6 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,7 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardFormVo;
@@ -37,50 +35,44 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
+
 /**
  * Created by hyes on 2015. 11. 10..
  */
 public class CardWritingActivity extends AppCompatActivity {
-    private static final int CARD_CREATE = 0;
-    private static final int CARD_MODIFY = 1;
 
-    List<Fragment> fragmentList = new ArrayList<>();
-    List<String> fragmentTitleList = new ArrayList<>();
-    GeneralCardFragment generalCardFragment;
-    EventCardFragment eventCardFragment;
     Context context;
-    Intent intent;
-    Toolbar toolbar;
+    List<Fragment> fragmentList = new ArrayList<>();
     List<BabyTagVo> babyTagNamesList;
     List<BabyVo> babyVoList;
-    TaskService taskService;
     ViewPager viewPager;
-    BabyTagAdapter adapter;
-    int type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_writing);
-        context = this;
-        taskService = ServiceGenerator.createService(TaskService.class);
 
-        intent = getIntent();
-        type = intent.getIntExtra("type", 0);
-        generalCardFragment = new GeneralCardFragment();
-        eventCardFragment = new EventCardFragment();
+        context = this;
+
+        Intent intent = getIntent();
+        int type = intent.getIntExtra("type", 0);
+        GeneralCardFragment generalCardFragment = new GeneralCardFragment();
+        EventCardFragment eventCardFragment = new EventCardFragment();
 
         initToolbar();
         initData();
         initViewPager(generalCardFragment, eventCardFragment);
 //        initBabyTag();
 
-        if (type == CARD_MODIFY) {
-
+        if (type == Define.CARD_MODIFY) {
 
             GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
             Bundle bundle = new Bundle();
             bundle.putParcelable("vo", cardVo);
+
+           // bundle.putParcelable("vo", Parcels.wrap(cardVo));
             Log.d("test", "modify start~" + cardVo.type);
             // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
@@ -101,7 +93,7 @@ public class CardWritingActivity extends AppCompatActivity {
         RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
         StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         rv_baby.setLayoutManager(sgm);
-        adapter = new BabyTagAdapter(babyTagNamesList, context);
+        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
         rv_baby.setAdapter(adapter);
     }
 
@@ -117,8 +109,9 @@ public class CardWritingActivity extends AppCompatActivity {
         //기본 저장되어있는 아이 정보 불러와서 리스트 만들 부분
         babyTagNamesList = new ArrayList<>();
         babyVoList = new ArrayList<>();
-        String token = "token";
-        taskService.getBabies(token, new Callback<ArrayList<BabyVo>>() {
+
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
@@ -133,29 +126,11 @@ public class CardWritingActivity extends AppCompatActivity {
 
               }
         });
-
-        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
-        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
-
-        File a = ConvertBitmapToFileUtil.convertFile(img1);
-        File b = ConvertBitmapToFileUtil.convertFile(img2);
-        File c = ConvertBitmapToFileUtil.convertFile(img3);
-
-        BabyTagVo baby1 = new BabyTagVo(a, "산체");
-        BabyTagVo baby2 = new BabyTagVo(b, "연두");
-        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
-
-//        babyTagNamesList.add(baby1);
-//        babyTagNamesList.add(baby2);
-//        babyTagNamesList.add(baby3);
-
         return null;
-
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -165,7 +140,6 @@ public class CardWritingActivity extends AppCompatActivity {
         adapter.addFrag(eventCardFragment, "특별한 순간");
         viewPager.setAdapter(adapter);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -221,15 +195,14 @@ public class CardWritingActivity extends AppCompatActivity {
 //                    Log.d("test", "카드 POST 실패");
 //                }
 //            });
-
+            TaskService taskService = ServiceGenerator.createService(TaskService.class);
             if((Long)vo.cid == 0) {
+
                 taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
-
-                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        goToActivity(CardWritingActivity.this, MainActivity.class);
                     }
 
                     @Override
@@ -242,8 +215,7 @@ public class CardWritingActivity extends AppCompatActivity {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "업데이트 성공!");
-                        Intent intent = new Intent(CardWritingActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        goToActivity(CardWritingActivity.this, MainActivity.class);
                     }
 
                     @Override
@@ -253,8 +225,6 @@ public class CardWritingActivity extends AppCompatActivity {
                 });
 
             }
-
-
 
             return true;
         }
@@ -270,6 +240,7 @@ public class CardWritingActivity extends AppCompatActivity {
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
+        List<String> fragmentTitleList = new ArrayList<String>();
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -289,8 +260,6 @@ public class CardWritingActivity extends AppCompatActivity {
             fragmentList.add(fragment);
             fragmentTitleList.add(title);
         }
-
-
 
         @Override
         public CharSequence getPageTitle(int position) {

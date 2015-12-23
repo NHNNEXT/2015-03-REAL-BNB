@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,82 +21,102 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import net.balbum.baby.Util.Config;
-import net.balbum.baby.Util.ConvertBitmapToFileUtil;
-import net.balbum.baby.Util.GetExifOrientationUtil;
-import net.balbum.baby.Util.GetRotatedBitmapUtil;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.adapter.BabyListAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
+
 /**
  * Created by hyes on 2015. 12. 11..
  */
 public class AddBabyFragment extends Fragment {
     Context context;
-    Button ok_btn;
-    TextView register_later;
+
     EditText add_baby_name;
     EditText add_baby_birthday;
-    ListView listView;
+    RecyclerView recyclerView;
     RadioGroup radioGroup;
     ImageView add_baby_image;
-    BabyVo.Gender baby_gender;
     int temp_gender;
-    TypedFile a;
-    Bitmap bitmap;
-    String selectedImagePath;
+    View view;
+    BabyListAdapter adapter;
+    List<BabyVo> babyVoList = new ArrayList<>();
+    String finalFilePath;
 
-
-    TaskService taskService;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.add_baby_fragment, container, false);
-        context = this.getActivity();
+        view = inflater.inflate(R.layout.add_baby_fragment, container, false);
+        context = getActivity();
+        initData();
         return view;
+    }
 
+    private void initData() {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+            @Override
+            public void success(ArrayList<BabyVo> babyVos, Response response) {
+                babyVoList = babyVos;
+                initBabyList();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    private void initBabyList() {
+        adapter = new BabyListAdapter(babyVoList, context, R.layout.baby_list_row);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        taskService = ServiceGenerator.createService(TaskService.class);
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        ok_btn = (Button)this.getActivity().findViewById(R.id.add_baby_btn);
-        register_later = (TextView)this.getActivity().findViewById(R.id.register_later);
-        add_baby_name = (EditText)this.getActivity().findViewById(R.id.add_baby_name);
-        add_baby_birthday = (EditText)this.getActivity().findViewById(R.id.add_baby_birthday);
-        add_baby_image = (ImageView)this.getActivity().findViewById(R.id.add_baby_photo);
-        radioGroup = (RadioGroup)this.getActivity().findViewById(R.id.add_baby_radiogroup);
-        listView = (ListView)this.getActivity().findViewById(R.id.list);
+        Button add_btn = (Button) view.findViewById(R.id.add_baby_btn);
+        Button complete_btn = (Button) view.findViewById(R.id.add_complete_btn);
+        TextView register_later = (TextView) view.findViewById(R.id.register_later);
+        add_baby_name = (EditText) view.findViewById(R.id.add_baby_name);
+        add_baby_birthday = (EditText) view.findViewById(R.id.add_baby_birthday);
+        add_baby_image = (ImageView) view.findViewById(R.id.add_baby_photo);
+        radioGroup = (RadioGroup) view.findViewById(R.id.add_baby_radiogroup);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pictureActionIntent = null;
 
-                pictureActionIntent = new Intent(
-                        Intent.ACTION_PICK,
+                pictureActionIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(
-                        pictureActionIntent,
-                        Config.GALLERY_PICTURE);
+                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
             }
         });
 
@@ -107,10 +131,18 @@ public class AddBabyFragment extends Fragment {
         register_later.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMainActivity();
+                goToActivity(context, MainActivity.class);
             }
         });
-        ok_btn.setOnClickListener(new View.OnClickListener() {
+
+        complete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(context, MainActivity.class);
+            }
+        });
+
+        add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createBabyInfo();
@@ -120,30 +152,43 @@ public class AddBabyFragment extends Fragment {
     }
 
     private void createBabyInfo() {
-        Log.d("test", "createBabyInfo");
         BabyVo babyVo = new BabyVo();
-        babyVo.babyBirth = add_baby_birthday.getText().toString();
-        babyVo.babyName = add_baby_name.getText().toString();
 
-        temp_gender =radioGroup.getCheckedRadioButtonId();
-        if(temp_gender == R.id.radio0){
+        if(add_baby_birthday.getText().toString().matches("")){
+            ToastUtil.show(context, "아기 이름을 입력해주세요. ");
+        }else if(add_baby_name.getText().toString().matches("")){
+            ToastUtil.show(context, "아기 생일(예정일)을 입력해주세요. ");
+        }else{
+            babyVo.babyBirth = add_baby_birthday.getText().toString();
+            babyVo.babyName = add_baby_name.getText().toString();
+        }
+
+        temp_gender = radioGroup.getCheckedRadioButtonId();
+
+        if (temp_gender == R.id.radio0) {
             babyVo.babyGender = BabyVo.Gender.GIRL;
-        }else if(temp_gender == R.id.radio1){
+        } else if (temp_gender == R.id.radio1) {
             babyVo.babyGender = BabyVo.Gender.BOY;
-        }else if(temp_gender == R.id.radio2) {
+        } else if (temp_gender == R.id.radio2) {
             babyVo.babyGender = BabyVo.Gender.PREGNANCY;
         }
-        Bitmap img = BitmapFactory.decodeResource(context.getResources(), R.drawable.img5);
-        File ab = ConvertBitmapToFileUtil.convertFile(img);
-        TypedFile a = new TypedFile("multipart/form-data", ab);
-        if(babyVo.babyGender == null){
+
+        File file = new File(finalFilePath);
+        TypedFile typedFile = new TypedFile("multipart/form-data", file);
+
+        if (babyVo.babyGender == null) {
             babyVo.babyGender = BabyVo.Gender.UNDEFINED;
         }
-        taskService.createBabyInfo(a, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
+
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "baby post success");
-                goToMainActivity();
+                Fragment fragment = new AddBabyFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
             }
 
             @Override
@@ -153,45 +198,34 @@ public class AddBabyFragment extends Fragment {
         });
     }
 
-    private void goToMainActivity() {
-        Intent intent = new Intent(context, MainActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        bitmap = null;
-        selectedImagePath = null;
-
-
-        if (resultCode == getActivity().RESULT_OK && requestCode == Config.GALLERY_PICTURE) {
+        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
-                Cursor c = context.getContentResolver().query(selectedImage, filePath,
+
+                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
                         null, null, null);
-                c.moveToFirst();
-                int columnIndex = c.getColumnIndex(filePath[0]);
-                selectedImagePath = c.getString(columnIndex);
-                c.close();
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePath[0]);
+                String selectedImagePath = cursor.getString(columnIndex);
+                cursor.close();
 
-                //                if (selectedImagePath != null) {
-                //                    txt_image_path.setText(selectedImagePath);
-                //                }
-
-                bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
-                // preview cardImg
-                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
-
-                bitmap = GetRotatedBitmapUtil.GetRotatedBitmap(bitmap, GetExifOrientationUtil.GetExifOrientation(selectedImagePath));
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
+                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
 
+                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
+//                Uri temp = Uri.parse(selectedImagePath);
+                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
+
+
             } else {
-                Toast.makeText(context, "Cancelled",
-                        Toast.LENGTH_SHORT).show();
+                ToastUtil.cancle(context);
             }
         }
     }

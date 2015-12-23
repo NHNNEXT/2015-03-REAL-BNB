@@ -14,7 +14,7 @@
         android:src="@drawable/balbum_logo" />
 
     <Button
-        android:id="@+id/start_btn"
+        android:id="@+id/start"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
@@ -24,10 +24,10 @@
         android:textColor="@color/colorBase" />
 
     <TextView
-        android:id="@+id/already_signed_tv"
+        android:id="@+id/already_signed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_btn"
+        android:layout_below="@+id/start"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:paddingBottom="40dp"

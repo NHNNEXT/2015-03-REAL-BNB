@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 
 import java.util.ArrayList;
@@ -23,19 +23,17 @@ import java.util.List;
  */
 public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyViewHolder> {
 
-    private List<BabyTagVo> babyTag;
-    private Context context;
-    private ArrayList<Long> selectedList =new ArrayList<Long>();
+    List<BabyTagVo> babyTag;
+    Context context;
+    ArrayList<Long> selectedList =new ArrayList<Long>();
 
 
     public BabyTagAdapter(List<BabyTagVo> babyTag, Context context) {
         this.babyTag = babyTag;
         this.context = context;
 
-        Log.d("test", "to the 착: " + babyTag.size());
         if(babyTag != null && babyTag.size() == 1){
             babyTag.get(0).isSelected = true;
-            Log.d("test", "for 걸림: " + babyTag.size());
         }
     }
 
@@ -51,7 +49,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     public void onBindViewHolder(final BabyViewHolder holder, final int position) {
 //        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(babyTag.get(position).image));
 
-        Picasso.with(context).load(Config.URL+ babyTag.get(position).babyImg).into(holder.photo);
+        Picasso.with(context).load(Define.URL+ babyTag.get(position).babyImg).into(holder.photo);
 
         holder.name.setText(babyTag.get(position).name);
 

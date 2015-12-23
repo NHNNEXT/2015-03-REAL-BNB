@@ -34,7 +34,8 @@
         <activity
             android:name=".CardWritingActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".LoadingActivity"
             android:screenOrientation="portrait">
@@ -42,7 +43,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity android:name=".CardImageEditActivity">
@@ -57,6 +57,18 @@
         <activity android:name=".SignFacebookActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".InitialSettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PosterMakingActivity"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
+        <activity android:name=".FamilySettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PosterCardSelectingActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.facebook.FacebookActivity"

@@ -1,13 +1,13 @@
 package net.balbum.baby;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
@@ -23,24 +23,20 @@ public class LoadingActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     Context context;
-    TaskService taskService;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+
         context = this;
 
-        taskService = ServiceGenerator.createService(TaskService.class);
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         if(sharedPreferences.contains("tokenB")) {
             String t = sharedPreferences.getString("tokenB", "");
-            Log.d("test", "token~~" + t);
+            Log.d("test", "Loading page: token~~" + t);
 
             //서버한테 토큰 보내서 유효성 확인인 후 success면 이거 인텐
             taskService.tokenCheck(t, new Callback<ResponseVo>() {
@@ -49,8 +45,7 @@ public class LoadingActivity extends AppCompatActivity {
                     Log.d("test", "responseVo" + responseVo.state);
 
                     if(responseVo.state) {
-                        Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        ActivityUtil.goToActivity(LoadingActivity.this, MainActivity.class);
                     }else {
                         goToStartActivity();
                     }
@@ -71,7 +66,6 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void goToStartActivity() {
-        Intent intent = new Intent(LoadingActivity.this, StartActivity.class);
-        startActivity(intent);
+        ActivityUtil.goToActivity(LoadingActivity.this, StartActivity.class);
     }
 }

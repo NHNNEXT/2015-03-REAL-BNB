@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import net.balbum.baby.Util.ImageUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,6 +66,8 @@ InputStream is;
 
                     bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 
+                    bit = ImageUtil.getRoundedCornerBitmap(bmp);
+
                     Log.d("test", "bmp: " + bmp.getConfig());
 
                 }  catch (MalformedURLException e) {
@@ -89,11 +91,12 @@ InputStream is;
         public boolean handleMessage(Message msg) {
             if(msg != null){
 
-                Picasso.with(context)
-                        .load(d)
-                        .resize(250, 200)
-                        .placeholder(R.mipmap.ic_launcher)
-                        .into(iv);
+//                Picasso.with(context)
+//                        .load(d)
+//                        .resize(250, 200)
+//                        .placeholder(R.mipmap.ic_launcher)
+//                        .into(iv);
+                iv.setImageBitmap(bit);
 
                 Log.d("test", "poicassosososo" + d);
 //                iv.setImageBitmap(bmp);

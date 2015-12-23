@@ -2,7 +2,7 @@ package net.balbum.baby.lib.retrofit;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -12,9 +12,8 @@ import retrofit.client.OkClient;
  */
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = Config.URL;
+    public static final String API_BASE_URL = Define.URL;
 //    public static final String API_BASE_URL = "http://dev.balbum.net";
-//
 
 
     private static RestAdapter.Builder builder = new RestAdapter.Builder()

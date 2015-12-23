@@ -2,7 +2,9 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,59 +15,86 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
 
+import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.LoginVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
+
 /**
  * Created by hyes on 2015. 12. 7..
  */
 public class SignFacebookActivity extends AppCompatActivity{
 
     Context context;
-    ProfilePictureView profilePictureView;
-//    EditText signEmail;
-//    EditText signName;
-    Button sign_btn;
-    TextView signEmail;
-    TextView signName;
-    EditText signRole;
-    String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         context = this;
+
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_sign_facebook);
 
         Intent intent = getIntent();
         String profileId = intent.getStringExtra("profileId");
-        String profileEmail = intent.getStringExtra("profileEmail");
-        String profileName = intent.getStringExtra("profileName");
-        Log.d("test", "id : " + profileId + " profileEmail: " + profileEmail + " profileName: "+profileName);
+        final String profileEmail = intent.getStringExtra("profileEmail");
+        final String profileName = intent.getStringExtra("profileName");
+        final String profileImage = intent.getStringExtra("profileImage");
+        final String token= intent.getStringExtra("token");
+        Log.d("test", "token: "+token);
 
-        profilePictureView = (ProfilePictureView) findViewById(R.id.image);
+        ProfilePictureView  profilePictureView = (ProfilePictureView) findViewById(R.id.image);
         profilePictureView.setProfileId(profileId);
 
-//        signEmail = (EditText)findViewById(R.id.sign_email);
-//        signEmail.setText(profileEmail);
-//
-//        signName = (EditText)findViewById(R.id.sign_name);
-//        signName.setText(profileName);
-
-        signName = (TextView)findViewById(R.id.sign_email_tv);
+        TextView signName = (TextView)findViewById(R.id.sign_email_tv);
         signName.setText(profileName);
-        signEmail = (TextView)findViewById(R.id.sign_name_tv);
-        signEmail.setText(profileEmail);
-        signRole =(EditText)findViewById(R.id.sign_role);
 
-        sign_btn = (Button)findViewById(R.id.sign_btn);
+        final TextView signEmail = (TextView)findViewById(R.id.sign_name_tv);
+        signEmail.setText(profileEmail);
+
+        final EditText signRole =(EditText)findViewById(R.id.sign_role);
+
+        Button sign_btn = (Button)findViewById(R.id.sign);
         sign_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                role = signRole.getText().toString();
-                Log.d("test", "role" + role);
-                Intent intent = new Intent(SignFacebookActivity.this, InitialSettingActivity.class);
-                startActivity(intent);
+
+                final String profileRole = signRole.getText().toString();
+
+                if(profileRole.matches("")){
+                    ToastUtil.show(context, "역할을 입력해주세요.");
+                }else {
+                    TaskService taskService = ServiceGenerator.createService(TaskService.class);
+                    taskService.createSign(new LoginVo(profileRole, token), new Callback<AuthVo>() {
+                        @Override
+                        public void success(AuthVo authVo, Response response) {
+
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("tokenB", token);
+                            editor.putString("profileName", profileName);
+                            editor.putString("profileImage", profileImage);
+                            editor.putString("profileRole", profileRole);
+                            editor.commit();
+                            goToActivity(context, InitialSettingActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
             }
         });
-
     }
 }

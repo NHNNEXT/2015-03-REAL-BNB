@@ -4,59 +4,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.isseiaoki.simplecropview.CropImageView
+    <com.isseiaoki.simplecropview.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cropImageView"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         custom:cropMode="ratio_1_1" />
 
     <!--<Button-->
-        <!--android:id="@+id/test"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:text="CROP"-->
-        <!--android:layout_weight="0.5"-->
-        <!--/>-->
+    <!--android:id="@+id/test"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:text="CROP"-->
+    <!--android:layout_weight="0.5"-->
+    <!--/>-->
 
     <ImageView
         android:id="@+id/croppedImageView"
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
+
     <LinearLayout
-        android:layout_height="40dp"
         android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:orientation="horizontal">
-        <ImageView
+
+        <TextView
             android:id="@+id/camera_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_add_a_photo_black_24dp"/>
-        <ImageView
+            android:gravity="center"
+            android:text="@string/camera"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
             android:id="@+id/gallery_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_photo_black_24dp"/>
-        <ImageView
+            android:gravity="center"
+            android:text="@string/gallery"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
             android:id="@+id/crop_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_photo_size_select_large_black_24dp"/>
-        <ImageView
+            android:gravity="center"
+            android:text="@string/crop"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
             android:id="@+id/confirm_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_add_to_photos_black_24dp"/>
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
 </LinearLayout>

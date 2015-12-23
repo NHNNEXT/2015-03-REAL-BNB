@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:orientation="vertical"
+    android:layout_marginRight="1dp"
+    android:layout_marginLeft="1dp">
+
+
+    <ImageView
+        android:id="@+id/baby_photo"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/baby_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/baby_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/baby_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="10dp" />
+
+</LinearLayout>
+
