@@ -81,7 +81,7 @@ section.lp-container .inner h2 {
 .lp-content .modal {
   max-width: 400px !important;
   max-height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .lp-content .modal .caption {
   font-weight: bold;
@@ -99,9 +99,11 @@ section.lp-container .inner h2 {
 }
 .lp-content .modal .modal-box .fb-login {
   width: 100%;
+  cursor: pointer;
 }
 .lp-content .modal .modal-box .fb-signup {
   width: 100%;
+  cursor: pointer;
 }
 .lp-content .modal .modal-box .separator {
   margin-top: 30px;

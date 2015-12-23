@@ -153,7 +153,7 @@ var emailValidation = function(){
         data: postString,
         success: function(res) {  //성공시 이 함수를 호출한다.
             console.log(res.state, res.error);
-            $('#errors').text(res.error);
+            $('#signup-message').text(res.error);
             
        },
        error: function(res){
@@ -169,7 +169,7 @@ var passwordValidation = function(){
     var confirmPassword = $('#signup-confirm-password').val();
 
     if(password != confirmPassword){
-        $('#errors').text('비밀번호를 다시 확인해주세요.');
+        $('#signup-message').text('비밀번호를 다시 확인해주세요.');
     }
 }
 

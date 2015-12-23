@@ -12,6 +12,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 		<link rel="stylesheet" type="text/css" href="css/landing1.css"/>
+		<script src="//connect.facebook.net/en_US/all.js"></script>
+		<script type="text/javascript" src="js/facebookLogin.js"></script>
 	</head>
 	<body class="lp-body">
 		<!-- 상단바 -->
@@ -54,10 +56,8 @@
 			    			</div>
 	
 			    			<div class="modal-box col s12">
-			    				<!-- <img src="img/fb-login.png" class="fb-login" alt="facebook-login"> -->
-			    				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-			    				</fb:login-button>
-			    				
+			    				<img src="img/fb-login.png" class="fb-login" alt="facebook-login" onclick="fbLogin()">
+
 			    				<div class="separator">
 			    					<div>또는</div>
 			    				</div>
@@ -76,7 +76,7 @@
 			    					    </div>
 			    					</div>
 			    					<div class="row">
-			    						<div id="errors1"></div>
+			    						<div id="login-message"></div>
 			    					</div>
 			    					<button name="submit" type="submit" class="login-btn modal-action modal-close waves-effect waves-light btn-large">로그인</button>
 			    				</form>
@@ -92,7 +92,7 @@
 			    			</div>
 
 			    			<div class="modal-box col s12">
-			    				<img src="img/fb-signup.png" class="fb-signup" alt="facebook-signup">
+			    				<img src="img/fb-signup.png" class="fb-signup" alt="facebook-signup" onclick="fbSignup()">
 			    				
 			    				<div class="separator">
 			    					<div>또는</div>
@@ -130,7 +130,7 @@
 			    						</div>
 			    					</div>
 			    					<div class="row">
-			    						<div id="errors"></div>
+			    						<div id="signup-message"></div>
 			    					</div>
 			    					<button name="submit" type="submit" value="submit" class="signup-btn modal-action modal-close waves-effect waves-light btn-large">계정 만들기</button>
 			    				</form>
@@ -150,6 +150,5 @@
 		<script type="text/javascript" src="js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/vendor/materialize.js"></script>
 		<script type="text/javascript" src="js/landing1.js"></script>
-		<script type="text/javascript" src="js/facebookLogin.js"></script>
 	</body>
 </html>

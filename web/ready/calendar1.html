@@ -10,36 +10,18 @@
 
 <body>
 
-<div clas="add_wrap">
-	<form class="add_todo">
+<!-- <div clas="add_wrap">
+	<form class="add_todo"> -->
 		
 		<!-- 날짜선택 -->
-		
     <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택">
 		
-  	</form>
+  	<!-- </form> -->
 
-</div>
+<!-- </div> -->
 
 </body>
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-  var datepicker = $("#datepicker");
-  datepicker.datepicker({ 
-    firstDay: 0, // 일요일 부터 시작 
-    maxDate: 0, // 오늘 이후는 선택 못함
-    dayNamesMin: 
-        [ "일", "월", "화", "수", "목", "금", "토" ] ,
-    dateFormat: "yy-mm-dd"
-  });
-
-  $("#ui-datepicker-div").addClass("ui-datepicker-default");
-  
-	datepicker.click(function() {
-   $("#ui-datepicker-div").removeClass("ui-datepicker-default");
-  });
-});
-</script>
+<script type="text/javascript" src="js/calendar.js"></script>
 </html>
