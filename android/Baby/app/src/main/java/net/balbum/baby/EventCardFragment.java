@@ -17,8 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import net.balbum.baby.Util.BitmapUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -80,19 +80,19 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         bg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, Config.EVENT_CARD_BG1);
+                setBackground(v, Define.EVENT_CARD_BG1);
             }
         });
         bg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, Config.EVENT_CARD_BG2);
+                setBackground(v, Define.EVENT_CARD_BG2);
             }
         });
         bg3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(v, Config.EVENT_CARD_BG3);
+                setBackground(v, Define.EVENT_CARD_BG3);
             }
         });
     }
@@ -101,12 +101,12 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         Animation anim = AnimationUtils.loadAnimation(context, R.anim.event_background);
         button.startAnimation(anim);
 
-        if(type == Config.EVENT_CARD_BG1){
+        if(type == Define.EVENT_CARD_BG1){
             ToastUtil.show(context, "show");
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg1));
-        }else if(type == Config.EVENT_CARD_BG2){
+        }else if(type == Define.EVENT_CARD_BG2){
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg2));
-        }else if(type == Config.EVENT_CARD_BG3) {
+        }else if(type == Define.EVENT_CARD_BG3) {
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg3));
         }
     }
@@ -119,9 +119,9 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = BitmapUtil.ConvertBitmapToFile(img1);
-        File b = BitmapUtil.ConvertBitmapToFile(img2);
-        File c = BitmapUtil.ConvertBitmapToFile(img3);
+        File a = ImageUtil.ConvertBitmapToFile(img1);
+        File b = ImageUtil.ConvertBitmapToFile(img2);
+        File c = ImageUtil.ConvertBitmapToFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");

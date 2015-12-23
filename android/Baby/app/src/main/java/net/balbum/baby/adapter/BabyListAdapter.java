@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyVo;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class BabyListAdapter extends RecyclerView.Adapter<BabyListAdapter.BabyVo
         holder.name.setText(babyVoList.get(position).babyName);
         holder.birthday.setText(babyVoList.get(position).babyBirth);
         holder.gender.setText(babyVoList.get(position).babyGender + "");
-        Picasso.with(context).load(Config.URL+ babyVoList.get(position).babyImg).into(holder.photo);
+        Picasso.with(context).load(Define.URL+ babyVoList.get(position).babyImg).into(holder.photo);
         Log.d("test", "img" + babyVoList.get(position).babyImg);
     }
 

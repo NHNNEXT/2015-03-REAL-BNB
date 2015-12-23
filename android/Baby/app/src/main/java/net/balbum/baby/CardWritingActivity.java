@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardFormVo;
@@ -66,7 +66,7 @@ public class CardWritingActivity extends AppCompatActivity {
         initViewPager(generalCardFragment, eventCardFragment);
 //        initBabyTag();
 
-        if (type == Config.CARD_MODIFY) {
+        if (type == Define.CARD_MODIFY) {
 
             GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
             Bundle bundle = new Bundle();

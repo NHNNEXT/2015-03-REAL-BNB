@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
 
-import net.balbum.baby.Util.BitmapUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
 
 import java.io.File;
 
@@ -63,7 +63,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == Config.CAMERA_REQUEST) {
+        if (resultCode == RESULT_OK && requestCode == Define.CAMERA_REQUEST) {
 
             File f = new File(Environment.getExternalStorageDirectory().toString());
 
@@ -126,7 +126,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                 e.printStackTrace();
             }
 
-        } else if (resultCode == RESULT_OK && requestCode == Config.GALLERY_PICTURE) {
+        } else if (resultCode == RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
@@ -146,7 +146,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                 // preview cardImg
                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
-                bitmap = BitmapUtil.GetRotatedBitmap(bitmap, BitmapUtil.GetExifOrientation(selectedImagePath));
+                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 cropImageView.setImageBitmap(bitmap);
 
             } else {
@@ -171,7 +171,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         Uri.fromFile(f));
 
                 startActivityForResult(intent,
-                        Config.CAMERA_REQUEST);
+                        Define.CAMERA_REQUEST);
                 break;
 
             case R.id.gallery_btn:
@@ -182,7 +182,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(
                         pictureActionIntent,
-                        Config.GALLERY_PICTURE);
+                        Define.GALLERY_PICTURE);
                 break;
 
             case R.id.crop_button:
@@ -208,7 +208,7 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
     }
 
     private void saveBitmap(Bitmap croppedBitmap) {
-        File a = BitmapUtil.ConvertBitmapToFile(croppedBitmap);
+        File a = ImageUtil.ConvertBitmapToFile(croppedBitmap);
 
     }
 

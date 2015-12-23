@@ -26,7 +26,7 @@ import net.balbum.baby.CardWritingActivity;
 import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.ActivityUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -80,7 +80,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
 //        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
         Picasso.with(context)
-                .load((Config.URL + cards.get(position).cardImg))
+                .load((Define.URL + cards.get(position).cardImg))
                 .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
@@ -125,7 +125,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     private void modifyCard(int position) {
 
         Intent intent = new Intent(context, CardWritingActivity.class);
-        intent.putExtra("type", Config.CARD_MODIFY);
+        intent.putExtra("type", Define.CARD_MODIFY);
         GeneralCardVo vo = cards.get(position);
         intent.putExtra("generalCardVo", Parcels.wrap(vo));
         context.startActivity(intent);

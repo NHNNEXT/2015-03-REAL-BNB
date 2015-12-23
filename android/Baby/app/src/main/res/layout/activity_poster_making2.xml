@@ -30,7 +30,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="13dp"
             android:rotation="1"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
         <ImageView
             android:id="@+id/p2"
@@ -40,7 +40,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:rotation="2"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
         <ImageView
             android:id="@+id/p3"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="19dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
 
     </LinearLayout>
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="13dp"
             android:rotation="3"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
         <ImageView
             android:id="@+id/p5"
@@ -76,14 +76,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="13dp"
             android:rotation="5"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
         <ImageView
             android:id="@+id/p6"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
     </LinearLayout>
 
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="13dp"
             android:rotation="5"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
         <ImageView
             android:id="@+id/p8"
@@ -112,7 +112,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="13dp"
             android:rotation="5"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
 
 
         <ImageView
@@ -120,7 +120,7 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_filter_vintage_white_24dp"/>
+            android:src="@drawable/ic_fingerprint_white_24dp"/>
     </LinearLayout>
 
 

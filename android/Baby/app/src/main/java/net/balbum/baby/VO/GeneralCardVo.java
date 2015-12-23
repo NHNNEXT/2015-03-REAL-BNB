@@ -6,12 +6,11 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.annotations.Required;
-
 /**
  * Created by hyes on 2015. 11. 10..
  */
 
+@org.parceler.Parcel
 public class GeneralCardVo implements Parcelable{
 
     public enum Type{
@@ -25,7 +24,6 @@ public class GeneralCardVo implements Parcelable{
         }
     }
 
-    @Required
     public String modifiedDate;
     public String cardImg;
     public long cid;
@@ -58,8 +56,8 @@ public class GeneralCardVo implements Parcelable{
         this.names = new ArrayList<Long>();
         for(int i = 0 ; i < babies.size(); i++) {
             names.add(babies.get(i).bId);
-            this.type = type;
         }
+        this.type = type;
     }
 
 

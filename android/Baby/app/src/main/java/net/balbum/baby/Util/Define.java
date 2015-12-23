@@ -3,7 +3,7 @@ package net.balbum.baby.Util;
 /**
  * Created by hyes on 2015. 12. 7..
  */
-public interface Config {
+public interface Define {
     String URL="http://dev.balbum.net";
     String EVENT_CARD_BG1 = "event_background_1";
     String EVENT_CARD_BG2 = "event_background_2";

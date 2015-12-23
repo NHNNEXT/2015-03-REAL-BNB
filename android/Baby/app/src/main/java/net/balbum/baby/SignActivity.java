@@ -2,6 +2,8 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,9 @@ import com.facebook.login.LoginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 
 import static net.balbum.baby.Util.ActivityUtil.goToActivity;
@@ -98,6 +103,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
 
                  Handler handler = new Handler();
                  handler.postDelayed(runnable, 1000);
+
              }
 
              Runnable runnable = new Runnable() {
@@ -107,6 +113,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                      intent.putExtra("profileId", profileId);
                      intent.putExtra("profileEmail", profileEmail);
                      intent.putExtra("profileName", profileName);
+                     intent.putExtra("profileImage", "https://graph.facebook.com/" + profileId + "/picture?type=large");
                      intent.putExtra("token", token);
                      startActivity(intent);
                      finish();
@@ -126,6 +133,24 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
          });
 
     }
+
+    public static Bitmap getFacebookProfilePicture(String userID){
+        Bitmap bitmap = null;
+        try {
+            URL imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
+            bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();

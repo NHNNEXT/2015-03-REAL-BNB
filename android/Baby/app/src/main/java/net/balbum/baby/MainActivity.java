@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,11 +24,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.balbum.baby.Util.ActivityUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
@@ -54,6 +61,9 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences sharedPreferences;
     CardViewAdapter adapter;
     List<BabyTagVo> babyList;
+    ImageView imageView;
+
+    final Uri[] uri = {null};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +79,66 @@ public class MainActivity extends AppCompatActivity
         getData();
        // initData();
         getBabyInfo();
+        initNavProfile();
     }
+
+    private void initNavProfile() {
+
+        imageView = (ImageView) findViewById(R.id.nav_profile_imageView);
+        TextView nav_name = (TextView)findViewById(R.id.nav_profile_id);
+        TextView nav_role = (TextView)findViewById(R.id.nav_profile_role);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if(sharedPreferences.contains("profileName")) {
+            String profileName = sharedPreferences.getString("profileName", "");
+            Log.d("test", "initNavProifile: " + profileName);
+            nav_name.setText(profileName);
+        }
+        if(sharedPreferences.contains("profileImage")) {
+
+            final String profileImage = sharedPreferences.getString("profileImage", "");
+            final Bitmap[] bitmap = {null};
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    bitmap[0] = ImageUtil.getBitmapFromURL(profileImage);
+                    Log.d("test", "bitmap[0]: " + bitmap[0].getByteCount());
+                    Bitmap roundBitmap = ImageUtil.getRoundedCornerBitmap(bitmap[0]);
+                    Log.d("test", "bitmap size: " + roundBitmap.getByteCount());
+                    Message message = new Message();
+                    message.obj = roundBitmap;
+                    handler.sendMessage(message);
+//
+//
+//                    uri[0] = ImageUtil.getImageUri(context, roundBitmap);
+//                    handler.sendEmptyMessage(0);
+                }
+            }).start();
+        }
+        if(sharedPreferences.contains("profileRole")) {
+            String profileRole = sharedPreferences.getString("profileRole", "");
+            Log.d("test", "initNavProifile: " + profileRole);
+            nav_role.setText(profileRole);
+        }
+    }
+
+    Handler handler = new Handler(new Handler.Callback(){
+
+
+        @Override
+        public boolean handleMessage(Message msg) {
+            if(msg != null){
+                Bitmap bitmap = (Bitmap) msg.obj;
+                Log.d("test", "handler size: "+bitmap.getWidth());
+                imageView.setImageBitmap(bitmap);
+//                Picasso.with(context).load(uri[0]).into(imageView);
+
+            }
+            return false;
+        }
+    });
 
     private void getBabyInfo() {
         babyList = new ArrayList<BabyTagVo>();
@@ -101,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 
     private void getData() {
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Config.URL);
+        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
         Log.d("test", " getCard시작?~");
         taskService.getCard("token", new Callback<CardListVo>() {
             @Override
@@ -215,9 +284,7 @@ public class MainActivity extends AppCompatActivity
 //            // Handle the camera action
 //        } else if (id == R.id.nav_gallery) {
 
-        if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_setting) {
+        if (id == R.id.nav_setting) {
             ActivityUtil.goToActivity(context, FamilySettingActivity.class);
 
         } else if (id == R.id.nav_poster) {

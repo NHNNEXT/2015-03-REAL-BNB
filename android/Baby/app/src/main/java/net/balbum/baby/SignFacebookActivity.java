@@ -47,7 +47,8 @@ public class SignFacebookActivity extends AppCompatActivity{
         Intent intent = getIntent();
         String profileId = intent.getStringExtra("profileId");
         final String profileEmail = intent.getStringExtra("profileEmail");
-        String profileName = intent.getStringExtra("profileName");
+        final String profileName = intent.getStringExtra("profileName");
+        final String profileImage = intent.getStringExtra("profileImage");
         final String token= intent.getStringExtra("token");
         Log.d("test", "token: "+token);
 
@@ -67,19 +68,22 @@ public class SignFacebookActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                final String role = signRole.getText().toString();
+                final String profileRole = signRole.getText().toString();
 
-                if(role.matches("")){
+                if(profileRole.matches("")){
                     ToastUtil.show(context, "역할을 입력해주세요.");
                 }else {
                     TaskService taskService = ServiceGenerator.createService(TaskService.class);
-                    taskService.createSign(new LoginVo(role, token), new Callback<AuthVo>() {
+                    taskService.createSign(new LoginVo(profileRole, token), new Callback<AuthVo>() {
                         @Override
                         public void success(AuthVo authVo, Response response) {
 
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("tokenB", token);
+                            editor.putString("profileName", profileName);
+                            editor.putString("profileImage", profileImage);
+                            editor.putString("profileRole", profileRole);
                             editor.commit();
                             goToActivity(context, InitialSettingActivity.class);
                         }

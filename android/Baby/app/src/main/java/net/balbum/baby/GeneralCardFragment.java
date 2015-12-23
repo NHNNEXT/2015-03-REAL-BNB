@@ -24,8 +24,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import net.balbum.baby.Util.BitmapUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -86,7 +86,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         if(generalCardVo != null){
             memo_tv.setText(generalCardVo.content);
             Picasso.with(context)
-                    .load((Config.URL+generalCardVo.cardImg))
+                    .load((Define.URL+generalCardVo.cardImg))
                     .placeholder(R.mipmap.ic_launcher)
                     .into(photo_iv);
 
@@ -125,9 +125,9 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
 
-        File a = BitmapUtil.ConvertBitmapToFile(img1);
-        File b = BitmapUtil.ConvertBitmapToFile(img2);
-        File c = BitmapUtil.ConvertBitmapToFile(img3);
+        File a = ImageUtil.ConvertBitmapToFile(img1);
+        File b = ImageUtil.ConvertBitmapToFile(img2);
+        File c = ImageUtil.ConvertBitmapToFile(img3);
 
         BabyTagVo baby1 = new BabyTagVo(a, "산체");
         BabyTagVo baby2 = new BabyTagVo(b, "연두");

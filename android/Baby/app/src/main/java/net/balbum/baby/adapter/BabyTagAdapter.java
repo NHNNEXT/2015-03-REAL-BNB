@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     public void onBindViewHolder(final BabyViewHolder holder, final int position) {
 //        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(babyTag.get(position).image));
 
-        Picasso.with(context).load(Config.URL+ babyTag.get(position).babyImg).into(holder.photo);
+        Picasso.with(context).load(Define.URL+ babyTag.get(position).babyImg).into(holder.photo);
 
         holder.name.setText(babyTag.get(position).name);
 

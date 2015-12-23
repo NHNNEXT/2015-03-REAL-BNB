@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.GeneralCardVo;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
         Picasso.with(context)
-                .load((Config.URL + cards.get(position).cardImg))
+                .load((Define.URL + cards.get(position).cardImg))
                 .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 

@@ -24,8 +24,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import net.balbum.baby.Util.BitmapUtil;
-import net.balbum.baby.Util.Config;
+import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -116,7 +116,7 @@ public class AddBabyFragment extends Fragment {
 
                 pictureActionIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pictureActionIntent, Config.GALLERY_PICTURE);
+                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
             }
         });
 
@@ -202,7 +202,7 @@ public class AddBabyFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == getActivity().RESULT_OK && requestCode == Config.GALLERY_PICTURE) {
+        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
@@ -216,12 +216,12 @@ public class AddBabyFragment extends Fragment {
                 cursor.close();
 
                 Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
-                bitmap = BitmapUtil.GetRotatedBitmap(bitmap, BitmapUtil.GetExifOrientation(selectedImagePath));
+                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
 
-                Uri tempUri = BitmapUtil.getImageUri(context, bitmap);
+                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
 //                Uri temp = Uri.parse(selectedImagePath);
-                finalFilePath = BitmapUtil.getRealPathFromURI(context, tempUri);
+                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
 
 
             } else {

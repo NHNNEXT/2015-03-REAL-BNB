@@ -12,10 +12,7 @@
         <!--android:id="@+id/nav_gallery"-->
         <!--android:icon="@android:drawable/ic_menu_gallery"-->
         <!--android:title="Gallery" />-->
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="아기별 묶어보기" />
+
         <item
             android:id="@+id/nav_setting"
             android:icon="@android:drawable/ic_menu_manage"
@@ -24,12 +21,16 @@
             app:showAsAction="always" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Share Poster">
         <menu>
             <item
                 android:id="@+id/nav_poster"
                 android:icon="@android:drawable/ic_menu_send"
-                android:title="포스터" />
+                android:title="9장 포스터" />
+            <item
+                android:id="@+id/nav_poster2"
+                android:icon="@android:drawable/ic_menu_send"
+                android:title="13장 포스터" />
         </menu>
     </item>
     <item android:title="setting">
