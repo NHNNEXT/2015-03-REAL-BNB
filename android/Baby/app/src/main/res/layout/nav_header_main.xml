@@ -20,10 +20,9 @@
 
         <ImageView
             android:id="@+id/nav_profile_imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_gravity="center_horizontal"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:scaleType="centerCrop"
             />
 
