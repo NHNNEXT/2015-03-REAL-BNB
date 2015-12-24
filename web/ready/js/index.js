@@ -108,7 +108,7 @@ var CardCRUD = {
 
     },
     get: function($http, bMain) {
-        $http.get(address + 'api/card').then( function(res) {
+        $http.get(address + 'api/card').then(function(res) {
             bMain.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
@@ -137,7 +137,14 @@ var CardCRUD = {
             });
             return false;
         });
-    }
+    },
+    delete: function($http, cid) {
+        $http.get(address + 'api/card/delete?cId='+cid).then(function(res) {
+            console.log("딜리트콜백", res);
+        }, function() {
+            alert('카드를 삭제하지 못했습니다. 새로고침을 해주시겠어요?');
+        });
+    },
 }
 
 var balbumApp = angular.module('balbumApp', []);
@@ -159,6 +166,14 @@ balbumApp.controller('MainController', function($scope, $http) {
     $scope.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();
         $('.baby-card[data-cid="' + cid + '"]').find('.action-dropdown-menu').toggleClass("active");
+    }
+    $scope.cardModify = function(cid) {
+        console.log("modify", cid);
+
+    }
+    $scope.cardDelete = function(cid) {
+        console.log("delete", cid);
+        CardCRUD.delete($http, cid);
     }
 
 });
