@@ -13,16 +13,16 @@ import java.util.List;
 @org.parceler.Parcel
 public class GeneralCardVo implements Parcelable{
 
-    public enum Type{
-        BAD("BAD"), NORMAL("NORMAL"), EVENT("EVENT");
-        private final String value;
-        Type(String value){
-            this.value = value;
-        }
-        public String getValue() {
-            return value;
-        }
-    }
+//    public enum Type{
+//        BAD("BAD"), NORMAL("NORMAL"), EVENT("EVENT");
+//        private final String value;
+//        Type(String value){
+//            this.value = value;
+//        }
+//        public String getValue() {
+//            return value;
+//        }
+//    }
 
     public String modifiedDate;
     public String cardImg;
@@ -30,7 +30,8 @@ public class GeneralCardVo implements Parcelable{
     public String content;
     public List<BabyVo> babies;
     public List<Long> names;
-    public Type type;
+    public String type;
+//    public Type type;
 
     public GeneralCardVo() {
 //        babies = new ArrayList<>();
@@ -48,7 +49,7 @@ public class GeneralCardVo implements Parcelable{
         this.cid = cid;
     }
 
-    public GeneralCardVo(String cardImg, long cid, String content, String modifiedDate, List<Long> names, Type type) {
+    public GeneralCardVo(String cardImg, long cid, String content, String modifiedDate, List<Long> names, String type) {
         this.cardImg = cardImg;
         this.cid = cid;
         this.content = content;
@@ -81,7 +82,7 @@ public class GeneralCardVo implements Parcelable{
         cardImg = in.readString();
         cid = in.readLong();
         content = in.readString();
-        type = (Type) in.readValue(Type.class.getClassLoader());
+      //  type = (Type) in.readValue(Type.class.getClassLoader());
 //        babies = new ArrayList<Long>();
 //        in.readTypedList(babies, GeneralCardVo.CREATOR);
 //        names = new ArrayList<String>();

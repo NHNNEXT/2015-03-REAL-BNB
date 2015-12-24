@@ -7,26 +7,27 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class BabyVo {
-    public enum Gender {
-        GIRL("GIRL"), BOY("BOY"), PREGNANCY("PREGNANCY"), UNDEFINED("UNDEFINED");
-        private final String value;
-        Gender(String value){
-            this.value = value;
-        }
-        public String getValue() {
-            return value;
-        }
-    }
+//    public enum Gender {
+//        GIRL("GIRL"), BOY("BOY"), PREGNANCY("PREGNANCY"), UNDEFINED("UNDEFINED");
+//        private final String value;
+//        Gender(String value){
+//            this.value = value;
+//        }
+//        public String getValue() {
+//            return value;
+//        }
+//    }
     public Long bId;
     public String babyImg;
     public String babyName;
     public String babyBirth;
-    public Gender babyGender;
+//    public Gender babyGender;
+    public String babyGender;
 
     public BabyVo() {
     }
 
-    public BabyVo(String babyName, String babyBirth, Gender babyGender, String image, Long bId) {
+    public BabyVo(String babyName, String babyBirth, String babyGender, String image, Long bId) {
         this.babyName = babyName;
         this.babyBirth = babyBirth;
         this.babyGender = babyGender;
@@ -34,7 +35,7 @@ public class BabyVo {
         this.bId = bId;
     }
 
-    public BabyVo(String babyName, String babyBirth, Gender babyGender, String image) {
+    public BabyVo(String babyName, String babyBirth, String babyGender, String image) {
         this.babyName = babyName;
         this.babyBirth = babyBirth;
         this.babyGender = babyGender;
