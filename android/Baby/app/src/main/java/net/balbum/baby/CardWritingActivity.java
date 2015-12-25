@@ -69,7 +69,7 @@ public class CardWritingActivity extends AppCompatActivity {
 
             GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
             Bundle bundle = new Bundle();
-            bundle.putParcelable("vo", cardVo);
+
 
            // bundle.putParcelable("vo", Parcels.wrap(cardVo));
             Log.d("test", "modify start~" + cardVo.type);

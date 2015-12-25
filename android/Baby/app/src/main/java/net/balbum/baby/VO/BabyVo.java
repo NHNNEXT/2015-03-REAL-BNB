@@ -7,21 +7,11 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class BabyVo {
-//    public enum Gender {
-//        GIRL("GIRL"), BOY("BOY"), PREGNANCY("PREGNANCY"), UNDEFINED("UNDEFINED");
-//        private final String value;
-//        Gender(String value){
-//            this.value = value;
-//        }
-//        public String getValue() {
-//            return value;
-//        }
-//    }
-    public Long bId;
+
+    public long bId;
     public String babyImg;
     public String babyName;
     public String babyBirth;
-//    public Gender babyGender;
     public String babyGender;
 
     public BabyVo() {
