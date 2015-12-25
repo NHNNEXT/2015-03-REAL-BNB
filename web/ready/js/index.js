@@ -140,6 +140,7 @@ var CardCRUD = {
     },
     delete: function($http, cid) {
         $http.get(address + 'api/card/delete?cId='+cid).then(function(res) {
+            Materialize.toast('삭제되었습니다.', 4000);
             console.log("딜리트콜백", res);
         }, function() {
             alert('카드를 삭제하지 못했습니다. 새로고침을 해주시겠어요?');
