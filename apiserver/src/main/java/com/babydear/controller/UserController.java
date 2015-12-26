@@ -176,12 +176,33 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/user/signup/fb_token", consumes ="application/json")
+	public AuthDTO signupFb(@RequestBody Map<String, Object> userDTO) {
+		logger.info("/api/user/signup/fb_token:{}", userDTO);
+		User user = userRepo.findByEmail((String)userDTO.get("email"));
+		if(user == null || user.getUId() == null) {
+			user = new User();
+			user.setEmail((String)userDTO.get("email"));
+			user.setUserRole((String)userDTO.get("role"));
+			user.setPassword((String)userDTO.get("email"));
+			user.setUserImg("/imgs/sample/user.jpeg");
+			userRepo.save(user);
+			System.out.println("회원가입"+user);
+			return new AuthDTO(authService.setUser(user.getUId()), "성공");
+			
+		}else{
+			System.out.println("바로 로그인 가능"+user);
+			return new AuthDTO(authService.setUser(user.getUId()), "이미 가입 되었습니다.");
+		}
+	}
+	
 	@RequestMapping(value = "/api/user/login/fb", consumes ="application/json")
 	public AuthDTO loginFb(@RequestBody Map<String, Object> userDTO) {
 		logger.info("/api/user/login:{}", userDTO);
+		User user = userRepo.findByEmail((String)userDTO.get("email"));
 		
 		return new AuthDTO("asdf1234", "good");
-//		User user = userRepo.findByEmail((String)userDTO.get("email"));
+//		userRepo.findByEmail((String)userDTO.get("role"));
 //		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
 //		Boolean result = user.checkPW((String)userDTO.get("password"));
 //		if (result) {
@@ -194,6 +215,7 @@ public class UserController {
 	@RequestMapping("/api/user/token")
 	public ResponseDTO token(String token){
 		User user = null;
+		System.out.println(token);
 		try {
 			user = authService.getUser(token);
 		} catch (NotToken e) {

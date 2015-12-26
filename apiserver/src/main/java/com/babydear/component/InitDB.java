@@ -36,7 +36,7 @@ public class InitDB {
 		User user = new User();
 		user.setEmail("a");
 		user.setPassword("a");
-		user.setNickname("엄마");
+		user.setUserRole("엄마");
 		user.setUserImg("/imgs/sample/user.jpeg");
 		user = userRepo.save(user);
 

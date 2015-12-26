@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -171,4 +172,11 @@ public class CardController {
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);
 	}
+	
+	@RequestMapping(value="/api/card/{cId}")
+	public Card getOne(@PathVariable("cId")Long cId){
+		logger.debug("show one card");
+		return cardRepo.findOne(cId);
+	}
+	
 }

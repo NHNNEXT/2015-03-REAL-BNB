@@ -27,7 +27,6 @@ public class User {
 	public User(UserDTO loginDTO) {
 		this(loginDTO, null);
 	}
-	public User(){}
 	public enum SignIn {
 		NAVER,
 		KAKAO,
@@ -57,15 +56,22 @@ public class User {
 	
 	private String email;
 	private String password;
-	private String nickname;
+	private String userRole;
 	
 	private State state;
 	private SignIn signIn;
+	private Boolean isAccepted;
+	
+	public User() {
+		super();
+		this.isAccepted = true;
+	}
+	
 	public boolean checkPW(String password) {
 		if(this.password.equals(password)){
 			return true;
 		}
 		return false;
 	}
-	
+
 }
