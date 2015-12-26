@@ -74,18 +74,29 @@ public class SignFacebookActivity extends AppCompatActivity{
                     ToastUtil.show(context, "역할을 입력해주세요.");
                 }else {
                     TaskService taskService = ServiceGenerator.createService(TaskService.class);
-                    taskService.createSign(new LoginVo(profileRole, token), new Callback<AuthVo>() {
+                    taskService.createSign(new LoginVo(profileEmail, profileRole, token), new Callback<AuthVo>() {
                         @Override
                         public void success(AuthVo authVo, Response response) {
 
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("tokenB", token);
-                            editor.putString("profileName", profileName);
-                            editor.putString("profileImage", profileImage);
-                            editor.putString("profileRole", profileRole);
-                            editor.commit();
-                            goToActivity(context, InitialSettingActivity.class);
+
+                            if (authVo.message.equals("이미 가입 되었습니다.")) {
+                                ToastUtil.show(context, "이미 가입 되었습니다");
+                                editor.putString("tokenB", authVo.token);
+                                editor.commit();
+
+                                goToActivity(context, MainActivity.class);
+                            } else {
+
+                                editor.putString("tokenB", authVo.token);
+                                editor.putString("profileName", profileName);
+                                editor.putString("profileImage", profileImage);
+                                editor.putString("profileRole", profileRole);
+                                editor.commit();
+
+                                goToActivity(context, InitialSettingActivity.class);
+                            }
                         }
 
                         @Override

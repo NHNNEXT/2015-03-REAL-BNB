@@ -29,7 +29,7 @@ public interface TaskService {
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
 
-    @POST("/api/user/login/fb")
+    @POST("/api/user/signup/fb_token")
     void createSign(@Body LoginVo task, Callback<AuthVo> cb);
 
 
