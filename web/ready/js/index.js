@@ -9,7 +9,7 @@ var Start = {
     init: function() {
         $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
-        $('.modal-trigger').leanModal();
+        // $('.modal-trigger').leanModal();
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -23,6 +23,9 @@ var Start = {
 
         $('.action-dropdown-menu').click (function(e){ // 필요한지 의문
             e.stopPropagation();
+        });
+        $('.nav-update-modal').click(function(){
+            $('#update-modal').openModal();
         });
     }
 
@@ -59,6 +62,26 @@ var Upload = {
     resetPhotoBox: function() {
         $('.upload-photo-box').css('display', 'block');
         $('#uploaded-photo').css('display', 'none');
+    }
+}
+
+var InitModal = {
+    init: function() {
+        $('.modal-main-btn').click(function(){
+            $('#main-modal').openModal();
+            // $('body').css('overflow', 'hidden');
+            // $('#main-modal').css('z-index', '1003');
+        });
+        $('.js-btn-find-user').on('click', function() {
+            $('.found-existing-user').removeClass('hide');
+        });
+        $('#modal-main').modalSteps({
+            callbacks: {
+                // '1': function(){ alert('Tanam!');}
+            }
+        });
+
+
     }
 }
 
@@ -232,5 +255,6 @@ $(function(){
     Start.init();
     Upload.init();
     CardCRUD.init();
+    InitModal.init();
 });
 

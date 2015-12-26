@@ -39,10 +39,11 @@ nav.nav-top .brand-logo {
 nav.nav-top .brand-logo img {
   height: 35px;
 }
-nav.nav-top a {
+nav.nav-top li {
+  margin: 0 6px;
   color: #DAD3CE;
 }
-nav.nav-top a i.post-icon {
+nav.nav-top li.nav-update-modal {
   color: #896DA5;
 }
 nav.nav-top #nav-mobile a {
@@ -61,6 +62,9 @@ aside.left-col {
   width: 230px;
   height: 100%;
   z-index: -10;
+}
+div#modal-main {
+  z-index: 1003;
 }
 section.main-container {
   padding-left: 230px;

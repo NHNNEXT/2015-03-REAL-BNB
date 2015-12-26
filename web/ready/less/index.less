@@ -44,9 +44,10 @@ nav.nav-top {
             height: 35px;
         }
     }
-    a {
+    li {
+        margin: 0 6px;
         color: #DAD3CE;
-        i.post-icon {
+        &.nav-update-modal {
             color: @primary;
         }
     }
@@ -73,6 +74,12 @@ aside.left-col {
     height:100%;
     z-index: -10;
 }
+
+//*-- Main Modal --*//
+div#modal-main {
+    z-index: 1003;
+}
+
 
 //*-- Main Container --*//
 section.main-container {

@@ -13,9 +13,6 @@
         <div id="modal-main" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <!-- <div class="modal-header">
-                        <h4 class="js-title-step"></h4>
-                    </div> -->
                     <div class="modal-body">
                         <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
                             <div>안녕하세요, 율무님!</div>
@@ -83,21 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="modal-found-balbum row hide" data-step="4" data-title="">
-                            <img class="circle" src="img/baby1.jpeg" alt="user-photo">
-                            <div class="">
-                                <div>율무님의 BALBUM</div>
-                                <div>jayjinjay@gmail.com</div>
-                                <button type="button" class="js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
-                            </div>
-                        </div> -->
                     </div>
-
-                    <!-- <div class="modal-footer">
-                        <button type="button" class="btn waves-effect js-btn-step left" data-orientation="cancel" data-dismiss="modal"></button>
-                        <button type="button" class="btn waves-effect btn-success js-btn-step" data-orientation="next"></button>
-                        <button type="button" class="btn waves-effect btn-warning js-btn-step" data-orientation="previous"></button>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -105,7 +88,7 @@
 
         <div class="">
             모달 테스트 페이지
-            <button type="button" class="btn" data-toggle="modal" data-target="#modal-main">
+            <button class="btn modal-trigger" data-toggle="modal" data-target="#modal-main">
                 modal-main
             </button>
         </div>
@@ -113,10 +96,12 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/vendor/materialize.js"></script>
     <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+
     <script src="js/vendor/bootstrap-modal.min.js"></script>
     <script src="js/vendor/steps-modal.js"></script>
     <script type="text/javascript">
         // 콜백 테스트
+        $('.modal-trigger').leanModal();
         $('#modal-main').modalSteps({
             callbacks: {
                 // '2': function(){ alert('Tanam!');}
