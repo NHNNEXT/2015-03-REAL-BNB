@@ -11,8 +11,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.balbum.baby.Util.ImageUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -65,8 +63,6 @@ InputStream is;
 
 
                     bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
-                    bit = ImageUtil.getRoundedCornerBitmap(bmp);
 
                     Log.d("test", "bmp: " + bmp.getConfig());
 

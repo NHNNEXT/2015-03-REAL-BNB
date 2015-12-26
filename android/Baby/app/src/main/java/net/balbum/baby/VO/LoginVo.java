@@ -8,17 +8,17 @@ public class LoginVo {
     public String email;
     public String password;
     public String role;
-    public String fb;
+    public String fb_token;
 
-    public LoginVo(String role, String fb) {
+    public LoginVo(String role, String fb_token) {
         this.role = role;
-        this.fb = fb;
+        this.fb_token = fb_token;
     }
 
-    public LoginVo(String email, String password, String role) {
+    public LoginVo(String email, String role, String token) {
         this.email = email;
-        this.password = password;
         this.role = role;
+        this.fb_token = token;
     }
 
     @Override

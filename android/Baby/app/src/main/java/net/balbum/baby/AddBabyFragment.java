@@ -166,22 +166,22 @@ public class AddBabyFragment extends Fragment {
         temp_gender = radioGroup.getCheckedRadioButtonId();
 
         if (temp_gender == R.id.radio0) {
-            babyVo.babyGender = BabyVo.Gender.GIRL;
+            babyVo.babyGender = "GIRL";
         } else if (temp_gender == R.id.radio1) {
-            babyVo.babyGender = BabyVo.Gender.BOY;
+            babyVo.babyGender = "BOY";
         } else if (temp_gender == R.id.radio2) {
-            babyVo.babyGender = BabyVo.Gender.PREGNANCY;
+            babyVo.babyGender = "PREGNANCY";
         }
 
         File file = new File(finalFilePath);
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
         if (babyVo.babyGender == null) {
-            babyVo.babyGender = BabyVo.Gender.UNDEFINED;
+            babyVo.babyGender = "UNDEFINED";
         }
 
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender.getValue(), new Callback<ResponseVo>() {
+        taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender, new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "baby post success");

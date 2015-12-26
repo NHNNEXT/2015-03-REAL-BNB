@@ -28,12 +28,11 @@ import net.balbum.baby.R;
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
-
-import org.parceler.Parcels;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,6 +53,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     int layout;
     Context context;
     Typeface typeface;
+    List<BabyVo> babies;
 
 
     public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout) {
@@ -126,8 +126,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Define.CARD_MODIFY);
-        GeneralCardVo vo = cards.get(position);
-        intent.putExtra("generalCardVo", Parcels.wrap(vo));
+        Long card_id = (Long) cards.get(position).cid;
+        //GeneralCardVo vo = cards.get(position);
+        intent.putExtra("cId", card_id);
         context.startActivity(intent);
     }
 
@@ -167,40 +168,59 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         }
     }
 
-    private void babiesInfo(LinearLayout profile_container, int position) {
+    private void babiesInfo(final LinearLayout profile_container, int position) {
 
         profile_container.removeAllViews();
 
-        int idx = cards.get(position).babies.size();
+        final int idx = cards.get(position).babies.size();
 
-        LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-        LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
 
+        babies = new ArrayList<BabyVo>();
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+            @Override
+            public void success(ArrayList<BabyVo> babyVos, Response response) {
+                babies = babyVos;
+
+                for (int i = 0; i < idx; i++) {
+
+                    LinearLayout linLayout = new LinearLayout(context);
+                    linLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    linLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+                    ImageView iv_profile = new ImageView(context);
+
+                    Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
+
+                   // iv_profile.setImageResource(babies.get(i).babyImg);
+                    iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
+                    linLayout.addView(iv_profile, imageParam);
+
+                    TextView tv = new TextView(context);
+                    tv.setText("13개월");
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                    tv.setLayoutParams(tvParam);
+                    tv.setGravity(Gravity.CENTER);
+                    linLayout.addView(tv);
+                    ((LinearLayout) profile_container).addView(linLayout);
+                }
+            }
+
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
         //이 가족이 가진 애기 리스트를 가지고 loop돌림
-        List<Integer> baby_list = new ArrayList();
-        baby_list.add(R.drawable.b1);
-        baby_list.add(R.drawable.b2);
-        baby_list.add(R.drawable.b3);
+//        List<Integer> baby_list = new ArrayList();
+//        baby_list.add(R.drawable.b1);
+//        baby_list.add(R.drawable.b2);
+//        baby_list.add(R.drawable.b3);
 
-        for (int i = 0; i < idx; i++) {
 
-            LinearLayout linLayout = new LinearLayout(context);
-            linLayout.setOrientation(LinearLayout.HORIZONTAL);
-            linLayout.setGravity(Gravity.CENTER_VERTICAL);
-
-            ImageView iv_profile = new ImageView(context);
-            iv_profile.setImageResource(baby_list.get(i));
-            iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
-            linLayout.addView(iv_profile, imageParam);
-
-            TextView tv = new TextView(context);
-            tv.setText("13개월");
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-            tv.setLayoutParams(tvParam);
-            tv.setGravity(Gravity.CENTER);
-            linLayout.addView(tv);
-            ((LinearLayout) profile_container).addView(linLayout);
-        }
 
     }
 

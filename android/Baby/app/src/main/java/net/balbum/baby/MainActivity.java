@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.RoundedTransformation;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
@@ -62,21 +61,16 @@ public class MainActivity extends AppCompatActivity
     List<BabyTagVo> babyList;
     ImageView imageView;
 
-    final Uri[] uri = {null};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         context = this;
         initToolbar();
         initNavigationView();
         initFab();
         getData();
-       // initData();
         getBabyInfo();
         initNavProfile();
     }
@@ -91,32 +85,17 @@ public class MainActivity extends AppCompatActivity
 
         if(sharedPreferences.contains("profileName")) {
             String profileName = sharedPreferences.getString("profileName", "");
-            Log.d("test", "initNavProifile: " + profileName);
             nav_name.setText(profileName);
         }
         if(sharedPreferences.contains("profileImage")) {
 
-            final String profileImage = sharedPreferences.getString("profileImage", "");
-            final Bitmap[] bitmap = {null};
+            String profileImage = sharedPreferences.getString("profileImage", "");
+            Log.d("test", "initImage: " + profileImage);
+            Picasso.with(context)
+                    .load(profileImage)
+                    .transform(new RoundedTransformation())
+                    .into(imageView);
 
-            Picasso.with(context).load(profileImage).into(imageView);
-
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    bitmap[0] = ImageUtil.getBitmapFromURL(profileImage);
-//                    Log.d("test", "bitmap[0]: " + bitmap[0].getByteCount());
-//                    Bitmap roundBitmap = ImageUtil.getRoundedCornerBitmap(bitmap[0]);
-//                    Log.d("test", "bitmap size: " + roundBitmap.getByteCount());
-//                    Message message = new Message();
-//                    message.obj = roundBitmap;
-//                    handler.sendMessage(message);
-////
-////
-////                    uri[0] = ImageUtil.getImageUri(context, roundBitmap);
-////                    handler.sendEmptyMessage(0);
-//                }
-//            }).start();
         }
         if(sharedPreferences.contains("profileRole")) {
             String profileRole = sharedPreferences.getString("profileRole", "");
@@ -124,22 +103,6 @@ public class MainActivity extends AppCompatActivity
             nav_role.setText(profileRole);
         }
     }
-
-//    Handler handler = new Handler(new Handler.Callback(){
-//
-//
-//        @Override
-//        public boolean handleMessage(Message msg) {
-//            if(msg != null){
-//                Bitmap bitmap = (Bitmap) msg.obj;
-//                Log.d("test", "handler size: "+bitmap.getWidth());
-//                imageView.setImageBitmap(bitmap);
-////                Picasso.with(context).load(uri[0]).into(imageView);
-//
-//            }
-//            return false;
-//        }
-//    });
 
     private void getBabyInfo() {
         babyList = new ArrayList<BabyTagVo>();
@@ -159,6 +122,24 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+//        List<Long> list = new ArrayList<>();
+//        list.add(new Long(2));
+//        list.add(new Long(4));
+//
+//        CardIdListVo req = new CardIdListVo();
+//        req.cardIds = Arrays.asList(new Long(1), new Long(2));
+//        taskService.getCardList(req, new Callback<CardListVo>() {
+//            @Override
+//            public void success(CardListVo cardListVo, Response response) {
+//                Log.d("test", "long list 성공");
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Log.d("test", "long list 실패");
+//            }
+//        });
     }
 
     private void initNavRecyclerView() {
@@ -214,8 +195,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CardWritingActivity.class);
                 startActivity(intent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
     }
@@ -250,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
@@ -296,11 +275,13 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.commit();
+            ActivityUtil.goToActivity(context, StartActivity.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
 
