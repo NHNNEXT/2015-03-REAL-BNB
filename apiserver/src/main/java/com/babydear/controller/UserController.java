@@ -83,53 +83,8 @@ public class UserController {
 		mailService.sendSignUpMail();
 		return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
 	}
-	// 가족의 이메일을 받아 FID를 넣어 줍니다.
-	@RequestMapping("/api/user/family/findFromMail")
-	public ResponseDTO findFamily(String email, String token) {
-		if(email == null) return new ResponseDTO(false, "이메일을 넣어 주세요");
-		if(token == null) return new ResponseDTO(false, "토큰을 넣어 주세요");
-		try {
-			User user = authService.getUser(token);
-			User some = userRepo.findByEmail(email);
-			user.setFId(some.getFId());
-			return new ResponseDTO(true, null);
-		} catch (Exception e) {
-			return new ResponseDTO(false, e.getMessage());
-		}
-	}
+
 	
-	@RequestMapping("/api/user/family/find")
-	public ResponseDTO findFamily(Long fId, String token) {
-		User user;
-		try {
-			user = authService.getUser(token);
-		} catch (NotToken e) {
-			return new ResponseDTO(false, e.getMessage());
-		}
-		if (user == null) return new ResponseDTO(false, "토큰이 유효한 값이 아닙니다.");
-		if (fId == null) return new ResponseDTO(false, "패밀리 아이디를 입력해 주세요 ");
-		if (!familyRepo.exists(fId)) return new ResponseDTO(false, "없는 패밀리 아이디 입니다.");
-		return new ResponseDTO(true, null);
-	}
-
-	@RequestMapping("/api/user/family/create")
-	public ResponseDTO createFamily(String token) {
-		User user;
-		try {
-			user = authService.getUser(token);
-		} catch (NotToken e) {
-			return new ResponseDTO(false, e.getMessage());
-		}
-		if (user == null) return new ResponseDTO(false, "토큰이 유효한 값이 아닙니다.");
-		Family family = new Family();
-		family.setUpdateDate(new Date());
-		family.setUpdateUId(user.getUId());
-		family = familyRepo.save(new Family());
-		user.setFId(family.getFId());
-		userRepo.save(user);
-		return new ResponseDTO(true, null, family);
-	}
-
 	@RequestMapping("/api/user/baby/create")
 	public ResponseDTO createBaby(String token, Baby baby, MultipartFile image) {
 		if(baby.getBabyGender() == null) return new ResponseDTO(false, "아기 정보를 제대로 입력해 주세요: 성별입력 않되어 있어요");

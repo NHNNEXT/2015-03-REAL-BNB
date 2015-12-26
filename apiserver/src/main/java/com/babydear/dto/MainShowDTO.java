@@ -13,9 +13,21 @@ import lombok.ToString;
 @ToString
 public class MainShowDTO {
 	private List<Baby> babies;
+	private List<User> families;
+	private List<User> readyList;
 	private User user;
+	
 	public MainShowDTO(User user, List<Baby> babies) {
+//		for web front;
 		this.user = user;
 		this.babies = babies;
+	}
+
+	public MainShowDTO(List<Baby> babies, List<User> families, List<User> readyList, User user) {
+		super();
+		this.babies = babies;
+		this.families = families;
+		this.readyList = readyList;
+		this.user = user;
 	}
 }

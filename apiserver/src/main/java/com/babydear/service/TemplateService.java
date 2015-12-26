@@ -40,7 +40,7 @@ public class TemplateService {
 
 	public void processTags(List<Long> cIds) throws IOException {
 		BufferedImage originTemplate = ImageIO
-				.read(new File(FILE_STORAGE_DIRECTORY + "imgs/sample/phoster_template.jpg"));
+				.read(new File(FILE_STORAGE_DIRECTORY + "imgs/sample/phoster_template_sm.jpg"));
 		int type = originTemplate.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originTemplate.getType();
 		BufferedImage originalImage = resizeImage(originTemplate, type, 738, 1042);
 

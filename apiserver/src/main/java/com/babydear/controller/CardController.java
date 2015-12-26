@@ -2,8 +2,10 @@ package com.babydear.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -175,8 +178,23 @@ public class CardController {
 	
 	@RequestMapping(value="/api/card/{cId}")
 	public Card getOne(@PathVariable("cId")Long cId){
-		logger.debug("show one card");
+		logger.info("hello");
+		logger.info("show one card:"+cId);
 		return cardRepo.findOne(cId);
+	}
+	
+	@RequestMapping(value="/api/card/list", consumes ="application/json")
+		public CardListDTO getCardList(@RequestBody Map<String, Object> req){
+		List<Integer> list = (ArrayList<Integer>) req.get("cardIds");
+//		logger.info(list.get(0).toString());
+		List<Card> cardResponseList = new ArrayList<Card>();
+		CardListDTO cardListDTO = new CardListDTO();
+		for(Integer cId : list){
+			cardResponseList.add(cardRepo.getOne(cId.longValue()));
+		}
+		cardListDTO.setCardList(cardResponseList);
+		logger.info(cardResponseList.size()+"");
+		return cardListDTO;
 	}
 	
 }
