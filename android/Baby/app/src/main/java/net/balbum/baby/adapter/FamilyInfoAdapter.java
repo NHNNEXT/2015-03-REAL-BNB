@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.balbum.baby.R;
-import net.balbum.baby.VO.FamilyVo;
+import net.balbum.baby.VO.UserVo;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class FamilyInfoAdapter extends RecyclerView.Adapter<FamilyInfoAdapter.FamilyViewHolder> {
 
-    List<FamilyVo> familyList;
+    List<UserVo> familyList;
     Context context;
 
-    public FamilyInfoAdapter(List<FamilyVo> familyList, Context context) {
+    public FamilyInfoAdapter(List<UserVo> familyList, Context context) {
         this.familyList = familyList;
         this.context = context;
     }

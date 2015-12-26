@@ -44,4 +44,59 @@ public class GeneralCardVo{
         this.type = type;
     }
 
+    public List<BabyVo> getBabies() {
+        return babies;
+    }
+
+    public void setBabies(List<BabyVo> babies) {
+        this.babies = babies;
+    }
+
+    public String getCardImg() {
+        return cardImg;
+    }
+
+    public void setCardImg(String cardImg) {
+        this.cardImg = cardImg;
+    }
+
+    public Long getCid() {
+        return cid;
+    }
+
+    public void setCid(Long cid) {
+        this.cid = cid;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public List<NamesVo> getNames() {
+        return names;
+    }
+
+    public void setNames(List<NamesVo> names) {
+        this.names = names;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
