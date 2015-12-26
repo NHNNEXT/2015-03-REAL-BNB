@@ -138,10 +138,15 @@ var CardCRUD = {
             return false;
         });
     },
-    delete: function($http, cid) {
+    delete: function($scope, bMain, $http, cid) {
         $http.get(address + 'api/card/delete?cId='+cid).then(function(res) {
-            Materialize.toast('삭제되었습니다.', 4000);
-            console.log("딜리트콜백", res);
+            Materialize.toast('삭제되었습니다.', 5000);
+            testData = bMain.cardList;
+            bMain.cardList.map(function(item, index, array){
+                if(item.cid==cid) {
+                    array.splice(index, 1);
+                }
+            });
         }, function() {
             alert('카드를 삭제하지 못했습니다. 새로고침을 해주시겠어요?');
         });
@@ -173,8 +178,7 @@ balbumApp.controller('MainController', function($scope, $http) {
 
     }
     $scope.cardDelete = function(cid) {
-        console.log("delete", cid);
-        CardCRUD.delete($http, cid);
+        CardCRUD.delete($scope, bMain, $http, cid);
     }
 
 });
