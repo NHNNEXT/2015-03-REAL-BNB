@@ -16,8 +16,7 @@ import net.balbum.baby.adapter.CardSelectingAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import org.parceler.Parcels;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +28,17 @@ import retrofit.client.Response;
  * Created by hyes on 2015. 12. 22..
  */
 public class PosterCardSelectingActivity extends AppCompatActivity{
-    List<GeneralCardVo> cardGeneralModelList;
+    List<GeneralCardVo> cardList;
     //cId만 담아도 될 것 같은데 서버를...
-    List<GeneralCardVo> selectedCardList;
+    List<Long> selectedCardListLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_card_selecting);
 
-        selectedCardList = new ArrayList<GeneralCardVo>();
+        selectedCardListLong = new ArrayList<Long>();
+
         getData();
     }
 
@@ -49,8 +49,8 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
-                cardGeneralModelList = cd.cardList;
-                initView(cardGeneralModelList);
+                cardList = cd.cardList;
+                initView(cardList);
             }
 
             @Override
@@ -62,7 +62,7 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
 
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         GridLayoutManager glm = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(glm);
@@ -74,11 +74,12 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
             @Override
             public void onItemClick(View view, int position, List<GeneralCardVo> cards) {
                 view.setAlpha(0.5f);
-                selectedCardList.add(cards.get(position));
+                selectedCardListLong.add(cards.get(position).cid);
 //                selectedCardList.add(cards.get(position).cid);
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,7 +99,9 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         if (id == R.id.action_save) {
 
             Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
-            intent.putExtra("list", Parcels.wrap(selectedCardList));
+           // intent.putExtra("list", Parcels.wrap(selectedCardList));
+            intent.putExtra("cIds", (Serializable) selectedCardListLong);
+
             startActivity(intent);
             return true;
         }

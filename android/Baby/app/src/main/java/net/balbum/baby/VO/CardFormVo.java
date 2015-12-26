@@ -11,7 +11,7 @@ public class CardFormVo {
     public List<Long> babies;
     public String content;
     public String modifiedDate;
-    public GeneralCardVo.Type type;
+    public String type;
 
     public CardFormVo(String content) {
         this.content = content;
@@ -25,7 +25,7 @@ public class CardFormVo {
         this.modifiedDate = modifiedDate;
     }
 
-    public CardFormVo(List<Long> babies, String content, String modifiedDate, String token, GeneralCardVo.Type type) {
+    public CardFormVo(List<Long> babies, String content, String modifiedDate, String token, String type) {
         this.babies = babies;
         this.content = content;
         this.modifiedDate = modifiedDate;

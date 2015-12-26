@@ -13,8 +13,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyVo;
-import net.balbum.baby.VO.FamilyVo;
+import net.balbum.baby.VO.UserVo;
 import net.balbum.baby.adapter.BabyListAdapter;
 import net.balbum.baby.adapter.FamilyInfoAdapter;
 import net.balbum.baby.adapter.WaitingFamilyAdapter;
@@ -73,8 +74,8 @@ public class FamilySettingActivity extends AppCompatActivity{
     private void initFamilyMember() {
         RecyclerView familyRv = (RecyclerView)findViewById(R.id.setting_family_member);
 
-        List<FamilyVo> familyList = new ArrayList<FamilyVo>();
-        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "김밸범", "삼촌", false));
+        List<UserVo> familyList = new ArrayList<UserVo>();
+        familyList.add(new UserVo(Define.URL+"/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png","삼촌", false));
 
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         familyRv.setLayoutManager(sglm);
@@ -92,7 +93,6 @@ public class FamilySettingActivity extends AppCompatActivity{
                 babies = babyVos;
                 initBabyRecyclerView();
             }
-
 
             @Override
             public void failure(RetrofitError error) {
@@ -112,9 +112,9 @@ public class FamilySettingActivity extends AppCompatActivity{
     private void initWaitingMember() {
         RecyclerView waitingRv = (RecyclerView)findViewById(R.id.setting_family_waiting);
 
-        List<FamilyVo> familyList = new ArrayList<FamilyVo>();
-        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "홍밸범", "수퍼히어로아빠", false));
-        familyList.add(new FamilyVo("email", "/img/imgs/baby/1450843303888635a1c73b662482ca42e0b956b981d3b.png", "아기하", "이모", false));
+        List<UserVo> familyList = new ArrayList<UserVo>();
+        familyList.add(new UserVo(Define.URL + "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "수퍼히어로아빠", false));
+        familyList.add(new UserVo(Define.URL + "/img/imgs/baby/1450843303888635a1c73b662482ca42e0b956b981d3b.png", "이모", false));
 
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

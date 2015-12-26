@@ -4,14 +4,23 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import net.balbum.baby.Util.ActivityUtil;
+import net.balbum.baby.VO.CardIdListVo;
+import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by hyes on 2015. 12. 16..
@@ -29,7 +38,26 @@ public class PosterMakingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_poster_making2);
         context = this;
 
-//        Intent intent = getIntent();
+        List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
+        if(list != null){
+
+            CardIdListVo req = new CardIdListVo();
+            req.cardIds = list;
+            TaskService taskService = ServiceGenerator.createService(TaskService.class);
+            taskService.getCardList(req, new Callback<CardListVo>() {
+                @Override
+                public void success(CardListVo cardListVo, Response response) {
+                    Log.d("test", "list" + cardListVo.cardList.get(0).content);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                    Log.d("test", "fail??");
+                }
+            });
+        }
+
 //        if(intent.getParcelableExtra("list") != null){
 //            selectedCardList = Parcels.unwrap(this.getIntent().getParcelableExtra("list"));
 //            Log.d("test", "size: " + selectedCardList.size());

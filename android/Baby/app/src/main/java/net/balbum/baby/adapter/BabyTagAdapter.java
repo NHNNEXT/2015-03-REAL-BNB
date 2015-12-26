@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.NamesVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     List<BabyTagVo> babyTag;
     Context context;
-    ArrayList<Long> selectedList =new ArrayList<Long>();
+    ArrayList<NamesVo> selectedList =new ArrayList<NamesVo>();
 
 
     public BabyTagAdapter(List<BabyTagVo> babyTag, Context context) {
@@ -69,10 +70,10 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
         });
     }
 
-    public ArrayList<Long> getSelectedNames(){
+    public List<NamesVo> getSelectedNames(){
         for(int i =0; i< babyTag.size(); i++){
             if(babyTag.get(i).isSelected){
-                selectedList.add(babyTag.get(i).bId);
+                selectedList.add(new NamesVo(babyTag.get(i).bId));
                 Log.d("test", "bId넣어지는지 " + babyTag.get(i).bId);
             }
         }
@@ -127,7 +128,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //    }
 
 
-    public ArrayList<Long> getSelectedList() {
+    public List<NamesVo> getSelectedList() {
         return selectedList;
     }
 

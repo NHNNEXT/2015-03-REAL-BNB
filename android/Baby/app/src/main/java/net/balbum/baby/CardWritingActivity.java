@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
-import net.balbum.baby.VO.CardFormVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -58,6 +57,7 @@ public class CardWritingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int type = intent.getIntExtra("type", 0);
+        final Long card_id = intent.getLongExtra("cId", 0);
         GeneralCardFragment generalCardFragment = new GeneralCardFragment();
         EventCardFragment eventCardFragment = new EventCardFragment();
 
@@ -68,24 +68,42 @@ public class CardWritingActivity extends AppCompatActivity {
 
         if (type == Define.CARD_MODIFY) {
 
-            GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("vo", cardVo);
+            //GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            final GeneralCardVo[] cardVo = new GeneralCardVo[1];
+            TaskService taskService = ServiceGenerator.createService(TaskService.class);
+            taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
+                @Override
+                public void success(GeneralCardVo generalCardVo, Response response) {
+                    Log.d("test", "success card_id"+card_id);
+                    cardVo[0] = generalCardVo;
 
-           // bundle.putParcelable("vo", Parcels.wrap(cardVo));
-            Log.d("test", "modify start~" + cardVo.type);
-            // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("cId", card_id);
 
-            if(cardVo.type == GeneralCardVo.Type.NORMAL) {
-                generalCardFragment.setArguments(bundle);
-                Log.d("test", "general");
+                    // bundle.putParcelable("vo", Parcels.wrap(cardVo));
+                    Log.d("test", "modify start~" + cardVo[0].type);
+                    // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
-            }else if(cardVo.type == GeneralCardVo.Type.EVENT){
-                Log.d("test", "event");
-                viewPager.setCurrentItem(1);
-                eventCardFragment.setArguments(bundle);
+                    if(cardVo[0].type == "NORMAL") {
+                        GeneralCardFragment generalCardFragment = new GeneralCardFragment();
+                        generalCardFragment.setArguments(bundle);
+                        Log.d("test", "general");
 
-            }
+                    }else if(cardVo[0].type == "EVENT"){
+                        Log.d("test", "event");
+                        viewPager.setCurrentItem(1);
+
+                       // eventCardFragment.setArguments(bundle);
+
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("test", "fail card_id");
+                }
+            });
+
         }
     }
 
@@ -162,11 +180,11 @@ public class CardWritingActivity extends AppCompatActivity {
             int currentItem = viewPager.getCurrentItem();
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
 
-            GeneralCardVo.Type temp_type = null;
+            String type = null;
             if(currentItem == 0){
-                temp_type = GeneralCardVo.Type.NORMAL;
+                type = "NORMAL";
             }else if(currentItem == 1){
-                temp_type = GeneralCardVo.Type.EVENT;
+                type = "EVENT";
             }
 
             File file = new File(vo.cardImg);
@@ -180,25 +198,10 @@ public class CardWritingActivity extends AppCompatActivity {
             Long l = new Long(2);
 
 
-            String content = "asdasd";
-            CardFormVo cardFormVo = new CardFormVo(asd, vo.content, vo.modifiedDate, "token", GeneralCardVo.Type.NORMAL);
-
-//            taskService.createCard(typedFile, cardFormVo, new Callback<ResponseVo>() {
-//                @Override
-//                public void success(ResponseVo responseVo, Response response) {
-//                    Log.d("test", "카드 POST 성공");
-//
-//                }
-//
-//                @Override
-//                public void failure(RetrofitError error) {
-//                    Log.d("test", "카드 POST 실패");
-//                }
-//            });
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
             if((Long)vo.cid == 0) {
 
-                taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), new Callback<ResponseVo>() {
+                taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
@@ -211,7 +214,7 @@ public class CardWritingActivity extends AppCompatActivity {
                     }
                 });
             }else{
-                taskService.updateCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, temp_type.getValue(), vo.cid, new Callback<ResponseVo>() {
+                taskService.updateCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "업데이트 성공!");

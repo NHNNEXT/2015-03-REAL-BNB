@@ -2,7 +2,9 @@ package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.BabyVo;
+import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
 
@@ -14,6 +16,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
@@ -29,9 +32,11 @@ public interface TaskService {
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
 
-    @POST("/api/user/login/fb")
+    @POST("/api/user/signup/fb_token")
     void createSign(@Body LoginVo task, Callback<AuthVo> cb);
 
+    @GET("/api/card/{cId}")
+    void getOneCard(@Path("cId") Long cId, Callback<GeneralCardVo> cb);
 
 //    @GET("/api/card")
 //    void getCard(@Body GeneralCardVo)
@@ -47,6 +52,12 @@ public interface TaskService {
 
     @GET("/api/card/delete")
     void deleteCard(@Query("cId") Long cId, Callback<ResponseVo> cb);
+
+    @POST("/api/card/list")
+    void getCardList(@Body CardIdListVo cardIdListVo, Callback<CardListVo> cb);
+
+    @GET("/api/user/family/findFromMail")
+    void findFamily(@Query("email") String email, @Query("token") String token, Callback<ResponseVo> cb);
 
 //    @Multipart
 //    @PUT("/api/card")
