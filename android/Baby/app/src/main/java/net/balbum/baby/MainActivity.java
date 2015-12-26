@@ -122,6 +122,24 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+//        List<Long> list = new ArrayList<>();
+//        list.add(new Long(2));
+//        list.add(new Long(4));
+//
+//        CardIdListVo req = new CardIdListVo();
+//        req.cardIds = Arrays.asList(new Long(1), new Long(2));
+//        taskService.getCardList(req, new Callback<CardListVo>() {
+//            @Override
+//            public void success(CardListVo cardListVo, Response response) {
+//                Log.d("test", "long list 성공");
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Log.d("test", "long list 실패");
+//            }
+//        });
     }
 
     private void initNavRecyclerView() {
@@ -211,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
@@ -263,5 +281,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
 

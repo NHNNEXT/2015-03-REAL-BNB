@@ -2,6 +2,7 @@ package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.BabyVo;
+import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.LoginVo;
@@ -51,6 +52,12 @@ public interface TaskService {
 
     @GET("/api/card/delete")
     void deleteCard(@Query("cId") Long cId, Callback<ResponseVo> cb);
+
+    @POST("/api/card/list")
+    void getCardList(@Body CardIdListVo cardIdListVo, Callback<CardListVo> cb);
+
+    @GET("/api/user/family/findFromMail")
+    void findFamily(@Query("email") String email, @Query("token") String token, Callback<ResponseVo> cb);
 
 //    @Multipart
 //    @PUT("/api/card")

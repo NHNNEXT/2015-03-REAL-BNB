@@ -57,6 +57,7 @@ public class CardWritingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int type = intent.getIntExtra("type", 0);
+        final Long card_id = intent.getLongExtra("cId", 0);
         GeneralCardFragment generalCardFragment = new GeneralCardFragment();
         EventCardFragment eventCardFragment = new EventCardFragment();
 
@@ -67,24 +68,42 @@ public class CardWritingActivity extends AppCompatActivity {
 
         if (type == Define.CARD_MODIFY) {
 
-            GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
-            Bundle bundle = new Bundle();
+            //GeneralCardVo cardVo = (GeneralCardVo) intent.getParcelableExtra("generalCardVo");
+            final GeneralCardVo[] cardVo = new GeneralCardVo[1];
+            TaskService taskService = ServiceGenerator.createService(TaskService.class);
+            taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
+                @Override
+                public void success(GeneralCardVo generalCardVo, Response response) {
+                    Log.d("test", "success card_id"+card_id);
+                    cardVo[0] = generalCardVo;
 
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("cId", card_id);
 
-           // bundle.putParcelable("vo", Parcels.wrap(cardVo));
-            Log.d("test", "modify start~" + cardVo.type);
-            // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
+                    // bundle.putParcelable("vo", Parcels.wrap(cardVo));
+                    Log.d("test", "modify start~" + cardVo[0].type);
+                    // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
 
-            if(cardVo.type == "NORMAL") {
-                generalCardFragment.setArguments(bundle);
-                Log.d("test", "general");
+                    if(cardVo[0].type == "NORMAL") {
+                        GeneralCardFragment generalCardFragment = new GeneralCardFragment();
+                        generalCardFragment.setArguments(bundle);
+                        Log.d("test", "general");
 
-            }else if(cardVo.type == "EVENT"){
-                Log.d("test", "event");
-                viewPager.setCurrentItem(1);
-                eventCardFragment.setArguments(bundle);
+                    }else if(cardVo[0].type == "EVENT"){
+                        Log.d("test", "event");
+                        viewPager.setCurrentItem(1);
 
-            }
+                       // eventCardFragment.setArguments(bundle);
+
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("test", "fail card_id");
+                }
+            });
+
         }
     }
 

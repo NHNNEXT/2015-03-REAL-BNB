@@ -81,22 +81,22 @@ public class SignFacebookActivity extends AppCompatActivity{
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            if (authVo.message.equals("이미 가입 되었습니다.")) {
-                                ToastUtil.show(context, "이미 가입 되었습니다");
-                                editor.putString("tokenB", authVo.token);
-                                editor.commit();
+//                            if (authVo.message.equals("이미 가입 되었습니다.")) {
+//                                ToastUtil.show(context, "이미 가입 되었습니다");
+//                                editor.putString("tokenB", authVo.token);
+//                                editor.commit();
+//
+//                                goToActivity(context, MainActivity.class);
+//                            } else {
 
-                                goToActivity(context, MainActivity.class);
-                            } else {
+                            editor.putString("tokenB", authVo.token);
+                            editor.putString("profileName", profileName);
+                            editor.putString("profileImage", profileImage);
+                            editor.putString("profileRole", profileRole);
+                            editor.commit();
 
-                                editor.putString("tokenB", authVo.token);
-                                editor.putString("profileName", profileName);
-                                editor.putString("profileImage", profileImage);
-                                editor.putString("profileRole", profileRole);
-                                editor.commit();
-
-                                goToActivity(context, InitialSettingActivity.class);
-                            }
+                            goToActivity(context, InitialSettingActivity.class);
+//                        }
                         }
 
                         @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,13 @@ import android.widget.EditText;
 
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.VO.ResponseVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by hyes on 2015. 12. 11..
@@ -40,7 +48,22 @@ public class FamilyAuthFragment extends Fragment {
                 if(email.getText().toString().matches("")){
                     ToastUtil.show(context, "email을 입력하세요. ");
                 }else{
-                    ActivityUtil.goToActivity(context, MainActivity.class);
+
+                    TaskService taskService = ServiceGenerator.createService(TaskService.class);
+                    taskService.findFamily(email.getText().toString(), "asdf", new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.d("test", String.valueOf(responseVo.state));
+                            Log.d("test", responseVo.error);
+                            ActivityUtil.goToActivity(context, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+
                 }
             }
         });
