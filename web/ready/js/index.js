@@ -9,6 +9,7 @@ var Start = {
     init: function() {
         $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
+        $('.modal-trigger').leanModal();
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -175,6 +176,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     }
     $scope.cardModify = function(cid) {
         console.log("modify", cid);
+        $('#modify-modal').openModal();
 
     }
     $scope.cardDelete = function(cid) {
