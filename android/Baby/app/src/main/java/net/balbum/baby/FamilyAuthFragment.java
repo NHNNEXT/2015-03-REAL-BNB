@@ -53,14 +53,14 @@ public class FamilyAuthFragment extends Fragment {
                     taskService.findFamily(email.getText().toString(), "asdf", new Callback<ResponseVo>() {
                         @Override
                         public void success(ResponseVo responseVo, Response response) {
-                            Log.d("test", String.valueOf(responseVo.state));
-                            Log.d("test", responseVo.error);
+                            Log.d("test", "res" + String.valueOf(responseVo.state));
+                            Log.d("test", "res " + responseVo.error);
                             ActivityUtil.goToActivity(context, MainActivity.class);
                         }
 
                         @Override
                         public void failure(RetrofitError error) {
-
+                            Log.d("test", error.toString());
                         }
                     });
 
