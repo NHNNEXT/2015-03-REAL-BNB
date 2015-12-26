@@ -42,9 +42,9 @@ public class WaitingFamilyAdapter extends RecyclerView.Adapter<WaitingFamilyAdap
     @Override
     public void onBindViewHolder(FamilyViewHolder holder, int position) {
 
-        holder.name.setText(userVoList.get(position).familyName);
-        holder.role.setText(userVoList.get(position).familyRole);
-        //Picasso.with(context).load(Define.URL+ familyVoList.get(position).familyImage).into(holder.photo);
+        holder.name.setText(userVoList.get(position).userRole);
+        holder.role.setText(userVoList.get(position).userRole);
+        //Picasso.with(context).load(Define.URL+ familyVoList.get(position).userImg).into(holder.photo);
     }
 
     @Override

@@ -24,17 +24,22 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by hyes on 2015. 11. 10..
@@ -51,8 +56,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     BabyTagAdapter adapter;
     List<BabyTagVo> babyTagNamesList;
     View view;
-
-    GeneralCardVo generalCardVo;
+    GeneralCardVo card;
     TaskService taskService;
 
     @Nullable
@@ -62,11 +66,40 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         view = inflater.inflate(R.layout.card_general_fragment, container, false);
         context = this.getActivity();
 
-        Bundle bundle = getArguments();
+        Bundle bundle = getActivity().getIntent().getExtras();
+       // Bundle bundle = getArguments();
+        if(bundle == null){
+            Log.d("test", "bundle null");
+        }
 
         if (bundle != null) {
-            generalCardVo = (GeneralCardVo) bundle.getParcelable("vo");
-            Log.d("test", generalCardVo.cardImg + "qweqwe");
+            long card_id = bundle.getLong("cId");
+            Log.d("test", "cid 넘어왔니 " + card_id);
+            TaskService taskService = ServiceGenerator.createService(TaskService.class);
+            taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
+                @Override
+                public void success(GeneralCardVo generalCardVo, Response response) {
+                    card = (GeneralCardVo) generalCardVo;
+                    Log.d("test", "card null ?" + card.cid);
+
+
+                    if(card != null){
+                        memo_tv.setText(card.content);
+                        Picasso.with(context)
+                                .load((Define.URL+card.cardImg))
+                                .placeholder(R.mipmap.ic_launcher)
+                                .into(photo_iv);
+
+                    }
+
+                }
+
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
         }
 
         return view;
@@ -83,10 +116,10 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
         baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
 
-        if(generalCardVo != null){
-            memo_tv.setText(generalCardVo.content);
+        if(card != null){
+            memo_tv.setText(card.content);
             Picasso.with(context)
-                    .load((Define.URL+generalCardVo.cardImg))
+                    .load((Define.URL+card.cardImg))
                     .placeholder(R.mipmap.ic_launcher)
                     .into(photo_iv);
 

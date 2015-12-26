@@ -3,6 +3,7 @@ package net.balbum.baby.lib.retrofit;
 import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
+import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
 
@@ -14,6 +15,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
@@ -32,6 +34,8 @@ public interface TaskService {
     @POST("/api/user/signup/fb_token")
     void createSign(@Body LoginVo task, Callback<AuthVo> cb);
 
+    @GET("/api/card/{cId}")
+    void getOneCard(@Path("cId") Long cId, Callback<GeneralCardVo> cb);
 
 //    @GET("/api/card")
 //    void getCard(@Body GeneralCardVo)

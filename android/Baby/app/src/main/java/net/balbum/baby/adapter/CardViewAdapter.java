@@ -34,8 +34,6 @@ import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import org.parceler.Parcels;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -128,8 +126,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Define.CARD_MODIFY);
-        GeneralCardVo vo = cards.get(position);
-        intent.putExtra("generalCardVo", Parcels.wrap(vo));
+        Long card_id = (Long) cards.get(position).cid;
+        //GeneralCardVo vo = cards.get(position);
+        intent.putExtra("cId", card_id);
         context.startActivity(intent);
     }
 

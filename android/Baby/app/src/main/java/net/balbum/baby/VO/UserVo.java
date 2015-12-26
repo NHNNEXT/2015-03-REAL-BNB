@@ -6,18 +6,14 @@ package net.balbum.baby.VO;
 
 public class UserVo {
 
-    public Long fId;
-    public String familyImage;
-    public String familyName;
-    public String familyRole;
-    public String familyEmail;
+    public long uid;
+    public String userImg;
+    public String userRole;
     public boolean isAccepted;
 
-    public UserVo(String familyEmail, String familyImage, String familyName, String familyRole, boolean isAccepted) {
-        this.familyEmail = familyEmail;
-        this.familyImage = familyImage;
-        this.familyName = familyName;
-        this.familyRole = familyRole;
+    public UserVo(String userImg, String userRole, boolean isAccepted) {
+        this.userImg = userImg;
+        this.userRole = userRole;
         this.isAccepted = isAccepted;
     }
 }

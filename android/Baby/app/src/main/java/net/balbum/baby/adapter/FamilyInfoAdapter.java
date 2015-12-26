@@ -37,8 +37,8 @@ public class FamilyInfoAdapter extends RecyclerView.Adapter<FamilyInfoAdapter.Fa
     @Override
     public void onBindViewHolder(final FamilyViewHolder holder, final int position) {
 
-       // Picasso.with(context).load(Define.URL+ familyList.get(position).familyImage).into(holder.photo);
-        holder.name.setText(familyList.get(position).familyName);
+       // Picasso.with(context).load(Define.URL+ familyList.get(position).userImg).into(holder.photo);
+        holder.name.setText(familyList.get(position).userRole);
 
     }
 
