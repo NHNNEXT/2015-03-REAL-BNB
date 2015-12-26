@@ -59,7 +59,8 @@
                     <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
                         <li><a href="#"><i class="material-icons">face</i></a></li>
                         <li><a class="dropdown-button" href="#" data-activates="nav-dropdown"><i class="material-icons">person</i></a></li>
-                        <li><a href="#"><i class="material-icons post-icon">add_circle</i></a></li>
+                        <li data-target="update-modal" class="modal-trigger"><a href="#"><i class="material-icons post-icon">add_circle</i></a></li>
+
                     </ul>
                     <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
                         <li><a href="#">모바일슬라이드다</a></li>
@@ -165,14 +166,14 @@
                             </div>
                         </div>
                     </div>
-                    <div id="modify-modal" class="modal modal-fixed-footer">
-                        <div class="modal-content">
-                            가나다
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
-                            <a href="#!" class="modal-action waves-effect waves-green btn-flat ">수정</a>
-                        </div>
+                </div>
+                <div id="update-modal" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        가나다
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
+                        <a href="#!" class="modal-action waves-effect waves-green btn-flat ">수정</a>
                     </div>
                 </div>
             </article>

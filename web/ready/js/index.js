@@ -176,7 +176,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     }
     $scope.cardModify = function(cid) {
         console.log("modify", cid);
-        $('#modify-modal').openModal();
+        $('#update-modal').openModal();
 
     }
     $scope.cardDelete = function(cid) {
