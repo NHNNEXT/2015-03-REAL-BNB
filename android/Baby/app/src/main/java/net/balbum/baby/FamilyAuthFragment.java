@@ -26,8 +26,9 @@ import retrofit.client.Response;
  * Created by hyes on 2015. 12. 11..
  */
 public class FamilyAuthFragment extends Fragment {
+
     Context context;
-    Button ok_btn;
+
 
     @Nullable
     @Override
