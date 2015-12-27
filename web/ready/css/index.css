@@ -31,6 +31,9 @@ nav.nav-top {
 nav.nav-top .nav-wrapper {
   padding: 0 11px;
 }
+nav.nav-top .nav-wrapper a {
+  color: #DAD3CE;
+}
 nav.nav-top .brand-logo {
   color: #896DA5;
   font-weight: 900;

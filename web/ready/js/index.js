@@ -1,5 +1,5 @@
-var address = "http://dev.balbum.net/";
-// var address = "http://192.168.1.146:8080/";
+// var address = "http://dev.balbum.net/";
+var address = "http://192.168.1.146:8080/";
 // var token = localStorage.getItem('token');
 var token = 'token';
 
@@ -68,7 +68,14 @@ var Upload = {
 var InitModal = {
     init: function() {
         $('.modal-main-btn').click(function(){
+            $('#main-modal').leanModal({
+                  dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                  ready: function() { alert('Ready'); }, // Callback for Modal open
+                  complete: function() { alert('Closed'); } // Callback for Modal close
+                }
+            );
             $('#main-modal').openModal();
+
             // $('body').css('overflow', 'hidden');
             // $('#main-modal').css('z-index', '1003');
         });
