@@ -77,46 +77,46 @@
                             </div>
                         </div>
                         <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
-                            <div class="">우리 아이를 등록해요.</div>
-                            <div class="add-baby-container row">
-                                <ul class="collection row">
-                                    <li class="collection-item col s12">
-                                        <div class="col s3">
-                                            <input class="upload-baby-photo-input disappear" type="file" name="image">
-                                            <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
-                                            <div class="upload-baby-photo">
-                                                <i class="material-icons">add</i>
+                            <form id="babyForm" action="http://dev.balbum.net/api/user/baby/create" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="token"/>
+                                <div class="">우리 아이를 등록해요.</div>
+                                <div class="add-baby-container row">
+                                    <ul class="collection row">
+                                        <li class="collection-item col s12">
+                                            <div class="col s3">
+                                                <input class="upload-baby-photo-input disappear" type="file" name="image">
+                                                <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
+                                                <div class="upload-baby-photo">
+                                                    <i class="material-icons">add</i>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="baby-info col s9">
-                                            <form>
-                                                <input type="text" name="input" placeholder="이름">
-                                                <input type="date" name="input" value="Type here" placeholder="생년월일">
-                                                <span>
-                                                    <input name="group1" type="radio" id="test1" />
-                                                    <label for="test1">남</label>
-                                                </span>
-                                                <span>
-                                                    <input name="group1" type="radio" id="test2" />
-                                                    <label for="test2">여</label>
-                                                </span>
-                                                <span>
-                                                    <input class="with-gap" name="group1" type="radio" id="test3"  />
-                                                    <label for="test3">임신중</label>
-                                                </span>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="add-baby-btn">
-                                    <span>아이 더 추가하기<i class="material-icons">add</i></span>
+                                            <div class="baby-info col s9">
+                                                    <input type="text" name="babyName" placeholder="이름">
+                                                    <input type="date" name="babyBirth" value="Type here" placeholder="생년월일">
+                                                    <span>
+                                                        <input name="babyGender" type="radio" id="boy" value="BOY" />
+                                                        <label for="boy">남</label>
+                                                    </span>
+                                                    <span>
+                                                        <input name="babyGender" type="radio" id="girl" value="GIRL"/>
+                                                        <label for="girl">여</label>
+                                                    </span>
+                                                    <span>
+                                                        <input class="with-gap" name="babyGender" type="radio" id="pregnancy" value="PREGNANCY"  />
+                                                        <label for="pregnancy">임신중</label>
+                                                    </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="add-baby-btn">
+                                        <span>아이 더 추가하기<i class="material-icons">add</i></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="action-container">
-                                <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
-                                <button type="button" class="js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
-                            </div>
+                                <div class="action-container">
+                                    <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
+                                    <button type="submit" name="action" class="js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
                             <div class="">
@@ -143,7 +143,7 @@
         <section class="main-container row">
             <article class="main-col col s12 m12 l8">
                 <div class="postcard-container card row scrollspy" id="card-now">
-                    <form id="ajaxForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <form id="cardForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="token"/>
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">

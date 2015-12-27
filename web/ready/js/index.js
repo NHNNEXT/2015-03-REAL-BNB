@@ -114,6 +114,30 @@ var InitModal = {
             $('.upload-baby-photo').css('display', 'none');
         });
     },
+    post: function($scope, bMain) {
+        $('#babyForm').submit(function() {
+            $(this).ajaxSubmit({
+                //보내기전 validation check가 필요할경우
+                beforeSubmit: function (data, $form, opt) {
+                    return true;
+                },
+                /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
+                success: function(responseText, statusText, xhr, $form){
+                    bMain.cardList.unshift(responseText.res);
+                    addData = responseText.res;
+                    $('#babyForm').clearForm();
+                    $scope.$apply();
+                    $("input[name='token']").val(token);
+                    Upload.resetPhotoBox();
+                },
+                //ajax error
+                error: function(){
+                    alert("문제가 생겼어요, 다시 올려주시겠어요?");
+                }
+            });
+            return false;
+        });
+    },
 }
 
 var User = {
@@ -170,7 +194,7 @@ var CardCRUD = {
         });
     },
     post: function($scope, bMain) {
-        $('#ajaxForm').submit(function() {
+        $('#cardForm').submit(function() {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
@@ -180,7 +204,7 @@ var CardCRUD = {
                 success: function(responseText, statusText, xhr, $form){
                     bMain.cardList.unshift(responseText.res);
                     addData = responseText.res;
-                    $('#ajaxForm').clearForm();
+                    $('#cardForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
                     Upload.resetPhotoBox();
