@@ -54,14 +54,14 @@ public class CardController {
 		System.out.println("it's uId");
 //		System.out.println(uId);
 //		System.out.println(user.getUId());
-		List<Card> cardList = cardRepo.findAllByOrderByCIdDesc();
+		List<Card> cardList = cardRepo.findByStateOrderByCIdAsc(Card.State.Normal);
 		List<Card> cardResponseList = new ArrayList<Card>();
 		
-		for(Card card : cardList){
-			if(!card.getDeleted()){
-				cardResponseList.add(card);
-			}
-		}
+//		for(Card card : cardList){
+//			if(!card.getDeleted()){
+//				cardResponseList.add(card);
+//			}
+//		}
 		CardListDTO cardListDTO = new CardListDTO();
 		cardListDTO.setCardList(cardResponseList);
 		return cardListDTO;
@@ -69,16 +69,7 @@ public class CardController {
 	@RequestMapping(value = "/api/card/filter",  method = RequestMethod.GET)
 	public CardListDTO selectCards(Long bId){
 		System.out.println("it's uId");
-//		System.out.println(uId);
-//		System.out.println(user.getUId());
-		List<Card> cardList = cardRepo.findAllByOrderByCIdDesc();
-		List<Card> cardResponseList = new ArrayList<Card>();
-		
-		for(Card card : cardList){
-			if(!card.getDeleted()){
-				cardResponseList.add(card);
-			}
-		}
+		List<Card> cardResponseList = cardRepo.findByStateOrderByCIdAsc(Card.State.Normal);
 		CardListDTO cardListDTO = new CardListDTO();
 		cardListDTO.setCardList(cardResponseList);
 		return cardListDTO;
@@ -96,7 +87,7 @@ public class CardController {
 		}
 		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
 		card.setBabies(babies);
-		card.setDeleted(false);
+		card.setState(Card.State.Normal);
 		card.setCreateDate(new Date());
 		card.setUpdateDate(new Date());
 		
@@ -162,7 +153,7 @@ public class CardController {
 	public ResponseDTO deleteCard(Long cId){
 		Card card = cardRepo.findOne(cId);
 		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요", card);
-		card.setDeleted(true);
+		card.setState(Card.State.Deleted);
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);
 	}
@@ -171,7 +162,7 @@ public class CardController {
 		if(cId== null) return new ResponseDTO(false, "카드 id 를 입력해 주세요");
 		Card card = cardRepo.findOne(cId);
 		if(card == null) return new ResponseDTO(false, "해당 카드가 없어요 카드 아이디가 맞나요? ID:"+cId, card);
-		card.setDeleted(true);
+		card.setState(Card.State.Deleted);
 		card = cardRepo.save(card);
 		return new ResponseDTO(true, "null", card);
 	}

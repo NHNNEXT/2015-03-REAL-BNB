@@ -74,7 +74,7 @@ public class InitDB {
 		card1.setFId(family.getFId());
 		card1.setCreateDate(new Date());
 		card1.setUpdateDate(new Date());
-		card1.setDeleted(false);
+		card1.setState(Card.State.Normal);
 		cardRepo.save(card1);
 
 		Card card2 = new Card();
@@ -88,7 +88,7 @@ public class InitDB {
 		card2.setFId(family.getFId());
 		card2.setCreateDate(new Date());
 		card2.setUpdateDate(new Date());
-		card2.setDeleted(false);
+		card2.setState(Card.State.Normal);
 		cardRepo.save(card2);
 
 		//

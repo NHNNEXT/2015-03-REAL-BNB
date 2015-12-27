@@ -27,4 +27,9 @@ public class CardListDTO {
 	private Integer startCard;
 	public Integer count;
 	public List<Card> cardList;
+	
+	public CardListDTO(){}
+	public CardListDTO(String error){
+		this.error = error;
+	}
 }
