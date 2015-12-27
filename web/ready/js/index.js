@@ -1,5 +1,5 @@
-// var address = "http://dev.balbum.net/";
-var address = "http://192.168.1.146:8080/";
+var address = "http://dev.balbum.net/";
+// var address = "http://192.168.1.146:8080/";
 // var token = localStorage.getItem('token');
 var token = 'token';
 
@@ -41,32 +41,36 @@ var Upload = {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#uploaded-photo').attr('src', e.target.result);
-                $('#uploaded-photo').css('display', 'block').css('max-width', '100%');
+                $('.uploaded-photo').attr('src', e.target.result);
+                $('.uploaded-photo').css('display', 'block').css('max-width', '100%');
             }
             reader.readAsDataURL(input.files[0]);
         }
     },
     uploadPhoto: function() {
         // 업로드버튼이나 올려진 사진을 누르면 hidden된 form을 누른다.
-        $('.upload-photo-box, #uploaded-photo').click(function(event) {
-            $("#upload-photo-input").click();
+        $('.upload-photo-box, .uploaded-photo').click(function(event) {
+            $(".upload-photo-input").click();
         });
 
         // form이 변경되면 fileread를 한다.
-        $("#upload-photo-input").change(function(){
+        $(".upload-photo-input").change(function(){
             Upload.readURL(this);
             $('.upload-photo-box').css('display', 'none');
         });
     },
     resetPhotoBox: function() {
         $('.upload-photo-box').css('display', 'block');
-        $('#uploaded-photo').css('display', 'none');
+        $('.uploaded-photo').css('display', 'none');
     }
 }
 
 var InitModal = {
     init: function() {
+        this.steps();
+        this.uploadPhoto();
+    },
+    steps: function() {
         $('.modal-main-btn').click(function(){
             $('#main-modal').leanModal({
                   dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -87,9 +91,29 @@ var InitModal = {
                 // '1': function(){ alert('Tanam!');}
             }
         });
+    },
+    readURL: function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.uploaded-baby-photo').attr('src', e.target.result);
+                $('.uploaded-baby-photo').css('display', 'block').css('max-width', '100%');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    },
+    uploadPhoto: function() {
+        // 업로드버튼이나 올려진 사진을 누르면 hidden된 form을 누른다.
+        $('.upload-baby-photo, .uploaded-baby-photo').click(function(event) {
+            $(".upload-baby-photo-input").click();
+        });
 
-
-    }
+        // form이 변경되면 fileread를 한다.
+        $(".upload-baby-photo-input").change(function(){
+            InitModal.readURL(this);
+            $('.upload-baby-photo').css('display', 'none');
+        });
+    },
 }
 
 var User = {

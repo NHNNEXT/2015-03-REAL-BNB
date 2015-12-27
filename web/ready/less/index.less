@@ -78,11 +78,6 @@ aside.left-col {
     z-index: -10;
 }
 
-//*-- Main Modal --*//
-div#modal-main {
-    z-index: 1003;
-}
-
 
 //*-- Main Container --*//
 section.main-container {
@@ -113,7 +108,7 @@ section.main-container {
                         line-height: 50px;
                     }
                 }
-                #uploaded-photo {
+                .uploaded-photo {
                     display: none;
                 }
 
@@ -216,7 +211,8 @@ section.main-container {
 }
 
 //*-- Main Modal --*//
-#modal-main {
+div#modal-main {
+    z-index: 1003;
     div.modal-body {
         div.modal-check-balbum {
             .collection-container {
@@ -230,6 +226,12 @@ section.main-container {
                 .collection {
                     .collection-item {
                         padding: 1em;
+                    }
+                    .uploaded-baby-photo {
+                        display: none;
+                        width: 6em;
+                        height: 6em;
+                        border-radius: 50%;
                     }
                     .upload-baby-photo {
                         width: 6em;

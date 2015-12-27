@@ -82,10 +82,13 @@
                                 <ul class="collection row">
                                     <li class="collection-item col s12">
                                         <div class="col s3">
+                                            <input class="upload-baby-photo-input disappear" type="file" name="image">
+                                            <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
                                             <div class="upload-baby-photo">
                                                 <i class="material-icons">add</i>
                                             </div>
                                         </div>
+
                                         <div class="baby-info col s9">
                                             <form>
                                                 <input type="text" name="input" placeholder="이름">
@@ -152,8 +155,8 @@
                             <div class="upload-photo-box col s12">
                                 <i class="material-icons">add_a_photo</i>사진 추가하기
                             </div>
-                            <input id="upload-photo-input" class="disappear" type="file" name="image">
-                            <img id="uploaded-photo" src="#" alt="uploaded photo" />
+                            <input class="upload-photo-input disappear" type="file" name="image">
+                            <img class="uploaded-photo" src="#" alt="uploaded photo" />
                             <div class="input-field col s12">
                                 <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
                             </div>
@@ -188,51 +191,7 @@
                 </div>
                 <div id="update-modal" class="modal modal-fixed-footer">
                     <div class="modal-content">
-                        <div class="postcard-container card row scrollspy" id="card-now">
-                            <form id="ajaxForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="token"/>
-                                <div class="postcard-tabs col s12">
-                                    <ul class="tabs">
-                                        <li class="tab col s3"><a class="active" href="#daily-tab-modal">일상의 순간</a></li>
-                                        <li class="tab col s3"><a class="active" href="#event-tab-modal">특별한 순간</a></li>
-                                    </ul>
-                                </div>
-                                <div id="daily-tab-modal" class="daily-tab col row s12">
-                                    <div class="upload-photo-box col s12">
-                                        <i class="material-icons">add_a_photo</i>사진 추가하기
-                                    </div>
-                                    <input id="upload-photo-input" class="disappear" type="file" name="image">
-                                    <img id="uploaded-photo" src="#" alt="uploaded photo" />
-                                    <div class="input-field col s12">
-                                        <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
-                                    </div>
-                                </div>
-                                <div id="event-tab-modal" class="event-tab col row s12">
-                                    <div class="date-container ">
-                                        <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
-                                    </div>
-                                </div>
-                                <div class="baby-check-container card-content">
-                                    <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                                        <input class="check-hidden" type="hidden"/>
-                                        <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
-                                        <label for="{{baby.bid}}">
-                                            <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                                            {{baby.babyName}} {{baby.babyBirth}}
-                                        </label>
-                                    </p>
-                                </div>
-                                <div class="action card-action row">
-                                    <div class="date-container col s5">
-                                        <input type="text" name="modifiedDate" value="2001-02-30" /><br/>
-                                    </div>
-                                    <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
-                                </div>
-                            </form>
-                        </div>
+                        카드 그대로 가져오기
                     </div>
                     <div class="modal-footer">
                         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
