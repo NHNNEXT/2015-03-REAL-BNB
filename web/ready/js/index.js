@@ -1,7 +1,7 @@
 var address = "http://dev.balbum.net/";
 // var address = "http://192.168.1.146:8080/";
 // var token = localStorage.getItem('token');
-var token = 'token';
+var token = 'asdf1234';
 
 var testData;
 
@@ -69,6 +69,7 @@ var InitModal = {
     init: function() {
         this.steps();
         this.uploadPhoto();
+
     },
     steps: function() {
         $('.modal-main-btn').click(function(){
@@ -114,7 +115,7 @@ var InitModal = {
             $('.upload-baby-photo').css('display', 'none');
         });
     },
-    post: function($scope, bMain) {
+    postBaby: function($scope, bMain) {
         $('#babyForm').submit(function() {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
@@ -136,6 +137,17 @@ var InitModal = {
                 }
             });
             return false;
+        });
+    },
+    getFamily: function($http, bMain) {
+        $http({
+            url: address + 'api/user/family/findFromMail',
+            method: "GET",
+            params: {token: token, email:'a'}
+        }).then( function(response) {
+            console.log("res:", response);
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
         });
     },
 }
@@ -246,7 +258,10 @@ balbumApp.controller('MainController', function($scope, $http) {
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
-    InitModal.post($scope, this); /* 카드를 서버에 저장하기 */
+    InitModal.postBaby($scope, this); /* 카드를 서버에 저장하기 */
+    $('.btn-get-family').click(function() {
+        InitModal.getFamily($http, this); /* main modal에서 가족 검색 */
+    })
 
     $scope.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();
