@@ -77,9 +77,15 @@
                             </div>
                         </div>
                         <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
-                            <form id="babyForm" action="http://dev.balbum.net/api/user/baby/create" method="post" enctype="multipart/form-data">
+                            <form id="babyForm" ng-submit="bMain.postBaby()" action="http://dev.balbum.net/api/user/baby/create" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="token"/>
                                 <div class="">우리 아이를 등록해요.</div>
+                                <div class="added-baby-container row">
+                                    <div class="added-baby" ng-repeat="baby in bMain.babyList">
+                                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                        <p class="baby-info">{{baby.babyName}} {{baby.babyBirth}}</p>
+                                    </div>
+                                </div>
                                 <div class="add-baby-container row">
                                     <ul class="collection row">
                                         <li class="collection-item col s12">
@@ -94,27 +100,27 @@
                                                     <input type="text" name="babyName" placeholder="이름">
                                                     <input type="date" name="babyBirth" value="Type here" placeholder="생년월일">
                                                     <span>
-                                                        <input name="babyGender" type="radio" id="boy" value="BOY" />
+                                                        <input name="babyGender" class="with-gap" type="radio" id="boy" value="BOY" />
                                                         <label for="boy">남</label>
                                                     </span>
                                                     <span>
-                                                        <input name="babyGender" type="radio" id="girl" value="GIRL"/>
+                                                        <input name="babyGender" class="with-gap" type="radio" id="girl" value="GIRL"/>
                                                         <label for="girl">여</label>
                                                     </span>
                                                     <span>
-                                                        <input class="with-gap" name="babyGender" type="radio" id="pregnancy" value="PREGNANCY"  />
+                                                        <input class="with-gap" name="babyGender" type="radio" id="pregnancy" value="PREGNANCY" checked/>
                                                         <label for="pregnancy">임신중</label>
                                                     </span>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="add-baby-btn">
-                                        <span>아이 더 추가하기<i class="material-icons">add</i></span>
+                                        <button type="submit" name="action">아이 더 추가하기<i class="material-icons">add</i></button>
                                     </div>
                                 </div>
                                 <div class="action-container">
                                     <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
-                                    <button type="submit" name="action" class="js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                    <button class="btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
                                 </div>
                             </form>
                         </div>
@@ -143,7 +149,7 @@
         <section class="main-container row">
             <article class="main-col col s12 m12 l8">
                 <div class="postcard-container card row scrollspy" id="card-now">
-                    <form id="cardForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="token"/>
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">

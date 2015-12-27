@@ -123,12 +123,12 @@ var InitModal = {
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
-                    bMain.cardList.unshift(responseText.res);
-                    addData = responseText.res;
+                    bMain.babyList.push(responseText.res);
+                    console.log("베이비리스트 가랏", bMain.babyList);
                     $('#babyForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
-                    Upload.resetPhotoBox();
+                    // Upload.resetPhotoBox();
                 },
                 //ajax error
                 error: function(){
@@ -203,7 +203,6 @@ var CardCRUD = {
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
                     bMain.cardList.unshift(responseText.res);
-                    addData = responseText.res;
                     $('#cardForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
@@ -247,6 +246,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
+    InitModal.post($scope, this); /* 카드를 서버에 저장하기 */
 
     $scope.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();

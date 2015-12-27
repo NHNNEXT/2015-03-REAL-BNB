@@ -21,9 +21,6 @@
 body {
   background: #f3ede8;
 }
-button {
-  background: #896DA5 !important;
-}
 nav.nav-top {
   background-color: rgba(255, 251, 245, 0.9);
   box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
@@ -156,6 +153,13 @@ div#modal-main {
 div#modal-main div.modal-body div.modal-check-balbum .collection-container li {
   cursor: pointer;
 }
+div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby {
+  display: inline-block;
+}
+div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby img {
+  width: 3.5em;
+  height: 3.5em;
+}
 div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .collection-item {
   padding: 1em;
 }
@@ -184,18 +188,19 @@ div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection
 div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn {
   text-align: center;
 }
-div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button {
   transition: all 0.3s ease;
   display: inline-block;
   padding: 0.5em 1em;
   border-radius: 1.4em;
+  background: transparent;
   color: #74d0cb;
   border: 1px solid #74d0cb;
 }
-div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span i {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button i {
   vertical-align: bottom;
 }
-div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span:hover {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button:hover {
   background-color: #74d0cb;
   color: white;
 }
