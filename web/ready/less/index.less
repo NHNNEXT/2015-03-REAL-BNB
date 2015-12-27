@@ -18,12 +18,15 @@
 .disappear {
     display: none;
 }
+.toast {
+    background-color: #74d0cb !important;
+}
 
 body {
     background: #f3ede8;
 }
 button {
-    background: @primary !important;
+    // background: @primary !important;
 }
 
 //*-- 네비게이션 --*//
@@ -32,6 +35,9 @@ nav.nav-top {
     box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;
     .nav-wrapper {
         padding: 0 11px;
+        a {
+            color: #DAD3CE;
+        }
     }
     .brand-logo {
         color: @primary;
@@ -41,9 +47,10 @@ nav.nav-top {
             height: 35px;
         }
     }
-    a {
+    li {
+        margin: 0 6px;
         color: #DAD3CE;
-        i.post-icon {
+        &.nav-update-modal {
             color: @primary;
         }
     }
@@ -71,6 +78,7 @@ aside.left-col {
     z-index: -10;
 }
 
+
 //*-- Main Container --*//
 section.main-container {
     padding-left: @left-col-width;
@@ -87,7 +95,7 @@ section.main-container {
             div.postcard-tabs {
 
             }
-            div#daily-tab {
+            div.daily-tab {
                 .upload-photo-box {
                     margin-top: 10px;
                     width: 100%;
@@ -100,12 +108,12 @@ section.main-container {
                         line-height: 50px;
                     }
                 }
-                #uploaded-photo {
+                .uploaded-photo {
                     display: none;
                 }
 
             }
-            div#event-tab {
+            div.event-tab {
 
             }
             div.baby-check-container {
@@ -203,7 +211,8 @@ section.main-container {
 }
 
 //*-- Main Modal --*//
-#modal-main {
+div#modal-main {
+    z-index: 1003;
     div.modal-body {
         div.modal-check-balbum {
             .collection-container {
@@ -213,10 +222,25 @@ section.main-container {
             }
         }
         div.modal-add-baby {
+            .added-baby-container {
+                div.added-baby {
+                    display: inline-block;
+                    img {
+                        width: 3.5em;
+                        height: 3.5em;
+                    }
+                }
+            }
             .add-baby-container {
                 .collection {
                     .collection-item {
                         padding: 1em;
+                    }
+                    .uploaded-baby-photo {
+                        display: none;
+                        width: 6em;
+                        height: 6em;
+                        border-radius: 50%;
                     }
                     .upload-baby-photo {
                         width: 6em;
@@ -239,11 +263,12 @@ section.main-container {
                 }
                 .add-baby-btn {
                     text-align: center;
-                    span {
+                    button {
                         transition: all 0.3s ease;
                         display: inline-block;
                         padding: 0.5em 1em;
                         border-radius: 1.4em;
+                        background: transparent;
                         color: @tertiary;
                         border: 1px solid @tertiary;
                         i {vertical-align: bottom;}
@@ -255,7 +280,7 @@ section.main-container {
                 }
             }
             div.action-container {
-                a{
+                a {
                     text-decoration: underline;
                     color: @font-primary;
                     cursor: pointer;

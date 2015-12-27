@@ -15,11 +15,11 @@
 .disappear {
   display: none;
 }
+.toast {
+  background-color: #74d0cb !important;
+}
 body {
   background: #f3ede8;
-}
-button {
-  background: #896DA5 !important;
 }
 nav.nav-top {
   background-color: rgba(255, 251, 245, 0.9);
@@ -27,6 +27,9 @@ nav.nav-top {
 }
 nav.nav-top .nav-wrapper {
   padding: 0 11px;
+}
+nav.nav-top .nav-wrapper a {
+  color: #DAD3CE;
 }
 nav.nav-top .brand-logo {
   color: #896DA5;
@@ -36,10 +39,11 @@ nav.nav-top .brand-logo {
 nav.nav-top .brand-logo img {
   height: 35px;
 }
-nav.nav-top a {
+nav.nav-top li {
+  margin: 0 6px;
   color: #DAD3CE;
 }
-nav.nav-top a i.post-icon {
+nav.nav-top li.nav-update-modal {
   color: #896DA5;
 }
 nav.nav-top #nav-mobile a {
@@ -70,7 +74,7 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
-section.main-container article.main-col div.postcard-container div#daily-tab .upload-photo-box {
+section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box {
   margin-top: 10px;
   width: 100%;
   height: 50px;
@@ -79,10 +83,10 @@ section.main-container article.main-col div.postcard-container div#daily-tab .up
   text-align: center;
   cursor: pointer;
 }
-section.main-container article.main-col div.postcard-container div#daily-tab .upload-photo-box i {
+section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box i {
   line-height: 50px;
 }
-section.main-container article.main-col div.postcard-container div#daily-tab #uploaded-photo {
+section.main-container article.main-col div.postcard-container div.daily-tab .uploaded-photo {
   display: none;
 }
 section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check img {
@@ -143,13 +147,29 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 section.main-container aside.right-col {
   height: 600px;
 }
-#modal-main div.modal-body div.modal-check-balbum .collection-container li {
+div#modal-main {
+  z-index: 1003;
+}
+div#modal-main div.modal-body div.modal-check-balbum .collection-container li {
   cursor: pointer;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .collection-item {
+div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby {
+  display: inline-block;
+}
+div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby img {
+  width: 3.5em;
+  height: 3.5em;
+}
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .collection-item {
   padding: 1em;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .uploaded-baby-photo {
+  display: none;
+  width: 6em;
+  height: 6em;
+  border-radius: 50%;
+}
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo {
   width: 6em;
   height: 6em;
   border: 1px dashed #CECECE;
@@ -158,32 +178,33 @@ section.main-container aside.right-col {
   text-align: center;
   cursor: pointer;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo i {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .upload-baby-photo i {
   line-height: 2.5em;
   font-size: 2.3em;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .baby-info span {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .collection .baby-info span {
   margin-right: 1.5em;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn {
   text-align: center;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button {
   transition: all 0.3s ease;
   display: inline-block;
   padding: 0.5em 1em;
   border-radius: 1.4em;
+  background: transparent;
   color: #74d0cb;
   border: 1px solid #74d0cb;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span i {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button i {
   vertical-align: bottom;
 }
-#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn span:hover {
+div#modal-main div.modal-body div.modal-add-baby .add-baby-container .add-baby-btn button:hover {
   background-color: #74d0cb;
   color: white;
 }
-#modal-main div.modal-body div.modal-add-baby div.action-container a {
+div#modal-main div.modal-body div.modal-add-baby div.action-container a {
   text-decoration: underline;
   color: #6f6c66;
   cursor: pointer;

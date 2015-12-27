@@ -125,6 +125,9 @@ https://github.com/orige/jquery-bootstrap-modal-steps 를 커스텀.
                     .html(settings.btnNextHtml);
 
                 $modal.find('.js-title-step').html('');
+
+                $('body').css('overflow', '');
+                $('#' + $modal.data('overlay-id')).css('opacity', 0);
             });
 
         // cancel, next, previous 버튼 클릭

@@ -26,40 +26,16 @@
         <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  -->
 
         <script type="text/javascript" src="js/vendor/handlebars-v3.0.3.js"></script>
-        <script id="card-template" type="text/x-handlebars-template">
-            <div class="b-card card scrollspy" id="card-1">
-                <div class="card-image">
-                    <img src={{card-img}}>
-                </div>
-                <div class="card-content">
-                    <p>{{card-content}}</p>
-                </div>
-                <div class="card-action">
-                    <div class="baby-chip chip right">
-                        <img src="img/baby2.jpeg" alt="Contact Person">
-                        {{baby-name}}{{baby-age}}
-                    </div>
-                    <a href="#" class="date-container">{{card-date}}</a>
-                    <div class="btn-container">
-                        <div class="share-btn"></div>
-                        <div class="ctrl-btn">
-                            <div class="modify-btn"></div>
-                            <div class="delete-btn"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
     </head>
     <body ng-controller="MainController as bMain">
         <div class="navbar-fixed">
             <nav class="nav-top" role="navigation">
                 <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
                     <ul class="right hide-on-small-only"> <!-- pc화면에서만 보이는 상단메뉴 -->
-                        <li><a href="#"><i class="material-icons">face</i></a></li>
-                        <li><a class="dropdown-button" href="#" data-activates="nav-dropdown"><i class="material-icons">person</i></a></li>
-                        <li><a href="#"><i class="material-icons post-icon">add_circle</i></a></li>
+                        <li class="modal-main-btn modal-trigger" data-toggle="modal" data-target="#modal-main"><i class="material-icons">face</i></li>
+                        <li class="dropdown-button" data-activates="nav-dropdown"><i class="material-icons">person</i></li>
+                        <li class="nav-update-modal"><i class="material-icons post-icon">add_circle</i></li>
+
                     </ul>
                     <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
                         <li><a href="#">모바일슬라이드다</a></li>
@@ -68,7 +44,7 @@
                         <li><a href="#">설정</a></li>
                     </ul>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <a href="#" class="button-collapse right"><i class="material-icons post-icon">add_circle</i></a>
+                    <a href="#" class="nav-update-modal button-collapse right"><i class="material-icons post-icon">add_circle</i></a>
                 </div>
             </nav>
         </div>
@@ -86,11 +62,94 @@
                 <li><a href="#">설정</a></li>
             </ul>
         </aside>
+        <div id="modal-main" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
+                            <div>안녕하세요, 율무님!</div>
+                            <div class="collection-container">
+                                <ul class="collection with-header">
+                                        <li class="js-btn-goto collection-item" data-goto="2"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                        <li class="js-btn-goto collection-item" data-goto="3"><div>BALBUM 찾기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                </ul>
+                                <div>한 ID당 하나의 가족만 등록이 가능합니다^^</div>
+                            </div>
+                        </div>
+                        <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
+                            <form id="babyForm" ng-submit="bMain.postBaby()" action="http://dev.balbum.net/api/user/baby/create" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="token"/>
+                                <div class="">우리 아이를 등록해요.</div>
+                                <div class="added-baby-container row">
+                                    <div class="added-baby" ng-repeat="baby in bMain.babyList">
+                                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                        <p class="baby-info">{{baby.babyName}} {{baby.babyBirth}}</p>
+                                    </div>
+                                </div>
+                                <div class="add-baby-container row">
+                                    <ul class="collection row">
+                                        <li class="collection-item col s12">
+                                            <div class="col s3">
+                                                <input class="upload-baby-photo-input disappear" type="file" name="image">
+                                                <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
+                                                <div class="upload-baby-photo">
+                                                    <i class="material-icons">add</i>
+                                                </div>
+                                            </div>
+                                            <div class="baby-info col s9">
+                                                    <input type="text" name="babyName" placeholder="이름">
+                                                    <input type="date" name="babyBirth" value="Type here" placeholder="생년월일">
+                                                    <span>
+                                                        <input name="babyGender" class="with-gap" type="radio" id="boy" value="BOY" />
+                                                        <label for="boy">남</label>
+                                                    </span>
+                                                    <span>
+                                                        <input name="babyGender" class="with-gap" type="radio" id="girl" value="GIRL"/>
+                                                        <label for="girl">여</label>
+                                                    </span>
+                                                    <span>
+                                                        <input class="with-gap" name="babyGender" type="radio" id="pregnancy" value="PREGNANCY" checked/>
+                                                        <label for="pregnancy">임신중</label>
+                                                    </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="add-baby-btn">
+                                        <button type="submit" name="action">아이 더 추가하기<i class="material-icons">add</i></button>
+                                    </div>
+                                </div>
+                                <div class="action-container">
+                                    <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
+                                    <button class="btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
+                            <div class="">
+                                <div>이미 가입한 가족의 Email을 입력해주세요.</div>
+                                <form>
+                                    <input type="email" name="input" placeholder="Email">
+                                </form>
+                                <button type="button" class="btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
+                            </div>
+                            <div class="found-existing-user hide">
+                                <img class="circle" src="img/baby1.jpeg" alt="user-photo">
+                                <div class="">
+                                    <div>율무님의 BALBUM</div>
+                                    <div>jayjinjay@gmail.com</div>
+                                    <button type="button" class="js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section class="main-container row">
             <article class="main-col col s12 m12 l8">
-
                 <div class="postcard-container card row scrollspy" id="card-now">
-                    <form id="ajaxForm" ng-submit="bMain.postCard()" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="token"/>
                         <div class="postcard-tabs col s12">
                             <ul class="tabs">
@@ -98,17 +157,17 @@
                                 <li class="tab col s3"><a class="active" href="#event-tab">특별한 순간</a></li>
                             </ul>
                         </div>
-                        <div id="daily-tab" class="col row s12">
+                        <div id="daily-tab" class="daily-tab col row s12">
                             <div class="upload-photo-box col s12">
                                 <i class="material-icons">add_a_photo</i>사진 추가하기
                             </div>
-                            <input id="upload-photo-input" class="disappear" type="file" name="image">
-                            <img id="uploaded-photo" src="#" alt="uploaded photo" />
+                            <input class="upload-photo-input disappear" type="file" name="image">
+                            <img class="uploaded-photo" src="#" alt="uploaded photo" />
                             <div class="input-field col s12">
                                 <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
                             </div>
                         </div>
-                        <div id="event-tab" class="col row s12">
+                        <div id="event-tab" class="event-tab col row s12">
                             <div class="date-container ">
                                 <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
                                 <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
@@ -136,6 +195,15 @@
                         </div>
                     </form>
                 </div>
+                <div id="update-modal" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        카드 그대로 가져오기
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
+                        <a href="#!" class="modal-action waves-effect waves-green btn-flat ">수정</a>
+                    </div>
+                </div>
                 <div class="card-container">
                     <div class="baby-card card scrollspy" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in bMain.cardList">
                         <div class="bc-photo card-image">
@@ -158,14 +226,15 @@
                                 <div class="share-btn action-btn"><i class="material-icons">share</i></div>
                                 <div class="action-dropdown-menu">
                                     <ul>
-                                        <li><a href="#!">수정</a></li>
-                                        <li><a href="#!">삭제</a></li>
+                                        <li class="card-modify" ng-click="cardModify(bc.cid)">수정</li>
+                                        <li class="card-delete" ng-click="cardDelete(bc.cid)">삭제</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </article>
             <aside class="right-col col l4 hide-on-med-and-down">
                 <div class="timemachine-wrapper">
@@ -189,6 +258,7 @@
         <script src="/node_modules/angular/angular.js"></script>
         <!-- <script src="js/vendor/timeline.js"></script> -->
         <script src="js/index.js"></script>
+        <script src="js/vendor/bootstrap-modal.min.js"></script>
         <script src="js/vendor/steps-modal.js"></script>
         <!-- <script src="js/cardCRUD.js"></script> -->
         <script src="/node_modules/dropzone/dist/dropzone.js"></script>
