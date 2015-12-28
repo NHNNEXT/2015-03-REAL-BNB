@@ -116,6 +116,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         TextView modify;
         ImageButton more_btn;
         RelativeLayout container;
+        ImageView check_img;
 
 
         ViewHolder(View itemView) {
@@ -130,6 +131,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
             delete = (TextView) itemView.findViewById(R.id.delete_btn);
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
+            check_img = (ImageView) itemView.findViewById(R.id.check_image);
             itemView.setOnClickListener(this);
         }
 

@@ -101,6 +101,7 @@ public class SignFacebookActivity extends AppCompatActivity{
 
                         @Override
                         public void failure(RetrofitError error) {
+                             Log.d("test", "error+ "+ error.toString());
 
                         }
                     });

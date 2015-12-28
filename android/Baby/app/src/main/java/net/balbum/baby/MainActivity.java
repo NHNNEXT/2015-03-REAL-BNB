@@ -270,7 +270,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_poster) {
             ActivityUtil.goToActivity(context, PosterMakingActivity.class);
 
-        } else if ( id == R.id.logout){
+        } else if (id == R.id.nav_poster2) {
+            ActivityUtil.goToActivity(context, PosterMakingActivity.class);
+
+        }  else if ( id == R.id.logout){
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
