@@ -15,7 +15,7 @@ var Start = {
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
         $('.scrollspy').scrollSpy();
-        $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top });
+        // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top });
 
         $('html').click(function() {
             $('.action-dropdown-menu').removeClass("active");
