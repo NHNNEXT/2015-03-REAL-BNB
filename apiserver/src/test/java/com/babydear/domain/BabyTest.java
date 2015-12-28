@@ -3,6 +3,7 @@ package com.babydear.domain;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -24,21 +25,22 @@ import com.babydear.repository.CardRepository;
 import com.babydear.repository.FamilyRepository;
 import com.babydear.repository.UserRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ApiserverApplication.class)
 public class BabyTest {
-	@Autowired
-	private FamilyRepository familyRepo;
-	@Autowired
-	private UserRepository userRepo;
-	@Autowired
-	private BabyRepository babyRepo;
-	@Autowired
-	private CardRepository cardRepo;
-	
 	@Test
 	public void createUserByFirstWithNoBaby() throws Exception {
-//		List<Card> list = cardRepo.findAllByBabies();
-//		System.out.println(list);
+		Baby baby1 = new Baby(1);
+		baby1.setBId(new Long(1));
+		List<Baby> babies = new ArrayList<Baby>();
+		babies.add(new Baby(2));
+		babies.add(new Baby(3));
+		babies.add(new Baby(4));
+//		babies.add(new Baby(new Long(1)));
+		
+		if (babies.contains(baby1)) {
+			System.out.println("true");
+		}else{
+			System.out.println("false");
+		}
+
 	}
 }

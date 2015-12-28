@@ -74,17 +74,18 @@ public class CardFilterController {
 			// cardRepo.findByStateAndFIdAndBIdOrderByCIdAsc(Card.State.Normal,
 			// user.getFId(), bId);
 			List<Card> cardResponseList = new ArrayList<>();
-			System.out.println(cardList.size());
-			System.out.println(cardResponseList.size());
 			for (Card card : cardList) {
-//				card.getBabies().
-				if (card.getBabies().contains(new Baby(bId))) {
+				System.out.println("bid"+bId);
+				System.out.println("cid"+card.getBabies().get(0).getBId());
+				if(card.getBabies().get(0).getBId().equals(bId)){
+					System.out.println("true");
+				}
+				if (card.getBabies().contains(new Baby(1))) {
 					cardResponseList.add(card);
 				}else{
 					System.out.println("why"+card);
 				}
 			}
-			System.out.println(cardResponseList.size());
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
@@ -101,7 +102,6 @@ public class CardFilterController {
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
-//			List<Card> cardResponseList = cardRepo.findByStateAndFIdAndBIdOrderByCIdAsc(Card.State.Normal, user.getFId(), bId);
 			List<Card> cardResponseList = new ArrayList<>();
 			for(Card card : cardList){
 				for(Integer bId : babies){

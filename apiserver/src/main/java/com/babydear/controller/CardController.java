@@ -50,30 +50,19 @@ public class CardController {
 	ImgService imgService;
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
-	public CardListDTO selectCards(Long uId, User user){
-		System.out.println("it's uId");
-//		System.out.println(uId);
-//		System.out.println(user.getUId());
-		List<Card> cardList = cardRepo.findByStateOrderByCIdAsc(Card.State.Normal);
-		List<Card> cardResponseList = new ArrayList<Card>();
-		
-//		for(Card card : cardList){
-//			if(!card.getDeleted()){
-//				cardResponseList.add(card);
-//			}
-//		}
-		CardListDTO cardListDTO = new CardListDTO();
-		cardListDTO.setCardList(cardResponseList);
-		return cardListDTO;
+	public CardListDTO selectCards(String token){
+		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
+		try {
+			User user = authService.getUser(token);
+			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
+			CardListDTO cardListDTO = new CardListDTO();
+			cardListDTO.setCardList(cardResponseList);
+			return cardListDTO;
+		} catch (NotToken e) {
+			return new CardListDTO("유효하지 않은 토큰 입니다.");
+		}
 	}
-	@RequestMapping(value = "/api/card/filter",  method = RequestMethod.GET)
-	public CardListDTO selectCards(Long bId){
-		System.out.println("it's uId");
-		List<Card> cardResponseList = cardRepo.findByStateOrderByCIdAsc(Card.State.Normal);
-		CardListDTO cardListDTO = new CardListDTO();
-		cardListDTO.setCardList(cardResponseList);
-		return cardListDTO;
-	}
+	
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(String token, Card card, MultipartFile image){
 		logger.info(card.toString());
