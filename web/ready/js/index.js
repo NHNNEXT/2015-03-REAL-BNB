@@ -243,7 +243,23 @@ var CardCRUD = {
     },
 }
 
-var balbumApp = angular.module('balbumApp', []);
+var balbumApp = angular.module('balbumApp', ['ngRoute']);
+
+balbumApp.config(function($routeProvider) {
+    $routeProvider
+        // route for the home page
+        .when('/', {
+            templateUrl : 'pages/card-timeline.htm',
+            controller  : 'MainController'
+        })
+
+        // route for the about page
+        .when('/settings', {
+            templateUrl : 'pages/setting.htm',
+            controller  : 'SettingsController'
+        });
+});
+
 balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
 
@@ -276,6 +292,10 @@ balbumApp.controller('MainController', function($scope, $http) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
 
+});
+
+balbumApp.controller('SettingsController', function($scope) {
+    $scope.message = 'Look! I am an about page.';
 });
 
 /*

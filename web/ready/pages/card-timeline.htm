@@ -1,0 +1,101 @@
+<article class="main-col col s12 m12 l8">
+    <div class="postcard-container card row scrollspy" id="card-now">
+        <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="token"/>
+            <div class="postcard-tabs col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
+                    <li class="tab col s3"><a class="active" href="#event-tab">특별한 순간</a></li>
+                </ul>
+            </div>
+            <div id="daily-tab" class="daily-tab col row s12">
+                <div class="upload-photo-box col s12">
+                    <i class="material-icons">add_a_photo</i>사진 추가하기
+                </div>
+                <input class="upload-photo-input disappear" type="file" name="image">
+                <img class="uploaded-photo" src="#" alt="uploaded photo" />
+                <div class="input-field col s12">
+                    <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
+                </div>
+            </div>
+            <div id="event-tab" class="event-tab col row s12">
+                <div class="date-container ">
+                    <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
+                    <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
+                </div>
+            </div>
+            <div class="baby-check-container card-content">
+                <p class="baby-check" ng-repeat="baby in bMain.babyList">
+                    <input class="check-hidden" type="hidden"/>
+                    <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
+                    <label for="{{baby.bid}}">
+                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                        {{baby.babyName}} {{baby.babyBirth}}
+                    </label>
+                </p>
+            </div>
+            <div class="action card-action row">
+                <div class="date-container col s5">
+                    <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
+                    <input type="text" name="modifiedDate" value="2001-02-30" /><br/>
+                </div>
+                <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
+            </div>
+        </form>
+    </div>
+    <div id="update-modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            카드 그대로 가져오기
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat ">수정</a>
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="baby-card card scrollspy" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in bMain.cardList">
+            <div class="bc-photo card-image">
+                <img src=" http://dev.balbum.net{{bc.cardImg}}">
+            </div>
+            <div class="bc-content card-content">
+                <p>{{bc.content}}</p>
+            </div>
+            <div class="bc-action card-action">
+                <div class="date-container">
+                    <a href="#">{{bc.modifiedDate}}</a>
+                </div>
+                <div class="babies-container" ng-repeat=" baby in bc.babies">
+                    <div class="baby">
+                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyBirth}}
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <div class='action-dropdown-btn action-btn' ng-click="cardActionDropdownClick($event, bc.cid)"><i class="material-icons">more_horiz</i></div>
+                    <div class="share-btn action-btn"><i class="material-icons">share</i></div>
+                    <div class="action-dropdown-menu">
+                        <ul>
+                            <li class="card-modify" ng-click="cardModify(bc.cid)">수정</li>
+                            <li class="card-delete" ng-click="cardDelete(bc.cid)">삭제</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+<aside class="right-col col l4 hide-on-med-and-down">
+    <div class="timemachine-wrapper">
+        <div class="row">
+            <ul class="section table-of-contents">
+                <li><a href="#card-now">지금 이 순간</a></li>
+                <li><a href="#1">2015년 5월</a></li>
+                <li><a href="#2">2015년 3월</a></li>
+                <li><a href="#3">태어남</a></li>
+            </ul>
+        </div>
+    </div>
+</aside>

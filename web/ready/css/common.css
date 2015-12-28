@@ -61,5 +61,5 @@ aside.left-col {
   left: 0;
   width: 230px;
   height: 100%;
-  z-index: -10;
+  z-index: 1;
 }
