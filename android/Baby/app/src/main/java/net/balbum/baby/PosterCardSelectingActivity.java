@@ -1,5 +1,6 @@
 package net.balbum.baby;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.CardSelectingAdapter;
@@ -31,11 +33,13 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
     List<GeneralCardVo> cardList;
     //cId만 담아도 될 것 같은데 서버를...
     List<Long> selectedCardListLong;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_card_selecting);
+        context = this;
 
         selectedCardListLong = new ArrayList<Long>();
 
@@ -109,11 +113,20 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
 
-            Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
-           // intent.putExtra("list", Parcels.wrap(selectedCardList));
-            intent.putExtra("cIds", (Serializable) selectedCardListLong);
+            int size = selectedCardListLong.size();
+            if(size != 3){
+                if(size < 3){
+                    ToastUtil.show(context, "카드가 9개보다 적게 선택되었습니다.");
+                }else if(size > 3){
+                    ToastUtil.show(context, "카드가 9개보다 많이 선택되었습니다.");
+                }
+            }else{
+                Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
+                // intent.putExtra("list", Parcels.wrap(selectedCardList));
+                intent.putExtra("cIds", (Serializable) selectedCardListLong);
+                startActivity(intent);
+            }
 
-            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

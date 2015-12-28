@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -39,6 +37,10 @@ public class PosterMakingActivity extends AppCompatActivity {
         context = this;
 
         List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
+
+        for(int i=0; i<list.size(); i++){
+            Log.d("test", "list: " +i + ", " + list.get(i));
+        }
         if(list != null){
 
             CardIdListVo req = new CardIdListVo();
@@ -48,6 +50,7 @@ public class PosterMakingActivity extends AppCompatActivity {
                 @Override
                 public void success(CardListVo cardListVo, Response response) {
                     Log.d("test", "list" + cardListVo.cardList.get(0).content);
+                    showPoster();
                 }
 
                 @Override
@@ -96,14 +99,7 @@ public class PosterMakingActivity extends AppCompatActivity {
 //        ImageView p11 = (ImageView)findViewById(R.id.p11);
 //        ImageView p12 = (ImageView)findViewById(R.id.p12);
 //        ImageView p13 = (ImageView)findViewById(R.id.p13);
-
-        p1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtil.goToActivity(context, PosterCardSelectingActivity.class);
-            }
-        });
-
+        
 
 
 //        p1.setImageBitmap(map[0]);
@@ -124,6 +120,9 @@ public class PosterMakingActivity extends AppCompatActivity {
 //        p2.setImageResource(posterImages.get(1));
 //        p3.setImageResource(posterImages.get(2));
 
+    }
+
+    private void showPoster() {
     }
 
     private void initDummy() {

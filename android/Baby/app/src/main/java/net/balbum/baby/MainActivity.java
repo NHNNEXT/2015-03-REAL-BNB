@@ -268,10 +268,10 @@ public class MainActivity extends AppCompatActivity
             ActivityUtil.goToActivity(context, FamilySettingActivity.class);
 
         } else if (id == R.id.nav_poster) {
-            ActivityUtil.goToActivity(context, PosterMakingActivity.class);
+            ActivityUtil.goToActivity(context, PosterCardSelectingActivity.class);
 
         } else if (id == R.id.nav_poster2) {
-            ActivityUtil.goToActivity(context, PosterMakingActivity.class);
+            ActivityUtil.goToActivity(context, PosterCardSelectingActivity.class);
 
         }  else if ( id == R.id.logout){
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
