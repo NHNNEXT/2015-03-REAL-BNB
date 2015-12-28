@@ -15,7 +15,7 @@ var Start = {
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
         $('.scrollspy').scrollSpy();
-        // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top });
+
 
         $('html').click(function() {
             $('.action-dropdown-menu').removeClass("active");
@@ -27,6 +27,7 @@ var Start = {
         $('.nav-update-modal').click(function(){
             $('#update-modal').openModal();
         });
+
     }
 
 }
@@ -291,6 +292,9 @@ balbumApp.controller('MainController', function($scope, $http) {
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
+
+    $('ul.tabs').tabs(); //materialize tabs 동적 활성화
+    // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
 
 });
 
