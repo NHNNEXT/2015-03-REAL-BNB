@@ -27,6 +27,8 @@ var Start = {
         $('.nav-update-modal').click(function(){
             $('#update-modal').openModal();
         });
+        $('ul.tabs').tabs(); //materialize tabs 동적 활성화
+        // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
 
     }
 
@@ -264,6 +266,13 @@ balbumApp.config(function($routeProvider) {
 balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
 
+    /* 함수들 초기화 */
+    Start.init();
+    Upload.init();
+    CardCRUD.init();
+    InitModal.init();
+
+    /* 아기목록, 카드목록 */
     bMain.babyList;
     bMain.cardList;
 
@@ -272,6 +281,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
+
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
@@ -284,71 +294,21 @@ balbumApp.controller('MainController', function($scope, $http) {
         $event.stopPropagation();
         $('.baby-card[data-cid="' + cid + '"]').find('.action-dropdown-menu').toggleClass("active");
     }
+
     $scope.cardModify = function(cid) {
         console.log("modify", cid);
         $('#update-modal').openModal();
-
     }
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
 
-    $('ul.tabs').tabs(); //materialize tabs 동적 활성화
-    // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
+
+
 
 });
 
 balbumApp.controller('SettingsController', function($scope) {
     $scope.message = 'Look! I am an about page.';
-});
-
-/*
-balbumApp.controller('postController', function($scope, $http) {
-    $scope.card = {};
-    $scope.submitForm = function() {
-        console.log('go to http!');
-        $http({
-            method  : 'POST',
-            // method  : 'JSONP',
-            url     : address + 'api/card',
-            headers : {'Content-Type': 'multipart/form-data'},
-            data    : $scope.card, //forms user object
-            data: {
-                email: "test1",
-                token: "token",
-                upload: $scope.file
-            },
-            transformRequest: function (data, headersGetter) {
-                var formData = new FormData();
-                angular.forEach(data, function (value, key) {
-                    formData.append(key, value);
-                });
-
-                var headers = headersGetter();
-                delete headers['Content-Type'];
-                return formData;
-            }
-        })
-        .success(function(data) {
-            console.log(data);
-            if (data.errors) {
-                $scope.errorName = data.errors.name;
-
-            } else {
-                $scope.message = data.message;
-                addData.content = $scope.card.content;
-                testData.unshift(addData);
-                $scope.card = '';
-            }
-        });
-    };
-});
-*/
-
-$(function(){
-    Start.init();
-    Upload.init();
-    CardCRUD.init();
-    InitModal.init();
 });
 
