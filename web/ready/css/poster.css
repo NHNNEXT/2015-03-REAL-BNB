@@ -1,0 +1,9 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+section.main-container {
+  padding-left: 230px;
+}
+@media (max-width: 599px) {
+  section.main-container {
+    padding-left: 0;
+  }
+}
