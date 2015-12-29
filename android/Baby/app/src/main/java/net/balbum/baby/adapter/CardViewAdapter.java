@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.balbum.baby.CardShareActivity;
 import net.balbum.baby.CardWritingActivity;
 import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
@@ -100,6 +101,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
                 modifyCard(position);
             }
         });
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareCard(position);
+            }
+        });
 
         holder.more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +126,13 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         //poster test 카드 화면 view 생
 //        Log.d("test", "dt width: " + holder.diary_text.getWidth());
 //        Log.d("test", "cv width: " + holder.diary_text.getText());
+
+    }
+
+    private void shareCard(int position) {
+        Intent intent = new Intent(context, CardShareActivity.class);
+        intent.putExtra("card", cards.get(position).cid);
+        context.startActivity(intent);
 
     }
 
@@ -243,6 +257,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         LinearLayout delete_modify_layout;
         TextView delete;
         TextView modify;
+        TextView share;
         ImageButton more_btn;
         RelativeLayout container;
 
@@ -258,6 +273,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             delete_modify_layout = (LinearLayout) itemView.findViewById(R.id.delete_modify_layout);
             delete = (TextView) itemView.findViewById(R.id.delete_btn);
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
+            share = (TextView) itemView.findViewById(R.id.share_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
         }
     }

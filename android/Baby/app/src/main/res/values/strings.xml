@@ -37,6 +37,10 @@
     <string name="gallery">갤러리</string>
     <string name="crop">자르기</string>
 
+    <string name="card_share">공유하기</string>
+    <string name="card_delete">삭제하기</string>
+    <string name="card_modify">수정하기</string>
+
 
 
 </resources>
