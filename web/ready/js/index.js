@@ -249,8 +249,7 @@ var CardCRUD = {
 
 var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
-balbumApp.config(function($routeProvider) {
-    // $locationProvider.html5Mode(true);
+balbumApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
         // route for the home page
         .when('/', {
@@ -263,6 +262,7 @@ balbumApp.config(function($routeProvider) {
             templateUrl : 'pages/setting.htm',
             controller  : 'SettingsController'
         });
+    $locationProvider.html5Mode(true);
 });
 
 balbumApp.controller('MainController', function($scope, $http) {
@@ -308,7 +308,6 @@ balbumApp.controller('CardController', function($scope, $http) {
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
-    console.log("카드컨트롤러 끝");
 });
 
 balbumApp.controller('SettingsController', function($scope) {
