@@ -163,7 +163,7 @@ var User = {
             method: "GET",
             params: {token: token}
         }).then( function(res) {
-            console.log("res:", res);
+            console.log("get res:", res);
         }, function() {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
@@ -175,7 +175,7 @@ var User = {
             params: {token: token}
         }).then( function(res) {
             bMain.babyList = res.data;
-            console.log("res:", bMain.babyList);
+            console.log("baby res:", bMain.babyList);
         }, function() {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
@@ -254,7 +254,7 @@ balbumApp.config(function($routeProvider) {
         // route for the home page
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
-            controller  : 'MainController'
+            controller  : 'CardController'
         })
 
         // route for the about page
@@ -265,8 +265,13 @@ balbumApp.config(function($routeProvider) {
 });
 
 balbumApp.controller('MainController', function($scope, $http) {
-    var bMain = this;
+    console.log("메인컨트롤러");
 
+});
+
+balbumApp.controller('CardController', function($scope, $http) {
+    console.log("카드컨트롤러");
+    var bMain = this;
     /* 함수들 초기화 */
     Start.init();
     Upload.init();
@@ -276,7 +281,6 @@ balbumApp.controller('MainController', function($scope, $http) {
     /* 아기목록, 카드목록 */
     bMain.babyList;
     bMain.cardList;
-
     /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
     /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {

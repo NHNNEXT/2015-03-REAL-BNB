@@ -1,4 +1,4 @@
-<article class="main-col col s12 m12 l8">
+<article ng-controller="CardController as bMain" class="main-col col s12 m12 l8">
     <div class="postcard-container card row scrollspy" id="card-now">
         <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
             <input type="hidden" name="token"/>
@@ -85,7 +85,6 @@
             </div>
         </div>
     </div>
-
 </article>
 <aside class="right-col col l4 hide-on-med-and-down">
     <div class="timemachine-wrapper">
