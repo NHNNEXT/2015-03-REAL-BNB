@@ -6,7 +6,6 @@ https://github.com/orige/jquery-bootstrap-modal-steps 를 커스텀.
 
     $.fn.modalSteps = function(options){
         var $modal = this; // $modal에 현재 클릭 객체 넣어두기. 모달 객체가 들어간다. 뒤에서 bootstrap이 data-target속성으로 연결해줌
-        console.log($modal);
 
         var settings = $.extend({ //settings에 위에서 받은 options 객체를 합쳐서 넣어둔다.
             btnCancelHtml: '취소',

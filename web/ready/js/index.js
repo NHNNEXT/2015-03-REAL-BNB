@@ -250,11 +250,12 @@ var CardCRUD = {
 var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
 balbumApp.config(function($routeProvider) {
+    // $locationProvider.html5Mode(true);
     $routeProvider
         // route for the home page
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
-            controller  : 'CardController'
+            // controller  : 'CardController'
         })
 
         // route for the about page
@@ -307,6 +308,7 @@ balbumApp.controller('CardController', function($scope, $http) {
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
+    console.log("카드컨트롤러 끝");
 });
 
 balbumApp.controller('SettingsController', function($scope) {
