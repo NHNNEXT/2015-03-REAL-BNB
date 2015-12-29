@@ -32,11 +32,16 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     Context context;
     List<GeneralCardVo> cards;
     Typeface typeface;
-    OnItemClickListener itemClickListener;
+   // OnItemClickListener itemClickListener;
+    List<Long> selectedCardListLong;
+
+    public CardSelectingAdapter() {
+    }
 
     public CardSelectingAdapter(List<GeneralCardVo> cards, Context context) {
         this.cards = cards;
         this.context = context;
+        selectedCardListLong = new ArrayList<Long>();
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
     }
 
@@ -48,7 +53,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
         Picasso.with(context)
@@ -59,6 +64,40 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         holder.diary_text.setText(cards.get(position).content);
         holder.diary_text.setTypeface(typeface);
         babiesInfo(holder.profile_container, position);
+
+        if(cards.get(position).isSelected){
+            holder.check_img.setVisibility(View.VISIBLE);
+        }else{
+            holder.check_img.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cards.get(position).isSelected = !cards.get(position).isSelected;
+
+                if(cards.get(position).isSelected){
+                    selectedCardListLong.add(cards.get(position).cid);
+                }else{
+                    selectedCardListLong.remove(cards.get(position).cid);
+                }
+
+                notifyDataSetChanged();
+
+//                if (holder.check_img.getVisibility() == View.GONE) {
+//                    holder.check_img.setVisibility(View.VISIBLE);
+//                    selectedCardListLong.add(cards.get(position).cid);
+//
+//                    Log.d("test", "추가 후 사이즈" + selectedCardListLong.size());
+//                } else {
+//                    holder.check_img.setVisibility(View.GONE);
+//                    selectedCardListLong.remove(cards.get(position).cid);
+//                    Log.d("test", "추가 취소 후 사이즈" + selectedCardListLong.size());
+//                }
+            }
+        });
+
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
@@ -106,7 +145,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView date, diary_text;
         ImageView photo;
@@ -131,27 +170,11 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
             delete = (TextView) itemView.findViewById(R.id.delete_btn);
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
-            //check_img = (ImageView) itemView.findViewById(R.id.check_image);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if(itemClickListener != null){
-                itemClickListener.onItemClick(v, getPosition(), cards);
-            }
+            check_img = (ImageView) itemView.findViewById(R.id.check_image);
         }
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(View view, int position, List<GeneralCardVo> cards);
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
-    }
-
-    public List<GeneralCardVo> getCards() {
-        return cards;
+    public List<Long> getSelectedCardListLong() {
+        return selectedCardListLong;
     }
 }

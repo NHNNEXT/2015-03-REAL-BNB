@@ -20,6 +20,7 @@ import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.adapter.CardSelectingAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -47,11 +48,17 @@ public class PosterMakingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_poster_making2);
         context = this;
 
-        List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
+       // List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
+
+
+
+        CardSelectingAdapter card = new CardSelectingAdapter();
+        List<Long> list = card.getSelectedCardListLong();
 
         for(int i=0; i<list.size(); i++){
             Log.d("test", "list: " +i + ", " + list.get(i));
         }
+
         if(list != null){
 
             CardIdListVo req = new CardIdListVo();
@@ -128,7 +135,6 @@ public class PosterMakingActivity extends AppCompatActivity {
         TextView c9_diary = (TextView)card9.findViewById(R.id.diary_text);
         TextView c9_date = (TextView)card9.findViewById(R.id.tv_date);
         LinearLayout c9_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
-
 
         setCard(c1_iv, c1_date, c1_profile, c1_diary, cardList.get(0));
         setCard(c2_iv, c2_date, c2_profile, c2_diary, cardList.get(1));
