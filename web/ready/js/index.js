@@ -263,35 +263,32 @@ balbumApp.config(function($routeProvider, $locationProvider) {
 
 balbumApp.controller('MainController', function($scope, $http) {
     console.log("메인컨트롤러");
+    var bMain = this;
+    bMain.babyList;
 
+    User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
+    User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
 });
 
 balbumApp.controller('CardController', function($scope, $http) {
     console.log("카드컨트롤러");
     var cCtrl = this;
+    cCtrl.cardList;
+
     /* 함수들 초기화 */
     Start.init();
     Upload.init();
     CardCRUD.init();
     InitModal.init();
 
-    /* 아기목록, 카드목록 */
-    cCtrl.babyList;
-    cCtrl.cardList;
     /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
     /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
 
-    User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
-    User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
-    InitModal.postBaby($scope, this); /* 카드를 서버에 저장하기 */
-    $('.btn-get-family').click(function() {
-        InitModal.getFamily($http, this); /* main modal에서 가족 검색 */
-    })
 
     $scope.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();
@@ -305,6 +302,11 @@ balbumApp.controller('CardController', function($scope, $http) {
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, cCtrl, $http, cid);
     }
+
+    InitModal.postBaby($scope, this); /* 모달에서 아기 저장 */
+    $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
+        InitModal.getFamily($http, this);
+    });
 });
 
 balbumApp.controller('SettingsController', function($scope) {
