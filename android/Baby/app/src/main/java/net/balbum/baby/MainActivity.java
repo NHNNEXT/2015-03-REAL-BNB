@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.RoundedTransformation;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
@@ -154,12 +155,14 @@ public class MainActivity extends AppCompatActivity
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
         Log.d("test", " getCard시작?~");
-        taskService.getCard("token", new Callback<CardListVo>() {
+        TokenUtil tu = new TokenUtil(context);
+
+        taskService.getCard(tu.getToken(), new Callback<CardListVo>() {
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
                 cardGeneralModelList = cd.cardList;
-                Log.d("test", "size~: " + cardGeneralModelList.get(0).cid);
+//                Log.d("test", "size~: " + cardGeneralModelList.get(0).cid);
                 initView(cardGeneralModelList);
             }
 
