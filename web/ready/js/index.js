@@ -177,7 +177,7 @@ var User = {
             cCtrl.babyList = res.data;
             console.log("baby res:", cCtrl.babyList);
         }, function() {
-            alert('사용자 정보를 불러오지 못하였습니다.');
+            alert('아이 정보를 불러오지 못하였습니다.');
         });
     },
     /* 카드 올릴 때 아이를 체크 */
@@ -284,6 +284,7 @@ balbumApp.controller('CardController', function($scope, $http) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
 
+    User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
