@@ -170,11 +170,13 @@ public class CardController {
 		List<Card> cardResponseList = new ArrayList<Card>();
 		CardListDTO cardListDTO = new CardListDTO();
 		for(Integer cId : list){
-			cardResponseList.add(cardRepo.getOne(cId.longValue()));
+			Card card = cardRepo.getOne(cId.longValue());
+			if(card == null) continue;
+			cardResponseList.add(card);
 		}
 		cardListDTO.setCardList(cardResponseList);
-		logger.info(cardResponseList.size()+"");
+//		logger.info(cardResponseList.get(0)+"");
+//		logger.info(cardResponseList.size()+"");
 		return cardListDTO;
 	}
-	
 }

@@ -69,21 +69,10 @@ public class CardFilterController {
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
-			Baby baby = babyRepo.getOne(bId);
-			// List<Card> cardResponseList =
-			// cardRepo.findByStateAndFIdAndBIdOrderByCIdAsc(Card.State.Normal,
-			// user.getFId(), bId);
 			List<Card> cardResponseList = new ArrayList<>();
 			for (Card card : cardList) {
-				System.out.println("bid"+bId);
-				System.out.println("cid"+card.getBabies().get(0).getBId());
-				if(card.getBabies().get(0).getBId().equals(bId)){
-					System.out.println("true");
-				}
-				if (card.getBabies().contains(new Baby(1))) {
+				if (card.getBabies().contains(new Baby(bId))) {
 					cardResponseList.add(card);
-				}else{
-					System.out.println("why"+card);
 				}
 			}
 			CardListDTO cardListDTO = new CardListDTO();
@@ -94,10 +83,11 @@ public class CardFilterController {
 		}
 	}
 
-	@RequestMapping(value = "/api/filter/babies", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/filter/babies", consumes ="application/json")
 	public CardListDTO showCardFilterByBabies(@RequestBody Map<String, Object> req) {
 		List<Integer> babies = (ArrayList<Integer>) req.get("babies");
 		String token = (String) req.get("token");
+		if(babies == null || babies.isEmpty()) return new CardListDTO("baby를 선택해 주세요");
 		if(token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
@@ -105,7 +95,7 @@ public class CardFilterController {
 			List<Card> cardResponseList = new ArrayList<>();
 			for(Card card : cardList){
 				for(Integer bId : babies){
-					if(card.getBabies().contains(new Baby(bId))){
+					if(card.getBabies().contains(new Baby(new Long(bId)))){
 						cardResponseList.add(card);
 						break;
 					}

@@ -43,9 +43,9 @@ public class Baby {
 	private String babyImg;
 	
 	public Baby(){}
-	public Baby(Integer bId) {
-		this.bId = bId.longValue();
-	}
+//	public Baby(Integer bId) {
+//		this.bId = bId.longValue();
+//	}
 	public Baby(Long bId) {
 		this.bId = bId;
 	}

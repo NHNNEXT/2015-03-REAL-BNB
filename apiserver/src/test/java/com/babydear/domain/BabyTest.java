@@ -28,13 +28,10 @@ import com.babydear.repository.UserRepository;
 public class BabyTest {
 	@Test
 	public void createUserByFirstWithNoBaby() throws Exception {
-		Baby baby1 = new Baby(1);
+		Baby baby1 = new Baby(new Long(1));
 		baby1.setBId(new Long(1));
 		List<Baby> babies = new ArrayList<Baby>();
-		babies.add(new Baby(2));
-		babies.add(new Baby(3));
-		babies.add(new Baby(4));
-//		babies.add(new Baby(new Long(1)));
+		babies.add(new Baby(new Long(1)));
 		
 		if (babies.contains(baby1)) {
 			System.out.println("true");
