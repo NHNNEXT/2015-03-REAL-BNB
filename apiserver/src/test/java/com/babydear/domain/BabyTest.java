@@ -3,11 +3,16 @@ package com.babydear.domain;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +43,27 @@ public class BabyTest {
 		}else{
 			System.out.println("false");
 		}
-
+	}
+	
+	@Test
+	public void testDateFormating() throws Exception {
+		Baby baby = new Baby(new Long(1));
+		baby.setBabyBirth("1994-04-14");
+		String a = "1994-04-14";
+		String b = "1994-05-15";
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+		DateTime dt1 = formatter.parseDateTime(a);
+		DateTime dt2 = formatter.parseDateTime(b);
+		System.out.println(dt1);
+		Days daysBetween = Days.daysBetween(dt1.toLocalDate(), dt2.toLocalDate());
+		System.out.println(daysBetween.getDays());
+//		DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		Date a1 = sdFormat.parse(a);
+//		Date b1 = sdFormat.parse(b);
+//		System.out.println(a1);
+//		System.out.println(b1);
+//		int days = Date.daysBetween(a1, b1).getDays();
+//		System.out.println(result);
+		
 	}
 }

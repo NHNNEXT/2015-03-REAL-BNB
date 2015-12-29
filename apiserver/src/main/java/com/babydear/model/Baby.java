@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,13 +43,18 @@ public class Baby {
 	private String babyBirth;
 	private String babyImg;
 	
+	@Transient
+	private String babyDate;
+	
 	public Baby(){}
 //	public Baby(Integer bId) {
 //		this.bId = bId.longValue();
 //	}
+	
 	public Baby(Long bId) {
 		this.bId = bId;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
