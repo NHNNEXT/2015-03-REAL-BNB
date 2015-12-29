@@ -42,6 +42,7 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
 
         selectedCardListLong = new ArrayList<Long>();
 
+
         getData();
     }
 
@@ -73,26 +74,6 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         CardSelectingAdapter adapter = new CardSelectingAdapter(cardGeneralModelList, this);
         recyclerView.setAdapter(adapter);
 
-//        adapter.SetOnItemClickListener(new CardSelectingAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position, List<GeneralCardVo> cards) {
-//
-//                Log.d("test", "alpha: " + view.getAlpha());
-//                if (view.getAlpha() == 1.0) {
-//                    view.setAlpha(0.3f);
-//                    selectedCardListLong.add(cards.get(position).cid);
-//
-//                    Log.d("test", "추가 후 사이즈" + selectedCardListLong.size());
-//                } else {
-//                    view.setAlpha(1.0f);
-//                    selectedCardListLong.remove(cards.get(position).cid);
-//                    Log.d("test", "추가 취소 후 사이즈" + selectedCardListLong.size());
-//                }
-//
-//
-////                selectedCardList.add(cards.get(position).cid);
-//            }
-//        });
     }
 
 
