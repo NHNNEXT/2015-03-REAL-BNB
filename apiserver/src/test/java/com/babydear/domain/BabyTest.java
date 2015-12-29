@@ -29,6 +29,7 @@ import com.babydear.repository.BabyRepository;
 import com.babydear.repository.CardRepository;
 import com.babydear.repository.FamilyRepository;
 import com.babydear.repository.UserRepository;
+import com.babydear.util.DateFormatter;
 
 public class BabyTest {
 	@Test
@@ -51,19 +52,8 @@ public class BabyTest {
 		baby.setBabyBirth("1994-04-14");
 		String a = "1994-04-14";
 		String b = "1994-05-15";
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-		DateTime dt1 = formatter.parseDateTime(a);
-		DateTime dt2 = formatter.parseDateTime(b);
-		System.out.println(dt1);
-		Days daysBetween = Days.daysBetween(dt1.toLocalDate(), dt2.toLocalDate());
-		System.out.println(daysBetween.getDays());
-//		DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date a1 = sdFormat.parse(a);
-//		Date b1 = sdFormat.parse(b);
-//		System.out.println(a1);
-//		System.out.println(b1);
-//		int days = Date.daysBetween(a1, b1).getDays();
-//		System.out.println(result);
-		
+		DateFormatter f = new DateFormatter();
+		Integer result = f.calculateFromBabyToCard(a, b);
+		System.out.println(result);
 	}
 }
