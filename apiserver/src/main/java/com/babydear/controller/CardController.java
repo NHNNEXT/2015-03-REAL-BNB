@@ -72,7 +72,7 @@ public class CardController {
 			card.setFId(user.getFId());
 			card.setUId(user.getUId());
 		} catch (NotToken e1) {
-			return new ResponseDTO(false, "토큰이 유효하지 않습니다.");
+			return new ResponseDTO(false, e1.getMessage());
 		}
 		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
 		card.setBabies(babies);

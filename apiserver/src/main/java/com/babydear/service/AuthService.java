@@ -21,11 +21,13 @@ public class AuthService {
 	@Autowired UserRepository userRepo;
 
 	public User getUser(String token) throws NotToken {
-		if(token == null) throw new NotToken("토큰을 넣어 주세요");
+		if(token == null || token.isEmpty()) throw new NotToken("토큰을 넣어 주세요");
 		ValueOperations<String, Long> ops = template.opsForValue();
 		Long uId = ops.get(token);
-		if (uId == null) throw new NotToken("토큰이 유효하지 않습니다.");
-		return getUser(uId);
+		if (uId == null) throw new NotToken("토큰이 유효하지 않습니다.(1) token:"+token);
+		User user = getUser(uId);
+		if(user == null) throw new NotToken("토큰이 유효하지 않습니다.(2) token:"+token);
+		return user;
 	}
 
 	public User getUser(Long uId) {
