@@ -1,4 +1,4 @@
-<article ng-controller="CardController as bMain" class="main-col col s12 m12 l8">
+<article ng-controller="CardController as cCtrl" class="main-col col s12 m12 l8">
     <div class="postcard-container card row scrollspy" id="card-now">
         <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
             <input type="hidden" name="token"/>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="baby-check-container card-content">
-                <p class="baby-check" ng-repeat="baby in bMain.babyList">
+                <p class="baby-check" ng-repeat="baby in cCtrl.babyList">
                     <input class="check-hidden" type="hidden"/>
                     <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
                     <label for="{{baby.bid}}">
@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="card-container">
-        <div class="baby-card card scrollspy" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in bMain.cardList">
+        <div class="baby-card card scrollspy" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
             <div class="bc-photo card-image">
                 <img src=" http://dev.balbum.net{{bc.cardImg}}">
             </div>

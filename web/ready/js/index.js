@@ -118,7 +118,7 @@ var InitModal = {
             $('.upload-baby-photo').css('display', 'none');
         });
     },
-    postBaby: function($scope, bMain) {
+    postBaby: function($scope, cCtrl) {
         $('#babyForm').submit(function() {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
@@ -127,8 +127,8 @@ var InitModal = {
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
-                    bMain.babyList.push(responseText.res);
-                    console.log("베이비리스트 가랏", bMain.babyList);
+                    cCtrl.babyList.push(responseText.res);
+                    console.log("베이비리스트 가랏", cCtrl.babyList);
                     $('#babyForm').clearForm();
                     $scope.$apply();
                     $("input[name='token']").val(token);
@@ -142,7 +142,7 @@ var InitModal = {
             return false;
         });
     },
-    getFamily: function($http, bMain) {
+    getFamily: function($http, cCtrl) {
         $http({
             url: address + 'api/user/family/findFromMail',
             method: "GET",
@@ -168,14 +168,14 @@ var User = {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
     },
-    getBaby: function($http, bMain) {
+    getBaby: function($http, cCtrl) {
         $http({
             url: address + 'api/user/baby',
             method: "GET",
             params: {token: token}
         }).then( function(res) {
-            bMain.babyList = res.data;
-            console.log("baby res:", bMain.babyList);
+            cCtrl.babyList = res.data;
+            console.log("baby res:", cCtrl.babyList);
         }, function() {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
@@ -201,14 +201,14 @@ var CardCRUD = {
     init: function() {
 
     },
-    get: function($http, bMain) {
+    get: function($http, cCtrl) {
         $http.get(address + 'api/card?token='+token).then(function(res) {
-            bMain.cardList = res.data.cardList;
+            cCtrl.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
         });
     },
-    post: function($scope, bMain) {
+    post: function($scope, cCtrl) {
         $('#cardForm').submit(function() {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
@@ -217,10 +217,10 @@ var CardCRUD = {
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
-                    bMain.cardList.unshift(responseText.res);
+                    cCtrl.cardList.unshift(responseText.res);
                     $('#cardForm').clearForm();
                     $scope.$apply();
-                    console.log("scope2", bMain.cardList);
+                    console.log("scope2", cCtrl.cardList);
                     $("input[name='token']").val(token);
                     Upload.resetPhotoBox();
                 },
@@ -232,11 +232,11 @@ var CardCRUD = {
             return false;
         });
     },
-    delete: function($scope, bMain, $http, cid) {
+    delete: function($scope, cCtrl, $http, cid) {
         $http.get(address + 'api/card/delete?cId='+cid).then(function(res) {
             Materialize.toast('삭제되었습니다.', 5000);
-            testData = bMain.cardList;
-            bMain.cardList.map(function(item, index, array){
+            testData = cCtrl.cardList;
+            cCtrl.cardList.map(function(item, index, array){
                 if(item.cid==cid) {
                     array.splice(index, 1);
                 }
@@ -251,18 +251,14 @@ var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
 balbumApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        // route for the home page
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
-            // controller  : 'CardController'
         })
-
-        // route for the about page
         .when('/settings', {
             templateUrl : 'pages/setting.htm',
             controller  : 'SettingsController'
         });
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true); //url에서 해쉬값 떼기
 });
 
 balbumApp.controller('MainController', function($scope, $http) {
@@ -272,7 +268,7 @@ balbumApp.controller('MainController', function($scope, $http) {
 
 balbumApp.controller('CardController', function($scope, $http) {
     console.log("카드컨트롤러");
-    var bMain = this;
+    var cCtrl = this;
     /* 함수들 초기화 */
     Start.init();
     Upload.init();
@@ -280,8 +276,8 @@ balbumApp.controller('CardController', function($scope, $http) {
     InitModal.init();
 
     /* 아기목록, 카드목록 */
-    bMain.babyList;
-    bMain.cardList;
+    cCtrl.babyList;
+    cCtrl.cardList;
     /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
     /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
@@ -306,7 +302,7 @@ balbumApp.controller('CardController', function($scope, $http) {
         $('#update-modal').openModal();
     }
     $scope.cardDelete = function(cid) {
-        CardCRUD.delete($scope, bMain, $http, cid);
+        CardCRUD.delete($scope, cCtrl, $http, cid);
     }
 });
 

@@ -125,7 +125,11 @@ https://github.com/orige/jquery-bootstrap-modal-steps 를 커스텀.
 
                 $modal.find('.js-title-step').html('');
 
+
+                // materializeCSS 오버레이 제거
                 $('body').css('overflow', '');
+                $('.lean-overlay').remove()
+
                 $('#' + $modal.data('overlay-id')).css('opacity', 0);
             });
 
