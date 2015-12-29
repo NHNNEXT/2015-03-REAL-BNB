@@ -10,23 +10,51 @@ import com.kakao.KakaoLink;
 import com.kakao.KakaoParameterException;
 import com.kakao.KakaoTalkLinkMessageBuilder;
 
+import net.balbum.baby.Util.Define;
+import net.balbum.baby.VO.GeneralCardVo;
+import net.balbum.baby.lib.retrofit.ServiceGenerator;
+import net.balbum.baby.lib.retrofit.TaskService;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * Created by hyes on 2015. 12. 29..
  */
 public class CardShareActivity extends AppCompatActivity {
 
-    private KakaoLink kakaoLink;
-    private KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+    KakaoLink kakaoLink;
+    KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+    Long cid;
+    GeneralCardVo card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Long cid = intent.getLongExtra("card", 0);
+        cid = intent.getLongExtra("card", 0);
         Log.d("test", "cid " + cid);
 
         initKakaoLink();
-        sendKakaoMessage();
+        setCard();
+
+    }
+
+    private void setCard() {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        taskService.getOneCard(cid, new Callback<GeneralCardVo>() {
+            @Override
+            public void success(GeneralCardVo generalCardVo, Response response) {
+                card = generalCardVo;
+                sendKakaoMessage();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
 
@@ -42,13 +70,18 @@ public class CardShareActivity extends AppCompatActivity {
 
     private void sendKakaoMessage(){
         try{
-            kakaoTalkLinkMessageBuilder.addText("@미녀들과 야수");
-            kakaoTalkLinkMessageBuilder.addImage("http://dev.balbum.net/imgs/dummy/baby2.jpeg", 128, 128);
-            kakaoTalkLinkMessageBuilder.addWebLink("홈 페이지 이동", "http://www.balbum.net");
+            if(!card.getContent().matches("")){
+                kakaoTalkLinkMessageBuilder.addText(card.getContent());
+            }
+            kakaoTalkLinkMessageBuilder.addImage(Define.URL + card.cardImg, 128, 128);
+//            http://dev.balbum.net/imgs/dummy/baby2.jpeg"
+            kakaoTalkLinkMessageBuilder.addWebLink("BALBUM 홈페이지로 이동", "http://www.balbum.net");
             kakaoTalkLinkMessageBuilder.addAppButton("BALBUM으로 이동", new AppActionBuilder()
                     .setAndroidExecuteURLParam("target=main")
                     .setIOSExecuteURLParam("target=main", AppActionBuilder.DEVICE_TYPE.PHONE).build());
             kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder.build(), this);
+
+
         }catch(KakaoParameterException e){
             e.printStackTrace();
         }
