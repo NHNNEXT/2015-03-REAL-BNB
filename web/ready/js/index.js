@@ -202,7 +202,7 @@ var CardCRUD = {
 
     },
     get: function($http, bMain) {
-        $http.get(address + 'api/card').then(function(res) {
+        $http.get(address + 'api/card?token='+token).then(function(res) {
             bMain.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
@@ -220,6 +220,7 @@ var CardCRUD = {
                     bMain.cardList.unshift(responseText.res);
                     $('#cardForm').clearForm();
                     $scope.$apply();
+                    console.log("scope2", bMain.cardList);
                     $("input[name='token']").val(token);
                     Upload.resetPhotoBox();
                 },
@@ -302,10 +303,6 @@ balbumApp.controller('MainController', function($scope, $http) {
     $scope.cardDelete = function(cid) {
         CardCRUD.delete($scope, bMain, $http, cid);
     }
-
-
-
-
 });
 
 balbumApp.controller('SettingsController', function($scope) {
