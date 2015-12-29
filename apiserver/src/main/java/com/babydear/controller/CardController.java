@@ -54,7 +54,7 @@ public class CardController {
 		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
+			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;

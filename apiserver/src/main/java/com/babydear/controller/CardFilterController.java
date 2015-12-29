@@ -54,7 +54,7 @@ public class CardFilterController {
 		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
+			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
@@ -68,7 +68,7 @@ public class CardFilterController {
 		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
+			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
 			List<Card> cardResponseList = new ArrayList<>();
 			for (Card card : cardList) {
 				if (card.getBabies().contains(new Baby(bId))) {
@@ -91,7 +91,7 @@ public class CardFilterController {
 		if(token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdAsc(Card.State.Normal, user.getFId());
+			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
 			List<Card> cardResponseList = new ArrayList<>();
 			for(Card card : cardList){
 				for(Integer bId : babies){

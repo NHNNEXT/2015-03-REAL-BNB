@@ -14,7 +14,7 @@ import com.babydear.model.Card.State;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 	public List<Card> findByStateOrderByCIdAsc(State state);
-	public List<Card> findByStateAndFIdOrderByCIdAsc(State state, Long fId);
+	public List<Card> findByStateAndFIdOrderByCIdDesc(State state, Long fId);
 //	public List<Card> findByStateAndFIdAndBIdOrderByCIdAsc(State normal, Long fId, Long bId);
 	
 
