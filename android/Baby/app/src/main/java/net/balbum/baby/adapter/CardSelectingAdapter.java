@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,10 +34,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     List<GeneralCardVo> cards;
     Typeface typeface;
    // OnItemClickListener itemClickListener;
-    List<Long> selectedCardListLong;
-
-    public CardSelectingAdapter() {
-    }
+    public List<Long> selectedCardListLong;
 
     public CardSelectingAdapter(List<GeneralCardVo> cards, Context context) {
         this.cards = cards;
@@ -77,10 +75,12 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
                 cards.get(position).isSelected = !cards.get(position).isSelected;
 
-                if(cards.get(position).isSelected){
+                if (cards.get(position).isSelected) {
                     selectedCardListLong.add(cards.get(position).cid);
-                }else{
+                    Log.d("test", "add size: " + selectedCardListLong.size());
+                } else {
                     selectedCardListLong.remove(cards.get(position).cid);
+                    Log.d("test", "remove size: " + selectedCardListLong.size());
                 }
 
                 notifyDataSetChanged();
@@ -134,9 +134,6 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
                 linLayout.addView(tv);
                 ((LinearLayout) profile_container).addView(linLayout);
             }
-
-
-
     }
 
     @Override
@@ -172,9 +169,5 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
             check_img = (ImageView) itemView.findViewById(R.id.check_image);
         }
-    }
-
-    public List<Long> getSelectedCardListLong() {
-        return selectedCardListLong;
     }
 }

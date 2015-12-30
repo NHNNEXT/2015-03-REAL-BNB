@@ -1,7 +1,6 @@
 package net.balbum.baby;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,7 +19,6 @@ import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
-import net.balbum.baby.adapter.CardSelectingAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
@@ -37,7 +35,6 @@ import retrofit.client.Response;
 public class PosterMakingActivity extends AppCompatActivity {
 
     List<Integer> posterImages = new ArrayList<Integer>();
-    Bitmap[] map;
     Context context;
     List<GeneralCardVo> cardList;
     List<BabyVo> babies;
@@ -48,16 +45,8 @@ public class PosterMakingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_poster_making2);
         context = this;
 
-       // List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
-
-
-
-        CardSelectingAdapter card = new CardSelectingAdapter();
-        List<Long> list = card.getSelectedCardListLong();
-
-        for(int i=0; i<list.size(); i++){
-            Log.d("test", "list: " +i + ", " + list.get(i));
-        }
+        List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
+        Log.d("test", "PosterMakingActivity : " + list.toString());
 
         if(list != null){
 
@@ -139,12 +128,12 @@ public class PosterMakingActivity extends AppCompatActivity {
         setCard(c1_iv, c1_date, c1_profile, c1_diary, cardList.get(0));
         setCard(c2_iv, c2_date, c2_profile, c2_diary, cardList.get(1));
         setCard(c3_iv, c3_date, c3_profile, c3_diary, cardList.get(2));
-        setCard(c4_iv, c4_date, c4_profile, c4_diary, cardList.get(3));
-        setCard(c5_iv, c5_date, c5_profile, c5_diary, cardList.get(4));
-        setCard(c6_iv, c6_date, c6_profile, c6_diary, cardList.get(5));
-        setCard(c7_iv, c7_date, c7_profile, c7_diary, cardList.get(6));
-        setCard(c8_iv, c8_date, c8_profile, c8_diary, cardList.get(7));
-        setCard(c9_iv, c9_date, c9_profile, c9_diary, cardList.get(8));
+//        setCard(c4_iv, c4_date, c4_profile, c4_diary, cardList.get(3));
+//        setCard(c5_iv, c5_date, c5_profile, c5_diary, cardList.get(4));
+//        setCard(c6_iv, c6_date, c6_profile, c6_diary, cardList.get(5));
+//        setCard(c7_iv, c7_date, c7_profile, c7_diary, cardList.get(6));
+//        setCard(c8_iv, c8_date, c8_profile, c8_diary, cardList.get(7));
+//        setCard(c9_iv, c9_date, c9_profile, c9_diary, cardList.get(8));
 
     }
 

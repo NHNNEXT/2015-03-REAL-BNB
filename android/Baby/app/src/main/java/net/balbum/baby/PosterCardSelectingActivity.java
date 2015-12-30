@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.CardSelectingAdapter;
@@ -29,27 +30,25 @@ import retrofit.client.Response;
  * Created by hyes on 2015. 12. 22..
  */
 public class PosterCardSelectingActivity extends AppCompatActivity{
+
     List<GeneralCardVo> cardList;
-    //cId만 담아도 될 것 같은데 서버를...
     List<Long> selectedCardListLong;
     Context context;
+    CardSelectingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_card_selecting);
         context = this;
-
-        selectedCardListLong = new ArrayList<Long>();
-
-
         getData();
     }
 
     private void getData() {
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
 
-        taskService.getCard("token", new Callback<CardListVo>() {
+        TokenUtil tk = new TokenUtil(context);
+        taskService.getCard(tk.getToken(), new Callback<CardListVo>() {
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
@@ -71,7 +70,7 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         GridLayoutManager glm = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(glm);
 
-        CardSelectingAdapter adapter = new CardSelectingAdapter(cardGeneralModelList, this);
+        adapter = new CardSelectingAdapter(cardGeneralModelList, this);
         recyclerView.setAdapter(adapter);
 
     }
@@ -94,7 +93,11 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
 
+            selectedCardListLong = new ArrayList<Long>();
+            selectedCardListLong = adapter.selectedCardListLong;
+
             int size = selectedCardListLong.size();
+
             if(size != 3){
                 if(size < 3){
                     ToastUtil.show(context, "카드가 9개보다 적게 선택되었습니다.");
@@ -103,7 +106,6 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
                 }
             }else{
                 Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
-                // intent.putExtra("list", Parcels.wrap(selectedCardList));
                 intent.putExtra("cIds", (Serializable) selectedCardListLong);
                 startActivity(intent);
             }
