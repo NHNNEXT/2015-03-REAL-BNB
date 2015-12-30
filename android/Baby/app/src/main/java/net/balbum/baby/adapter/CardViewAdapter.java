@@ -257,7 +257,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         LinearLayout delete_modify_layout;
         TextView delete;
         TextView modify;
-        TextView share;
+        ImageButton share;
         ImageButton more_btn;
         RelativeLayout container;
 
@@ -273,7 +273,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             delete_modify_layout = (LinearLayout) itemView.findViewById(R.id.delete_modify_layout);
             delete = (TextView) itemView.findViewById(R.id.delete_btn);
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
-            share = (TextView) itemView.findViewById(R.id.share_btn);
+//            share = (TextView) itemView.findViewById(R.id.share_btn);
+            share = (ImageButton) itemView.findViewById(R.id.share_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
         }
     }

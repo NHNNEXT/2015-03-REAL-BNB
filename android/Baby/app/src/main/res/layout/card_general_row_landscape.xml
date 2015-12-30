@@ -6,6 +6,7 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_marginLeft="10dp"
+    android:layout_marginBottom="25dp"
     android:elevation="5dp"
     app:cardCornerRadius="1dp">
 
@@ -14,6 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/share_btn"
+            android:layout_marginTop="4dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@+id/more_btn"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_share_black_24dp" />
 
         <ImageButton
             android:id="@+id/more_btn"
