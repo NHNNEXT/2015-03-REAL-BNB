@@ -51,7 +51,6 @@ public class CardFilterController {
 
 	@RequestMapping(value = "/api/filter", method = RequestMethod.GET)
 	public CardListDTO showCardFilter(String token) {
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
@@ -59,13 +58,12 @@ public class CardFilterController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 
 	@RequestMapping(value = "/api/filter/baby", method = RequestMethod.GET)
 	public CardListDTO showCardFilterByBaby(String token, Long bId) {
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
@@ -79,7 +77,7 @@ public class CardFilterController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 
@@ -88,7 +86,6 @@ public class CardFilterController {
 		List<Integer> babies = (ArrayList<Integer>) req.get("babies");
 		String token = (String) req.get("token");
 		if(babies == null || babies.isEmpty()) return new CardListDTO("baby를 선택해 주세요");
-		if(token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
@@ -105,7 +102,7 @@ public class CardFilterController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 

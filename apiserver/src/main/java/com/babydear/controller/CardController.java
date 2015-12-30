@@ -51,7 +51,6 @@ public class CardController {
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
 	public CardListDTO selectCards(String token){
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
@@ -59,14 +58,13 @@ public class CardController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 	
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(String token, Card card, MultipartFile image){
 		logger.info(card.toString());
-		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			card.setFId(user.getFId());
