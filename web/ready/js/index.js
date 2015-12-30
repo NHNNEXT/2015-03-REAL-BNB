@@ -254,6 +254,10 @@ balbumApp.config(function($routeProvider, $locationProvider) {
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
         })
+        .when('/poster', {
+            templateUrl : 'pages/poster.htm',
+            controller  : 'PosterController'
+        })
         .when('/settings', {
             templateUrl : 'pages/setting.htm',
             controller  : 'SettingsController'
@@ -307,6 +311,10 @@ balbumApp.controller('CardController', function($scope, $http) {
     $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
         InitModal.getFamily($http, this);
     });
+});
+
+balbumApp.controller('PosterController', function($scope) {
+    $scope.message = '포스터 페이지 이지롱';
 });
 
 balbumApp.controller('SettingsController', function($scope) {
