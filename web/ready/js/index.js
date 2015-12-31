@@ -249,7 +249,7 @@ var CardCRUD = {
 
 var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
-balbumApp.config(function($routeProvider, $locationProvider) {
+balbumApp.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
@@ -262,7 +262,7 @@ balbumApp.config(function($routeProvider, $locationProvider) {
             templateUrl : 'pages/settings.htm',
             controller  : 'SettingsController'
         });
-    $locationProvider.html5Mode(true); //url에서 해쉬값 떼기
+    // $locationProvider.html5Mode(true); //url에서 해쉬값 떼기
 });
 
 balbumApp.controller('MainController', function($scope, $http) {
