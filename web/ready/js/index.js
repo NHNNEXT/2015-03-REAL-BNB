@@ -10,7 +10,7 @@ var Start = {
         $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
         // $('.modal-trigger').leanModal();
-        $('.datepicker').pickadate({
+        $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
@@ -259,7 +259,7 @@ balbumApp.config(function($routeProvider, $locationProvider) {
             controller  : 'PosterController'
         })
         .when('/settings', {
-            templateUrl : 'pages/setting.htm',
+            templateUrl : 'pages/settings.htm',
             controller  : 'SettingsController'
         });
     $locationProvider.html5Mode(true); //url에서 해쉬값 떼기
