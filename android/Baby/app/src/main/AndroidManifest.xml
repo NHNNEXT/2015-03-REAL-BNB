@@ -87,11 +87,10 @@
         <activity
             android:name=".PosterMakingActivity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
+        </activity>
+        <activity
+            android:name=".PosterMakingActivity2"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".FamilySettingActivity"
@@ -99,7 +98,9 @@
         <activity
             android:name=".PosterCardSelectingActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".PosterCardSelectingActivity2"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
