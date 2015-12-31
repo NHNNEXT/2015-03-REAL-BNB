@@ -1,14 +1,46 @@
-<article class="settings-col">
-    <div class="section">
+<article class="settings-col col s12 m12 l8">
+    <div class="my-info section-card">
         <h2>내 정보</h2>
+        <div class="photo">
+            <img src="img/baby2.jpeg" alt="My photo" />
+        </div>
+        <div class="info">
+            <div class="name">Jay Jin</div>
+            <div class="role">이시대의엄마</div>
+            <div class="email">jayjinjay@gmail.com</div>
+        </div>
     </div>
-    <div class="section">
+    <div class="family-info section-card">
         <h2>가족 정보</h2>
-        어쩌구
         <h3>우리 가족</h3>
+        <div class="person-card">
+            <img class="photo circle" src="img/baby2.jpeg" alt="My photo" />
+            <div class="info">
+                <div class="name">Jay</div>
+                <div class="role">이시대의엄마</div>
+            </div>
+        </div>
+        <div class="person-card">
+            <img class="photo circle" src="img/baby1.jpeg" alt="My photo" />
+            <div class="info">
+                <div class="name">Josh</div>
+                <div class="role">이시대의아빠</div>
+            </div>
+        </div>
         <h3>승인 대기중인 가족</h3>
+        <div class="person-card">
+            <img class="photo circle" src="img/baby1.jpeg" alt="My photo" />
+            <div class="info">
+                <div class="name">John</div>
+                <div class="role">삼촌</div>
+            </div>
+        </div>
     </div>
-    <div class="section">
+    <div class="babies section-card">
         <h2>아이 정보</h2>
+        <div class="baby person-card" id="{{baby.bid}}" ng-repeat="baby in bMain.babyList">
+            <img class="photo circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+            {{baby.babyName}} {{baby.babyBirth}}
+        </div>
     </div>
 </article>
