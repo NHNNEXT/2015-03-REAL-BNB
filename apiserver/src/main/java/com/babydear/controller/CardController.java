@@ -54,6 +54,9 @@ public class CardController {
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			for(Card card : cardResponseList){
+				card.calculate();
+			}
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
@@ -158,7 +161,9 @@ public class CardController {
 	public Card getOne(@PathVariable("cId")Long cId){
 		logger.info("hello");
 		logger.info("show one card:"+cId);
-		return cardRepo.findOne(cId);
+		Card card =cardRepo.findOne(cId);
+		card.calculate();
+		return card;
 	}
 	
 	@RequestMapping(value="/api/card/list", consumes ="application/json")
@@ -170,6 +175,7 @@ public class CardController {
 		for(Integer cId : list){
 			Card card = cardRepo.getOne(cId.longValue());
 			if(card == null) continue;
+			card.calculate();
 			cardResponseList.add(card);
 		}
 		cardListDTO.setCardList(cardResponseList);

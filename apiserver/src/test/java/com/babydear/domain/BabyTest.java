@@ -50,10 +50,10 @@ public class BabyTest {
 	public void testDateFormating() throws Exception {
 		Baby baby = new Baby(new Long(1));
 		baby.setBabyBirth("1994-04-14");
-		String a = "1994-04-14";
-		String b = "1994-05-15";
+		String a = "1994-04-16";
+		String b = "1996-04-15";
 		DateFormatter f = new DateFormatter();
-		Integer result = f.calculateFromBabyToCard(a, b);
+		String result = f.calculateFromBabyToCard(a, b);
 		System.out.println(result);
 	}
 }

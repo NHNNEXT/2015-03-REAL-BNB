@@ -54,6 +54,9 @@ public class CardFilterController {
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			for(Card card : cardResponseList){
+				card.calculate();
+			}
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
@@ -70,6 +73,7 @@ public class CardFilterController {
 			List<Card> cardResponseList = new ArrayList<>();
 			for (Card card : cardList) {
 				if (card.getBabies().contains(new Baby(bId))) {
+					card.calculate();
 					cardResponseList.add(card);
 				}
 			}
@@ -93,6 +97,7 @@ public class CardFilterController {
 			for(Card card : cardList){
 				for(Integer bId : babies){
 					if(card.getBabies().contains(new Baby(new Long(bId)))){
+						card.calculate();
 						cardResponseList.add(card);
 						break;
 					}
@@ -113,7 +118,9 @@ public class CardFilterController {
 		List<Card> cardResponseList = new ArrayList<Card>();
 		CardListDTO cardListDTO = new CardListDTO();
 		for (Integer cId : list) {
-			cardResponseList.add(cardRepo.getOne(cId.longValue()));
+			Card card = cardRepo.getOne(cId.longValue());
+			card.calculate();
+			cardResponseList.add(card);
 		}
 		cardListDTO.setCardList(cardResponseList);
 		logger.info(cardResponseList.size() + "");

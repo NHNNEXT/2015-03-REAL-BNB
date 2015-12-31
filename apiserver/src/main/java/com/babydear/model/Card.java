@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.babydear.util.DateFormatter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -74,6 +75,13 @@ public class Card {
 		int result = 1;
 		result = prime * result + ((bIds == null) ? 0 : bIds.hashCode());
 		return result;
+	}
+	public void calculate() {
+		DateFormatter f = new DateFormatter();
+		for(Baby baby : babies){
+			String result = f.calculateFromBabyToCard(baby.getBabyBirth(), this.modifiedDate);
+			baby.setBabyDate(result);
+		}
 	}
 	
 	
