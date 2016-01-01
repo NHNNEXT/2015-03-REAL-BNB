@@ -22,6 +22,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import net.balbum.baby.Util.EmailUtil;
+import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -30,6 +32,8 @@ import net.balbum.baby.lib.retrofit.TaskService;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
 
 /**
  * Created by hyes on 2015. 11. 15..
@@ -46,6 +50,7 @@ public class LoginActivity extends FragmentActivity{
     EditText email, password;
     String emailString, passwordString;
     TaskService taskService;
+    LoginVo loginVo;
 
     @Override
     protected void onResume() {
@@ -74,13 +79,21 @@ public class LoginActivity extends FragmentActivity{
             @Override
             public void onClick(View v) {
 
-                emailString = email.getText().toString();
+                TaskService taskService = ServiceGenerator.createService(TaskService.class);
 
-                passwordString = password.getText().toString();
-                LoginVo loginVo = new LoginVo(emailString, passwordString);
-                Log.d("test", emailString + ", " + passwordString);
-                doLogin(loginVo);
-//                Toast.makeText(context, "Email: "+ email.getText().toString() + " password: "+ password.getText().toString(), Toast.LENGTH_SHORT).show();
+                if(getInfo()) {
+                    taskService.createLogin(loginVo, new Callback<AuthVo>() {
+                        @Override
+                        public void success(AuthVo authVo, Response response) {
+                            goToActivity(context, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
             }
         });
 
@@ -128,28 +141,46 @@ public class LoginActivity extends FragmentActivity{
         });
     }
 
-    private void doLogin(final LoginVo loginVo) {
-        Log.i("test", "task: emil" + loginVo.email);
-        taskService.createLogin(loginVo, new Callback<AuthVo>() {
-            @Override
-            public void success(AuthVo authVo, Response response) {
-                Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
+    private boolean getInfo() {
 
-                Log.i("test", "task: " + authVo.token);
-                Log.i("test", "task: " + authVo.message);
-                saveTokenBalbum(context, authVo.token);
-
-
+        if (email.getText().toString().matches("")) {
+            ToastUtil.show(context, "메일을 입력하세요");
+        } else if (password.getText().toString().matches("")) {
+            ToastUtil.show(context, "비밀번호를 입력하세요");
+        } else {
+            if (!EmailUtil.isValidEmail((CharSequence) email.getText().toString())) {
+                ToastUtil.show(context, "메일형식을 확인하세요");
+                return false;
             }
+            loginVo = new LoginVo(email.getText().toString(), password.getText().toString());
+            return true;
+        }
+        return false;
 
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
-                //실패시 토스트 메시니 또는 스낵바에 내용 띄워주기 추가할 것
-
-            }
-        });
     }
+
+//    private void doLogin(final LoginVo loginVo) {
+//        Log.i("test", "task: emil" + loginVo.email);
+//        taskService.createLogin(loginVo, new Callback<AuthVo>() {
+//            @Override
+//            public void success(AuthVo authVo, Response response) {
+//                Toast.makeText(context, "Login 성공~~~~", Toast.LENGTH_SHORT).show();
+//
+//                Log.i("test", "task: " + authVo.token);
+//                Log.i("test", "task: " + authVo.message);
+//                saveTokenBalbum(context, authVo.token);
+//
+//
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Toast.makeText(context, "fail", Toast.LENGTH_SHORT).show();
+//                //실패시 토스트 메시니 또는 스낵바에 내용 띄워주기 추가할 것
+//
+//            }
+//        });
+//    }
 
 
     private void saveTokenBalbum(Context context, String token) {

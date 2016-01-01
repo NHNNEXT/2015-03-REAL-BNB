@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import net.balbum.baby.Util.EmailUtil;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.LoginVo;
@@ -77,7 +78,7 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
         } else if(role.getText().toString().matches("")){
             ToastUtil.show(context, "역할을 입력하세요");
         } else {
-            if (!isValidEmail((CharSequence) email.getText().toString())) {
+            if (!EmailUtil.isValidEmail((CharSequence) email.getText().toString())) {
                 ToastUtil.show(context, "메일형식을 확인하세요");
                 return false;
             }
@@ -88,10 +89,4 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    public final static boolean isValidEmail(CharSequence target) {
-        if (target == null)
-            return false;
-
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-    }
 }
