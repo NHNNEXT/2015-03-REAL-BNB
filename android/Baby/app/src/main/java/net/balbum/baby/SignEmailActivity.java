@@ -1,10 +1,16 @@
 package net.balbum.baby;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import net.balbum.baby.Util.EmailUtil;
 import net.balbum.baby.Util.ToastUtil;
@@ -24,13 +30,13 @@ import static net.balbum.baby.Util.ActivityUtil.goToActivity;
  * Created by hyes on 2015. 12. 3..
  */
 public class SignEmailActivity extends AppCompatActivity implements View.OnClickListener {
-
+    static final int PICTURE_EDIT_COMPLETE = 2;
     Context context;
 
     EditText email;
     EditText password;
     EditText role;
-
+    ImageView profile_image;
     LoginVo loginVo;
 
     @Override
@@ -41,10 +47,32 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
         context = this;
         findViewById(R.id.sign).setOnClickListener(this);
 
+        profile_image = (ImageView)findViewById(R.id.sign_email_profile_photo);
         email = (EditText)findViewById(R.id.sign_email);
         password = (EditText)findViewById(R.id.sign_password);
         role = (EditText)findViewById(R.id.sign_role);
 
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CardImageEditActivity.class);
+                startActivityForResult(intent, PICTURE_EDIT_COMPLETE);
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK && requestCode == PICTURE_EDIT_COMPLETE) {
+            this.setSelectedImage(CardImageEditActivity.croppedBitmap);
+        }
+    }
+
+    public void setSelectedImage(Bitmap bitmap){
+        profile_image.setImageBitmap(bitmap);
     }
 
     @Override
@@ -57,7 +85,17 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
             taskService.createLogin(loginVo, new Callback<AuthVo>() {
                 @Override
                 public void success(AuthVo authVo, Response response) {
-                    goToActivity(context, MainActivity.class);
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("tokenB", authVo.token);
+                    editor.putString("profileName", email.getText().toString());
+                   // editor.putString("profileImage", profileImage);
+                    editor.putString("profileRole", password.getText().toString());
+                    editor.commit();
+                    editor.commit();
+
+                    goToActivity(context, InitialSettingActivity.class);
                 }
 
                 @Override
