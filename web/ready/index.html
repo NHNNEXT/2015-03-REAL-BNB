@@ -57,8 +57,8 @@
 
         <aside class="left-col hide-on-small-only">
             <ul>
-                <li><a href="#/">타임라인</a></li>
-                <li ng-repeat="baby in bMain.babyList"><a href="#">{{baby.babyName}}</a></li>
+                <li class="timeline"><a href="#/">타임라인</a></li>
+                <li class="bfilter" ng-repeat="baby in bMain.babyList" data-bid="{{baby.bid}}"><a href="#/">{{baby.babyName}}</a></li>
                 <li><a href="#poster">포스터 만들기</a></li>
                 <li><a href="#settings">설정<span class="new badge">4</span></a></a></li>
             </ul>

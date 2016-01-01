@@ -1,4 +1,4 @@
-<article ng-controller="CardController as cCtrl" class="main-col col s12 m12 l8">
+<article ng-controller="CardController as cCtrl" data-bfilter="0" class="main-col col s12 m12 l8">
     <div class="postcard-container card row scrollspy" id="card-now">
         <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
             <input type="hidden" name="token"/>
@@ -21,7 +21,7 @@
             <div id="event-tab" class="event-tab col row s12">
                 <div class="date-container ">
                     <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
-                    <input type="date" name="input" ng-model="card.modified" class="datepicker" placeholder="생년월일">
+                    <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
                 </div>
                 <div class="input-field col s6">
                     <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
@@ -40,7 +40,7 @@
             <div class="action card-action row">
                 <div class="date-container col s5">
                     <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
-                    <input type="date" name="modifiedDate" class="datepicker"/><br/>
+                    <input type="date" name="modifiedDate"/><br/>
                 </div>
                 <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
             </div>

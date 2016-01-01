@@ -10,10 +10,10 @@ var Start = {
         $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
         // $('.modal-trigger').leanModal();
-        $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-        });
+        // $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
+        //     selectMonths: true, // Creates a dropdown to control month
+        //     selectYears: 15 // Creates a dropdown of 15 years to control year
+        // });
         $('.scrollspy').scrollSpy();
 
 
@@ -198,11 +198,25 @@ var User = {
 }
 
 var CardCRUD = {
-    init: function() {
+    init: function($http, cCtrl) {
+        $('li.timeline').click(function() { /* 타임라인 메뉴 누르면 전체 아이 카드 나옴 */
+            CardCRUD.get($http, this);
+        });
 
+        $('aside.left-col').on('click', '.bfilter', function() { /* 아이 메뉴 누르면 특정 아이 카드 나옴 */
+            $('article.main-col').data('bfilter', $(this).data('bid'));
+            CardCRUD.filteredGet($http, cCtrl, $(this).data('bid'));
+        });
     },
     get: function($http, cCtrl) {
         $http.get(address + 'api/card?token='+token).then(function(res) {
+            cCtrl.cardList = res.data.cardList;
+        }, function() {
+            alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
+        });
+    },
+    filteredGet: function($http, cCtrl, filteredBId) {
+        $http.get(address + 'api/filter/baby?token='+token+'&bId='+filteredBId).then(function(res) {
             cCtrl.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
@@ -272,6 +286,8 @@ balbumApp.controller('MainController', function($scope, $http) {
 
     User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
+
+
 });
 
 balbumApp.controller('CardController', function($scope, $http) {
@@ -282,7 +298,7 @@ balbumApp.controller('CardController', function($scope, $http) {
     /* 함수들 초기화 */
     Start.init();
     Upload.init();
-    CardCRUD.init();
+    CardCRUD.init($http, cCtrl);
     InitModal.init();
 
     /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
@@ -311,6 +327,8 @@ balbumApp.controller('CardController', function($scope, $http) {
     $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
         InitModal.getFamily($http, this);
     });
+
+
 });
 
 balbumApp.controller('PosterController', function($scope) {
