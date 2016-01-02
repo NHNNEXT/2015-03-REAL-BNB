@@ -27,6 +27,7 @@ import android.widget.TextView;
 import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.adapter.BabyListAdapter;
@@ -72,8 +73,9 @@ public class AddBabyFragment extends Fragment {
     }
 
     private void initData() {
+        TokenUtil tu = new TokenUtil(context);
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+        taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
             @Override
             public void success(ArrayList<BabyVo> babyVos, Response response) {
                 babyVoList = babyVos;

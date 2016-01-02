@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
@@ -49,9 +50,9 @@ public class FamilyAuthFragment extends Fragment {
                 if(email.getText().toString().matches("")){
                     ToastUtil.show(context, "email을 입력하세요. ");
                 }else{
-
+                    TokenUtil tu = new TokenUtil(context);
                     TaskService taskService = ServiceGenerator.createService(TaskService.class);
-                    taskService.findFamily(email.getText().toString(), "asdf", new Callback<ResponseVo>() {
+                    taskService.findFamily(email.getText().toString(), tu.getToken(), new Callback<ResponseVo>() {
                         @Override
                         public void success(ResponseVo responseVo, Response response) {
                             Log.d("test", "res" + String.valueOf(responseVo.state));
