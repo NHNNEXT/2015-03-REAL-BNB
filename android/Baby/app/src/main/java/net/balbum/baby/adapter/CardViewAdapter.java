@@ -38,7 +38,6 @@ import net.balbum.baby.lib.retrofit.TaskService;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -62,6 +61,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         this.context = context;
         this.layout = layout;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
+
+        Log.d("test", "babyDate: " + cards.get(0).getBabies().get(0).babyDate);
     }
 
     @Override
@@ -87,6 +88,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         holder.diary_text.setText(cards.get(position).content);
         holder.diary_text.setTypeface(typeface);
+
         babiesInfo(holder.profile_container, position);
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +130,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 //        Log.d("test", "cv width: " + holder.diary_text.getText());
 
     }
+
+//    private void modifyDate(int position, View v) {
+//        DialogHandler pickerDialog = new DialogHandler(v);
+//        pickerDialog.show(context);
+//    }
 
     private void shareCard(int position) {
         Intent intent = new Intent(context, CardShareActivity.class);
@@ -191,50 +198,29 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
         final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
 
-        babies = new ArrayList<BabyVo>();
-        TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
-            @Override
-            public void success(ArrayList<BabyVo> babyVos, Response response) {
-                babies = babyVos;
 
-                for (int i = 0; i < idx; i++) {
+            for (int i = 0; i < idx; i++) {
 
-                    LinearLayout linLayout = new LinearLayout(context);
-                    linLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    linLayout.setGravity(Gravity.CENTER_VERTICAL);
+                LinearLayout linLayout = new LinearLayout(context);
+                linLayout.setOrientation(LinearLayout.HORIZONTAL);
+                linLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-                    ImageView iv_profile = new ImageView(context);
+                ImageView iv_profile = new ImageView(context);
 
-                    Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
+                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).into(iv_profile);
 
-                   // iv_profile.setImageResource(babies.get(i).babyImg);
-                    iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
-                    linLayout.addView(iv_profile, imageParam);
+               // iv_profile.setImageResource(babies.get(i).babyImg);
+                iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
+                linLayout.addView(iv_profile, imageParam);
 
-                    TextView tv = new TextView(context);
-                    tv.setText("13개월");
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-                    tv.setLayoutParams(tvParam);
-                    tv.setGravity(Gravity.CENTER);
-                    linLayout.addView(tv);
-                    ((LinearLayout) profile_container).addView(linLayout);
-                }
+                TextView tv = new TextView(context);
+                tv.setText(cards.get(position).getBabies().get(i).babyDate);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                tv.setLayoutParams(tvParam);
+                tv.setGravity(Gravity.CENTER);
+                linLayout.addView(tv);
+                ((LinearLayout) profile_container).addView(linLayout);
             }
-
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-        //이 가족이 가진 애기 리스트를 가지고 loop돌림
-//        List<Integer> baby_list = new ArrayList();
-//        baby_list.add(R.drawable.b1);
-//        baby_list.add(R.drawable.b2);
-//        baby_list.add(R.drawable.b3);
-
-
 
     }
 

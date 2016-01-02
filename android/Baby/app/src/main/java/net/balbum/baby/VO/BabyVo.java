@@ -13,6 +13,7 @@ public class BabyVo {
     public String babyName;
     public String babyBirth;
     public String babyGender;
+    public String babyDate;
 
     public BabyVo() {
     }
@@ -30,6 +31,15 @@ public class BabyVo {
         this.babyBirth = babyBirth;
         this.babyGender = babyGender;
         this.babyImg = image;
+    }
+
+    public BabyVo(String babyBirth, String babyDate, String babyGender, String babyImg, String babyName, long bId) {
+        this.babyBirth = babyBirth;
+        this.babyDate = babyDate;
+        this.babyGender = babyGender;
+        this.babyImg = babyImg;
+        this.babyName = babyName;
+        this.bId = bId;
     }
 }
 
