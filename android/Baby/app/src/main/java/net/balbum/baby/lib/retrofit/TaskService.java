@@ -32,6 +32,9 @@ public interface TaskService {
     @POST("/api/user/login")
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
+    @Multipart
+    @POST("/api/user/signup/fb_token/image")
+    void sendProfileImage(@Part("image")TypedFile file, @Part("token") String token, Callback<ResponseVo> cb);
 
     @POST("/api/user/signup/fb_token")
     void createSign(@Body LoginVo task, Callback<AuthVo> cb);

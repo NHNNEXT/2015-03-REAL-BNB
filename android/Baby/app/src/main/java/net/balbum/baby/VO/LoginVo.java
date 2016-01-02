@@ -9,6 +9,7 @@ public class LoginVo {
     public String password;
     public String role;
     public String fb_token;
+    public String image;
 
     public LoginVo(String role, String fb_token) {
         this.role = role;

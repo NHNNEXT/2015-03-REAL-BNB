@@ -1,5 +1,7 @@
 package net.balbum.baby.VO;
 
+import com.kakao.User;
+
 import java.util.List;
 
 /**
@@ -9,5 +11,6 @@ public class FamilyVo {
     public List<BabyVo> babies;
     public List<UserVo> families;
     public List<UserVo> readyList;
+    public User user;
 }
 

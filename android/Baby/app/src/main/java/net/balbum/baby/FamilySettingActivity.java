@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.FamilyVo;
 import net.balbum.baby.VO.UserVo;
@@ -38,6 +38,8 @@ public class FamilySettingActivity extends AppCompatActivity {
 
     Context context;
     List<BabyVo> babies;
+    List<UserVo> familyList;
+    List<UserVo> readyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +48,25 @@ public class FamilySettingActivity extends AppCompatActivity {
         context = this;
         init();
         initProfileInfo();
-        initFamilyMember();
-        initBabies();
-        initWaitingMember();
-
     }
 
     private void init() {
-        Log.d("test", "family init()");
+
+        familyList = new ArrayList<UserVo>();
+        babies = new ArrayList<BabyVo>();
+        readyList = new ArrayList<UserVo>();
+
+        TokenUtil tu = new TokenUtil(context);
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getFamilyGlobalInfo("token", new Callback<FamilyVo>() {
+        taskService.getFamilyGlobalInfo(tu.getToken(), new Callback<FamilyVo>() {
             @Override
             public void success(FamilyVo familyVo, Response response) {
-                Log.d("test", "family size: " + familyVo.families.size());
+                familyList = familyVo.families;
+                babies = familyVo.babies;
+                readyList = familyVo.readyList;
+                initFamilyMember();
+                initBabies();
+                initWaitingMember();
             }
 
             @Override
@@ -81,10 +89,14 @@ public class FamilySettingActivity extends AppCompatActivity {
             String profileName = sharedPreferences.getString("profileName", "");
             nav_name.setText(profileName);
         }
+
         if (sharedPreferences.contains("profileImage")) {
+
             String profileImage = sharedPreferences.getString("profileImage", "");
+            Log.d("test", "profileImage있음 "+ profileImage);
             Picasso.with(context).load(profileImage).into(imageView);
         }
+        Log.d("test", "profileImage없음 ");
         if (sharedPreferences.contains("profileRole")) {
             String profileRole = sharedPreferences.getString("profileRole", "");
             nav_role.setText(profileRole);
@@ -93,10 +105,6 @@ public class FamilySettingActivity extends AppCompatActivity {
 
     private void initFamilyMember() {
         RecyclerView familyRv = (RecyclerView) findViewById(R.id.setting_family_member);
-
-        List<UserVo> familyList = new ArrayList<UserVo>();
-        familyList.add(new UserVo(Define.URL + "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "삼촌", false));
-
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         familyRv.setLayoutManager(sglm);
         FamilyInfoAdapter adapter = new FamilyInfoAdapter(familyList, context);
@@ -105,23 +113,6 @@ public class FamilySettingActivity extends AppCompatActivity {
     }
 
     private void initBabies() {
-        babies = new ArrayList<BabyVo>();
-        TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
-            @Override
-            public void success(ArrayList<BabyVo> babyVos, Response response) {
-                babies = babyVos;
-                initBabyRecyclerView();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-    }
-
-    private void initBabyRecyclerView() {
         RecyclerView babyRv = (RecyclerView) findViewById(R.id.setting_babies);
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         babyRv.setLayoutManager(sglm);
@@ -131,18 +122,10 @@ public class FamilySettingActivity extends AppCompatActivity {
 
     private void initWaitingMember() {
         RecyclerView waitingRv = (RecyclerView) findViewById(R.id.setting_family_waiting);
-
-        List<UserVo> familyList = new ArrayList<UserVo>();
-        familyList.add(new UserVo(Define.URL + "/img/imgs/baby/1450845479648219d744ae7db4fe88da0a7c55431e764.png", "수퍼히어로아빠", false));
-        familyList.add(new UserVo(Define.URL + "/img/imgs/baby/1450843303888635a1c73b662482ca42e0b956b981d3b.png", "이모", false));
-
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         waitingRv.setLayoutManager(llm);
-
-        WaitingFamilyAdapter adapter = new WaitingFamilyAdapter(familyList, context);
+        WaitingFamilyAdapter adapter = new WaitingFamilyAdapter(readyList, context);
         waitingRv.setAdapter(adapter);
     }
-
-
 }
