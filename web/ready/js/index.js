@@ -174,14 +174,33 @@ var User = {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
     },
-    getBaby: function($http, cCtrl) {
+    getBaby: function($http, bMain) {
         $http({
             url: address + 'api/user/baby',
             method: "GET",
             params: {token: token}
         }).then( function(res) {
-            cCtrl.babyList = res.data;
-            console.log("baby res:", cCtrl.babyList);
+            bMain.babyList = res.data;
+            console.log("baby res:", bMain.babyList);
+        }, function() {
+            alert('아이 정보를 불러오지 못하였습니다.');
+        });
+    },
+    getBabyInfo: function($http, cCtrl, bId) {
+        $http({
+            url: address + 'api/user/baby',
+            method: "GET",
+            params: {token: token}
+        }).then( function(res) {
+            // bMain.babyList = res.data;
+            $.each(res.data, function(k, v) {
+                console.log("느아앙");
+                if(v.bid == bId) {
+                    console.log(v.bid);
+                    cCtrl.filteredBaby = v;
+                }
+            });
+
         }, function() {
             alert('아이 정보를 불러오지 못하였습니다.');
         });
@@ -291,13 +310,16 @@ balbumApp.controller('MainController', function($scope, $http) {
 
     User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
-    // console.log(bMain.babyList[0])
+
+    // console.log('베이비리스트', bMain.babyList);
 });
 
 balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     console.log("카드컨트롤러");
     var cCtrl = this;
+    var filteredBId = $routeParams.babyId;
     cCtrl.cardList;
+    cCtrl.filteredBaby;
 
     /* 함수들 초기화 */
     Start.init();
@@ -305,18 +327,20 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     CardCRUD.init($http, cCtrl);
     InitModal.init();
 
-    /*카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
+    /* 카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
     /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
     $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
 
-    $scope.babyId = $routeParams.babyId; /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
-    if($scope.babyId) {
-        $scope.isBabyPage = true;
+
+    if(cCtrl.babyId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
+        cCtrl.isBabyPage = true;
+        User.getBabyInfo($http, this, filteredBId); /* 현재 타임라인 아이정보 불러오기 */
     }
 
-    CardCRUD.get($http, this, $routeParams.babyId); /* 서버에 저장된 카드 가져오기 */
+
+    CardCRUD.get($http, this, filteredBId); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
 
 
