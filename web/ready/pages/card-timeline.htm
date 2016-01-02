@@ -1,5 +1,5 @@
 <article ng-controller="CardController as cCtrl" data-bfilter="0" class="main-col col s12 m12 l8">
-    <div class="postcard-container card row scrollspy" id="card-now">
+    <div class="postcard-container card row scrollspy" ng-hide="isBabyPage" id="card-now">
         <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
             <input type="hidden" name="token"/>
             <div class="postcard-tabs col s12">
@@ -54,6 +54,9 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
             <a href="#!" class="modal-action waves-effect waves-green btn-flat ">수정</a>
         </div>
+    </div>
+    <div class="baby-title" ng-show="isBabyPage">
+        ㅇㅇ이의 타임라인
     </div>
     <div class="card-container row">
         <div class="baby-card card scrollspy col s12" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">

@@ -5,6 +5,12 @@ var token = 'asdf1234';
 
 var testData;
 
+var Main = {
+    init: function() {
+
+    }
+}
+
 var Start = {
     init: function() {
         $("input[name='token']").val(token);
@@ -205,18 +211,12 @@ var CardCRUD = {
 
         $('aside.left-col').on('click', '.bfilter', function() { /* 아이 메뉴 누르면 특정 아이 카드 나옴 */
             $('article.main-col').data('bfilter', $(this).data('bid'));
-            CardCRUD.filteredGet($http, cCtrl, $(this).data('bid'));
+            CardCRUD.get($http, cCtrl, $(this).data('bid'));
         });
     },
-    get: function($http, cCtrl) {
-        $http.get(address + 'api/card?token='+token).then(function(res) {
-            cCtrl.cardList = res.data.cardList;
-        }, function() {
-            alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
-        });
-    },
-    filteredGet: function($http, cCtrl, filteredBId) {
-        $http.get(address + 'api/filter/baby?token='+token+'&bId='+filteredBId).then(function(res) {
+    get: function($http, cCtrl, bId) {
+        var url = bId? 'api/filter/baby?token='+token+'&bId='+bId : 'api/card?token='+token;
+        $http.get(address + url).then(function(res) {
             cCtrl.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
@@ -272,6 +272,9 @@ balbumApp.config(function($routeProvider) {
             templateUrl : 'pages/poster.htm',
             controller  : 'PosterController'
         })
+        .when('/baby/:babyId', {
+            templateUrl : 'pages/card-timeline.htm',
+        })
         .when('/settings', {
             templateUrl : 'pages/settings.htm',
             controller  : 'SettingsController'
@@ -284,13 +287,14 @@ balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
     bMain.babyList;
 
+    Main.init();
+
     User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
-    User.getBaby($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
-
-
+    User.getBaby($http, this); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
+    // console.log(bMain.babyList[0])
 });
 
-balbumApp.controller('CardController', function($scope, $http) {
+balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     console.log("카드컨트롤러");
     var cCtrl = this;
     cCtrl.cardList;
@@ -307,8 +311,14 @@ balbumApp.controller('CardController', function($scope, $http) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
 
-    CardCRUD.get($http, this); /* 서버에 저장된 카드 가져오기 */
+    $scope.babyId = $routeParams.babyId; /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
+    if($scope.babyId) {
+        $scope.isBabyPage = true;
+    }
+
+    CardCRUD.get($http, this, $routeParams.babyId); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
+
 
     $scope.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();
@@ -327,6 +337,8 @@ balbumApp.controller('CardController', function($scope, $http) {
     $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
         InitModal.getFamily($http, this);
     });
+
+
 
 
 });
