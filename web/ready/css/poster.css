@@ -26,6 +26,6 @@ section.poster-container .card p {
 section.poster-container .card div {
   text-align: center;
 }
-section.poster-container .card div button {
+section.poster-container .card div .btn {
   background: #896DA5 !important;
 }
