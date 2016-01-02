@@ -20,8 +20,7 @@
             </div>
             <div id="event-tab" class="event-tab col row s12">
                 <div class="date-container ">
-                    <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
-                    <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
+                    <input type="date" class="datepicker" name="input" ng-model="card.modified" placeholder="기념일을 선택해주세요.">
                 </div>
                 <div class="input-field col s6">
                     <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
@@ -39,8 +38,7 @@
             </div>
             <div class="action card-action row">
                 <div class="date-container col s5">
-                    <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
-                    <input type="date" name="modifiedDate"/><br/>
+                    <input type="date" class="datepicker" name="modifiedDate" placeholder="날짜를 선택해주세요."/><br/>
                 </div>
                 <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
             </div>
