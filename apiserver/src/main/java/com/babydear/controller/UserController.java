@@ -79,6 +79,7 @@ public class UserController {
 			return new AuthDTO(null, "이미지 형식이 잘못 되었습니다.");
 		}
 		User user = new User(userDTO);
+		user.setFId(familyRepo.save(new Family()).getFId());
 		user = userRepo.save(user);
 		mailService.sendSignUpMail();
 		return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
@@ -159,6 +160,7 @@ public class UserController {
 			user.setUserRole((String)userDTO.get("role"));
 			user.setPassword((String)userDTO.get("fb_token"));
 			user.setUserImg("/imgs/sample/user.jpeg");
+			user.setFId(familyRepo.save(new Family()).getFId());
 			userRepo.save(user);
 			System.out.println("회원가입"+user);
 			return new AuthDTO(authService.setUser(user.getUId()), "성공");
