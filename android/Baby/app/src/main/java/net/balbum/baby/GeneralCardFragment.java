@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -173,6 +174,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         GeneralCardVo tempVo = new GeneralCardVo();
         tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedList();
+        tempVo.modifiedDate = TimeUtil.getRecordedMoment();
 
         Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
         String filePath = getRealPathFromURI(tempUri);
