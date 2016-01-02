@@ -107,8 +107,10 @@ public class MainActivity extends AppCompatActivity
 
     private void getBabyInfo() {
         babyList = new ArrayList<BabyTagVo>();
+
+        TokenUtil tu = new TokenUtil(context);
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+        taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
             @Override
             public void success(ArrayList<BabyVo> babyVos, Response response) {
                 for (BabyVo baby : babyVos) {
@@ -123,24 +125,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-//        List<Long> list = new ArrayList<>();
-//        list.add(new Long(2));
-//        list.add(new Long(4));
-//
-//        CardIdListVo req = new CardIdListVo();
-//        req.cardIds = Arrays.asList(new Long(1), new Long(2));
-//        taskService.getCardList(req, new Callback<CardListVo>() {
-//            @Override
-//            public void success(CardListVo cardListVo, Response response) {
-//                Log.d("test", "long list 성공");
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Log.d("test", "long list 실패");
-//            }
-//        });
     }
 
     private void initNavRecyclerView() {
@@ -154,16 +138,16 @@ public class MainActivity extends AppCompatActivity
     private void getData() {
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
-        Log.d("test", " getCard시작?~");
         TokenUtil tu = new TokenUtil(context);
+        Log.d("test", "token: " + tu.getToken());
 
         taskService.getCard(tu.getToken(), new Callback<CardListVo>() {
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
                 cardGeneralModelList = cd.cardList;
-//                Log.d("test", "size~: " + cardGeneralModelList.get(0).cid);
                 initView(cardGeneralModelList);
+                Log.d("test", "error: " + cardListVo.error);
             }
 
             @Override
@@ -176,9 +160,9 @@ public class MainActivity extends AppCompatActivity
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(linearLayoutManager);
             adapter = new CardViewAdapter(cardGeneralModelList, context, R.layout.card_general_row_portrait);
 
@@ -274,7 +258,7 @@ public class MainActivity extends AppCompatActivity
             ActivityUtil.goToActivity(context, PosterCardSelectingActivity.class);
 
         } else if (id == R.id.nav_poster2) {
-            ActivityUtil.goToActivity(context, PosterCardSelectingActivity.class);
+            ActivityUtil.goToActivity(context, PosterCardSelectingActivity2.class);
 
         }  else if ( id == R.id.logout){
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
