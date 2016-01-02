@@ -29,3 +29,16 @@ section.poster-container .card div {
 section.poster-container .card div .btn {
   background: #896DA5 !important;
 }
+section.poster-container .card div .btn:hover {
+  background: #9b7bba !important;
+}
+section.make-poster-container {
+  width: 100%;
+  height: 100%;
+}
+section.make-poster-container .btn {
+  background: #896DA5 !important;
+}
+section.make-poster-container .btn:hover {
+  background: #9b7bba !important;
+}
