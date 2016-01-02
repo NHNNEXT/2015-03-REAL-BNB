@@ -18,6 +18,7 @@ public class GeneralCardVo{
     public List<BabyVo> babies;
     public List<NamesVo> names;
     public String type;
+    public boolean isSelected;
 
     public GeneralCardVo() {
 

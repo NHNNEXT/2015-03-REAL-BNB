@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.balbum.baby.R;
+import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.UserVo;
 
 import java.util.List;
@@ -37,7 +40,7 @@ public class FamilyInfoAdapter extends RecyclerView.Adapter<FamilyInfoAdapter.Fa
     @Override
     public void onBindViewHolder(final FamilyViewHolder holder, final int position) {
 
-       // Picasso.with(context).load(Define.URL+ familyList.get(position).userImg).into(holder.photo);
+        Picasso.with(context).load(Define.URL+ familyList.get(position).userImg).into(holder.photo);
         holder.name.setText(familyList.get(position).userRole);
 
     }

@@ -32,7 +32,7 @@ import retrofit.client.Response;
 /**
  * Created by hyes on 2015. 12. 16..
  */
-public class PosterMakingActivity extends AppCompatActivity {
+public class PosterMakingActivity2 extends AppCompatActivity {
 
     List<Integer> posterImages = new ArrayList<Integer>();
     Context context;
@@ -42,7 +42,7 @@ public class PosterMakingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poster_making2);
+        setContentView(R.layout.activity_poster_making3);
         context = this;
 
         List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
@@ -89,41 +89,65 @@ public class PosterMakingActivity extends AppCompatActivity {
         TextView c3_date = (TextView)card3.findViewById(R.id.tv_date);
         LinearLayout c3_profile = (LinearLayout)card3.findViewById(R.id.profile_container);
 
-        View card4 = findViewById(R.id.card4);
-        ImageView c4_iv = (ImageView)card4.findViewById(R.id.iv_image);
-        TextView c4_diary = (TextView)card4.findViewById(R.id.diary_text);
-        TextView c4_date = (TextView)card4.findViewById(R.id.tv_date);
-        LinearLayout c4_profile = (LinearLayout)card4.findViewById(R.id.profile_container);
+//        View card4 = findViewById(R.id.card4);
+//        ImageView c4_iv = (ImageView)card4.findViewById(R.id.iv_image);
+//        TextView c4_diary = (TextView)card4.findViewById(R.id.diary_text);
+//        TextView c4_date = (TextView)card4.findViewById(R.id.tv_date);
+//        LinearLayout c4_profile = (LinearLayout)card4.findViewById(R.id.profile_container);
+//
+//        View card5 = findViewById(R.id.card5);
+//        ImageView c5_iv = (ImageView)card5.findViewById(R.id.iv_image);
+//        TextView c5_diary = (TextView)card5.findViewById(R.id.diary_text);
+//        TextView c5_date = (TextView)card5.findViewById(R.id.tv_date);
+//        LinearLayout c5_profile = (LinearLayout)card5.findViewById(R.id.profile_container);
+//
+//        View card6 = findViewById(R.id.card6);
+//        ImageView c6_iv = (ImageView)card6.findViewById(R.id.iv_image);
+//        TextView c6_diary = (TextView)card6.findViewById(R.id.diary_text);
+//        TextView c6_date = (TextView)card6.findViewById(R.id.tv_date);
+//        LinearLayout c6_profile = (LinearLayout)card6.findViewById(R.id.profile_container);
+//
+//        View card7 = findViewById(R.id.card7);
+//        ImageView c7_iv = (ImageView)card7.findViewById(R.id.iv_image);
+//        TextView c7_diary = (TextView)card7.findViewById(R.id.diary_text);
+//        TextView c7_date = (TextView)card7.findViewById(R.id.tv_date);
+//        LinearLayout c7_profile = (LinearLayout)card7.findViewById(R.id.profile_container);
+//
+//        View card8 = findViewById(R.id.card8);
+//        ImageView c8_iv = (ImageView)card8.findViewById(R.id.iv_image);
+//        TextView c8_diary = (TextView)card8.findViewById(R.id.diary_text);
+//        TextView c8_date = (TextView)card8.findViewById(R.id.tv_date);
+//        LinearLayout c8_profile = (LinearLayout)card8.findViewById(R.id.profile_container);
+//
+//        View card9 = findViewById(R.id.card9);
+//        ImageView c9_iv = (ImageView)card9.findViewById(R.id.iv_image);
+//        TextView c9_diary = (TextView)card9.findViewById(R.id.diary_text);
+//        TextView c9_date = (TextView)card9.findViewById(R.id.tv_date);
+//        LinearLayout c9_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
 
-        View card5 = findViewById(R.id.card5);
-        ImageView c5_iv = (ImageView)card5.findViewById(R.id.iv_image);
-        TextView c5_diary = (TextView)card5.findViewById(R.id.diary_text);
-        TextView c5_date = (TextView)card5.findViewById(R.id.tv_date);
-        LinearLayout c5_profile = (LinearLayout)card5.findViewById(R.id.profile_container);
-
-        View card6 = findViewById(R.id.card6);
-        ImageView c6_iv = (ImageView)card6.findViewById(R.id.iv_image);
-        TextView c6_diary = (TextView)card6.findViewById(R.id.diary_text);
-        TextView c6_date = (TextView)card6.findViewById(R.id.tv_date);
-        LinearLayout c6_profile = (LinearLayout)card6.findViewById(R.id.profile_container);
-
-        View card7 = findViewById(R.id.card7);
-        ImageView c7_iv = (ImageView)card7.findViewById(R.id.iv_image);
-        TextView c7_diary = (TextView)card7.findViewById(R.id.diary_text);
-        TextView c7_date = (TextView)card7.findViewById(R.id.tv_date);
-        LinearLayout c7_profile = (LinearLayout)card7.findViewById(R.id.profile_container);
-
-        View card8 = findViewById(R.id.card8);
-        ImageView c8_iv = (ImageView)card8.findViewById(R.id.iv_image);
-        TextView c8_diary = (TextView)card8.findViewById(R.id.diary_text);
-        TextView c8_date = (TextView)card8.findViewById(R.id.tv_date);
-        LinearLayout c8_profile = (LinearLayout)card8.findViewById(R.id.profile_container);
-
-        View card9 = findViewById(R.id.card9);
-        ImageView c9_iv = (ImageView)card9.findViewById(R.id.iv_image);
-        TextView c9_diary = (TextView)card9.findViewById(R.id.diary_text);
-        TextView c9_date = (TextView)card9.findViewById(R.id.tv_date);
-        LinearLayout c9_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
+//        View card10 = findViewById(R.id.card10);
+//        ImageView c10_iv = (ImageView)card9.findViewById(R.id.iv_image);
+//        TextView c10_diary = (TextView)card9.findViewById(R.id.diary_text);
+//        TextView c10_date = (TextView)card9.findViewById(R.id.tv_date);
+//        LinearLayout c10_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
+//
+//        View card11 = findViewById(R.id.card11);
+//        ImageView c11_iv = (ImageView)card9.findViewById(R.id.iv_image);
+//        TextView c11_diary = (TextView)card9.findViewById(R.id.diary_text);
+//        TextView c11_date = (TextView)card9.findViewById(R.id.tv_date);
+//        LinearLayout c11_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
+//
+//        View card12 = findViewById(R.id.card12);
+//        ImageView c12_iv = (ImageView)card9.findViewById(R.id.iv_image);
+//        TextView c12_diary = (TextView)card9.findViewById(R.id.diary_text);
+//        TextView c12_date = (TextView)card9.findViewById(R.id.tv_date);
+//        LinearLayout c12_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
+//
+//        View card13 = findViewById(R.id.card13);
+//        ImageView c13_iv = (ImageView)card9.findViewById(R.id.iv_image);
+//        TextView c13_diary = (TextView)card9.findViewById(R.id.diary_text);
+//        TextView c13_date = (TextView)card9.findViewById(R.id.tv_date);
+//        LinearLayout c13_profile = (LinearLayout)card9.findViewById(R.id.profile_container);
 
         setCard(c1_iv, c1_date, c1_profile, c1_diary, cardList.get(0));
         setCard(c2_iv, c2_date, c2_profile, c2_diary, cardList.get(1));
@@ -134,6 +158,10 @@ public class PosterMakingActivity extends AppCompatActivity {
 //        setCard(c7_iv, c7_date, c7_profile, c7_diary, cardList.get(6));
 //        setCard(c8_iv, c8_date, c8_profile, c8_diary, cardList.get(7));
 //        setCard(c9_iv, c9_date, c9_profile, c9_diary, cardList.get(8));
+//        setCard(c10_iv, c10_date, c10_profile, c10_diary, cardList.get(9));
+//        setCard(c11_iv, c11_date, c11_profile, c11_diary, cardList.get(10));
+//        setCard(c12_iv, c12_date, c12_profile, c12_diary, cardList.get(11));
+//        setCard(c13_iv, c13_date, c13_profile, c13_diary, cardList.get(12));
 
     }
 

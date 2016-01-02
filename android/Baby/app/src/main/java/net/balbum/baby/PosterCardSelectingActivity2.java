@@ -29,7 +29,7 @@ import retrofit.client.Response;
 /**
  * Created by hyes on 2015. 12. 22..
  */
-public class PosterCardSelectingActivity extends AppCompatActivity{
+public class PosterCardSelectingActivity2 extends AppCompatActivity{
 
     List<GeneralCardVo> cardList;
     List<Long> selectedCardListLong;
@@ -100,12 +100,12 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
 
             if(size != 3){
                 if(size < 3){
-                    ToastUtil.show(context, "카드가 9개보다 적게 선택되었습니다.");
+                    ToastUtil.show(context, "카드가 13개보다 적게 선택되었습니다.");
                 }else if(size > 3){
-                    ToastUtil.show(context, "카드가 9개보다 많이 선택되었습니다.");
+                    ToastUtil.show(context, "카드가 13개보다 많이 선택되었습니다.");
                 }
             }else{
-                Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
+                Intent intent = new Intent(PosterCardSelectingActivity2.this, PosterMakingActivity2.class);
                 intent.putExtra("cIds", (Serializable) selectedCardListLong);
                 startActivity(intent);
             }

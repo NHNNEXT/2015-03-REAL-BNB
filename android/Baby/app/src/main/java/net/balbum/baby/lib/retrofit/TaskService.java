@@ -4,6 +4,7 @@ import net.balbum.baby.VO.AuthVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
+import net.balbum.baby.VO.FamilyVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.LoginVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -31,6 +32,9 @@ public interface TaskService {
     @POST("/api/user/login")
     void createLogin(@Body LoginVo task, Callback<AuthVo> cb);
 
+    @Multipart
+    @POST("/api/user/signup/fb_token/image")
+    void sendProfileImage(@Part("image")TypedFile file, @Part("token") String token, Callback<ResponseVo> cb);
 
     @POST("/api/user/signup/fb_token")
     void createSign(@Body LoginVo task, Callback<AuthVo> cb);
@@ -80,6 +84,13 @@ public interface TaskService {
 
     @GET("/api/user/baby")
     void getBabies(@Query("token") String token, Callback<ArrayList<BabyVo>> cb);
+
+    @GET("/api/filter/baby")
+    void filteringBaby(@Query("token") String token, @Query("babies") Callback<CardListVo> cb);
+    //@Body CardIdListVo cardIdListVo,
+
+    @GET("/api/family")
+    void getFamilyGlobalInfo(@Query("token") String token, Callback<FamilyVo> cb);
 
 
 }

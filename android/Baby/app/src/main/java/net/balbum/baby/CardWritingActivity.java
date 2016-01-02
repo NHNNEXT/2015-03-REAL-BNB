@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -197,11 +198,14 @@ public class CardWritingActivity extends AppCompatActivity {
 
             Long l = new Long(2);
 
+            TokenUtil tu = new TokenUtil(context);
+            tu.getToken();
+
 
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
             if((Long)vo.cid == 0) {
 
-                taskService.createCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                taskService.createCard(typedFile, tu.getToken(), asd.get(0), vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);

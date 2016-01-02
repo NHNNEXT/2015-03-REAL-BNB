@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Balbum</string>
 
+    <string name="kakao_app_key">db97a38d74491b60bb09861855a2af39</string>
+
     <string name="facebook_app_id">333726796797560</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -35,7 +37,12 @@
     <string name="gallery">갤러리</string>
     <string name="crop">자르기</string>
 
+    <string name="card_share">공유하기</string>
+    <string name="card_delete">삭제하기</string>
+    <string name="card_modify">수정하기</string>
 
+    <string name="kakao_scheme">kakaodb97a38d74491b60bb09861855a2af39</string>
+    <string name="kakaolink_host">kakaolink</string>
 
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,11 +33,13 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     Context context;
     List<GeneralCardVo> cards;
     Typeface typeface;
-    OnItemClickListener itemClickListener;
+   // OnItemClickListener itemClickListener;
+    public List<Long> selectedCardListLong;
 
     public CardSelectingAdapter(List<GeneralCardVo> cards, Context context) {
         this.cards = cards;
         this.context = context;
+        selectedCardListLong = new ArrayList<Long>();
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
     }
 
@@ -48,7 +51,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.diary_text.setText(cards.get(position).content);
         holder.date.setText(cards.get(position).modifiedDate);
         Picasso.with(context)
@@ -59,6 +62,42 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         holder.diary_text.setText(cards.get(position).content);
         holder.diary_text.setTypeface(typeface);
         babiesInfo(holder.profile_container, position);
+
+        if(cards.get(position).isSelected){
+            holder.check_img.setVisibility(View.VISIBLE);
+        }else{
+            holder.check_img.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cards.get(position).isSelected = !cards.get(position).isSelected;
+
+                if (cards.get(position).isSelected) {
+                    selectedCardListLong.add(cards.get(position).cid);
+                    Log.d("test", "add size: " + selectedCardListLong.size());
+                } else {
+                    selectedCardListLong.remove(cards.get(position).cid);
+                    Log.d("test", "remove size: " + selectedCardListLong.size());
+                }
+
+                notifyDataSetChanged();
+
+//                if (holder.check_img.getVisibility() == View.GONE) {
+//                    holder.check_img.setVisibility(View.VISIBLE);
+//                    selectedCardListLong.add(cards.get(position).cid);
+//
+//                    Log.d("test", "추가 후 사이즈" + selectedCardListLong.size());
+//                } else {
+//                    holder.check_img.setVisibility(View.GONE);
+//                    selectedCardListLong.remove(cards.get(position).cid);
+//                    Log.d("test", "추가 취소 후 사이즈" + selectedCardListLong.size());
+//                }
+            }
+        });
+
     }
 
     private void babiesInfo(LinearLayout profile_container, int position) {
@@ -95,9 +134,6 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
                 linLayout.addView(tv);
                 ((LinearLayout) profile_container).addView(linLayout);
             }
-
-
-
     }
 
     @Override
@@ -106,7 +142,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView date, diary_text;
         ImageView photo;
@@ -116,6 +152,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         TextView modify;
         ImageButton more_btn;
         RelativeLayout container;
+        ImageView check_img;
 
 
         ViewHolder(View itemView) {
@@ -130,26 +167,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
             delete = (TextView) itemView.findViewById(R.id.delete_btn);
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
-            itemView.setOnClickListener(this);
+            check_img = (ImageView) itemView.findViewById(R.id.check_image);
         }
-
-        @Override
-        public void onClick(View v) {
-            if(itemClickListener != null){
-                itemClickListener.onItemClick(v, getPosition(), cards);
-            }
-        }
-    }
-
-    public interface OnItemClickListener{
-        void onItemClick(View view, int position, List<GeneralCardVo> cards);
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
-    }
-
-    public List<GeneralCardVo> getCards() {
-        return cards;
     }
 }
