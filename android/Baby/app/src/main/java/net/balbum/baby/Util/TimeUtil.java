@@ -11,7 +11,7 @@ import java.util.Locale;
 public class TimeUtil {
 
     public static String getRecordedMoment() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy, MM, dd", Locale.ENGLISH);
         return df.format(new Date().getTime());
     }
 

@@ -21,6 +21,6 @@ public class DateSettingUtil implements DatePickerDialog.OnDateSetListener {
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        ((EditText) editText).setText(year + "-" + month + "-" + day);
+        ((EditText) editText).setText(year + "-" + month + 1 + "-" + day);
     }
 }
