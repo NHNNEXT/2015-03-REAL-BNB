@@ -107,13 +107,13 @@ public class UserController {
 	@RequestMapping("/api/user/baby")
 	public List<Baby> findBaby(String token) {
 		if(token == null || token.isEmpty()) return null;
-//		try {
-//			User user = authService.getUser(token);
-//			return babyRepo.findByFId(user.getFId());
-//		} catch (NotToken e) {
-//			return null;
-//		}
-		return babyRepo.findAll();
+		try {
+			User user = authService.getUser(token);
+			return babyRepo.findByFId(user.getFId());
+		} catch (NotToken e) {
+			return babyRepo.findAll();
+		}
+//		return babyRepo.findAll();
 //		return babyRepo.findByBabyName("꽁꽁이");
 	}
 	
