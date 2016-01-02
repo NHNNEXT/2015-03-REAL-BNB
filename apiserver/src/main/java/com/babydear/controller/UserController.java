@@ -53,7 +53,7 @@ public class UserController {
 	// user들을 전부 보여준다 : 
 	@RequestMapping("/api/user")
 	public List<User> user(String token) {
-		if(token == "token") return userRepo.findAll();
+		if(token.equals("asdf1234")) return userRepo.findAll();
 		else return null;
 	}
 	
@@ -187,14 +187,14 @@ public class UserController {
 
 	@RequestMapping("/api/user/token")
 	public ResponseDTO token(String token){
-		User user = null;
-		System.out.println(token);
 		try {
-			user = authService.getUser(token);
+			User user = authService.getUser(token);
+			authService.setUser(user.getUId(), token, 30);
+			return new ResponseDTO(true, token);
 		} catch (NotToken e) {
 			return new ResponseDTO(false, "로그인이 필요한 사용자 입니다");
 		}
-		return new ResponseDTO(true, token);
+		
 	}
 
 }
