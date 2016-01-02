@@ -130,6 +130,24 @@ public class UserController {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}
 	}
+	@RequestMapping(value = "/api/user/signup/fb_token/image")
+	public ResponseDTO signupFb(String token, MultipartFile image) {
+		try {
+			User user = authService.getUser(token);
+			user.setUserImg(imgService.processImgUser(image));
+			userRepo.save(user);
+			return new ResponseDTO(true, null, user);
+		} catch (IllegalStateException | IOException e) {
+			return new ResponseDTO(false, e.getMessage());
+		} catch (NotGoodExtention e) {
+			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
+		} catch (StringIndexOutOfBoundsException e) {
+			return new ResponseDTO(false, "이미지 형식이 없네요");
+		} catch (NotToken e) {
+			return new ResponseDTO(false, e.getMessage());
+		}
+	}
+	
 	
 	@RequestMapping(value = "/api/user/signup/fb_token", consumes ="application/json")
 	public AuthDTO signupFb(@RequestBody Map<String, Object> userDTO) {
@@ -139,7 +157,7 @@ public class UserController {
 			user = new User();
 			user.setEmail((String)userDTO.get("email"));
 			user.setUserRole((String)userDTO.get("role"));
-			user.setPassword((String)userDTO.get("email"));
+			user.setPassword((String)userDTO.get("fb_token"));
 			user.setUserImg("/imgs/sample/user.jpeg");
 			userRepo.save(user);
 			System.out.println("회원가입"+user);
