@@ -1,0 +1,12 @@
+<div class="baby-check-container card-content">
+    <p class="baby-check" ng-repeat="baby in bMain.babyList">
+        <input class="check-hidden" type="hidden"/>
+        <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
+        <label for="{{baby.bid}}">
+            <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+            {{baby.babyName}} {{baby.babyBirth}}
+        </label>
+    </p>
+</div>
+
+<button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>

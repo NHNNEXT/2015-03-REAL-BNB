@@ -6,13 +6,14 @@ var token = 'asdf1234';
 var testData;
 
 var Main = {
-    init: function() {
-
+    init: function(bMain, $scope) {
+        bMain.token = token;
+        $("input[name='token']").val(token);
     }
 }
 
 var Start = {
-    init: function() {
+    init: function($scope) {
         $("input[name='token']").val(token);
         $('.button-collapse').sideNav();
         // $('.modal-trigger').leanModal();
@@ -33,8 +34,9 @@ var Start = {
         $('.nav-update-modal').click(function(){
             $('#update-modal').openModal();
         });
-        $('ul.tabs').tabs(); //materialize tabs 동적 활성화
+        // $('ul.tabs').tabs(); //materialize tabs 동적 활성화
         // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
+        // $scope.$apply();
 
     }
 
@@ -129,6 +131,8 @@ var InitModal = {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
+                    $("input[name='token']").val(token);
+                    $scope.$apply();
                     return true;
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
@@ -136,8 +140,8 @@ var InitModal = {
                     cCtrl.babyList.push(responseText.res);
                     console.log("베이비리스트 가랏", cCtrl.babyList);
                     $('#babyForm').clearForm();
-                    $scope.$apply();
                     $("input[name='token']").val(token);
+                    $scope.$apply();
                     // Upload.resetPhotoBox();
                 },
                 //ajax error
@@ -228,6 +232,7 @@ var CardCRUD = {
             CardCRUD.get($http, this);
         });
 
+
         $('aside.left-col').on('click', '.bfilter', function() { /* 아이 메뉴 누르면 특정 아이 카드 나옴 */
             $('article.main-col').data('bfilter', $(this).data('bid'));
             CardCRUD.get($http, cCtrl, $(this).data('bid'));
@@ -252,9 +257,9 @@ var CardCRUD = {
                 success: function(responseText, statusText, xhr, $form){
                     cCtrl.cardList.unshift(responseText.res);
                     $('#cardForm').clearForm();
+                    $("input[name='token']").val(token);
                     $scope.$apply();
                     console.log("scope2", cCtrl.cardList);
-                    $("input[name='token']").val(token);
                     Upload.resetPhotoBox();
                 },
                 //ajax error
@@ -305,8 +310,9 @@ balbumApp.controller('MainController', function($scope, $http) {
     console.log("메인컨트롤러");
     var bMain = this;
     bMain.babyList;
+    bMain.token;
 
-    Main.init();
+    Main.init(bMain, $scope);
 
     User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
@@ -322,7 +328,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     cCtrl.filteredBaby;
 
     /* 함수들 초기화 */
-    Start.init();
+    Start.init($scope);
     Upload.init();
     CardCRUD.init($http, cCtrl);
     InitModal.init();
@@ -333,12 +339,10 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
         return User.checkBaby(index, bId, isBabyChecked);
     }
 
-
     if(cCtrl.babyId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
         cCtrl.isBabyPage = true;
         User.getBabyInfo($http, this, filteredBId); /* 현재 타임라인 아이정보 불러오기 */
     }
-
 
     CardCRUD.get($http, this, filteredBId); /* 서버에 저장된 카드 가져오기 */
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
@@ -361,10 +365,6 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
         InitModal.getFamily($http, this);
     });
-
-
-
-
 });
 
 balbumApp.controller('PosterController', function($scope) {

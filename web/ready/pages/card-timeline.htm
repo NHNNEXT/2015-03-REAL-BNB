@@ -5,8 +5,8 @@
         {{cCtrl.filteredBaby.babyDate}}살
     </div>
     <div class="postcard-container card row scrollspy" ng-hide="cCtrl.isBabyPage" id="card-now">
-        <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="token"/>
+
+
             <div class="postcard-tabs col s12">
                 <ul class="tabs">
                     <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
@@ -14,43 +14,35 @@
                 </ul>
             </div>
             <div id="daily-tab" class="daily-tab col row s12">
-                <input type="hidden" name="state" value="Normal"/>
-                <div class="upload-photo-box col s12">
-                    <i class="material-icons">add_a_photo</i>사진 추가하기
-                </div>
-                <input class="upload-photo-input disappear" type="file" name="image">
-                <img class="uploaded-photo" src="#" alt="uploaded photo" />
-                <div class="input-field col s12">
-                    <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
-                </div>
-                <div class="date-container col s5">
-                    <input type="date" name="modifiedDate"/><br/>
-                </div>
+                <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="state" value="Normal"/>
+                    <input type="hidden" name="token" value="{{bMain.token}}"/>
+                    <div class="upload-photo-box col s12">
+                        <i class="material-icons">add_a_photo</i>사진 추가하기
+                    </div>
+                    <input class="upload-photo-input disappear" type="file" name="image">
+                    <img class="uploaded-photo" src="#" alt="uploaded photo" />
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
+                    </div>
+                    <div class="date-container col s5">
+                        <input type="date" name="modifiedDate"/><br/>
+                    </div>
+                    <div ng-include = "'pages/baby-check.htm'"></div>
+                </form>
             </div>
             <div id="event-tab" class="event-tab col row s12">
-                <input type="hidden" name="state" value="Normal"/>
-                <div class="date-container ">
-                    <!-- <input id="datepicker" class="calendario calendar_box" placeholder="날짜 선택"> -->
-                    <input type="date" name="input" ng-model="card.modified" placeholder="생년월일">
-                </div>
-                <div class="input-field col s6">
-                    <input placeholder="첫 옹알이" id="first_name" type="text" ng-model="card.content" class="validate">
-                </div>
-            </div>
-            <div class="baby-check-container card-content">
-                <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                    <input class="check-hidden" type="hidden"/>
-                    <input class="baby-check-input" type="checkbox" id="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
-                    <label for="{{baby.bid}}">
-                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                        {{baby.babyName}} {{baby.babyBirth}}
-                    </label>
-                </p>
-            </div>
-
-            <div class="action card-action row">
-
-                <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
+                <form id="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="state" value="Event"/>
+                    <input type="hidden" name="token" value="{{bMain.token}}"/>
+                    <div class="date-container ">
+                        <input type="date" name="modifiedDate">
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="첫 옹알이" id="first_name" type="text" name="content" class="validate">
+                    </div>
+                    <div ng-include = "'pages/baby-check.htm'"></div>
+                </form>
             </div>
         </form>
     </div>
