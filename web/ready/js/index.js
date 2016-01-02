@@ -259,8 +259,16 @@ balbumApp.config(function($routeProvider, $locationProvider) {
             controller  : 'PosterController'
         })
         .when('/poster/make', {
-            templateUrl : 'pages/poster-make.htm',
+            templateUrl : 'pages/make-poster.htm',
             controller  : 'MakePosterController'
+        })
+        .when('/poster/print', {
+            templateUrl : 'pages/print-poster.htm',
+            controller  : 'PrintPosterController'
+        })
+        .when('/poster/view', {
+            templateUrl : 'pages/view-poster.htm',
+            controller  : 'ViewPosterController'
         })
         .when('/settings', {
             templateUrl : 'pages/setting.htm',
@@ -323,6 +331,14 @@ balbumApp.controller('PosterController', function($scope) {
 
 balbumApp.controller('MakePosterController', function($scope) {
     $scope.message = '포스터 만들기 페이지 이지롱';
+});
+
+balbumApp.controller('PrintPosterController', function($scope) {
+    $scope.message = '포스터 인쇄하기 페이지 이지롱';
+});
+
+balbumApp.controller('ViewPosterController', function($scope) {
+    $scope.message = '포스터 보기 페이지 이지롱';
 });
 
 balbumApp.controller('SettingsController', function($scope) {
