@@ -60,8 +60,8 @@ $('.login-btn').click(function(e){
 var ajaxPostLogin =  function() {
     var elEmail = $('#login-email');
     var elPassword = $('#login-password');
-    var url = "http://dev.balbum.net/";  
-    // var url = "http://10.73.38.106:8080/";
+    // var url = "http://dev.balbum.net/";  
+    var url = "http://10.73.42.216:8080/";
     var postString = "";       // post방식으로 처리하기 위한 파라미터들
     
     postString  = "email=" + elEmail.val();
@@ -69,7 +69,7 @@ var ajaxPostLogin =  function() {
 
     $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
         type: "POST",
-        url: url + "api/user/login",
+        url: url + "api/user/login/web",
         data: postString,
         success: function(res) {  //성공시 이 함수를 호출한다.
             if(res.token != null){
@@ -105,9 +105,10 @@ var ajaxPostLogin =  function() {
      var elPassword = $('#signup-password');
      var elConfirmPassword = $('#signup-confirm-password');
      var elRole = $('#signup-role');
-     var url = "http://dev.balbum.net/";  
+     // var url = "http://dev.balbum.net/";  
+     var url = "http://10.73.42.216:8080/";
     
-     formData.append("uploadfile",$("input[name=uploadfile]")[0].files[0]);
+     formData.append("image",$("input[name=uploadfile]")[0].files[0]);
      formData.append("email",elEmail.val());
      formData.append("password",elPassword.val());
      formData.append("role",elRole.val());
@@ -121,13 +122,15 @@ var ajaxPostLogin =  function() {
         data: formData, // 
         processData: false,
         contentType: false,
-        success: function(res) {  //성공시 이 함수를 호출한다.
-            if(res.token != null){
-                localStorage.setItem("token", res.token); // token을 localStorage에 저장
+        success: function(response) {  //성공시 이 함수를 호출한다.
+                debugger;
+            if(response.token != null){
+                localStorage.setItem("token", response.token); // token을 localStorage에 저장
                 window.location.assign("/pages/main-modal.htm"); 
             }
             else{
-               // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
+                // alert(response.message);
+                // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
             }
             $('#signup-form').html(Start.resetSignup); // form창 초기화
        },
