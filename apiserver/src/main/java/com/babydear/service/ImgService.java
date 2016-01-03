@@ -1,8 +1,12 @@
 package com.babydear.service;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -56,6 +60,12 @@ public class ImgService {
     private String extractFileExtention(String fileName) throws StringIndexOutOfBoundsException{
         int lastPeriod = fileName.lastIndexOf(".");
         return fileName.substring(lastPeriod, fileName.length());
+    }
+	public String processImgUser(String imgUrl) throws IllegalStateException, IOException, NotGoodExtention {
+		BufferedImage image = null;
+        URL url = new URL(imgUrl);
+        image = ImageIO.read(url);
+        return processImg(null, "/imgs/user/", "/imgs/sample/user.jpeg");  
     }
 
 }

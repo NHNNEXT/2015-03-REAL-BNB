@@ -105,7 +105,6 @@ public class UserController {
 		} catch (NotToken e){
 			return new ResponseDTO(false, e.getMessage());
 		}
-//		baby.setFId(user.getFId());
 		logger.info("baby :{}", baby);
 		babyRepo.save(baby);
 		return new ResponseDTO(true, null, baby);
@@ -167,22 +166,25 @@ public class UserController {
 			return new ResponseDTO(false, e.getMessage());
 		}
 	}
-	@RequestMapping(value = "/api/user/signup/fb_token/image/web")
-	public ResponseDTO signupFbforWeb(String imgUrl, String token) {
-//		try {
-//			User user = authService.getUser(token);
-////			user.setUserImg(imgService.processImgFrom(imgUrl));
-//			userRepo.save(user);
-//			return new ResponseDTO(true, null, user);
-//		} catch (IllegalStateException | IOException e) {
-//			return new ResponseDTO(false, e.getMessage());
-//		} catch (NotGoodExtention e) {
-//			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
-//		} catch (StringIndexOutOfBoundsException e) {
-			return new ResponseDTO(false, "이미지 형식이 없네요");
-//		} catch (NotToken e) {
-//			return new ResponseDTO(false, e.getMessage());
-//		}
+	
+	@RequestMapping(value = "/api/user/signup/fb_token/web")
+	public AuthDTO signupFbforWeb(User user, String fb_token, String image) {
+		User userSample = userRepo.findByEmail(user.getEmail());
+		if(userSample == null || userSample.getUId() == null) {
+			try {
+				user.setPassword(fb_token);
+				user.setUserImg(image);
+				user.setFId(familyRepo.save(new Family()).getFId());
+				userRepo.save(user);
+			} catch (Exception e) {
+				return new AuthDTO(null, e.getMessage());
+			}
+			System.out.println("회원가입"+user);
+			return new AuthDTO(authService.setUser(user.getUId()), "성공");
+		}else{
+			System.out.println("바로 로그인 가능"+userSample);
+			return new AuthDTO(authService.setUser(userSample.getUId()), "이미 가입 되었습니다.");
+		}
 	}
 	
 	
