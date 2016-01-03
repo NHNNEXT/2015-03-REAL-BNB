@@ -90,6 +90,8 @@ public class UserController {
 	public ResponseDTO createBaby(String token, Baby baby, MultipartFile image) {
 		if(baby.getBabyGender() == null) return new ResponseDTO(false, "아기 정보를 제대로 입력해 주세요: 성별입력 않되어 있어요");
 		if(baby.getBabyGender().equals(Baby.Gender.UNDEFINED)) return new ResponseDTO(true, null);
+		if(baby.getBabyBirth() == null) return new ResponseDTO(false, "아기가 태어난 날짜를 입력해 주세요");
+		if(!baby.getBabyBirth().matches("....-..-..")) return new ResponseDTO(false, "카드 날짜 형식이 잘못되었습니다");
 		try {
 			baby.setBabyImg(imgService.processImgBaby(image));
 		} catch (IllegalStateException | IOException e) {
@@ -125,6 +127,19 @@ public class UserController {
 		User user = userRepo.findByEmail((String)userDTO.get("email"));
 		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
 		Boolean result = user.checkPW((String)userDTO.get("password"));
+		if (result) {
+			return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
+		} else {
+			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
+		}
+	}
+	@RequestMapping("/api/user/login/web")
+	public AuthDTO login(UserDTO userDTO) {
+		logger.info("/api/user/login:{}", userDTO);
+		System.out.println(userDTO);
+		User user = userRepo.findByEmail(userDTO.getEmail());
+		if (user == null) return new AuthDTO(null, "이메일 주소를 다시 입력해 주세요");
+		Boolean result = user.checkPW(userDTO.getPassword());
 		if (result) {
 			return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
 		} else {
