@@ -126,10 +126,10 @@ var ajaxPostLogin =  function() {
                 debugger;
             if(response.token != null){
                 localStorage.setItem("token", response.token); // token을 localStorage에 저장
-                window.location.assign("/pages/main-modal.htm"); 
+                window.location.assign("/"); 
             }
             else{
-                // alert(response.message);
+                $('#signup-message').text(response.message);
                 // 존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.
             }
             $('#signup-form').html(Start.resetSignup); // form창 초기화
