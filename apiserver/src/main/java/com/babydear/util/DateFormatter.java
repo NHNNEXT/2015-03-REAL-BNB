@@ -27,4 +27,20 @@ public class DateFormatter {
 			return Years.yearsBetween(dt1.toLocalDate(), dt2.toLocalDate()).getYears()+"살";
 		}
 	}
+	public String calculateFromBabyToCard(String b){
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+		DateTime dt1 = formatter.parseDateTime(b);
+		DateTime dt2 = new DateTime();
+		Integer between = Days.daysBetween(dt1.toLocalDate(), dt2.toLocalDate()).getDays();
+		
+		if(between <0){
+			return "D"+between+"일";
+		}else if(between <30){
+			return between+"일";
+		}else if(between <365){
+			return Months.monthsBetween(dt1.toLocalDate(), dt2.toLocalDate()).getMonths()+"개월";
+		}else {
+			return Years.yearsBetween(dt1.toLocalDate(), dt2.toLocalDate()).getYears()+"살";
+		}
+	}
 }
