@@ -63,7 +63,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("test", "------------------onCreateView");
         view = inflater.inflate(R.layout.card_general_fragment, container, false);
         context = this.getActivity();
 
@@ -109,7 +108,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("test", "------------------onResume");
         photo_layout = (RelativeLayout)getActivity().findViewById(R.id.photo_layout);
         photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
         memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv);
@@ -196,9 +194,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     }
 
     public void setSelectedImage(Bitmap bitmap){
-        Log.i("test", "나는 여기 프레그먼트에");
         photo_iv.setImageBitmap(bitmap);
-
     }
 
     @Override

@@ -192,14 +192,11 @@ public class AddBabyFragment extends Fragment {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "baby post success");
-                Log.d("test", ""+responseVo.state);
-                Log.d("test", ""+responseVo.error);
 
                 Fragment fragment = new AddBabyFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
-
             }
 
             @Override
