@@ -209,21 +209,6 @@ var User = {
             alert('아이 정보를 불러오지 못하였습니다.');
         });
     },
-    /* 카드 올릴 때 아이를 체크 */
-    checkBaby: function(index, bId, isBabyChecked) {
-        $('.check-hidden[name="bIds[' + index + ']"]').attr('value', bId);
-        var bIdsArr = "bIds[" + User.babyIdx + "]";
-        if(isBabyChecked){
-            $('.check-hidden').eq(index).attr({
-                name: bIdsArr,
-                value: bId
-            });
-            User.babyIdx++;
-        } else {
-            $('.check-hidden').eq(index).removeAttr('name').removeAttr('value');
-            User.babyIdx--;
-        }
-    }
 }
 
 var CardCRUD = {
@@ -251,6 +236,7 @@ var CardCRUD = {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
+                    /* 카드 올리기 전 baby check */
                     $('input.baby-check-input:checked').each(function(i, e) {
                         var obj = {};
                         obj.name = "bIds["+i+"]";
@@ -262,11 +248,13 @@ var CardCRUD = {
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
+                    console.log('cardList', cCtrl.cardList);
+                    console.log('responseText', responseText.res);
                     cCtrl.cardList.unshift(responseText.res);
-                    $('#cardForm').clearForm();
+                    $('.cardForm').clearForm();
+                    $('input:checkbox.baby-check-input').removeAttr('checked');
                     $("input[name='token']").val(token);
                     $scope.$apply();
-                    console.log("scope2", cCtrl.cardList);
                     Upload.resetPhotoBox();
                 },
                 //ajax error
@@ -323,8 +311,6 @@ balbumApp.controller('MainController', function($scope, $http) {
 
     User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, this); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
-
-    // console.log('베이비리스트', bMain.babyList);
 });
 
 balbumApp.controller('CardController', function($scope, $http, $routeParams) {
@@ -339,12 +325,6 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     Upload.init();
     CardCRUD.init($http, cCtrl);
     InitModal.init();
-
-    /* 카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
-    /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
-    // $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
-    //     return User.checkBaby(index, bId, isBabyChecked);
-    // }
 
     if(cCtrl.babyId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
         cCtrl.isBabyPage = true;

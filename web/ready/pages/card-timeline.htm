@@ -12,7 +12,7 @@
                 </ul>
             </div>
             <div id="daily-tab" class="daily-tab col row s12">
-                <form id="cardForm" class="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                <form class="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="type" value="NORMAL"/>
                     <input type="hidden" name="token" value="{{bMain.token}}"/>
                     <div class="upload-photo-box col s12">
@@ -26,16 +26,11 @@
                     <div class="date-container col s5">
                         <input type="date" name="modifiedDate"/><br/>
                     </div>
-                    <!-- <div ng-include = "'pages/baby-check.htm'"></div> -->
-
-
                     <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
-
                 </form>
-
             </div>
             <div id="event-tab" class="event-tab col row s12">
-                <form id="cardForm" class="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
+                <form class="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="type" value="EVENT"/>
                     <input type="hidden" name="token" value="{{bMain.token}}"/>
                     <div class="date-container ">
@@ -44,16 +39,12 @@
                     <div class="input-field col s6">
                         <input placeholder="첫 옹알이" id="first_name" type="text" name="content" class="validate">
                     </div>
-                    <!-- <div ng-include = "'pages/baby-check.htm'"></div> -->
                     <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
-
                 </form>
             </div>
-            <!-- <div ng-include = "'pages/baby-check.htm'"></div> -->
             <div class="baby-check-container card-content">
                 <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                    <input class="check-hidden" type="hidden"/>
-                    <input class="baby-check-input" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}" ng-model='isBabyChecked' ng-change="babyCheckChanged($index, baby.bid,isBabyChecked)"/>
+                    <input class="baby-check-input" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}"/>
                     <label for="bid-{{baby.bid}}">
                         <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
                         {{baby.babyName}} {{baby.babyBirth}}
