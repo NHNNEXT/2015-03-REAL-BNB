@@ -18,9 +18,9 @@ var Start = {
         $('.button-collapse').sideNav();
         // $('.modal-trigger').leanModal();
         // $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
-        //     selectMonths: true, // Creates a dropdown to control month
-        //     selectYears: 15 // Creates a dropdown of 15 years to control year
-        // });
+        //      selectMonths: true, // Creates a dropdown to control month
+        //      selectYears: 15 // Creates a dropdown of 15 years to control year
+        //  });
         $('.scrollspy').scrollSpy();
 
 
@@ -80,7 +80,6 @@ var InitModal = {
     init: function() {
         this.steps();
         this.uploadPhoto();
-
     },
     steps: function() {
         $('.modal-main-btn').click(function(){
@@ -126,9 +125,9 @@ var InitModal = {
             $('.upload-baby-photo').css('display', 'none');
         });
     },
-    postBaby: function($scope, cCtrl) {
+    postBaby: function($scope, bMain) {
         $('#babyForm').submit(function() {
-            $(this).ajaxSubmit({
+            $('#babyForm').ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
                     $("input[name='token']").val(token);
@@ -137,12 +136,12 @@ var InitModal = {
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
                 success: function(responseText, statusText, xhr, $form){
-                    cCtrl.babyList.push(responseText.res);
-                    console.log("베이비리스트 가랏", cCtrl.babyList);
+                    bMain.babyList.push(responseText.res);
+                    console.log("베이비리스트 가랏", bMain.babyList);
                     $('#babyForm').clearForm();
                     $("input[name='token']").val(token);
                     $scope.$apply();
-                    // Upload.resetPhotoBox();
+                    InitModal.resetPhotoBox();
                 },
                 //ajax error
                 error: function(){
@@ -163,6 +162,10 @@ var InitModal = {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
     },
+    resetPhotoBox: function() {
+        $('.upload-baby-photo').css('display', 'block');
+        $('.uploaded-baby-photo').css('display', 'none');
+    }
 }
 
 var User = {
@@ -325,8 +328,13 @@ balbumApp.controller('MainController', function($scope, $http) {
 
     Main.init(bMain, $scope);
 
-    User.get($http, this); /* 서버에 저장된 유저 토큰값으로 불러오기 */
-    User.getBaby($http, this); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
+    User.get($http, bMain); /* 서버에 저장된 유저 토큰값으로 불러오기 */
+    User.getBaby($http, bMain); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
+    InitModal.postBaby($scope, bMain); /* 모달에서 아이 추가하기 */
+
+    $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
+        InitModal.getFamily($http, bMain);
+    });
 });
 
 balbumApp.controller('CardController', function($scope, $http, $routeParams) {
@@ -341,6 +349,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     Upload.init();
     CardCRUD.init($http, cCtrl);
     InitModal.init();
+
 
     if(filteredBId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
         cCtrl.isBabyPage = true;
@@ -364,10 +373,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
         CardCRUD.delete($scope, cCtrl, $http, cid);
     }
 
-    InitModal.postBaby($scope, this); /* 모달에서 아기 저장 */
-    $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
-        InitModal.getFamily($http, this);
-    });
+
 });
 
 balbumApp.controller('PosterController', function($scope) {

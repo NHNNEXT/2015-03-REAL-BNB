@@ -63,9 +63,89 @@
             </ul>
         </aside>
         <div id="modal-main" class="modal fade">
-            <div ng-include = "'pages/main-modal.htm'"></div>
-        </div>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
+                            <div>안녕하세요, 율무님!</div>
+                            <div class="collection-container">
+                                <ul class="collection with-header">
+                                    <li class="js-btn-goto collection-item" data-goto="2"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                    <li class="js-btn-goto collection-item" data-goto="3"><div>BALBUM 찾기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                </ul>
+                                <div>한 ID당 하나의 가족만 등록이 가능합니다^^</div>
+                            </div>
+                        </div>
+                        <div class="modal-add-baby row hide" data-step="2" data-title="우리 아이를 등록해요">
+                            <form id="babyForm" ng-submit="bMain.postBaby()" action="http://dev.balbum.net/api/user/baby/create" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="token"/>
+                                <div class="">우리 아이를 등록해요.</div>
+                                <div class="added-baby-container row">
+                                    <div class="added-baby" ng-repeat="baby in bMain.babyList">
+                                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                        <p class="baby-info">{{baby.babyName}} {{baby.babyBirth}}</p>
+                                    </div>
+                                </div>
+                                <div class="add-baby-container row">
+                                    <ul class="collection row">
+                                        <li class="collection-item col s12">
+                                            <div class="col s3">
+                                                <input class="upload-baby-photo-input disappear" type="file" name="image">
+                                                <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
+                                                <div class="upload-baby-photo">
+                                                    <i class="material-icons">add</i>
+                                                </div>
+                                            </div>
+                                            <div class="baby-info col s9">
+                                                <input type="text" name="babyName" placeholder="이름">
+                                                <input type="date" name="babyBirth" placeholder="생년월일">
+                                                <span>
+                                                    <input name="babyGender" class="with-gap" type="radio" id="boy" value="BOY" />
+                                                    <label for="boy">남</label>
+                                                </span>
+                                                <span>
+                                                    <input name="babyGender" class="with-gap" type="radio" id="girl" value="GIRL"/>
+                                                    <label for="girl">여</label>
+                                                </span>
+                                                <span>
+                                                    <input class="with-gap" name="babyGender" type="radio" id="pregnancy" value="PREGNANCY" checked/>
+                                                    <label for="pregnancy">임신중</label>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="add-baby-btn">
+                                        <button type="submit" name="action">아이 더 추가하기<i class="material-icons">add</i></button>
+                                    </div>
+                                </div>
+                                <div class="action-container">
+                                    <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
+                                    <button class="btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
+                            <div class="">
+                                <div>이미 가입한 가족의 Email을 입력해주세요.</div>
+                                <form>
+                                    <input type="email" name="input" placeholder="Email">
+                                </form>
+                                <button type="button" class="btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
+                            </div>
+                            <div class="found-existing-user hide">
+                                <img class="circle" src="img/baby1.jpeg" alt="user-photo">
+                                <div class="">
+                                    <div>율무님의 BALBUM</div>
+                                    <div>jayjinjay@gmail.com</div>
+                                    <button type="button" class="js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
         <section class="main-container row">
             <div ng-view></div>
         </section>
