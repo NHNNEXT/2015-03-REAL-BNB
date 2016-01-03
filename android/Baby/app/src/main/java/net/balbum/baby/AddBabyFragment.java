@@ -68,23 +68,24 @@ public class AddBabyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.add_baby_fragment, container, false);
         context = getActivity();
-        initData();
         return view;
     }
 
     private void initData() {
         TokenUtil tu = new TokenUtil(context);
+        Log.d("test", "token"+tu.getToken());
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
             @Override
             public void success(ArrayList<BabyVo> babyVos, Response response) {
                 babyVoList = babyVos;
+                Log.d("test", "size: " + babyVoList.size());
                 initBabyList();
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("test", "getBabies fail");
             }
         });
     }
@@ -110,6 +111,8 @@ public class AddBabyFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+
+        initData();
 
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,15 +185,21 @@ public class AddBabyFragment extends Fragment {
             babyVo.babyGender = "UNDEFINED";
         }
 
+        TokenUtil tu = new TokenUtil(context);
+        Log.d("test", "token"+tu.getToken());
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.createBabyInfo(typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender, new Callback<ResponseVo>() {
+        taskService.createBabyInfo(tu.getToken(), typedFile, babyVo.babyName, babyVo.babyBirth, babyVo.babyGender, new Callback<ResponseVo>() {
             @Override
             public void success(ResponseVo responseVo, Response response) {
                 Log.d("test", "baby post success");
+                Log.d("test", ""+responseVo.state);
+                Log.d("test", ""+responseVo.error);
+
                 Fragment fragment = new AddBabyFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+
             }
 
             @Override
