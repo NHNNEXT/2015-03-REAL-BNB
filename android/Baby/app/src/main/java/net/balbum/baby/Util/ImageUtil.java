@@ -11,10 +11,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import net.balbum.baby.R;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -148,4 +151,45 @@ public class ImageUtil {
         }
     }
 
+    public static Uri getUrl(int res){
+        return Uri.parse("android.resource://net.balbum.baby/" + res);
+    }
+
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public static File getFilefromDrawable(Context context, String no) {
+        File file = null;
+        String path = Environment.getExternalStorageDirectory().toString();
+        try{
+            file=new File(path, "/BALBUM_d.jpg");
+            InputStream inputStream =null;
+            if(no.equals("bg1")) {
+                inputStream = context.getResources().openRawResource(R.raw.bg1);
+            }else if(no.equals("bg2")){
+                inputStream = context.getResources().openRawResource(R.raw.bg2);
+            }else{
+                inputStream = context.getResources().openRawResource(R.raw.bg3);
+            }
+            OutputStream out=new FileOutputStream(file);
+            byte buf[]=new byte[1024];
+            int len;
+            while((len=inputStream.read(buf))>0)
+                out.write(buf,0,len);
+            out.close();
+            inputStream.close();
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d("test", "file fail");
+        }
+
+        return file;
+    }
 }

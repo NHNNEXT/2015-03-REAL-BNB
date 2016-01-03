@@ -29,7 +29,6 @@ import net.balbum.baby.R;
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ToastUtil;
-import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
@@ -53,7 +52,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     int layout;
     Context context;
     Typeface typeface;
-    List<BabyVo> babies;
 
 
     public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout) {
@@ -61,8 +59,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         this.context = context;
         this.layout = layout;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
-
-        Log.d("test", "babyDate: " + cards.get(0).getBabies().get(0).babyDate);
     }
 
     @Override
@@ -76,18 +72,24 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     public void onBindViewHolder(final viewHolder holder, final int position) {
         final boolean[] flag = {false};
 
-        holder.diary_text.setText(cards.get(position).content);
-        holder.date.setText(cards.get(position).modifiedDate);
-        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
-//        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
+        if(cards.get(position).getType().equals("EVENT")){
+            holder.event_date.setText(cards.get(position).modifiedDate);
+            holder.event_memo.setText(cards.get(position).content);
+            Log.d("test", "drawable" + cards.get(position).cardImg);
+
+        }else {
+            holder.event_date.setVisibility(View.GONE);
+            holder.event_memo.setVisibility(View.GONE);
+            holder.date.setText(cards.get(position).modifiedDate);
+            holder.diary_text.setText(cards.get(position).content);
+            holder.diary_text.setTypeface(typeface);
+        }
         Picasso.with(context)
                 .load((Define.URL + cards.get(position).cardImg))
                 .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
-        holder.diary_text.setText(cards.get(position).content);
-        holder.diary_text.setTypeface(typeface);
 
         babiesInfo(holder.profile_container, position);
 
@@ -225,6 +227,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     }
 
 
+
     @Override
     public int getItemCount() {
 
@@ -238,6 +241,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView date, diary_text;
+        TextView event_date;
+        TextView event_memo;
         ImageView photo;
         LinearLayout profile_container;
         LinearLayout delete_modify_layout;
@@ -262,6 +267,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 //            share = (TextView) itemView.findViewById(R.id.share_btn);
             share = (ImageButton) itemView.findViewById(R.id.share_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
+            event_date = (TextView)itemView.findViewById(R.id.event_date);
+            event_memo=(TextView)itemView.findViewById(R.id.event_memo);
         }
     }
 

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.BabyVo;
@@ -128,9 +129,10 @@ public class CardWritingActivity extends AppCompatActivity {
         //기본 저장되어있는 아이 정보 불러와서 리스트 만들 부분
         babyTagNamesList = new ArrayList<>();
         babyVoList = new ArrayList<>();
+        TokenUtil tu = new TokenUtil(context);
 
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
+        taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
@@ -180,15 +182,17 @@ public class CardWritingActivity extends AppCompatActivity {
 
             int currentItem = viewPager.getCurrentItem();
             GeneralCardVo vo =  ((OnGetCardListener)fragmentList.get(currentItem)).getCardInfo();
-
+            File file = null;
             String type = null;
             if(currentItem == 0){
                 type = "NORMAL";
+                file = new File(vo.cardImg);
             }else if(currentItem == 1){
                 type = "EVENT";
+                file = ImageUtil.getFilefromDrawable(context, vo.cardImg);
             }
 
-            File file = new File(vo.cardImg);
+
             TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
             List<Long> asd = new ArrayList<Long>();
@@ -218,7 +222,7 @@ public class CardWritingActivity extends AppCompatActivity {
                     }
                 });
             }else{
-                taskService.updateCard(typedFile, "token", asd.get(0), vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
+                taskService.updateCard(typedFile, tu.getToken(), asd.get(0), vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
                     @Override
                     public void success(ResponseVo responseVo, Response response) {
                         Log.i("test", "업데이트 성공!");

@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     Button bg1;
     Button bg2;
     Button bg3;
-    int drawable;
+    String drawable;
 
     @Nullable
     @Override
@@ -70,29 +69,32 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         bg3 = (Button) view.findViewById(R.id.bg3);
 
         if(eventCardVo != null){
-            Log.d("test", "dddd");
+
             memo_tv.setText(eventCardVo.content);
-            date_et.setText("checkcheck");
+            date_et.setText(eventCardVo.modifiedDate);
         }
 
         initData();
-        drawable = R.drawable.bg1;
+
         bg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setBackground(v, Define.EVENT_CARD_BG1);
+                drawable = "bg1";
             }
         });
         bg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setBackground(v, Define.EVENT_CARD_BG2);
+                drawable = "bg2";
             }
         });
         bg3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setBackground(v, Define.EVENT_CARD_BG3);
+                drawable = "bg3";
             }
         });
 
@@ -116,10 +118,8 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg1));
         }else if(type == Define.EVENT_CARD_BG2){
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg2));
-            drawable = R.drawable.bg2;
         }else if(type == Define.EVENT_CARD_BG3) {
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg3));
-            drawable = R.drawable.bg3;
         }
     }
 
@@ -155,8 +155,17 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
 
         tempVo.content = memo_tv.getText().toString();
         tempVo.names = adapter.getSelectedList();
+        tempVo.modifiedDate = date_et.getText().toString();
 
-        tempVo.cardImg = drawable+"";
+        if(drawable == null){
+            tempVo.cardImg = "bg1";
+        }else{
+            tempVo.cardImg = drawable;
+        }
+
+//        Log.d("test", "R.bg1" + R.drawable.bg1);
+//        Log.d("test", "R.bg2" + R.drawable.bg2);
+//        Log.d("test", "R.bg3" + R.drawable.bg3);
 
         return tempVo;
     }
