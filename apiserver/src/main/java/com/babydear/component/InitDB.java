@@ -19,6 +19,7 @@ import com.babydear.repository.CardRepository;
 import com.babydear.repository.FamilyRepository;
 import com.babydear.repository.UserRepository;
 import com.babydear.service.AuthService;
+import com.babydear.util.DateFormatter;
 
 @Component
 @PropertySource("classpath:config.properties")
@@ -30,6 +31,7 @@ public class InitDB {
 	@Autowired BabyRepository babyRepo;
 	@Autowired AuthService authService;
 	@Autowired CardRepository cardRepo;
+	@Autowired DateFormatter f;
 
 	@PostConstruct
 	public void init() {
@@ -50,6 +52,7 @@ public class InitDB {
 
 		Baby baby1 = new Baby();
 		baby1.setBabyBirth("2015-02-02");
+		baby1.setBabyDate(f.calculateFromBabyToCard(baby1.getBabyBirth()));
 		baby1.setBabyImg("/imgs/dummy/baby1.jpeg");
 		baby1.setBabyGender(Baby.Gender.GIRL);
 		baby1.setBabyName("하채영");
@@ -58,6 +61,7 @@ public class InitDB {
 
 		Baby baby2 = new Baby();
 		baby2.setBabyBirth("2016-01-03");
+		baby2.setBabyDate(f.calculateFromBabyToCard(baby2.getBabyBirth()));
 		baby2.setBabyImg("/imgs/dummy/baby2.jpeg");
 		baby2.setBabyGender(Baby.Gender.PREGNANCY);
 		baby2.setBabyName("꽁꽁이");

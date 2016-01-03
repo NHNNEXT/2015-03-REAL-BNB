@@ -93,6 +93,8 @@ public class UserController {
 		if(baby.getBabyBirth() == null) return new ResponseDTO(false, "아기가 태어난 날짜를 입력해 주세요");
 		if(!baby.getBabyBirth().matches("....-..-..")) return new ResponseDTO(false, "카드 날짜 형식이 잘못되었습니다");
 		try {
+			User user = authService.getUser(token);
+			baby.setFId(user.getFId());
 			baby.setBabyImg(imgService.processImgBaby(image));
 		} catch (IllegalStateException | IOException e) {
 			return new ResponseDTO(false, "이미지가 너무 크거나 잘못되었습니다.");
@@ -100,6 +102,8 @@ public class UserController {
 			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
 		} catch (StringIndexOutOfBoundsException e) {
 			return new ResponseDTO(false, "이미지 형식이 없네요");
+		} catch (NotToken e){
+			return new ResponseDTO(false, e.getMessage());
 		}
 //		baby.setFId(user.getFId());
 		logger.info("baby :{}", baby);
@@ -162,6 +166,23 @@ public class UserController {
 		} catch (NotToken e) {
 			return new ResponseDTO(false, e.getMessage());
 		}
+	}
+	@RequestMapping(value = "/api/user/signup/fb_token/image/web")
+	public ResponseDTO signupFbforWeb(String imgUrl, String token) {
+//		try {
+//			User user = authService.getUser(token);
+////			user.setUserImg(imgService.processImgFrom(imgUrl));
+//			userRepo.save(user);
+//			return new ResponseDTO(true, null, user);
+//		} catch (IllegalStateException | IOException e) {
+//			return new ResponseDTO(false, e.getMessage());
+//		} catch (NotGoodExtention e) {
+//			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
+//		} catch (StringIndexOutOfBoundsException e) {
+			return new ResponseDTO(false, "이미지 형식이 없네요");
+//		} catch (NotToken e) {
+//			return new ResponseDTO(false, e.getMessage());
+//		}
 	}
 	
 	

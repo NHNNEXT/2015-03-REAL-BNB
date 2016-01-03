@@ -94,6 +94,7 @@ public class CardController {
 			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
 		}
 		card = cardRepo.save(card);
+		card.calculate();
 		return new ResponseDTO(true, "null", card);
 	}
 	
