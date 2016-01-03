@@ -31,14 +31,36 @@ function fbLogin(){
     if (response.authResponse) {
 
           FB.api('/me',{ locale: 'en_US', fields: 'name, email' }, function(response) { 
-        
+
             fbEmailValidation(response.email, function(state){
               if(state == true){
                 // 페북로그인 불가능 -> "아직 벨범에 가입되지 않은 페북아이디 입니다. 먼저 벨범에 가입해주세요!"
                 $('#login-message').text('먼저 벨범에 가입해주세요!');
+
               } else {
                 // 페북로그인 성공
-                window.location.assign("/"); // mainPage로 감
+                var postString = response.email;
+
+                $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
+                    type: "POST",
+                    url: URL_CONFIG + "api/user/signup/fb_token/web",
+                    data: postString,
+                    success: function(res) {  //성공시 이 함수를 호출한다.
+                        if(res.token != null){
+                            console.log("성공데스네");
+
+                            localStorage.setItem("token", res.token); // token을 localStorage에 저장
+                            window.location.assign("/"); // mainPage로 감 
+                        }
+                        else{
+                            $('#login-message').text('존재하지 않는 아이디이거나 비밀번호가 올바르지 않습니다.');
+                        }
+                        $('#login-form').html(Start.resetLogin); // form창 초기화
+                   },
+                   error: function(res){
+                        console.log("[ajaxPostFbLogin] ajax 실패라능");
+                   }
+                });
               }
             });
 
@@ -59,7 +81,6 @@ function fbSignup(){
 
             // 받아오는 것들 
             // response.name, response.id(=token), response.email
-
 
             var str ="";
             str +="<div class='row'><div class='input-field s12'><img id='upload-preview' class='circle responsive-img s12' alt='your image'/></div></div>";
@@ -101,7 +122,7 @@ var ajaxPostFbSignup =  function() {
     var elRole = $('#signup-role');
 
     // var url = "http://dev.balbum.net/";  
-    var url = "http://10.73.42.216:8080/";
+    // var url = "http://10.73.42.216:8080/";
 
     formData.append("image",elImage.attr('src'));
     formData.append("email",elEmail.val());
@@ -110,7 +131,7 @@ var ajaxPostFbSignup =  function() {
 
     $.ajax({                          // 이부분부터 비동기통신을 하게 된다. 위에서 설정한 값들을 입력후
        type: "POST",
-       url: url + "api/user/signup/fb_token/web",
+       url: URL_CONFIG + "api/user/signup/fb_token/web",
        data: formData, 
        processData: false,
        contentType: false,
@@ -136,13 +157,13 @@ var ajaxPostFbSignup =  function() {
 // 페북로그인/페북회원가입 버튼을 눌렀을 때, 페북이메일 주소가 이미 가입되어있는 이메일인지 확인하는 함수 
 var fbEmailValidation = function(email, callback){
     // var elEmail = $('#signup-email');
-    var url = "http://dev.balbum.net/";  
+    // var url = "http://dev.balbum.net/";  
     var postString = "";       // post방식으로 처리하기 위한 파라미터들
     
     postString  = "email=" + email;
     $.ajax({                  
         type: "GET",
-        url: url + "/api/user/isNewEmail",
+        url: URL_CONFIG + "/api/user/isNewEmail",
         data: postString,
         success: function(res) {  //성공시 이 함수를 호출한다.
             callback(res.state);
