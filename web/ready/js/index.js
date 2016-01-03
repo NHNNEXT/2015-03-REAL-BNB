@@ -326,7 +326,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     CardCRUD.init($http, cCtrl);
     InitModal.init();
 
-    if(cCtrl.babyId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
+    if(filteredBId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
         cCtrl.isBabyPage = true;
         User.getBabyInfo($http, this, filteredBId); /* 현재 타임라인 아이정보 불러오기 */
     }
