@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.vecmath.Vector2d;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.babydear.controller.UserController;
 import com.babydear.exception.NotGoodExtention;
 import com.babydear.model.Baby;
+import com.babydear.model.Card;
 import com.babydear.repository.BabyRepository;
 
 @Service
@@ -33,11 +36,43 @@ public class TemplateService {
 	private static final int IMG_WIDTH = 100;
 	private static final int IMG_HEIGHT = 100;
 	private static final Font f = new Font("Dialog", Font.PLAIN, 12);
+	private static final List<Vector2d> cordinates = Arrays.asList(
+			new Vector2d(100,200),
+			new Vector2d(200,300),
+			new Vector2d(300,200),
+			new Vector2d(100,200),
+			new Vector2d(100,200),
+			new Vector2d(100,200));
+	
+	
 
 	public void setFILE_STORAGE_DIRECTORY(String fILE_STORAGE_DIRECTORY) {
 		FILE_STORAGE_DIRECTORY = fILE_STORAGE_DIRECTORY;
 	}
+	public void setCards(List<Card> cards) throws IOException {
+		BufferedImage originTemplate = ImageIO.read(new File(FILE_STORAGE_DIRECTORY + "/imgs/sample/phoster_template_sm.jpg"));
+		int type = originTemplate.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originTemplate.getType();
+		for(int i=0; i<cards.size(); i++){
+			 setCard(cards.get(i),cordinates.get(i), originTemplate);
+		}
+	}
 
+	private void setCard(Card card, Vector2d vector2d, BufferedImage originTemplate) throws IOException {
+		String imgUrl = card.getCardImg();
+		System.out.println(imgUrl);
+		BufferedImage photo = ImageIO.read(new File(FILE_STORAGE_DIRECTORY + imgUrl));
+		int type = originTemplate.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originTemplate.getType();
+		photo = resizeImage(photo, type);
+		
+		Graphics2D g = originTemplate.createGraphics();
+			g.setFont(f);
+//			g.drawImage(photo,vector2d.x, vector2d.y, IMG_WIDTH, IMG_HEIGHT, null);
+//			g.dr
+			g.drawString("우리아기 무럭무럭 자라렴", 200, 200);
+		g.dispose();
+		
+		
+	}
 	public void processTags(List<Long> cIds) throws IOException {
 		BufferedImage originTemplate = ImageIO
 				.read(new File(FILE_STORAGE_DIRECTORY + "imgs/sample/phoster_template_sm.jpg"));
@@ -83,5 +118,7 @@ public class TemplateService {
 	private BufferedImage resizeImage(BufferedImage originalImage, int type) {
 		return resizeImage(originalImage, type, IMG_HEIGHT, IMG_WIDTH);
 	}
+
+
 
 }
