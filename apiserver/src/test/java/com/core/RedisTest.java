@@ -33,9 +33,11 @@ public class RedisTest {
 		ValueOperations<String, Long> ops = template.opsForValue();
 //		ops.set(key, value, timeout, unit);
 		System.out.println(template.hasKey("asdf"));
-		ops.set("asdf", new Long(1234), 1, TimeUnit.SECONDS);
+		ops.set("asdf", new Long(1234), 13, TimeUnit.SECONDS);
 		System.out.println(ops.get("asdf"));
 		System.out.println(template.hasKey("asdf"));
+//		ops.set("asdf", new Long(1234));
+		
 	}
 	@Test
 	public void UUID() throws Exception {

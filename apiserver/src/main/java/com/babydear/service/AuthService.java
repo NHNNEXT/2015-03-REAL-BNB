@@ -44,6 +44,13 @@ public class AuthService {
 		return token;
 
 	}
+	
+	public String setUser(Long uId, String token, Integer days) {
+		ValueOperations<String, Long> ops = template.opsForValue();
+		ops.set(token, uId, days, TimeUnit.DAYS);
+		logger.info(token);
+		return token;
+	}
 
 	public String setUser(Long uId, String token) {
 		ValueOperations<String, Long> ops = template.opsForValue();

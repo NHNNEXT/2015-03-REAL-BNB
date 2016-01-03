@@ -287,12 +287,28 @@ balbumApp.config(function($routeProvider) {
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
         })
+        .when('/baby/:babyId', {
+            templateUrl : 'pages/card-timeline.htm',
+        })
         .when('/poster', {
             templateUrl : 'pages/poster.htm',
             controller  : 'PosterController'
         })
-        .when('/baby/:babyId', {
-            templateUrl : 'pages/card-timeline.htm',
+        .when('/poster/make', {
+            templateUrl : 'pages/make-poster.htm',
+            controller  : 'MakePosterController'
+        })
+        .when('/poster/select', {
+            templateUrl : 'pages/select-card.htm',
+            controller  : 'SelectCardController'
+        })
+        .when('/poster/print', {
+            templateUrl : 'pages/print-poster.htm',
+            controller  : 'PrintPosterController'
+        })
+        .when('/poster/view', {
+            templateUrl : 'pages/view-poster.htm',
+            controller  : 'ViewPosterController'
         })
         .when('/settings', {
             templateUrl : 'pages/settings.htm',
@@ -356,6 +372,22 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 
 balbumApp.controller('PosterController', function($scope) {
     $scope.message = '포스터 페이지 이지롱';
+});
+
+balbumApp.controller('MakePosterController', function($scope) {
+    $scope.message = '포스터 만들기 페이지 이지롱';
+});
+
+balbumApp.controller('SelectCardController', function($scope) {
+    $scope.message = '카드 선택 페이지 이지롱';
+});
+
+balbumApp.controller('PrintPosterController', function($scope) {
+    $scope.message = '포스터 인쇄하기 페이지 이지롱';
+});
+
+balbumApp.controller('ViewPosterController', function($scope) {
+    $scope.message = '포스터 보기 페이지 이지롱';
 });
 
 balbumApp.controller('SettingsController', function($scope) {

@@ -41,6 +41,7 @@ public class Baby {
 //	@Enumerated(EnumType.STRING)
 	private Gender babyGender;
 	private String babyBirth;
+	private String babyBirthFommat;
 	private String babyImg;
 	
 	@Transient

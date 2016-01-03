@@ -51,22 +51,23 @@ public class CardController {
 	
 	@RequestMapping(value = "/api/card",  method = RequestMethod.GET)
 	public CardListDTO selectCards(String token){
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			for(Card card : cardResponseList){
+				card.calculate();
+			}
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 	
 	@RequestMapping(value = "/api/card", method = RequestMethod.POST)
 	public ResponseDTO createCard(String token, Card card, MultipartFile image){
 		logger.info(card.toString());
-		if(token == null || token.isEmpty()) return new ResponseDTO(false, "토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			card.setFId(user.getFId());
@@ -75,6 +76,9 @@ public class CardController {
 			return new ResponseDTO(false, e1.getMessage());
 		}
 		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
+		if(card.getType() == null) return new ResponseDTO(false, "카드의 형식을 입력해 주세요 :Normal,Event? ");
+		if(card.getModifiedDate() == null)return new ResponseDTO(false, "카드 날자를 입력해 주세요 ");
+		if(!card.getModifiedDate().matches("....-..-..")) return new ResponseDTO(false, "카드 날짜 형식이 잘못되었습니다");
 		card.setBabies(babies);
 		card.setState(Card.State.Normal);
 		card.setCreateDate(new Date());
@@ -160,7 +164,9 @@ public class CardController {
 	public Card getOne(@PathVariable("cId")Long cId){
 		logger.info("hello");
 		logger.info("show one card:"+cId);
-		return cardRepo.findOne(cId);
+		Card card =cardRepo.findOne(cId);
+		card.calculate();
+		return card;
 	}
 	
 	@RequestMapping(value="/api/card/list", consumes ="application/json")
@@ -172,6 +178,7 @@ public class CardController {
 		for(Integer cId : list){
 			Card card = cardRepo.getOne(cId.longValue());
 			if(card == null) continue;
+			card.calculate();
 			cardResponseList.add(card);
 		}
 		cardListDTO.setCardList(cardResponseList);

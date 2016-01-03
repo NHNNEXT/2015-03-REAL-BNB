@@ -1,4 +1,4 @@
-package net.balbum.baby;
+package net.balbum.baby.Util;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -21,6 +21,7 @@ public class DateSettingUtil implements DatePickerDialog.OnDateSetListener {
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        ((EditText) editText).setText(year + "-" + month + "-" + day);
+        int true_month = month + 1;
+        ((EditText) editText).setText(year + "-" + true_month + "-" + day);
     }
 }

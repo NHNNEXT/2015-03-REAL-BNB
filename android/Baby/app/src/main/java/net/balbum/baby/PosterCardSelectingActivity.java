@@ -1,5 +1,6 @@
 package net.balbum.baby;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.CardSelectingAdapter;
@@ -28,24 +30,25 @@ import retrofit.client.Response;
  * Created by hyes on 2015. 12. 22..
  */
 public class PosterCardSelectingActivity extends AppCompatActivity{
+
     List<GeneralCardVo> cardList;
-    //cId만 담아도 될 것 같은데 서버를...
     List<Long> selectedCardListLong;
+    Context context;
+    CardSelectingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_card_selecting);
-
-        selectedCardListLong = new ArrayList<Long>();
-
+        context = this;
         getData();
     }
 
     private void getData() {
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
 
-        taskService.getCard("token", new Callback<CardListVo>() {
+        TokenUtil tk = new TokenUtil(context);
+        taskService.getCard(tk.getToken(), new Callback<CardListVo>() {
             @Override
             public void success(CardListVo cardListVo, Response response) {
                 CardListVo cd = cardListVo;
@@ -67,17 +70,9 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         GridLayoutManager glm = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(glm);
 
-        CardSelectingAdapter adapter = new CardSelectingAdapter(cardGeneralModelList, this);
+        adapter = new CardSelectingAdapter(cardGeneralModelList, this);
         recyclerView.setAdapter(adapter);
 
-        adapter.SetOnItemClickListener(new CardSelectingAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, List<GeneralCardVo> cards) {
-                view.setAlpha(0.5f);
-                selectedCardListLong.add(cards.get(position).cid);
-//                selectedCardList.add(cards.get(position).cid);
-            }
-        });
     }
 
 
@@ -98,11 +93,23 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
 
-            Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
-           // intent.putExtra("list", Parcels.wrap(selectedCardList));
-            intent.putExtra("cIds", (Serializable) selectedCardListLong);
+            selectedCardListLong = new ArrayList<Long>();
+            selectedCardListLong = adapter.selectedCardListLong;
 
-            startActivity(intent);
+            int size = selectedCardListLong.size();
+
+            if(size != 3){
+                if(size < 3){
+                    ToastUtil.show(context, "카드가 9개보다 적게 선택되었습니다.");
+                }else if(size > 3){
+                    ToastUtil.show(context, "카드가 9개보다 많이 선택되었습니다.");
+                }
+            }else{
+                Intent intent = new Intent(PosterCardSelectingActivity.this, PosterMakingActivity.class);
+                intent.putExtra("cIds", (Serializable) selectedCardListLong);
+                startActivity(intent);
+            }
+
             return true;
         }
         return super.onOptionsItemSelected(item);

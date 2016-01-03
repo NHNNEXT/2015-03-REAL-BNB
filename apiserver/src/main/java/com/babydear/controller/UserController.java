@@ -53,7 +53,7 @@ public class UserController {
 	// user들을 전부 보여준다 : 
 	@RequestMapping("/api/user")
 	public List<User> user(String token) {
-		if(token == "token") return userRepo.findAll();
+		if(token.equals("asdf1234")) return userRepo.findAll();
 		else return null;
 	}
 	
@@ -79,6 +79,7 @@ public class UserController {
 			return new AuthDTO(null, "이미지 형식이 잘못 되었습니다.");
 		}
 		User user = new User(userDTO);
+		user.setFId(familyRepo.save(new Family()).getFId());
 		user = userRepo.save(user);
 		mailService.sendSignUpMail();
 		return new AuthDTO(authService.setUser(user.getUId()), new Date().toString());
@@ -107,13 +108,13 @@ public class UserController {
 	@RequestMapping("/api/user/baby")
 	public List<Baby> findBaby(String token) {
 		if(token == null || token.isEmpty()) return null;
-//		try {
-//			User user = authService.getUser(token);
-//			return babyRepo.findByFId(user.getFId());
-//		} catch (NotToken e) {
-//			return null;
-//		}
-		return babyRepo.findAll();
+		try {
+			User user = authService.getUser(token);
+			return babyRepo.findByFId(user.getFId());
+		} catch (NotToken e) {
+			return babyRepo.findAll();
+		}
+//		return babyRepo.findAll();
 //		return babyRepo.findByBabyName("꽁꽁이");
 	}
 	
@@ -130,6 +131,24 @@ public class UserController {
 			return new AuthDTO(null, "비밀번호가 잘못 되었습니다");
 		}
 	}
+	@RequestMapping(value = "/api/user/signup/fb_token/image")
+	public ResponseDTO signupFb(String token, MultipartFile image) {
+		try {
+			User user = authService.getUser(token);
+			user.setUserImg(imgService.processImgUser(image));
+			userRepo.save(user);
+			return new ResponseDTO(true, null, user);
+		} catch (IllegalStateException | IOException e) {
+			return new ResponseDTO(false, e.getMessage());
+		} catch (NotGoodExtention e) {
+			return new ResponseDTO(false, "이미지 형식이 잘못 되었습니다.");
+		} catch (StringIndexOutOfBoundsException e) {
+			return new ResponseDTO(false, "이미지 형식이 없네요");
+		} catch (NotToken e) {
+			return new ResponseDTO(false, e.getMessage());
+		}
+	}
+	
 	
 	@RequestMapping(value = "/api/user/signup/fb_token", consumes ="application/json")
 	public AuthDTO signupFb(@RequestBody Map<String, Object> userDTO) {
@@ -139,8 +158,9 @@ public class UserController {
 			user = new User();
 			user.setEmail((String)userDTO.get("email"));
 			user.setUserRole((String)userDTO.get("role"));
-			user.setPassword((String)userDTO.get("email"));
+			user.setPassword((String)userDTO.get("fb_token"));
 			user.setUserImg("/imgs/sample/user.jpeg");
+			user.setFId(familyRepo.save(new Family()).getFId());
 			userRepo.save(user);
 			System.out.println("회원가입"+user);
 			return new AuthDTO(authService.setUser(user.getUId()), "성공");
@@ -169,14 +189,14 @@ public class UserController {
 
 	@RequestMapping("/api/user/token")
 	public ResponseDTO token(String token){
-		User user = null;
-		System.out.println(token);
 		try {
-			user = authService.getUser(token);
+			User user = authService.getUser(token);
+			authService.setUser(user.getUId(), token, 30);
+			return new ResponseDTO(true, token);
 		} catch (NotToken e) {
 			return new ResponseDTO(false, "로그인이 필요한 사용자 입니다");
 		}
-		return new ResponseDTO(true, token);
+		
 	}
 
 }

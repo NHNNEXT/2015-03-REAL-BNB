@@ -3,8 +3,8 @@
     package="net.balbum.baby">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,13 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-       <activity android:name=".TEMP">
-           <!--<intent-filter>-->
-               <!--<action android:name="android.intent.action.MAIN" />-->
-               <!--<category android:name="android.intent.category.LAUNCHER" />-->
-           <!--</intent-filter>-->
-       </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+
+        <!--<activity android:name=".SampleLoginActivity">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <activity android:name=".TEMP">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
         <activity android:name=".LoginActivity">
 
@@ -27,58 +41,78 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
             android:name=".CardWritingActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".LoadingActivity"
+        <activity
+            android:name=".LoadingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
+            </intent-filter>
         </activity>
 
-        <activity android:name=".CardImageEditActivity">
-        </activity>
+        <activity android:name=".CardImageEditActivity"></activity>
 
-        <activity android:name=".StartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SignActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SignEmailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SignFacebookActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InitialSettingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PosterMakingActivity"
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignFacebookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InitialSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PosterMakingActivity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
         </activity>
-        <activity android:name=".FamilySettingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PosterCardSelectingActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PosterMakingActivity2"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".FamilySettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PosterCardSelectingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PosterCardSelectingActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="CardShareActivity" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-
-        <provider android:authorities="com.facebook.app.FacebookContentProvider333726796797560"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider333726796797560"
             android:exported="true" />
 
     </application>

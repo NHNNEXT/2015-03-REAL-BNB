@@ -25,7 +25,9 @@
                 android:id="@+id/user_email"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="baby@nhnnext.org" />
+                android:hint="baby@nhnnext.org"
+                android:nextFocusDown="@+id/user_password"
+                android:singleLine="true"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -38,6 +40,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="number password"
+                android:singleLine="true"
                  />
 
         </android.support.design.widget.TextInputLayout>

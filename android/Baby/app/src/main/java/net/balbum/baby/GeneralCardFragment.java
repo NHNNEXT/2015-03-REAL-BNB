@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -52,7 +53,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private EditText memo_tv;
     RecyclerView baby_list;
     Context context;
-
+    EditText card_date_et;
     BabyTagAdapter adapter;
     List<BabyTagVo> babyTagNamesList;
     View view;
@@ -115,6 +116,9 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         camera_iv = (ImageView)this.getActivity().findViewById(R.id.camera_iv);
         photo_iv = (ImageView)this.getActivity().findViewById(R.id.photo_iv);
         baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
+        card_date_et = (EditText)this.getActivity().findViewById(R.id.card_date);
+
+        card_date_et.setText(TimeUtil.getRecordedMoment());
 
         if(card != null){
             memo_tv.setText(card.content);
@@ -123,12 +127,14 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
                     .placeholder(R.mipmap.ic_launcher)
                     .into(photo_iv);
 
-        }
+            card_date_et.setText(card.modifiedDate);
 
+        }
 
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
         camera_iv.setOnClickListener(this);
+        card_date_et.setOnClickListener(this);
     }
 
     @Override
@@ -137,7 +143,14 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
             case R.id.camera_iv:
                 cardImageEdit();
                 break;
+            case R.id.card_date:
+                modifyDate(v);
         }
+    }
+
+    private void modifyDate(View v) {
+        DialogHandler pickerDialog = new DialogHandler(v);
+        pickerDialog.show(getFragmentManager(), "date_picker");
     }
 
     private void cardImageEdit() {
@@ -173,6 +186,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         GeneralCardVo tempVo = new GeneralCardVo();
         tempVo.content = memo.getText().toString();
         tempVo.names = adapter.getSelectedList();
+        tempVo.modifiedDate = card_date_et.getText().toString();
 
         Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
         String filePath = getRealPathFromURI(tempUri);

@@ -51,27 +51,29 @@ public class CardFilterController {
 
 	@RequestMapping(value = "/api/filter", method = RequestMethod.GET)
 	public CardListDTO showCardFilter(String token) {
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			for(Card card : cardResponseList){
+				card.calculate();
+			}
 			CardListDTO cardListDTO = new CardListDTO();
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 
 	@RequestMapping(value = "/api/filter/baby", method = RequestMethod.GET)
 	public CardListDTO showCardFilterByBaby(String token, Long bId) {
-		if (token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
 			List<Card> cardResponseList = new ArrayList<>();
 			for (Card card : cardList) {
 				if (card.getBabies().contains(new Baby(bId))) {
+					card.calculate();
 					cardResponseList.add(card);
 				}
 			}
@@ -79,7 +81,7 @@ public class CardFilterController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 
@@ -88,7 +90,6 @@ public class CardFilterController {
 		List<Integer> babies = (ArrayList<Integer>) req.get("babies");
 		String token = (String) req.get("token");
 		if(babies == null || babies.isEmpty()) return new CardListDTO("baby를 선택해 주세요");
-		if(token == null || token.isEmpty()) return new CardListDTO("토큰이 없습니다.");
 		try {
 			User user = authService.getUser(token);
 			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
@@ -96,6 +97,7 @@ public class CardFilterController {
 			for(Card card : cardList){
 				for(Integer bId : babies){
 					if(card.getBabies().contains(new Baby(new Long(bId)))){
+						card.calculate();
 						cardResponseList.add(card);
 						break;
 					}
@@ -105,7 +107,7 @@ public class CardFilterController {
 			cardListDTO.setCardList(cardResponseList);
 			return cardListDTO;
 		} catch (NotToken e) {
-			return new CardListDTO("유효하지 않은 토큰 입니다.");
+			return new CardListDTO(e.getMessage());
 		}
 	}
 
@@ -116,7 +118,9 @@ public class CardFilterController {
 		List<Card> cardResponseList = new ArrayList<Card>();
 		CardListDTO cardListDTO = new CardListDTO();
 		for (Integer cId : list) {
-			cardResponseList.add(cardRepo.getOne(cId.longValue()));
+			Card card = cardRepo.getOne(cId.longValue());
+			card.calculate();
+			cardResponseList.add(card);
 		}
 		cardListDTO.setCardList(cardResponseList);
 		logger.info(cardResponseList.size() + "");

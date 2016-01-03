@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Crop Box</title>
+    <!-- <link rel="stylesheet" href="style.css" type="text/css" /> -->
+    <style>
+        .container
+        {
+            position: absolute;
+            top: 10%; left: 10%; right: 0; bottom: 0;
+        }
+        .action
+        {
+            width: 400px;
+            height: 30px;
+            margin: 10px 0;
+        }
+        .cropped>img
+        {
+            margin-right: 10px;
+        }
+
+
+
+        
+        /* style.css */
+        .imageBox
+        {
+            position: relative;
+            height: 400px;
+            width: 400px;
+            border:1px solid #aaa;
+            background: #fff;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            cursor:move;
+        }
+
+        .imageBox .thumbBox
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            border: 1px solid rgb(102, 102, 102);
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            background: none repeat scroll 0% 0% transparent;
+        }
+
+        .imageBox .spinner
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            line-height: 400px;
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- <script src="../cropbox.js"></script> -->
+<div class="container">
+    <div class="imageBox">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+    </div>
+    <div class="action">
+        <input type="file" id="file" style="float:left; width: 250px">
+        <input type="button" id="btnCrop" value="Crop" style="float: right">
+        <input type="button" id="btnZoomIn" value="+" style="float: right">
+        <input type="button" id="btnZoomOut" value="-" style="float: right">
+    </div>
+    <div class="cropped">
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).load(function() {
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: 'avatar.png'
+        }
+        var cropper;
+        $('#file').on('change', function(){
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            }
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        })
+        $('#btnCrop').on('click', function(){
+            var img = cropper.getDataURL()
+            $('.cropped').append('<img src="'+img+'">');
+        })
+        $('#btnZoomIn').on('click', function(){
+            cropper.zoomIn();
+        })
+        $('#btnZoomOut').on('click', function(){
+            cropper.zoomOut();
+        })
+    });
+
+
+    // cropbox.js
+    /**
+     * Created by ezgoing on 14/9/2014.
+     */
+
+    "use strict";
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        } else {
+            factory(jQuery);
+        }
+    }(function ($) {
+        var cropbox = function(options, el){
+            var el = el || $(options.imageBox),
+                obj =
+                {
+                    state : {},
+                    ratio : 1,
+                    options : options,
+                    imageBox : el,
+                    thumbBox : el.find(options.thumbBox),
+                    spinner : el.find(options.spinner),
+                    image : new Image(),
+                    getDataURL: function ()
+                    {
+                        var width = this.thumbBox.width(),
+                            height = this.thumbBox.height(),
+                            canvas = document.createElement("canvas"),
+                            dim = el.css('background-position').split(' '),
+                            size = el.css('background-size').split(' '),
+                            dx = parseInt(dim[0]) - el.width()/2 + width/2,
+                            dy = parseInt(dim[1]) - el.height()/2 + height/2,
+                            dw = parseInt(size[0]),
+                            dh = parseInt(size[1]),
+                            sh = parseInt(this.image.height),
+                            sw = parseInt(this.image.width);
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        var context = canvas.getContext("2d");
+                        context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
+                        var imageData = canvas.toDataURL('image/png');
+                        return imageData;
+                    },
+                    getBlob: function()
+                    {
+                        var imageData = this.getDataURL();
+                        var b64 = imageData.replace('data:image/png;base64,','');
+                        var binary = atob(b64);
+                        var array = [];
+                        for (var i = 0; i < binary.length; i++) {
+                            array.push(binary.charCodeAt(i));
+                        }
+                        return  new Blob([new Uint8Array(array)], {type: 'image/png'});
+                    },
+                    zoomIn: function ()
+                    {
+                        this.ratio*=1.1;
+                        setBackground();
+                    },
+                    zoomOut: function ()
+                    {
+                        this.ratio*=0.9;
+                        setBackground();
+                    }
+                },
+                setBackground = function()
+                {
+                    var w =  parseInt(obj.image.width)*obj.ratio;
+                    var h =  parseInt(obj.image.height)*obj.ratio;
+
+                    var pw = (el.width() - w) / 2;
+                    var ph = (el.height() - h) / 2;
+
+                    el.css({
+                        'background-image': 'url(' + obj.image.src + ')',
+                        'background-size': w +'px ' + h + 'px',
+                        'background-position': pw + 'px ' + ph + 'px',
+                        'background-repeat': 'no-repeat'});
+                },
+                imgMouseDown = function(e)
+                {
+                    e.stopImmediatePropagation();
+
+                    obj.state.dragable = true;
+                    obj.state.mouseX = e.clientX;
+                    obj.state.mouseY = e.clientY;
+                },
+                imgMouseMove = function(e)
+                {
+                    e.stopImmediatePropagation();
+
+                    if (obj.state.dragable)
+                    {
+                        var x = e.clientX - obj.state.mouseX;
+                        var y = e.clientY - obj.state.mouseY;
+
+                        var bg = el.css('background-position').split(' ');
+
+                        var bgX = x + parseInt(bg[0]);
+                        var bgY = y + parseInt(bg[1]);
+
+                        el.css('background-position', bgX +'px ' + bgY + 'px');
+
+                        obj.state.mouseX = e.clientX;
+                        obj.state.mouseY = e.clientY;
+                    }
+                },
+                imgMouseUp = function(e)
+                {
+                    e.stopImmediatePropagation();
+                    obj.state.dragable = false;
+                },
+                zoomImage = function(e)
+                {
+                    e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0 ? obj.ratio*=1.1 : obj.ratio*=0.9;
+                    setBackground();
+                }
+
+            obj.spinner.show();
+            obj.image.onload = function() {
+                obj.spinner.hide();
+                setBackground();
+
+                el.bind('mousedown', imgMouseDown);
+                el.bind('mousemove', imgMouseMove);
+                $(window).bind('mouseup', imgMouseUp);
+                el.bind('mousewheel DOMMouseScroll', zoomImage);
+            };
+            obj.image.src = options.imgSrc;
+            el.on('remove', function(){$(window).unbind('mouseup', imgMouseUp)});
+
+            return obj;
+        };
+
+        jQuery.fn.cropbox = function(options){
+            return new cropbox(options, this);
+        };
+    }));
+
+
+</script>
+
+</body>
+</html>
+
+
+
+<!-- 
+참고 사이트
+http://www.jqueryrain.com/demo/jquery-crop-image-plugin/
+- 이중에서 좋았던 사이트들 
+    1) http://www.jqueryrain.com/?VAAZCOTI
+        - 원모양으로 크롭한다든지 등의 자신이 직접 조작할 수 있게끔 만들어진 플러그인
+        - 우리가 필요한 것 외에도 여러 기능들이 있는 크롭 플러그인
+
+
+    2) http://www.jqueryrain.com/?7VoW4dx3
+        - 가장 깔삼해 보였던 크롭 
+        - 현재 이 crop-test.html에 있는 코드와 같음
+        - 사진 범위를 넘을 수 있음
+
+
+    3) http://www.jqueryrain.com/?o7vgWT7J
+        - 얘도 괜찮네.
+        - 근데.... 자신 확대 축소 자동으로 마우스로 불가능. 꼭 버튼을 눌러야함. 버튼이 직관적이지 않지만, 한번 익숙해지면 꽤 이쁘긴 함.
+
+
+
+    <쓸모없지만 이뻐 보였던 크롭 플러그인> - 참고용
+
+        http://www.jqueryrain.com/?7a104fSp
+            - 이중에 두번째에 있는 크롭이 젤 이쁨. 
+            - 원래 이거로 test.html만들어보려다..... 원본 소스 코드 링크가 막혀있음.. 
+            - + 오 찾음 https://github.com/RubaXa/jquery.fileapi/
+            - 근데 이제 더이상 지원하지 않는다고...-_-..
+
+        http://codecanyon.net/item/html-5-upload-image-ratio-with-drag-and-drop/full_screen_preview/8712634?ref=jqueryrain&ref=jqueryrain&clickthrough_id=604306092&redirect_back=true
+            - 사용법은 매우 쉽다.
+            - 그러나 사진 위치 지정 후 크롭하는 데 시간이 좀 걸림..
+            - 어라 유료였음...ㅋㅋ 
+ -->

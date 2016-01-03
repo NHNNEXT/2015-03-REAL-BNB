@@ -62,8 +62,8 @@ function fbSignup(){
 
             var str ="";
             str +="<div class='row'><div class='input-field s12'><img id='upload-preview' class='circle responsive-img s12' alt='your image'/></div></div>";
-            str +="<div class='row'><div class='input-field col s12'><input disabled value="+response.email+" id='disabled' type='text' class='validate><label for='disabled'></label></div></div>";
-            str +="<div class='row'><div class='input-field  s12'><input id='signup-role' type='text' class='validate'><label for='role'>Role</label></div></div>";
+            str +="<div class='row'><div class='input-field s12'><input disabled value="+response.email+" id='signup-email' type='text' class='validate' onblur='emailValidation()'><label for='disabled'></label></div></div>";
+            str +="<div class='row'><div class='input-field s12'><input id='signup-role' type='text' class='validate'><label for='role'>Role</label></div></div>";
             str +="<div class='row'><div id='signup-message'></div></div>";
             str +="<button name='submit' type='submit' value='submit' class='signup-btn modal-action modal-close waves-effect waves-light btn-large'>계정 만들기</button>";
 

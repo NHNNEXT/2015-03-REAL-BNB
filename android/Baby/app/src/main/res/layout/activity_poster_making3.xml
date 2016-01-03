@@ -5,7 +5,6 @@
     android:layout_gravity="center_vertical"
     android:background="@drawable/poster_bg_train">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +14,7 @@
         android:textSize="20dp"
         android:gravity="center_horizontal"
         />
+
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -164,8 +164,6 @@
             android:layout_marginRight="13dp"
             android:layout_marginTop="36dp" />
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

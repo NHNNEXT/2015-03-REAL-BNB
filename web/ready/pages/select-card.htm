@@ -1,0 +1,67 @@
+<section class="select-card-container row">
+    <div class="col s12">
+        <div class="card">
+            <h5 class="">원하시는 카드 선택해 주세요.</h5>
+            <h5 class="">10장</h5>
+            <div>
+            <!-- 자... 타임라인 카드 어떻게 불러올까?
+
+                - 일단 세로 스크롤로 해야 편할듯
+                (- 와이어 프레임에 그린 슬라이드쇼 느낌의 가로 view는 좀 아닌듯)
+
+                <기존 메인페이지에서 타임라인 카드 get하는 방식 그대로 가져오기 + 그래서 카드 view방식을 가로로 6개씩 쭈쭈쭈죽 나열하는?? >
+        결론:    - 메인페이지에서 카드 불러오기 방식을 쓰는 게 답인듯
+                - 유림쓰의 카드 get 에이젝스?앵귤러? 코드 리뷰받아야함
+                - 시간 효율적으로 하려면 짝코딩도 좋을듯 
+                (- 여러가지 조사해봤지만 다 노답이었음..ㅠㅠ)
+                (- 먼가 샤랄라한 라이브러리가 있을 줄 알았는데 딱히 없었음. 우리껀 이미지 슬라이드쇼는 아니니깐.)
+                
+
+                <image preloading>
+                10+ jQuery Preload Image Plugins
+                - http://www.sitepoint.com/preload-image-plugins/
+                    - 별거별거 엄청 많네..... 근데 없어진 사이트도 많음.
+                    - 근데 대부분은 html에 이미지들이 하드코딩....
+                
+                - http://www.createjs.com/preloadjs
+                    - 여기 demo에는 버튼 클릭시 한개의 이미지를 appendChild로 추가됨...ㅋㅋ
+                    - ㅋ..ㅋ.....ㅋ.....
+        결론:    - 우리꺼와 알맞는 preloaing관련 라이브러리는 없었음.. 
+                <ui참고용> 
+                http://preloaders.net/
+                - 요 사이트처럼 카드 자체는 작게 나열되어 있고 내용은 마우스 오버시 보여지게?? 
+                - 혹은 요 사이트에서 처럼 하나의 카드를 누르면 카드가 확대되면서 모달로 보이게??(인스타그램 web페이지 처럼)
+
+                -->
+
+
+
+                <!-- 타임라인 카드 다중선택 관련 참고 사이트
+                -서버쪽 
+                ajax post multiple data array 
+
+                cid를 받아서 배열로(혹은 이미지 배열) 넘겨주면 되겠지요..? 막막하니 이건 경륜쓰와 짝코딩이 필요하닷  
+
+
+                -프론트쪽 참고할만한거..
+                http://stackoverflow.com/questions/14424209/retrive-multi-check-box-value-by-jquery
+                - checked box에 선택된 항목들을 checkedArray로 만드는 방식
+                    var checkedArray = $("#ShopItemForm").find(":checked").map(function() {
+                        return this.value;
+                    }).get();
+
+                    console.log(checkedArray);
+
+                http://www.shop-wiz.com/board/view/root/jquery01/tid/10/category/0
+                - 이건 그냥 selcet - option 관련.. 혹시나 해서
+                
+
+-->
+            </div>
+            <div>
+              <a href="poster/make" class="btn waves-effect">이전</a>
+              <a href="poster/preview" class="btn waves-effect">다음</a>
+            </div>
+        </div>
+    </div>
+</section>

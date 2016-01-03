@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -33,4 +37,15 @@ dependencies {
     compile 'com.isseiaoki:simplecropview:1.0.11'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile "org.parceler:parceler-api:1.0.4"
+    compile group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+
+    // 카카오스토리 sdk를 사용하기 위해 필요.
+    compile group: 'com.kakao.sdk', name: 'kakaostory', version: project.KAKAO_SDK_VERSION
+
+    // 카카오톡 sdk를 사용하기 위해 필요.
+    compile group: 'com.kakao.sdk', name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
+
+    // push sdk를 사용하기 위해 필요.
+    compile group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
+    compile group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 }
