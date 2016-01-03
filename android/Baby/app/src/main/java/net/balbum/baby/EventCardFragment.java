@@ -17,9 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.Define;
-import net.balbum.baby.Util.ToastUtil;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -44,6 +43,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     Button bg1;
     Button bg2;
     Button bg3;
+    int drawable;
 
     @Nullable
     @Override
@@ -76,7 +76,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         }
 
         initData();
-
+        drawable = R.drawable.bg1;
         bg1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +95,17 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
                 setBackground(v, Define.EVENT_CARD_BG3);
             }
         });
+
+        date_et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyDate(v);
+            }
+        });
+    }
+    private void modifyDate(View v) {
+        DialogHandler pickerDialog = new DialogHandler(v);
+        pickerDialog.show(getFragmentManager(), "date_picker");
     }
 
     private void setBackground(View button, String type) {
@@ -102,12 +113,13 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         button.startAnimation(anim);
 
         if(type == Define.EVENT_CARD_BG1){
-            ToastUtil.show(context, "show");
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg1));
         }else if(type == Define.EVENT_CARD_BG2){
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg2));
+            drawable = R.drawable.bg2;
         }else if(type == Define.EVENT_CARD_BG3) {
             event_container.setBackground(context.getResources().getDrawable(R.drawable.bg3));
+            drawable = R.drawable.bg3;
         }
     }
 
@@ -135,57 +147,19 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     @Override
     public GeneralCardVo getCardInfo() {
 
-        EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv_event);
+       // EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv_event);
 
         GeneralCardVo tempVo = new GeneralCardVo();
-        tempVo.content = memo.getText().toString();
-        tempVo.names = adapter.getSelectedNames();
-//        Log.i("test", "selected : " + tempVo.babies.get(0) + " size: " + tempVo.babies.size());
+
+        adapter = new BabyTagAdapter(babyTagNamesList, context);
+
+        tempVo.content = memo_tv.getText().toString();
+        tempVo.names = adapter.getSelectedList();
+
+        tempVo.cardImg = drawable+"";
+
         return tempVo;
     }
-    //    protected Dialog onCreateDialog(int id){
-//        if(id == DIALOG_ID){
-//            return new DatePickerDialog(this.getActivity(), dpickerListener, year_x, month_x, day_x);
-//        }
-//        return null;
-//    }
-//
-//
-//    public void showDialogOnEditTextOnClick(){
-//        editText = (EditText)getActivity().findViewById(R.id.editText);
-//        editText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialog(DIALOG_ID);
-//
-//            }
-//        });
-//
-//    }
-
-//    // Activity 로 데이터를 전달할 커스텀 리스너
-//    private CustomOnClickListener customListener;
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너의 인터페이스
-//    public interface CustomOnClickListener{
-//        public void onClicked(int id);
-//    }
-//
-//    // 버튼에 설정한 OnClickListener의 구현, 버튼이 클릭 될 때마다 Activity의 커스텀 리스너를 호출함
-//    View.OnClickListener onClickListener = new View.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View v) {
-//            customListener.onClicked(v.getId());
-//        }
-//    };
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너를 연결
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        customListener = (CustomOnClickListener)activity;
-//    }
 }
 
 
