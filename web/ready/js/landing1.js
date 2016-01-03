@@ -166,9 +166,12 @@ var emailValidation = function(){
 var passwordValidation = function(){
     var password = $('#signup-password').val();
     var confirmPassword = $('#signup-confirm-password').val();
-
+    
     if(password != confirmPassword){
         $('#signup-message').text('비밀번호를 다시 확인해주세요.');
+    }
+    else {
+        $('#signup-message').text('');
     }
 }
 
