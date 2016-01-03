@@ -121,9 +121,6 @@ var ajaxPostFbSignup =  function() {
     var elToken = $('#signup-token');
     var elRole = $('#signup-role');
 
-    // var url = "http://dev.balbum.net/";  
-    // var url = "http://10.73.42.216:8080/";
-
     formData.append("image",elImage.attr('src'));
     formData.append("email",elEmail.val());
     formData.append("fb_token",elToken.val());
@@ -156,8 +153,6 @@ var ajaxPostFbSignup =  function() {
 
 // 페북로그인/페북회원가입 버튼을 눌렀을 때, 페북이메일 주소가 이미 가입되어있는 이메일인지 확인하는 함수 
 var fbEmailValidation = function(email, callback){
-    // var elEmail = $('#signup-email');
-    // var url = "http://dev.balbum.net/";  
     var postString = "";       // post방식으로 처리하기 위한 파라미터들
     
     postString  = "email=" + email;
