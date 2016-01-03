@@ -33,10 +33,34 @@
                 - 혹은 요 사이트에서 처럼 하나의 카드를 누르면 카드가 확대되면서 모달로 보이게??(인스타그램 web페이지 처럼)
 
                 -->
+
+
+
+                <!-- 타임라인 카드 다중선택 관련 참고 사이트
+                -서버쪽 
+                ajax post multiple data array 
+
+                cid를 받아서 배열로(혹은 이미지 배열) 넘겨주면 되겠지요..? 막막하니 이건 경륜쓰와 짝코딩이 필요하닷  
+
+
+                -프론트쪽 참고할만한거..
+                http://stackoverflow.com/questions/14424209/retrive-multi-check-box-value-by-jquery
+                - checked box에 선택된 항목들을 checkedArray로 만드는 방식
+                    var checkedArray = $("#ShopItemForm").find(":checked").map(function() {
+                        return this.value;
+                    }).get();
+
+                    console.log(checkedArray);
+
+                http://www.shop-wiz.com/board/view/root/jquery01/tid/10/category/0
+                - 이건 그냥 selcet - option 관련.. 혹시나 해서
+                
+
+-->
             </div>
             <div>
-              <a href="poster" class="btn waves-effect">이전</a>
-              <a href="poster/make" class="btn waves-effect">다음</a>
+              <a href="poster/make" class="btn waves-effect">이전</a>
+              <a href="poster/preview" class="btn waves-effect">다음</a>
             </div>
         </div>
     </div>
