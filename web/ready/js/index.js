@@ -34,7 +34,7 @@ var Start = {
         $('.nav-update-modal').click(function(){
             $('#update-modal').openModal();
         });
-        // $('ul.tabs').tabs(); //materialize tabs 동적 활성화
+        $('ul.tabs').tabs(); //materialize tabs 동적 활성화
         // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
         // $scope.$apply();
 
@@ -247,10 +247,17 @@ var CardCRUD = {
         });
     },
     post: function($scope, cCtrl) {
-        $('#cardForm').submit(function() {
+        $('.cardForm').submit(function() {
             $(this).ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
+                    $('input.baby-check-input:checked').each(function(i, e) {
+                        var obj = {};
+                        obj.name = "bIds["+i+"]";
+                        obj.value = $(this).data('bid');
+                        data.push(obj);
+                    });
+                    console.log('data:', data);
                     return true;
                 },
                 /* submit이후의 처리. 제일 위에 방금 올린 카드 추가. */
@@ -335,9 +342,9 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 
     /* 카드올릴때 아이를 체크하면 hidden된 input에 데이터값이 박혀 들어간다. 서버 처리랑 연동때문.*/
     /* TODO: 서버에 올려지기 직전에 name이랑 value를 index값에 맞춰서 들어가게 해야한다. 지금은 버그 있음. */
-    $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
-        return User.checkBaby(index, bId, isBabyChecked);
-    }
+    // $scope.babyCheckChanged = function(index, bId, isBabyChecked) {
+    //     return User.checkBaby(index, bId, isBabyChecked);
+    // }
 
     if(cCtrl.babyId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
         cCtrl.isBabyPage = true;
