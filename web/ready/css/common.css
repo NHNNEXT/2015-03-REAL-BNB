@@ -35,6 +35,9 @@ h6 {
   line-height: normal;
   margin: 0;
 }
+textarea {
+  border-bottom: none;
+}
 nav.nav-top {
   background-color: rgba(255, 251, 245, 0.9);
   box-shadow: 0 6px 5px 0 rgba(0, 0, 0, 0.02), 0 2px 10px 0 rgba(0, 0, 0, 0.05) !important;

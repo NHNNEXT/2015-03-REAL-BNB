@@ -20,9 +20,7 @@
                     </div>
                     <input class="upload-photo-input disappear" type="file" name="image">
                     <img class="uploaded-photo" src="#" alt="uploaded photo" />
-                    <div class="input-field col s12">
-                        <textarea id="textarea1" placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
-                    </div>
+                    <textarea placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
                     <div class="date-container col s5">
                         <input type="date" name="modifiedDate"/><br/>
                     </div>
@@ -37,7 +35,7 @@
                         <input type="date" name="modifiedDate">
                     </div>
                     <div class="input-field col s6">
-                        <input placeholder="첫 옹알이" id="first_name" type="text" name="content" class="validate">
+                        <input placeholder="첫 옹알이" type="text" name="content" class="validate">
                     </div>
                     <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                 </form>
@@ -47,7 +45,7 @@
                     <input class="baby-check-input" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}"/>
                     <label for="bid-{{baby.bid}}">
                         <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                        {{baby.babyName}} {{baby.babyBirth}}
+                        {{baby.babyName}}
                     </label>
                 </p>
             </div>

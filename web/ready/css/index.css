@@ -14,8 +14,14 @@ section.main-container article.main-col div.postcard-container {
   background: white;
   margin-top: 0.8rem;
   margin-bottom: 0.9rem;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0.75rem;
   border-radius: 0.7rem;
+}
+section.main-container article.main-col div.postcard-container textarea,
+section.main-container article.main-col div.postcard-container .input-field input,
+section.main-container article.main-col div.postcard-container .date-container input {
+  border-bottom: none;
+  box-shadow: none;
 }
 section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box {
   margin-top: 10px;

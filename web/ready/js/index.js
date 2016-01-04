@@ -2,6 +2,7 @@ var address = "http://dev.balbum.net/";
 // var address = "http://192.168.1.146:8080/";
 // var token = localStorage.getItem('token');
 var token = 'asdf1234';
+var today;
 
 var testData;
 
@@ -15,6 +16,7 @@ var Main = {
 var Start = {
     init: function($scope) {
         $("input[name='token']").val(token);
+        Start.getToday();
         $('.button-collapse').sideNav();
         // $('.modal-trigger').leanModal();
         // $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
@@ -37,7 +39,13 @@ var Start = {
         $('ul.tabs').tabs(); //materialize tabs 동적 활성화
         // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
         // $scope.$apply();
-
+    },
+    getToday: function() {
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        today = now.getFullYear()+"-"+(month)+"-"+(day);
+        $('.date-container input').val(today);
     }
 
 }
@@ -256,6 +264,7 @@ var CardCRUD = {
                     $('.cardForm').clearForm();
                     $('input:checkbox.baby-check-input').removeAttr('checked');
                     $("input[name='token']").val(token);
+                    Start.getToday();
                     $scope.$apply();
                     Upload.resetPhotoBox();
                 },
