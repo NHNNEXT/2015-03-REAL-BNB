@@ -21,6 +21,16 @@
 .toast {
     background-color: #74d0cb !important;
 }
+.btn {
+    padding: 0 1.4rem;
+    height: 33px;
+    line-height: 33px;
+    background-color: @tertiary;
+    box-shadow: none;
+    &:hover {
+        box-shadow: none;
+    }
+}
 
 body {
     background: @background-color;
@@ -129,6 +139,13 @@ aside.left-col {
                         background-color: rgb(52, 62, 76);
                         transition: @transition;
                     }
+                }
+            }
+            span.badge {
+                margin-top: 0.2rem;
+                font-size: 0.9rem;
+                &.new {
+                    background-color: @tertiary;
                 }
             }
         }

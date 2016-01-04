@@ -62,6 +62,9 @@ section.main-container article.main-col div.postcard-container div.daily-tab .up
 section.main-container article.main-col div.postcard-container div.daily-tab .uploaded-photo {
   display: none;
 }
+section.main-container article.main-col div.postcard-container div.daily-tab button {
+  margin-top: 0.45rem;
+}
 section.main-container article.main-col div.postcard-container div.event-tab {
   margin-bottom: 0px;
 }
@@ -69,6 +72,9 @@ section.main-container article.main-col div.postcard-container div.baby-check-co
   margin: 0;
   margin-right: 0.5rem;
   display: inline-block;
+}
+section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check label {
+  padding-left: 23px;
 }
 section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check label img {
   width: 2.2rem;

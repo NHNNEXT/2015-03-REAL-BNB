@@ -17,6 +17,16 @@
 .toast {
   background-color: #74d0cb !important;
 }
+.btn {
+  padding: 0 1.4rem;
+  height: 33px;
+  line-height: 33px;
+  background-color: #74d0cb;
+  box-shadow: none;
+}
+.btn:hover {
+  box-shadow: none;
+}
 body {
   background: #f3ede8;
   color: #6f6c66;
@@ -116,4 +126,11 @@ aside.left-col ul li.bfilter a {
 aside.left-col ul li.bfilter a:hover {
   background-color: #343e4c;
   transition: all 0.3s ease;
+}
+aside.left-col ul li span.badge {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
+aside.left-col ul li span.badge.new {
+  background-color: #74d0cb;
 }
