@@ -201,7 +201,6 @@ var User = {
         }).then( function(res) {
             // bMain.babyList = res.data;
             $.each(res.data, function(k, v) {
-                console.log("느아앙");
                 if(v.bid == bId) {
                     console.log(v.bid);
                     cCtrl.filteredBaby = v;
