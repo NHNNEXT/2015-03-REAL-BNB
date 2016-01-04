@@ -76,26 +76,23 @@ public class CardWritingActivity extends AppCompatActivity {
             taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
                 @Override
                 public void success(GeneralCardVo generalCardVo, Response response) {
-                    Log.d("test", "success card_id"+card_id);
+                    Log.d("test", "card type" + generalCardVo.getType());
                     cardVo[0] = generalCardVo;
 
                     Bundle bundle = new Bundle();
                     bundle.putLong("cId", card_id);
 
-                    // bundle.putParcelable("vo", Parcels.wrap(cardVo));
-                    Log.d("test", "modify start~" + cardVo[0].type);
-                    // ((OnSetCardListener) fragmentList.get(0)).setCardInfo(generalCardVo);
-
-                    if(cardVo[0].type == "NORMAL") {
+                    if(cardVo[0].type.equals("NORMAL")) {
                         GeneralCardFragment generalCardFragment = new GeneralCardFragment();
                         generalCardFragment.setArguments(bundle);
+
                         Log.d("test", "general");
 
-                    }else if(cardVo[0].type == "EVENT"){
+                    }else if(cardVo[0].type.equals("EVENT")){
                         Log.d("test", "event");
+                        EventCardFragment eventCardFragment = new EventCardFragment();
+                        eventCardFragment.setArguments(bundle);
                         viewPager.setCurrentItem(1);
-
-                       // eventCardFragment.setArguments(bundle);
 
                     }
                 }
@@ -107,6 +104,8 @@ public class CardWritingActivity extends AppCompatActivity {
             });
 
         }
+
+
     }
 
     private void initBabyTag() {
@@ -202,8 +201,12 @@ public class CardWritingActivity extends AppCompatActivity {
 
             Long l = new Long(2);
 
+
             TokenUtil tu = new TokenUtil(context);
             tu.getToken();
+
+//            int idx = vo.names.size();
+//            vo.names.get(0);
 
 
             TaskService taskService = ServiceGenerator.createService(TaskService.class);

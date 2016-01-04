@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.ImageUtil;
-import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -69,31 +68,27 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         Bundle bundle = getActivity().getIntent().getExtras();
        // Bundle bundle = getArguments();
         if(bundle == null){
-            Log.d("test", "bundle null");
         }
 
         if (bundle != null) {
             long card_id = bundle.getLong("cId");
-            Log.d("test", "cid 넘어왔니 " + card_id);
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
             taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
                 @Override
                 public void success(GeneralCardVo generalCardVo, Response response) {
                     card = (GeneralCardVo) generalCardVo;
-                    Log.d("test", "card null ?" + card.cid);
 
+                    if(card.getType().equals("NORMAL")) {
 
-                    if(card != null){
-                        memo_tv.setText(card.content);
-                        Picasso.with(context)
-                                .load((Define.URL+card.cardImg))
-                                .placeholder(R.mipmap.ic_launcher)
-                                .into(photo_iv);
-
+                        if (card != null) {
+                            memo_tv.setText(card.content);
+                            Picasso.with(context)
+                                    .load((Define.URL + card.cardImg))
+                                    .placeholder(R.mipmap.ic_launcher)
+                                    .into(photo_iv);
+                        }
                     }
-
                 }
-
 
                 @Override
                 public void failure(RetrofitError error) {
@@ -116,7 +111,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
         card_date_et = (EditText)this.getActivity().findViewById(R.id.card_date);
 
-        card_date_et.setText(TimeUtil.getRecordedMoment());
+        //card_date_et.setText(TimeUtil.getRecordedMoment());
 
         if(card != null){
             memo_tv.setText(card.content);
