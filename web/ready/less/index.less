@@ -69,6 +69,8 @@ section.main-container {
                 .bc-action {
                     margin: 0 1rem;
                     color: @light-gray;
+                    cursor: pointer;
+
                     .date-container {
                         display: inline-block;
                     }
@@ -80,6 +82,10 @@ section.main-container {
                         .action-btn {
                             display: inline-block;
                             // float: right;
+                            &:hover {
+                                color: @hover-primary;
+                                transition: @transition;
+                            }
 
                         }
                         .action-dropdown-menu {
@@ -89,7 +95,7 @@ section.main-container {
                             z-index: 100;
                             font-size: 14px;
                             text-align: left;
-                            background-color: #fff;
+                            background-color: white;
                             // border: 1px solid #ccc;
                             // border: 1px solid rgba(0,0,0,0.15);
                             border-radius: 4px;
@@ -116,15 +122,20 @@ section.main-container {
                                     transform: translateY(0px);
                                     -webkit-transition: all 0.3s ease;
                                     transform: translateY(-30%);
+
                                 }
                             }
                             &.active {
                                 opacity:1;
+                                box-shadow: 1px 7px 6px 0 rgba(0, 0, 0, 0.11);
                                 -webkit-transform-origin: right top 0px;
                                 -webkit-transform: scale(1);
                                 li {
                                     opacity: 1;
                                     transform: translateY(0px);
+                                    &:hover {
+                                        background-color: #E8E8E8;
+                                    }
                                 }
                             }
                         }
@@ -146,6 +157,7 @@ section.main-container {
                     color: @light-gray;
                     .baby {
                         display: inline-block;
+                        margin-right: 0.7rem;
                         img {
                             width: 2em;
                             height: 2em
@@ -244,7 +256,7 @@ div#modal-main {
                 .add-baby-btn {
                     text-align: center;
                     button {
-                        transition: all 0.3s ease;
+                        transition: @transition;
                         display: inline-block;
                         padding: 0.5em 1em;
                         border-radius: 1.4em;

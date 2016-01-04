@@ -45,6 +45,7 @@ section.main-container article.main-col div.card-container div.baby-card {
 section.main-container article.main-col div.card-container div.baby-card .bc-action {
   margin: 0 1rem;
   color: #CECECE;
+  cursor: pointer;
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .date-container {
   display: inline-block;
@@ -57,13 +58,17 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-btn {
   display: inline-block;
 }
+section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-btn:hover {
+  color: #9b7bba;
+  transition: all 0.3s ease;
+}
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu {
   position: absolute;
   right: 20px;
   z-index: 100;
   font-size: 14px;
   text-align: left;
-  background-color: #fff;
+  background-color: white;
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
@@ -92,12 +97,16 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu.active {
   opacity: 1;
+  box-shadow: 1px 7px 6px 0 rgba(0, 0, 0, 0.11);
   -webkit-transform-origin: right top 0px;
   -webkit-transform: scale(1);
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu.active li {
   opacity: 1;
   transform: translateY(0px);
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu.active li:hover {
+  background-color: #E8E8E8;
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-photo {
   width: 100%;
@@ -116,6 +125,7 @@ section.main-container article.main-col div.card-container div.baby-card .babies
 }
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby {
   display: inline-block;
+  margin-right: 0.7rem;
 }
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby img {
   width: 2em;

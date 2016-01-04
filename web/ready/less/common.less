@@ -97,6 +97,9 @@ aside.left-col {
                 font-size: 1.3rem;
                 font-weight: 900;
             }
+            .role {
+                color: rgba(255, 255, 255, 0.66);
+            }
         }
     }
     ul {
@@ -107,7 +110,7 @@ aside.left-col {
                 color: white;
                 &:hover {
                     background-color: rgb(52, 62, 76);
-                    transition: all 0.3s ease;
+                    transition: @transition;
                 }
                 i {
                     margin-right: 0.3rem;
@@ -119,9 +122,9 @@ aside.left-col {
                     padding-left: 2.5rem;
                     background-color: #48505A;
                     &:hover {
-                    background-color: rgb(52, 62, 76);
-                    transition: all 0.3s ease;
-                }
+                        background-color: rgb(52, 62, 76);
+                        transition: @transition;
+                    }
                 }
             }
         }
