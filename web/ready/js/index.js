@@ -289,6 +289,9 @@ balbumApp.config(function($routeProvider) {
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
         })
+        .when('/:cId', {
+            templateUrl : 'pages/card-timeline.htm',
+        })
         .when('/baby/:babyId', {
             templateUrl : 'pages/card-timeline.htm',
         })

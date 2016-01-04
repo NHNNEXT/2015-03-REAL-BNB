@@ -106,10 +106,17 @@ section.main-container article.main-col div.card-container div.baby-card .bc-pho
 section.main-container article.main-col div.card-container div.baby-card .bc-content {
   margin: 1.5rem 1rem;
 }
+section.main-container article.main-col div.card-container div.baby-card .divider {
+  height: 0.05rem;
+  background-color: #f3ede8;
+  margin-bottom: 0.4rem;
+}
 section.main-container article.main-col div.card-container div.baby-card .babies-container {
   margin: 0 1rem;
-  display: inline-block;
   color: #CECECE;
+}
+section.main-container article.main-col div.card-container div.baby-card .babies-container .baby {
+  display: inline-block;
 }
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
