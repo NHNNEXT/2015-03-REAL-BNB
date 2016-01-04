@@ -23,7 +23,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity
     CardViewAdapter adapter;
     List<BabyTagVo> babyList;
     ImageView imageView;
+    DrawerLayout drawer;
+    BabyTagAdapter babyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         getData();
         getBabyInfo();
         initNavProfile();
+
     }
 
     private void initNavProfile() {
@@ -116,8 +118,8 @@ public class MainActivity extends AppCompatActivity
                 for (BabyVo baby : babyVos) {
                     BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
                     babyList.add(babyTag);
-                    initNavRecyclerView();
                 }
+                initNavRecyclerView();
             }
 
             @Override
@@ -131,8 +133,8 @@ public class MainActivity extends AppCompatActivity
         RecyclerView navRecyclerView = (RecyclerView)findViewById(R.id.nav_recycler_view);
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         navRecyclerView.setLayoutManager(sglm);
-        BabyTagAdapter adapter = new BabyTagAdapter(babyList, context);
-        navRecyclerView.setAdapter(adapter);
+        babyAdapter = new BabyTagAdapter(babyList, context);
+        navRecyclerView.setAdapter(babyAdapter);
     }
 
     private void getData() {
@@ -160,6 +162,7 @@ public class MainActivity extends AppCompatActivity
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+//        Log.d("test", "initview name" + cardGeneralModelList.get(0).babies.get(0).babyName);
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -189,20 +192,25 @@ public class MainActivity extends AppCompatActivity
     private void initNavigationView() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                Log.d("test", "navBaby" + babyAdapter.getSelectedNames().size());
+                babyFilter(babyAdapter.getSelectedNames());
+            }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        drawerLayout = (LinearLayout)findViewById(R.id.drawer_calendar);
-        drawerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "선택된 날짜로 타임라인 이동~~", Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
 
+    private void babyFilter(List<BabyTagVo> selectedNames) {
+        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+        //선택된 애기 리스트 서버 전달하고 그 아이들이 태깅된 카드 리스트 받아와서 initview 시킬 것!!
+        
     }
 
     private void initToolbar() {
@@ -260,7 +268,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_poster2) {
             ActivityUtil.goToActivity(context, PosterCardSelectingActivity2.class);
 
-        }  else if ( id == R.id.logout){
+        }  else if (id == R.id.nav_poster3) {
+            ActivityUtil.goToActivity(context, PosterList.class);
+
+        } else if ( id == R.id.logout){
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
