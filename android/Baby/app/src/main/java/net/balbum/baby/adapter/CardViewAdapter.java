@@ -28,6 +28,7 @@ import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.RoundedTransformation;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
@@ -150,7 +151,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Define.CARD_MODIFY);
         Long card_id = (Long) cards.get(position).cid;
-        //GeneralCardVo vo = cards.get(position);
         intent.putExtra("cId", card_id);
         context.startActivity(intent);
     }
@@ -196,9 +196,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         profile_container.removeAllViews();
 
         final int idx = cards.get(position).babies.size();
+//        Log.d("test", "baby" + cards.get(position).babies.size() + " , position " + position);
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(80, 80);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 80);
 
 
             for (int i = 0; i < idx; i++) {
@@ -209,7 +210,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
                 ImageView iv_profile = new ImageView(context);
 
-                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).into(iv_profile);
+                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg) .transform(new RoundedTransformation()).into(iv_profile);
 
                // iv_profile.setImageResource(babies.get(i).babyImg);
                 iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);

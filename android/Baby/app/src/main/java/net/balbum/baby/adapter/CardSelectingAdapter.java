@@ -52,16 +52,31 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.diary_text.setText(cards.get(position).content);
-        holder.date.setText(cards.get(position).modifiedDate);
+
+
+        if(cards.get(position).getType().equals("EVENT")){
+            holder.event_date.setText(cards.get(position).modifiedDate);
+            holder.event_memo.setText(cards.get(position).content);
+            Log.d("test", "drawable" + cards.get(position).cardImg);
+
+        }else {
+            holder.event_date.setVisibility(View.GONE);
+            holder.event_memo.setVisibility(View.GONE);
+            holder.date.setText(cards.get(position).modifiedDate);
+            holder.diary_text.setText(cards.get(position).content);
+            holder.diary_text.setTypeface(typeface);
+        }
         Picasso.with(context)
                 .load((Define.URL + cards.get(position).cardImg))
                 .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
-        holder.diary_text.setText(cards.get(position).content);
-        holder.diary_text.setTypeface(typeface);
+
         babiesInfo(holder.profile_container, position);
+
+
+
+     
 
         if(cards.get(position).isSelected){
             holder.check_img.setVisibility(View.VISIBLE);
@@ -153,6 +168,8 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         ImageButton more_btn;
         RelativeLayout container;
         ImageView check_img;
+        TextView event_date;
+        TextView event_memo;
 
 
         ViewHolder(View itemView) {
@@ -168,6 +185,8 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
             modify = (TextView) itemView.findViewById(R.id.modify_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
             check_img = (ImageView) itemView.findViewById(R.id.check_image);
+            event_date = (TextView)itemView.findViewById(R.id.event_date);
+            event_memo=(TextView)itemView.findViewById(R.id.event_memo);
         }
     }
 }
