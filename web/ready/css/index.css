@@ -1,4 +1,3 @@
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 section.main-container {
   padding-left: 230px;
 }
@@ -14,41 +13,70 @@ section.main-container article.main-col div.postcard-container {
   background: white;
   margin-top: 0.8rem;
   margin-bottom: 0.9rem;
-  padding: 0.75rem 0.75rem;
+  padding: 0;
   border-radius: 0.7rem;
+}
+section.main-container article.main-col div.postcard-container div.postcard-tabs {
+  padding: 0;
+}
+section.main-container article.main-col div.postcard-container div.postcard-tabs .tabs {
+  border-radius: 0.7rem;
+}
+section.main-container article.main-col div.postcard-container div.postcard-tabs .tabs .tab a {
+  background-color: rgba(236, 231, 219, 0.3);
+  color: #949494;
+}
+section.main-container article.main-col div.postcard-container div.postcard-tabs .tabs .tab a:hover {
+  color: #896DA5;
+}
+section.main-container article.main-col div.postcard-container div.postcard-tabs .tabs .tab a.active {
+  color: #896DA5;
+  background-color: transparent;
 }
 section.main-container article.main-col div.postcard-container textarea,
 section.main-container article.main-col div.postcard-container .input-field input,
 section.main-container article.main-col div.postcard-container .date-container input {
+  margin-bottom: 0;
   border-bottom: none;
   box-shadow: none;
 }
+section.main-container article.main-col div.postcard-container .date-container input {
+  cursor: pointer;
+}
+section.main-container article.main-col div.postcard-container div.daily-tab {
+  margin-bottom: 0px;
+}
 section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box {
-  margin-top: 10px;
+  margin-top: 13px;
   width: 100%;
-  height: 50px;
+  height: 56px;
   border: 1px dashed #CECECE;
   color: #CECECE;
   text-align: center;
   cursor: pointer;
 }
 section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box i {
+  vertical-align: sub;
   line-height: 50px;
 }
 section.main-container article.main-col div.postcard-container div.daily-tab .uploaded-photo {
   display: none;
+}
+section.main-container article.main-col div.postcard-container div.event-tab {
+  margin-bottom: 0px;
 }
 section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check {
   margin: 0;
   margin-right: 0.5rem;
   display: inline-block;
 }
-section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check label {
-  opacity: 0.6;
-}
 section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check label img {
   width: 2.2rem;
   height: 2.2rem;
+}
+section.main-container article.main-col div.postcard-container div.divider {
+  margin: 0.5rem -0.75rem 0;
+  background-color: #f3ede8;
 }
 section.main-container article.main-col div.card-container div.baby-card {
   background-color: white;
@@ -63,6 +91,7 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .date-container {
   display: inline-block;
+  color: #92889C;
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container {
   display: inline-block;
@@ -135,7 +164,7 @@ section.main-container article.main-col div.card-container div.baby-card .divide
 }
 section.main-container article.main-col div.card-container div.baby-card .babies-container {
   margin: 0 1rem;
-  color: #CECECE;
+  color: #ABABAB;
 }
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby {
   display: inline-block;

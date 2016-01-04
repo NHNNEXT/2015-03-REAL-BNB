@@ -16,8 +16,9 @@ var Main = {
 var Start = {
     init: function($scope) {
         $("input[name='token']").val(token);
-        Start.getToday();
+        Start.getToday(); // postcard에 오늘 날짜 박아넣기
         $('.button-collapse').sideNav();
+
         // $('.modal-trigger').leanModal();
         // $('.datepicker').pickadate({ //materialize datepicker 동적 활성화
         //      selectMonths: true, // Creates a dropdown to control month
@@ -37,6 +38,8 @@ var Start = {
             $('#update-modal').openModal();
         });
         $('ul.tabs').tabs(); //materialize tabs 동적 활성화
+        $('.postcard-tabs .tabs li:nth-child(2) a').removeClass("active"); //tabs에서 active 떼기
+        $('div.indicator').remove(); //materialize tabs 하단 강조선 떼기
         // $('.timemachine-wrapper .row').pushpin({ top: $('.timemachine-wrapper').offset().top }); //materialize pushpins 동적 활성화
         // $scope.$apply();
     },

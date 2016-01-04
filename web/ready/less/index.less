@@ -19,27 +19,50 @@ section.main-container {
             background: white;
             margin-top: 0.8rem;
             margin-bottom: 0.9rem;
-            padding: 0.75rem 0.75rem;
+            padding: 0;
             border-radius: 0.7rem;
 
             div.postcard-tabs {
+                padding: 0;
+                .tabs {
+                    border-radius: 0.7rem;
+                    .tab {
+                        a {
+                            background-color: rgba(236, 231, 219, 0.3);;
+                            color: #949494;
+                            &:hover {
+                                color: @primary;
+                            }
+                            &.active {
+                                color: @primary;
+                                background-color: transparent;
+                            }
 
+                        }
+                    }
+                }
             }
             textarea, .input-field input, .date-container input {
+                margin-bottom: 0;
                 border-bottom: none;
                 box-shadow: none;
             }
+            .date-container input {
+                cursor: pointer;
+            }
 
             div.daily-tab {
+                margin-bottom: 0px;
                 .upload-photo-box {
-                    margin-top: 10px;
+                    margin-top: 13px;
                     width: 100%;
-                    height: 50px;
+                    height: 56px;
                     border: 1px dashed @light-gray;
                     color: @light-gray;
                     text-align: center;
                     cursor: pointer;
                     i {
+                        vertical-align: sub;
                         line-height: 50px;
                     }
                 }
@@ -49,7 +72,7 @@ section.main-container {
 
             }
             div.event-tab {
-
+                margin-bottom: 0px;
             }
             div.baby-check-container {
                 // padding: 0;
@@ -58,7 +81,6 @@ section.main-container {
                     margin-right: 0.5rem;
                     display: inline-block;
                     label {
-                        opacity: 0.6;
                         img {
                             width: 2.2rem;
                             height: 2.2rem;
@@ -68,6 +90,10 @@ section.main-container {
                     input:checked {
                     }
                 }
+            }
+            div.divider {
+                margin: 0.5rem -0.75rem 0;
+                background-color: @background-color;
             }
         }
 
@@ -86,6 +112,7 @@ section.main-container {
 
                     .date-container {
                         display: inline-block;
+                        color: @font-secondary;
                     }
 
                     .btn-container {
@@ -167,7 +194,7 @@ section.main-container {
                 }
                 .babies-container {
                     margin: 0 1rem;
-                    color: @light-gray;
+                    color: @mid-gray;
                     .baby {
                         display: inline-block;
                         margin-right: 0.7rem;
