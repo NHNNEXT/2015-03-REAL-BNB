@@ -59,9 +59,8 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu {
   position: absolute;
-  top: 70%;
   right: 20px;
-  z-index: 1000;
+  z-index: 100;
   font-size: 14px;
   text-align: left;
   background-color: #fff;
