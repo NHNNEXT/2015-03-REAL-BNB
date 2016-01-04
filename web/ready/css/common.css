@@ -20,6 +20,10 @@
 }
 body {
   background: #f3ede8;
+  color: #6f6c66;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Noto Sans KR ', ' Apple SD Gothic Neo ', ' Nanum Gothic ', ' 나눔고딕 ', ' Malgun Gothic ', ' 맑은 고딕 ', ' 돋움 ', ' Dotum ', sans-serif, ' Helvetica ';
 }
 h1,
 h2,

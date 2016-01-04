@@ -1,10 +1,10 @@
-<article ng-controller="CardController as cCtrl" data-bfilter="0" class="main-col col s12 m12 l8">
+<article ng-controller="CardController as cCtrl" data-bfilter="0" class="main-col col s12 m12 l10">
     <div class="baby-title" ng-show="cCtrl.isBabyPage">
         <img class="photo circle" src="http://dev.balbum.net{{cCtrl.filteredBaby.babyImg}}" alt="Baby Image">
         {{cCtrl.filteredBaby.babyName}}의 타임라인
         {{cCtrl.filteredBaby.babyDate}}살
     </div>
-    <div class="postcard-container card row scrollspy" ng-hide="cCtrl.isBabyPage" id="card-now">
+    <div class="postcard-container row scrollspy" ng-hide="cCtrl.isBabyPage" id="card-now">
             <div class="postcard-tabs col s12">
                 <ul class="tabs">
                     <li class="tab col s3"><a class="active" href="#daily-tab">일상의 순간</a></li>
@@ -63,37 +63,31 @@
         </div>
     </div>
     <div class="card-container row">
-        <div class="baby-card bCard card scrollspy col s12" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
-            <div class="bc-photo card-image">
-                <img src=" http://dev.balbum.net{{bc.cardImg}}">
-            </div>
-            <div class="bc-content card-content">
-                <p>{{bc.content}}</p>
-            </div>
-            <div class="bc-action card-action">
-                <div class="date-container">
-                    <a href="#">{{bc.modifiedDate}}</a>
-                </div>
-                <div class="babies-container" ng-repeat=" baby in bc.babies">
-                    <div class="baby">
-                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyDate}}
-                    </div>
-                </div>
+        <div class="baby-card bCard scrollspy col s12 l6" data-cid="{{bc.cid}}" id="card-{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
+            <div class="bc-action">
+                <div class="date-container">{{bc.modifiedDate}}</div>
                 <div class="btn-container">
-                    <div class='action-dropdown-btn action-btn' ng-click="cardActionDropdownClick($event, bc.cid)"><i class="material-icons">more_horiz</i></div>
                     <div class="share-btn action-btn"><i class="material-icons">share</i></div>
+                    <div class='action-dropdown-btn action-btn' ng-click="cCtrl.cardActionDropdownClick($event, bc.cid)"><i class="material-icons">expand_more</i></div>
                     <div class="action-dropdown-menu">
                         <ul>
-                            <li class="card-modify" ng-click="cardModify(bc.cid)">수정</li>
-                            <li class="card-delete" ng-click="cardDelete(bc.cid)">삭제</li>
+                            <li class="card-modify" ng-click="cCtrl.cardModify(bc.cid)">수정</li>
+                            <li class="card-delete" ng-click="cCtrl.cardDelete(bc.cid)">삭제</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+            <img class="bc-photo" src=" http://dev.balbum.net{{bc.cardImg}}">
+            <div class="bc-content">{{bc.content}}</div>
+            <div class="babies-container" ng-repeat=" baby in bc.babies">
+                <div class="baby">
+                    <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyDate}}
                 </div>
             </div>
         </div>
     </div>
 </article>
-<aside class="right-col col l4 hide-on-med-and-down">
+<aside class="right-col col l2 hide-on-med-and-down">
     <div class="timemachine-wrapper">
         <div class="row">
             <ul class="section table-of-contents">

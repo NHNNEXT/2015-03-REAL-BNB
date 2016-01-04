@@ -1,5 +1,6 @@
 @import (once) "var";
 @left-col-width: 230px;
+@space: 0.75rem;
 
 //*-- Main Container --*//
 section.main-container {
@@ -11,9 +12,16 @@ section.main-container {
     //*-- 메인 타임라인 --*//
     article.main-col {
         height: 600px;
+        // padding: 0.75rem 0.75rem 0;
 
         //*-- 카드 작성 컨테이너 --*//
         div.postcard-container {
+            background: white;
+            margin-top: 0.8rem;
+            margin-bottom: 0.9rem;
+            padding: 0.75rem 0;
+            border-radius: 0.7rem;
+
             div.postcard-tabs {
 
             }
@@ -53,25 +61,25 @@ section.main-container {
         //*-- 작성된 카드들 컨테이너 --*//
         div.card-container {
             div.baby-card {
-                .bc-content {
+                background-color: white;
+                margin-bottom: 0.9rem;
+                padding: 0.75rem 0;
+                border-radius: 0.7rem;
 
-                }
                 .bc-action {
+                    margin: 0 1rem;
+                    color: @light-gray;
                     .date-container {
+                        display: inline-block;
+                    }
 
-                    }
-                    .babies-container {
-                        .baby {
-                            img {
-                                width: 2em;
-                                height: 2em
-                            }
-                        }
-                    }
                     .btn-container {
+                        display: inline-block;
+                        float: right;
+                        vertical-align: middle;
                         .action-btn {
                             display: inline-block;
-                            float: right;
+                            // float: right;
 
                         }
                         .action-dropdown-menu {
@@ -119,6 +127,23 @@ section.main-container {
                                     transform: translateY(0px);
                                 }
                             }
+                        }
+                    }
+                }
+                .bc-photo {
+                    width: 100%;
+                }
+                .bc-content {
+                    margin: 1.5rem 1rem;
+                }
+                .babies-container {
+                    margin: 0 1rem;
+                    display: inline-block;
+                    color: @light-gray;
+                    .baby {
+                        img {
+                            width: 2em;
+                            height: 2em
                         }
                     }
                 }

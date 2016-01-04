@@ -10,6 +10,13 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
+section.main-container article.main-col div.postcard-container {
+  background: white;
+  margin-top: 0.8rem;
+  margin-bottom: 0.9rem;
+  padding: 0.75rem 0;
+  border-radius: 0.7rem;
+}
 section.main-container article.main-col div.postcard-container div.daily-tab .upload-photo-box {
   margin-top: 10px;
   width: 100%;
@@ -29,13 +36,26 @@ section.main-container article.main-col div.postcard-container div.baby-check-co
   width: 2.2rem;
   height: 2.2rem;
 }
-section.main-container article.main-col div.card-container div.baby-card .bc-action .babies-container .baby img {
-  width: 2em;
-  height: 2em;
+section.main-container article.main-col div.card-container div.baby-card {
+  background-color: white;
+  margin-bottom: 0.9rem;
+  padding: 0.75rem 0;
+  border-radius: 0.7rem;
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-action {
+  margin: 0 1rem;
+  color: #CECECE;
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-action .date-container {
+  display: inline-block;
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container {
+  display: inline-block;
+  float: right;
+  vertical-align: middle;
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-btn {
   display: inline-block;
-  float: right;
 }
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu {
   position: absolute;
@@ -79,6 +99,21 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu.active li {
   opacity: 1;
   transform: translateY(0px);
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-photo {
+  width: 100%;
+}
+section.main-container article.main-col div.card-container div.baby-card .bc-content {
+  margin: 1.5rem 1rem;
+}
+section.main-container article.main-col div.card-container div.baby-card .babies-container {
+  margin: 0 1rem;
+  display: inline-block;
+  color: #CECECE;
+}
+section.main-container article.main-col div.card-container div.baby-card .babies-container .baby img {
+  width: 2em;
+  height: 2em;
 }
 section.main-container article.settings-col {
   margin: 0;

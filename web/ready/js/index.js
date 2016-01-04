@@ -359,16 +359,16 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     CardCRUD.post($scope, this); /* 카드를 서버에 저장하기 */
 
 
-    $scope.cardActionDropdownClick = function($event, cid) {
+    cCtrl.cardActionDropdownClick = function($event, cid) {
         $event.stopPropagation();
         $('.baby-card[data-cid="' + cid + '"]').find('.action-dropdown-menu').toggleClass("active");
     }
 
-    $scope.cardModify = function(cid) {
+    cCtrl.cardModify = function(cid) {
         console.log("modify", cid);
         $('#update-modal').openModal();
     }
-    $scope.cardDelete = function(cid) {
+    cCtrl.cardDelete = function(cid) {
         CardCRUD.delete($scope, cCtrl, $http, cid);
     }
 
