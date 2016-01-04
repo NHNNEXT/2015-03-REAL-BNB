@@ -34,7 +34,7 @@ section.main-container article.main-col div.postcard-container div.postcard-tabs
   background-color: transparent;
 }
 section.main-container article.main-col div.postcard-container textarea,
-section.main-container article.main-col div.postcard-container .input-field input,
+section.main-container article.main-col div.postcard-container input.event-txt,
 section.main-container article.main-col div.postcard-container .date-container input {
   margin-bottom: 0;
   border-bottom: none;
@@ -68,6 +68,23 @@ section.main-container article.main-col div.postcard-container div.daily-tab but
 section.main-container article.main-col div.postcard-container div.event-tab {
   margin-bottom: 0px;
 }
+section.main-container article.main-col div.postcard-container div.event-tab .event-contents {
+  margin: 2rem 1rem 0.1rem;
+}
+section.main-container article.main-col div.postcard-container div.event-tab .event-contents .date-container {
+  text-align: center;
+}
+section.main-container article.main-col div.postcard-container div.event-tab .event-contents .date-container input {
+  display: inline-block;
+  text-align: center;
+  font-size: 1.6rem;
+  padding-left: 10%;
+  width: 90%;
+}
+section.main-container article.main-col div.postcard-container div.event-tab .event-contents textarea.event-txt {
+  text-align: center;
+  font-size: 1.7rem;
+}
 section.main-container article.main-col div.postcard-container div.baby-check-container .baby-check {
   margin: 0;
   margin-right: 0.5rem;
@@ -83,6 +100,9 @@ section.main-container article.main-col div.postcard-container div.baby-check-co
 section.main-container article.main-col div.postcard-container div.divider {
   margin: 0.5rem -0.75rem 0;
   background-color: #f3ede8;
+}
+section.main-container article.main-col div.postcard-container button {
+  margin: 0.35rem 0;
 }
 section.main-container article.main-col div.card-container div.baby-card {
   background-color: white;
