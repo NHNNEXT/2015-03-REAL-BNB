@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/iv_image"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:scaleType="centerInside"
@@ -20,7 +21,7 @@
         android:layout_below="@+id/iv_image"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:textColor="@color/purple2"
+        android:textColor="@color/text"
         android:textSize="6dp"
         android:textStyle="italic"/>
 
@@ -36,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:gravity="center_horizontal"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
     </HorizontalScrollView>
 
 
@@ -49,6 +52,8 @@
         android:lineSpacingExtra="5dp"
         android:maxLines="5"
         android:padding="2dp"
-        android:textSize="8dp"
+        android:textSize="6dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:textColor="@color/text" />
 </RelativeLayout>

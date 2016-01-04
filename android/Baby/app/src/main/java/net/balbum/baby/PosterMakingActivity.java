@@ -151,46 +151,68 @@ public class PosterMakingActivity extends AppCompatActivity {
 
         final int idx = card.babies.size();
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(30, 30);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 30);
 
         babies = new ArrayList<BabyVo>();
-        TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        taskService.getBabies("token", new Callback<ArrayList<BabyVo>>() {
-            @Override
-            public void success(ArrayList<BabyVo> babyVos, Response response) {
-                babies = babyVos;
 
-                for (int i = 0; i < idx; i++) {
+        for(int i = 0 ; i < idx; i++) {
+            babies = cardList.get(i).babies;
+            LinearLayout linLayout = new LinearLayout(context);
+            linLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-                    LinearLayout linLayout = new LinearLayout(context);
-                    linLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    linLayout.setGravity(Gravity.CENTER_VERTICAL);
+            ImageView iv_profile = new ImageView(context);
+            Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
+            iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
+            linLayout.addView(iv_profile, imageParam);
 
-                    ImageView iv_profile = new ImageView(context);
+            TextView tv = new TextView(context);
+            tv.setText(babies.get(i).babyDate);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 6);
+            tv.setLayoutParams(tvParam);
+            tv.setGravity(Gravity.CENTER);
+            linLayout.addView(tv);
+            ((LinearLayout) profile_container).addView(linLayout);
+        }
 
-                    Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
-
-                    // iv_profile.setImageResource(babies.get(i).babyImg);
-                    iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
-                    linLayout.addView(iv_profile, imageParam);
-
-                    TextView tv = new TextView(context);
-                    tv.setText("13개월");
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-                    tv.setLayoutParams(tvParam);
-                    tv.setGravity(Gravity.CENTER);
-                    linLayout.addView(tv);
-                    ((LinearLayout) profile_container).addView(linLayout);
-                }
-            }
-
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
+//        TokenUtil tu = new TokenUtil(context);
+//        TaskService taskService = ServiceGenerator.createService(TaskService.class);
+//        taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
+//            @Override
+//            public void success(ArrayList<BabyVo> babyVos, Response response) {
+//                babies = babyVos;
+//
+//                for (int i = 0; i < idx; i++) {
+//
+//                    LinearLayout linLayout = new LinearLayout(context);
+//                    linLayout.setOrientation(LinearLayout.HORIZONTAL);
+//                    linLayout.setGravity(Gravity.CENTER_VERTICAL);
+//
+//                    ImageView iv_profile = new ImageView(context);
+//
+//                    Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
+//
+//                    // iv_profile.setImageResource(babies.get(i).babyImg);
+//                    iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
+//                    linLayout.addView(iv_profile, imageParam);
+//
+//                    TextView tv = new TextView(context);
+//                    tv.setText("13개월");
+//                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 8);
+//                    tv.setLayoutParams(tvParam);
+//                    tv.setGravity(Gravity.CENTER);
+//                    linLayout.addView(tv);
+//                    ((LinearLayout) profile_container).addView(linLayout);
+//                }
+//            }
+//
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//
+//            }
+   //     });
         //이 가족이 가진 애기 리스트를 가지고 loop돌림
 //        List<Integer> baby_list = new ArrayList();
 //        baby_list.add(R.drawable.b1);

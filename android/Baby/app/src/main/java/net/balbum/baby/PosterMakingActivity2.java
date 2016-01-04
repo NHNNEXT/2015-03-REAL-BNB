@@ -179,8 +179,8 @@ public class PosterMakingActivity2 extends AppCompatActivity {
 
         final int idx = card.babies.size();
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(30, 30);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 30);
 
         babies = new ArrayList<BabyVo>();
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
@@ -205,7 +205,7 @@ public class PosterMakingActivity2 extends AppCompatActivity {
 
                     TextView tv = new TextView(context);
                     tv.setText("13개월");
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 4);
                     tv.setLayoutParams(tvParam);
                     tv.setGravity(Gravity.CENTER);
                     linLayout.addView(tv);

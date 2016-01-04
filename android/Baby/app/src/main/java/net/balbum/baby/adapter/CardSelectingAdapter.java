@@ -106,8 +106,8 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
             int idx = cards.get(position).babies.size();
 
-            LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-            LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+            LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(40, 40);
+            LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 40);
 
             //이 가족이 가진 애기 리스트를 가지고 loop돌림
             List<Integer> baby_list = new ArrayList();
@@ -128,7 +128,7 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
                 TextView tv = new TextView(context);
                 tv.setText("13개월");
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 8);
                 tv.setLayoutParams(tvParam);
                 tv.setGravity(Gravity.CENTER);
                 linLayout.addView(tv);
