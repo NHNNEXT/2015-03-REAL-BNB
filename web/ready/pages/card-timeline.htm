@@ -21,6 +21,15 @@
                     <input class="upload-photo-input disappear" type="file" name="image">
                     <img class="uploaded-photo" src="#" alt="uploaded photo" />
                     <textarea placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
+                    <div class="baby-check-container card-content">
+                        <p class="baby-check" ng-repeat="baby in bMain.babyList">
+                            <input class="baby-check-input" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}"/>
+                            <label for="bid-{{baby.bid}}">
+                                <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                {{baby.babyName}}
+                            </label>
+                        </p>
+                    </div>
                     <div class="date-container col s5">
                         <input type="date" name="modifiedDate"/><br/>
                     </div>
@@ -39,15 +48,6 @@
                     </div>
                     <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button>
                 </form>
-            </div>
-            <div class="baby-check-container card-content">
-                <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                    <input class="baby-check-input" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}"/>
-                    <label for="bid-{{baby.bid}}">
-                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                        {{baby.babyName}}
-                    </label>
-                </p>
             </div>
         </form>
     </div>
