@@ -25,7 +25,9 @@ public class TagService {
 		}
 		List<Baby> babyList = new ArrayList<Baby>();
 		for (Long bId : bIds) {
-			babyList.add(babyRepo.findOne(bId));
+			Baby baby = babyRepo.findOne(bId);
+			if(baby == null)continue;
+			babyList.add(baby);
 		}
 		return babyList;
 	}

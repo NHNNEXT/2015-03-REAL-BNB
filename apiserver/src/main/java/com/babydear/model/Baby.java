@@ -1,5 +1,6 @@
 package com.babydear.model;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.babydear.util.DateFormatter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,6 +57,12 @@ public class Baby {
 	
 	public Baby(Long bId) {
 		this.bId = bId;
+	}
+	
+	public void setBabyBirth(String babyBirth){
+		DateFormatter f = new DateFormatter();
+		this.babyBirth = babyBirth;
+		this.babyBirthFommat = f.calculateFromBabyToCard(babyBirth);
 	}
 	
 	@Override

@@ -51,7 +51,25 @@ section.make-poster-container {
 	}
 	.btn:hover{
 		background: @hover-primary !important;
-	}	
+	}
+    
+}
+
+section.select-card-container {
+    div.card-container {
+        div.baby-card {
+            // bCard와 공통 속성과 다름
+            // select-card-container 안에 있는 카드에서만의 카드 속성
+            .babies-container {
+                .baby {
+                    img {
+                        width: 2em;
+                        height: 2em
+                    }
+                }
+            }
+        }
+    }
 }
 
 section.print-poster-container {

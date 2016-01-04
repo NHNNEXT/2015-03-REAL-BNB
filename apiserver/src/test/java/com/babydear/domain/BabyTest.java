@@ -35,4 +35,12 @@ public class BabyTest {
 		String result = f.calculateFromBabyToCard(a, b);
 		System.out.println(result);
 	}
+	
+	@Test
+	public void testDateFormating_one() throws Exception {
+		String a = "1994-04-16";
+		DateFormatter f = new DateFormatter();
+		String result = f.calculateFromBabyToCard(a);
+		System.out.println(result);
+	}
 }

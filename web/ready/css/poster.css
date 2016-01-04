@@ -42,3 +42,7 @@ section.make-poster-container .btn {
 section.make-poster-container .btn:hover {
   background: #9b7bba !important;
 }
+section.select-card-container div.card-container div.baby-card .babies-container .baby img {
+  width: 2em;
+  height: 2em;
+}

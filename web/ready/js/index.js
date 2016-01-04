@@ -225,10 +225,10 @@ var CardCRUD = {
             CardCRUD.get($http, cCtrl, $(this).data('bid'));
         });
     },
-    get: function($http, cCtrl, bId) {
+    get: function($http, ctrl, bId) {
         var url = bId? 'api/filter/baby?token='+token+'&bId='+bId : 'api/card?token='+token;
         $http.get(address + url).then(function(res) {
-            cCtrl.cardList = res.data.cardList;
+            ctrl.cardList = res.data.cardList;
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
         });
@@ -298,19 +298,19 @@ balbumApp.config(function($routeProvider) {
         })
         .when('/poster/make', {
             templateUrl : 'pages/make-poster.htm',
-            controller  : 'MakePosterController'
+            controller  : 'PosterController'
         })
         .when('/poster/select', {
             templateUrl : 'pages/select-card.htm',
-            controller  : 'SelectCardController'
+            controller  : 'PosterController'
         })
         .when('/poster/print', {
             templateUrl : 'pages/print-poster.htm',
-            controller  : 'PrintPosterController'
+            controller  : 'PosterController'
         })
         .when('/poster/view', {
             templateUrl : 'pages/view-poster.htm',
-            controller  : 'ViewPosterController'
+            controller  : 'PosterController'
         })
         .when('/settings', {
             templateUrl : 'pages/settings.htm',
@@ -375,24 +375,13 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 
 });
 
-balbumApp.controller('PosterController', function($scope) {
-    $scope.message = '포스터 페이지 이지롱';
-});
+balbumApp.controller('PosterController', function($scope, $http) {
+    var pCtrl = this;
 
-balbumApp.controller('MakePosterController', function($scope) {
-    $scope.message = '포스터 만들기 페이지 이지롱';
-});
+    pCtrl.cardList;
+    CardCRUD.get($http, pCtrl); /* 서버에 저장된 카드 가져오기 */
 
-balbumApp.controller('SelectCardController', function($scope) {
-    $scope.message = '카드 선택 페이지 이지롱';
-});
 
-balbumApp.controller('PrintPosterController', function($scope) {
-    $scope.message = '포스터 인쇄하기 페이지 이지롱';
-});
-
-balbumApp.controller('ViewPosterController', function($scope) {
-    $scope.message = '포스터 보기 페이지 이지롱';
 });
 
 balbumApp.controller('SettingsController', function($scope) {
