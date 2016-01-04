@@ -78,13 +78,55 @@ nav.nav-top {
 
 //*-- left col --*//
 aside.left-col {
-    background: #3F4A58;
+    background: rgba(63, 74, 88, 0.91);;
     color: white;
     position:fixed;
     left:0;
     width: @left-col-width;
     height:100%;
     z-index: 1;
+    div.my-info {
+        padding: 1rem 0 0;
+        text-align: center;
+        img.photo {
+            width: 55%;
+        }
+        div.info {
+            margin-top: 0.5rem;
+            .name {
+                font-size: 1.3rem;
+                font-weight: 900;
+            }
+        }
+    }
+    ul {
+        li {
+            a {
+                padding: 0.5rem 0.7rem;
+                display: block;
+                color: white;
+                &:hover {
+                    background-color: rgb(52, 62, 76);
+                    transition: all 0.3s ease;
+                }
+                i {
+                    margin-right: 0.3rem;
+                    vertical-align: text-bottom;
+                }
+            }
+            &.bfilter {
+                a {
+                    padding-left: 2.5rem;
+                    background-color: #48505A;
+                    &:hover {
+                    background-color: rgb(52, 62, 76);
+                    transition: all 0.3s ease;
+                }
+                }
+            }
+        }
+    }
+
 }
 
 //*-- 카드 공통속성 --*//

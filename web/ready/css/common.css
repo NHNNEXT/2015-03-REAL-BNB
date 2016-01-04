@@ -69,11 +69,46 @@ nav.nav-top #nav-mobile a {
   }
 }
 aside.left-col {
-  background: #3F4A58;
+  background: rgba(63, 74, 88, 0.91);
   color: white;
   position: fixed;
   left: 0;
   width: 230px;
   height: 100%;
   z-index: 1;
+}
+aside.left-col div.my-info {
+  padding: 1rem 0 0;
+  text-align: center;
+}
+aside.left-col div.my-info img.photo {
+  width: 55%;
+}
+aside.left-col div.my-info div.info {
+  margin-top: 0.5rem;
+}
+aside.left-col div.my-info div.info .name {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+aside.left-col ul li a {
+  padding: 0.5rem 0.7rem;
+  display: block;
+  color: white;
+}
+aside.left-col ul li a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
+}
+aside.left-col ul li a i {
+  margin-right: 0.3rem;
+  vertical-align: text-bottom;
+}
+aside.left-col ul li.bfilter a {
+  padding-left: 2.5rem;
+  background-color: #48505A;
+}
+aside.left-col ul li.bfilter a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
 }
