@@ -1,5 +1,6 @@
 @import (once) "var";
 @left-col-width: 230px;
+@space: 0.75rem;
 
 //*-- Main Container --*//
 section.main-container {
@@ -11,77 +12,156 @@ section.main-container {
     //*-- 메인 타임라인 --*//
     article.main-col {
         height: 600px;
+        // padding: 0.75rem 0.75rem 0;
 
         //*-- 카드 작성 컨테이너 --*//
         div.postcard-container {
-            div.postcard-tabs {
+            background: white;
+            margin-top: 0.8rem;
+            margin-bottom: 0.9rem;
+            padding: 0;
+            border-radius: 0.7rem;
 
+            div.postcard-tabs {
+                padding: 0;
+                .tabs {
+                    border-radius: 0.7rem;
+                    .tab {
+                        a {
+                            background-color: rgba(236, 231, 219, 0.3);;
+                            color: #949494;
+                            &:hover {
+                                color: @primary;
+                            }
+                            &.active {
+                                color: @primary;
+                                background-color: transparent;
+                            }
+
+                        }
+                    }
+                }
             }
+            textarea, input.event-txt, .date-container input {
+                margin-bottom: 0;
+                border-bottom: none;
+                box-shadow: none;
+            }
+            .date-container input {
+                cursor: pointer;
+            }
+
             div.daily-tab {
+                margin-bottom: 0px;
                 .upload-photo-box {
-                    margin-top: 10px;
+                    margin-top: 13px;
                     width: 100%;
-                    height: 50px;
+                    height: 56px;
                     border: 1px dashed @light-gray;
                     color: @light-gray;
                     text-align: center;
                     cursor: pointer;
                     i {
+                        vertical-align: sub;
                         line-height: 50px;
                     }
                 }
                 .uploaded-photo {
                     display: none;
                 }
+                button {
+                    margin-top: 0.45rem;
+                }
 
             }
             div.event-tab {
-
+                margin-bottom: 0px;
+                .event-contents {
+                    margin: 2rem 1rem 0.1rem;
+                    .date-container {
+                        text-align: center;
+                        input {
+                            display: inline-block;
+                            text-align: center;
+                            font-size: 1.6rem;
+                            padding-left: 10%;
+                            width: 90%;
+                        }
+                    }
+                    textarea.event-txt {
+                        text-align: center;
+                        font-size: 1.7rem;
+                    }
+                }
             }
             div.baby-check-container {
                 // padding: 0;
                 .baby-check {
-                    img {
-                        width: 2.2rem;
-                        height: 2.2rem;
+                    margin: 0;
+                    margin-right: 0.5rem;
+                    display: inline-block;
+                    label {
+                        padding-left: 23px;
+                        &:before {
+                            // top: 5px;
+                        }
+                        img {
+                            width: 2.2rem;
+                            height: 2.2rem;
 
+                        }
                     }
+
                 }
+            }
+            div.divider {
+                margin: 0.5rem -0.75rem 0;
+                background-color: @background-color;
+            }
+            button {
+                margin: 0.35rem 0;
             }
         }
 
         //*-- 작성된 카드들 컨테이너 --*//
         div.card-container {
             div.baby-card {
-                .bc-content {
+                background-color: white;
+                margin-bottom: 0.9rem;
+                padding: 0.75rem 0;
+                border-radius: 0.7rem;
 
-                }
                 .bc-action {
-                    .date-container {
+                    margin: 0 1rem;
+                    color: @light-gray;
+                    cursor: pointer;
 
+                    .date-container {
+                        display: inline-block;
+                        color: @font-secondary;
                     }
-                    .babies-container {
-                        .baby {
-                            img {
-                                width: 2em;
-                                height: 2em
-                            }
-                        }
-                    }
+
                     .btn-container {
+                        display: inline-block;
+                        float: right;
+                        vertical-align: middle;
                         .action-btn {
                             display: inline-block;
-                            float: right;
+                            // float: right;
+                            &:hover {
+                                color: @hover-primary;
+                                transition: @transition;
+                            }
 
                         }
                         .action-dropdown-menu {
                             position: absolute;
-                            top: 70%;
+                            // top: 70%;
                             right: 20px;
-                            z-index: 1000;
+                            z-index: 100;
                             font-size: 14px;
                             text-align: left;
-                            background-color: #fff;
+                            background-color: white;
                             // border: 1px solid #ccc;
                             // border: 1px solid rgba(0,0,0,0.15);
                             border-radius: 4px;
@@ -108,17 +188,45 @@ section.main-container {
                                     transform: translateY(0px);
                                     -webkit-transition: all 0.3s ease;
                                     transform: translateY(-30%);
+
                                 }
                             }
                             &.active {
                                 opacity:1;
+                                box-shadow: 1px 7px 6px 0 rgba(0, 0, 0, 0.11);
                                 -webkit-transform-origin: right top 0px;
                                 -webkit-transform: scale(1);
                                 li {
                                     opacity: 1;
                                     transform: translateY(0px);
+                                    &:hover {
+                                        background-color: #E8E8E8;
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+                .bc-photo {
+                    width: 100%;
+                }
+                .bc-content {
+                    margin: 1.5rem 1rem;
+                }
+                .divider {
+                    height: 0.05rem;
+                    background-color: @background-color;
+                    margin-bottom: 0.4rem;
+                }
+                .babies-container {
+                    margin: 0 1rem;
+                    color: @mid-gray;
+                    .baby {
+                        display: inline-block;
+                        margin-right: 0.7rem;
+                        img {
+                            width: 2em;
+                            height: 2em
                         }
                     }
                 }
@@ -214,7 +322,7 @@ div#modal-main {
                 .add-baby-btn {
                     text-align: center;
                     button {
-                        transition: all 0.3s ease;
+                        transition: @transition;
                         display: inline-block;
                         padding: 0.5em 1em;
                         border-radius: 1.4em;

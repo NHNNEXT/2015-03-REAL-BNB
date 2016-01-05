@@ -21,9 +21,23 @@
 .toast {
     background-color: #74d0cb !important;
 }
+.btn {
+    padding: 0 1.4rem;
+    height: 33px;
+    line-height: 33px;
+    background-color: @tertiary;
+    box-shadow: none;
+    &:hover {
+        box-shadow: none;
+    }
+}
 
 body {
-    background: #f3ede8;
+    background: @background-color;
+    color: @font-primary;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Noto Sans KR ', ' Apple SD Gothic Neo ', ' Nanum Gothic ', ' 나눔고딕 ', ' Malgun Gothic ', ' 맑은 고딕 ', ' 돋움 ', ' Dotum ', sans-serif, ' Helvetica ';
 }
 button {
     // background: @primary !important;
@@ -32,6 +46,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
     line-height: normal;
     margin: 0;
+}
+
+textarea {
+    border-bottom: none;
 }
 
 //*-- 네비게이션 --*//
@@ -74,13 +92,65 @@ nav.nav-top {
 
 //*-- left col --*//
 aside.left-col {
-    background: #3F4A58;
+    background: rgba(63, 74, 88, 0.91);;
     color: white;
     position:fixed;
     left:0;
     width: @left-col-width;
     height:100%;
     z-index: 1;
+    div.my-info {
+        padding: 1rem 0 0;
+        text-align: center;
+        img.photo {
+            width: 55%;
+        }
+        div.info {
+            margin-top: 0.5rem;
+            .name {
+                font-size: 1.3rem;
+                font-weight: 900;
+            }
+            .role {
+                color: rgba(255, 255, 255, 0.66);
+            }
+        }
+    }
+    ul {
+        li {
+            a {
+                padding: 0.5rem 0.7rem;
+                display: block;
+                color: white;
+                &:hover {
+                    background-color: rgb(52, 62, 76);
+                    transition: @transition;
+                }
+                i {
+                    margin-right: 0.3rem;
+                    vertical-align: text-bottom;
+                }
+            }
+            &.bfilter {
+                a {
+                    padding-left: 2.5rem;
+                    background-color: #48505A;
+                    &:hover {
+                        background-color: rgb(52, 62, 76);
+                        transition: @transition;
+                    }
+                }
+            }
+            span.badge {
+                margin-top: 0.2rem;
+                font-size: 0.9rem;
+                &.new {
+                    background-color: @tertiary;
+                }
+            }
+        }
+    }
+
 }
 
 //*-- 카드 공통속성 --*//
