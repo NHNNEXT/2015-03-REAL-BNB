@@ -2,10 +2,7 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Typeface;
-import android.os.Environment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,9 +32,6 @@ import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.List;
 
 import retrofit.Callback;
@@ -88,8 +82,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         }
         Picasso.with(context)
                 .load((Define.URL + cards.get(position).cardImg))
-                .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
+
+        //.placeholder(R.drawable.eggplant)
 
 
         babiesInfo(holder.profile_container, position);
@@ -150,8 +145,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Define.CARD_MODIFY);
-        Long card_id = (Long) cards.get(position).cid;
+        Long card_id = cards.get(position).cid;
         intent.putExtra("cId", card_id);
+        intent.putExtra("cImg", cards.get(position).cardImg);
         context.startActivity(intent);
     }
 
@@ -198,8 +194,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         final int idx = cards.get(position).babies.size();
 //        Log.d("test", "baby" + cards.get(position).babies.size() + " , position " + position);
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(80, 80);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 80);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(85, 85);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 85);
 
 
             for (int i = 0; i < idx; i++) {
@@ -210,7 +206,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
                 ImageView iv_profile = new ImageView(context);
 
-                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg) .transform(new RoundedTransformation()).into(iv_profile);
+                Log.d("test", "애기 프로필 사진 " + cards.get(position).getBabies().get(i).babyName + cards.get(position).getBabies().get(i).babyDate);
+                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).transform(new RoundedTransformation()).into(iv_profile);
 
                // iv_profile.setImageResource(babies.get(i).babyImg);
                 iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -222,7 +219,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
                 tv.setLayoutParams(tvParam);
                 tv.setGravity(Gravity.CENTER);
                 linLayout.addView(tv);
-                ((LinearLayout) profile_container).addView(linLayout);
+                profile_container.addView(linLayout);
             }
 
     }
@@ -279,52 +276,52 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
     }
 
-    public void cardCapture(View container, long i){
-
-//        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+//    public void cardCapture(View container, long i){
 //
-//        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
-
-
-
-        container.setDrawingCacheEnabled(true);
-
-        container.buildDrawingCache(true);
-
-
-/***********************핵심부분**********************************/
-        Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
-
-                container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-
-        Canvas screenShotCanvas = new Canvas(captureView);
-
-        container.draw(screenShotCanvas);
-/***********************핵심부분*****************************************/
-
-
-        FileOutputStream fos;
-        File fileRoute = null;
-        fileRoute = Environment.getExternalStorageDirectory();
-        String str_name = i+"";
-
-        try {
-
-            File path = new File(fileRoute,"temp");
-
-            if(!path.exists()){//if(!path.isDirectory()){
-                path.mkdirs();
-            }
-
-            fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
-            captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            container.setDrawingCacheEnabled(false);
-
-        }catch (FileNotFoundException e) {
-
-            e.printStackTrace();
-
-        }
-    }
+////        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+////
+////        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
+//
+//
+//
+//        container.setDrawingCacheEnabled(true);
+//
+//        container.buildDrawingCache(true);
+//
+//
+///***********************핵심부분**********************************/
+//        Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
+//
+//                container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//
+//        Canvas screenShotCanvas = new Canvas(captureView);
+//
+//        container.draw(screenShotCanvas);
+///***********************핵심부분*****************************************/
+//
+//
+//        FileOutputStream fos;
+//        File fileRoute = null;
+//        fileRoute = Environment.getExternalStorageDirectory();
+//        String str_name = i+"";
+//
+//        try {
+//
+//            File path = new File(fileRoute,"temp");
+//
+//            if(!path.exists()){//if(!path.isDirectory()){
+//                path.mkdirs();
+//            }
+//
+//            fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
+//            captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//            container.setDrawingCacheEnabled(false);
+//
+//        }catch (FileNotFoundException e) {
+//
+//            e.printStackTrace();
+//
+//        }
+//    }
 
 }

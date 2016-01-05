@@ -65,6 +65,14 @@ public interface TaskService {
     @POST("/api/card/update")
     void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
 
+    //3명
+    @Multipart
+    @POST("/api/card")
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("bIds[2]") Long m, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
+
+    @Multipart
+    @POST("/api/card/update")
+    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("bIds[2]") Long m, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
 
 
     @GET("/api/card/delete")
