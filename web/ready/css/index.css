@@ -24,9 +24,11 @@ section.main-container article.main-col .baby-title .info {
   display: inline-block;
   font-size: 1.5rem;
   font-weight: 300;
+  color: #86837F;
 }
 section.main-container article.main-col .baby-title .info .name {
   font-weight: 800;
+  color: #6f6c66;
 }
 section.main-container article.main-col div.postcard-container {
   background: white;

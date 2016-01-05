@@ -1,7 +1,7 @@
 var address = "http://dev.balbum.net/";
 // var address = "http://192.168.1.146:8080/";
-// var token = localStorage.getItem('token');
-var token = 'asdf1234';
+var token = localStorage.getItem('token');
+// var token = 'asdf1234';
 var today;
 
 var testData;
