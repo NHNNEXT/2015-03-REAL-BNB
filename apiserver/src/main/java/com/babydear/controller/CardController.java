@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,7 @@ public class CardController {
 		card.setState(Card.State.Normal);
 		card.setCreateDate(new Date());
 		card.setUpdateDate(new Date());
-		
+		card.setLinkUrl(System.currentTimeMillis() + UUID.randomUUID().toString());
 		try {
 			card.setCardImg(imgService.processImgCard(image));
 		} catch (IllegalStateException e) {

@@ -52,6 +52,7 @@ public class Card {
 	private Long fId;
 	private Long uId;
 
+	private String linkUrl;
 	@Transient
 	private List<Long> bIds;
 //	@Transient
