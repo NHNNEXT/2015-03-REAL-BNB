@@ -134,3 +134,99 @@ aside.left-col ul li span.badge {
 aside.left-col ul li span.badge.new {
   background-color: #74d0cb;
 }
+.bCard {
+  background-color: white;
+  margin-bottom: 0.9rem;
+  padding: 0.75rem 0;
+  border-radius: 0.7rem;
+}
+.bCard .bc-action {
+  margin: 0 1rem;
+  color: #CECECE;
+  cursor: pointer;
+}
+.bCard .bc-action .date-container {
+  display: inline-block;
+  color: #92889C;
+}
+.bCard .bc-action .btn-container {
+  display: inline-block;
+  float: right;
+  vertical-align: middle;
+}
+.bCard .bc-action .btn-container .action-btn {
+  display: inline-block;
+}
+.bCard .bc-action .btn-container .action-btn:hover {
+  color: #9b7bba;
+  transition: all 0.3s ease;
+}
+.bCard .bc-action .btn-container .action-dropdown-menu {
+  position: absolute;
+  right: 20px;
+  z-index: 100;
+  font-size: 14px;
+  text-align: left;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+  -webkit-transition: all 0.2s ease;
+  opacity: 0;
+  -webkit-transform-origin: right top 0px;
+  -webkit-transform: scale(0);
+}
+.bCard .bc-action .btn-container .action-dropdown-menu ul {
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  position: relative;
+}
+.bCard .bc-action .btn-container .action-dropdown-menu ul li {
+  color: #666;
+  margin: 0;
+  padding: 5px 0 5px 15px;
+  height: 24px;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(0px);
+  -webkit-transition: all 0.3s ease;
+  transform: translateY(-30%);
+}
+.bCard .bc-action .btn-container .action-dropdown-menu.active {
+  opacity: 1;
+  box-shadow: 1px 7px 6px 0 rgba(0, 0, 0, 0.11);
+  -webkit-transform-origin: right top 0px;
+  -webkit-transform: scale(1);
+}
+.bCard .bc-action .btn-container .action-dropdown-menu.active li {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.bCard .bc-action .btn-container .action-dropdown-menu.active li:hover {
+  background-color: #E8E8E8;
+}
+.bCard .bc-photo {
+  width: 100%;
+}
+.bCard .bc-content {
+  margin: 1.5rem 1rem;
+}
+.bCard .divider {
+  height: 0.05rem;
+  background-color: #f3ede8;
+  margin-bottom: 0.4rem;
+}
+.bCard .babies-container {
+  margin: 0 1rem;
+  color: #ABABAB;
+}
+.bCard .babies-container .baby {
+  display: inline-block;
+  margin-right: 0.7rem;
+}
+.bCard .babies-container .baby img {
+  width: 2em;
+  height: 2em;
+}

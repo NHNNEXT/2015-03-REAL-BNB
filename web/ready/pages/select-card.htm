@@ -4,21 +4,16 @@
             <h5 class="">원하시는 카드 선택해 주세요.</h5>
             <h5 class="">10장</h5>
             <div class="card-container row">
-                <div class="baby-card bCard card scrollspy col s6 m3 l2" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in pCtrl.cardList">
-                    <div class="bc-photo card-image">
-                        <img src=" http://dev.balbum.net{{bc.cardImg}}">
+                <div class="baby-card bCard scrollspy col s12 l6" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in pCtrl.cardList">
+                    <div class="bc-action">
+                        <div class="date-container">{{bc.modifiedDate}}</div>
                     </div>
-                    <div class="bc-content card-content">
-                        <p>{{bc.content}}</p>
-                    </div>
-                    <div class="bc-action card-action">
-                        <div class="date-container">
-                            <a href="#">{{bc.modifiedDate}}</a>
-                        </div>
-                        <div class="babies-container" ng-repeat=" baby in bc.babies">
-                            <div class="baby">
-                                <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyDate}}
-                            </div>
+                    <img class="bc-photo" src=" http://dev.balbum.net{{bc.cardImg}}">
+                    <div class="bc-content">{{bc.content}}</div>
+                    <div class="divider"></div>
+                    <div class="babies-container">
+                        <div class="baby" ng-repeat=" baby in bc.babies">
+                            <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">{{baby.babyName}} {{baby.babyDate}}
                         </div>
                     </div>
                 </div>
