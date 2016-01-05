@@ -6,14 +6,16 @@
     android:background="@drawable/poster_bg_train"
     android:id="@+id/poster_container">
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="DAILY LIFE"
+        android:hint="DAILY LIFE"
         android:textColor="#f47166"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:background="@drawable/nothing"
+        />
 
     <LinearLayout
         android:id="@+id/top"

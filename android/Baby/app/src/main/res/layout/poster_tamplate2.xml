@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_layout"
     android:layout_width="90dp"
     android:layout_height="115dp"
@@ -10,32 +9,47 @@
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:background="@android:color/transparent"
-        android:gravity="center"
         android:textColor="@color/text"
-        android:textSize="4dp"
-        android:textStyle="italic"/>
+        android:textSize="3dp" />
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:scaleType="centerInside"
         android:layout_below="@+id/tv_date"
-        android:background="@android:color/transparent" />
+        android:layout_marginTop="3dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/event_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:textSize="3dp" />
+
+    <TextView
+        android:id="@+id/event_memo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center_horizontal"
+        android:textSize="3dp" />
 
     <TextView
         android:id="@+id/diary_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_image"
+        android:ellipsize="end"
         android:gravity="center_vertical"
-        android:lineSpacingExtra="5dp"
-        android:maxLines="5"
+        android:maxLines="3"
         android:padding="2dp"
-        android:textSize="3dp"
-        android:textColor="@color/text" />
+        android:textColor="@color/text"
+        android:textSize="3dp" />
 
     <HorizontalScrollView
         android:id="@+id/scrollView"
@@ -49,10 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"/>
+            android:layout_marginRight="3dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
 </RelativeLayout>

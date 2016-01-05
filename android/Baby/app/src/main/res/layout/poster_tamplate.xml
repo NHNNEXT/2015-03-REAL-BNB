@@ -9,11 +9,10 @@
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:background="@android:color/transparent"
-        android:gravity="center"
         android:textColor="@color/text"
-        android:textSize="6dp"
-        android:textStyle="italic" />
+        android:textSize="4dp" />
 
     <ImageView
         android:id="@+id/iv_image"
@@ -25,17 +24,32 @@
         android:scaleType="centerInside" />
 
     <TextView
+        android:id="@+id/event_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:textSize="8dp" />
+
+    <TextView
+        android:id="@+id/event_memo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:textSize="6dp" />
+
+    <TextView
         android:id="@+id/diary_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_image"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="5dp"
-        android:maxLines="5"
-        android:padding="2dp"
         android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:padding="2dp"
         android:textColor="@color/text"
         android:textSize="4dp" />
 
