@@ -391,6 +391,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 });
 
 balbumApp.controller('PosterController', function($scope, $http) {
+    console.log("포스터컨트롤러");
     var pCtrl = this;
 
     pCtrl.cardList;
