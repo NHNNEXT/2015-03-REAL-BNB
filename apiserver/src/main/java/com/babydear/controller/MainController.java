@@ -11,7 +11,11 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String mainpage() {
-		return "landing.html";
+		return "landing1.html";
+	}
+	@RequestMapping("/home")
+	public String home() {
+		return "main.html";
 	}
 
 	@RequestMapping("/user")
