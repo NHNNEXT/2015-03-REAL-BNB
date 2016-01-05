@@ -2,7 +2,7 @@
     <div class="my-info section">
         <h2>내 정보</h2>
         <div class="section-card row">
-            <img class="photo col s4" src="img/baby2.jpeg" alt="My photo" />
+            <img class="photo col s4" src="http://dev.balbum.net{{::bMain.userInfo.user.userImg}}" alt="My photo" />
             <div class="info col s8">
                 <!-- <div class="name"><b>Name</b>Jay Jin</div>
                 <div class="role"><b>Role</b>이시대의엄마</div>
@@ -32,7 +32,16 @@
     </div>
     <div class="family-info section">
         <h2>가족 정보</h2>
-        <div class="person-card">
+        <div class="person-card" ng-repeat="family in bMain.userInfo.families">
+            <img class="photo circle" src="http://dev.balbum.net{{::family.userImg}}" alt="My photo"/>
+            <div class="info">
+                <div class="name">Jay</div>
+                <div class="role">{{::family.userRole}}</div>
+            </div>
+            <div class="divider"></div>
+            <div class="is-authorized">승인됨</div>
+        </div>
+        <!-- <div class="person-card">
             <img class="photo circle" src="img/baby2.jpeg" alt="My photo" />
             <div class="info">
                 <div class="name">Jay</div>
@@ -56,7 +65,7 @@
             </div>
             <div class="divider"></div>
             <div class="is-authorized">승인대기</div>
-        </div>
+        </div> -->
     </div>
 
 </article>
