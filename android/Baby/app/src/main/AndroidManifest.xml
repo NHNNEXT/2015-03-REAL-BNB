@@ -111,6 +111,8 @@
         <activity android:name="CardShareActivity" />
         <activity android:name=".PosterList"
             android:screenOrientation="portrait" />
+        <activity android:name=".BabySettingActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
