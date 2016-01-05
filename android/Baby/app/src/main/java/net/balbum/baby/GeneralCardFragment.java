@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,7 +24,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
-import net.balbum.baby.Util.ImageUtil;
+import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
@@ -33,8 +32,6 @@ import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -49,7 +46,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private RelativeLayout photo_layout;
     private TextView photo_tv;
     private ImageView camera_iv, photo_iv;
-    private EditText memo_tv;
+    public EditText memo_tv;
     RecyclerView baby_list;
     Context context;
     EditText card_date_et;
@@ -66,7 +63,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         context = this.getActivity();
 
         Bundle bundle = getActivity().getIntent().getExtras();
-       // Bundle bundle = getArguments();
+
         if(bundle == null){
         }
 
@@ -86,6 +83,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
                                     .load((Define.URL + card.cardImg))
                                     .placeholder(R.mipmap.ic_launcher)
                                     .into(photo_iv);
+                            card_date_et.setText(card.modifiedDate);
                         }
                     }
                 }
@@ -111,18 +109,18 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         baby_list = (RecyclerView)this.getActivity().findViewById(R.id.rv_baby_list);
         card_date_et = (EditText)this.getActivity().findViewById(R.id.card_date);
 
-        //card_date_et.setText(TimeUtil.getRecordedMoment());
+        card_date_et.setText(TimeUtil.getRecordedMoment());
 
-        if(card != null){
-            memo_tv.setText(card.content);
-            Picasso.with(context)
-                    .load((Define.URL+card.cardImg))
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(photo_iv);
-
-            card_date_et.setText(card.modifiedDate);
-
-        }
+//        if(card != null) {
+//            memo_tv.setText(card.content);
+//            Picasso.with(context)
+//                    .load((Define.URL+card.cardImg))
+//                    .placeholder(R.mipmap.ic_launcher)
+//                    .into(photo_iv);
+//
+//
+//
+//        }
 
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
@@ -156,31 +154,17 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public GeneralCardVo getCardInfo() {
 
-        EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv);
+        Log.d("test", "card getCardInfo");
+        //EditText memo = (EditText)findViewById(R.id.memo_tv);
         //미리 저장된 아기 정보 서버에서 가져오기 또는 내부에 저장해두고 불러오거나
-        babyTagNamesList = new ArrayList<>();
-
-        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
-        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
-
-        File a = ImageUtil.ConvertBitmapToFile(img1);
-        File b = ImageUtil.ConvertBitmapToFile(img2);
-        File c = ImageUtil.ConvertBitmapToFile(img3);
-
-        BabyTagVo baby1 = new BabyTagVo(a, "산체");
-        BabyTagVo baby2 = new BabyTagVo(b, "연두");
-        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
-
-        babyTagNamesList.add(baby1);
-        babyTagNamesList.add(baby2);
-        babyTagNamesList.add(baby3);
-        adapter = new BabyTagAdapter(babyTagNamesList, context);
+//        getActivity().
+   //     adapter = new BabyTagAdapter(babyTagNamesList, context);
         GeneralCardVo tempVo = new GeneralCardVo();
-        tempVo.content = memo.getText().toString();
-        tempVo.names = adapter.getSelectedList();
-        tempVo.modifiedDate = card_date_et.getText().toString();
 
+      //  tempVo.names = adapter.getSelectedNames();
+//        Log.d("test", "names: " +tempVo.names.size());
+        tempVo.modifiedDate = card_date_et.getText().toString();
+        tempVo.content = memo_tv.getText().toString();
         Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
         String filePath = getRealPathFromURI(tempUri);
         tempVo.cardImg = filePath;

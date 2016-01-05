@@ -2,8 +2,6 @@ package net.balbum.baby;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,15 +18,12 @@ import android.widget.RelativeLayout;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.adapter.BabyTagAdapter;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -74,10 +69,12 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
                     if(eventCardVo.getType().equals("EVENT")) {
                         memo_tv_event.setText(eventCardVo.content);
                         date_et_event.setText(eventCardVo.modifiedDate);
-                        event_container.setBackground(null);
+                        //event_container.setBackground(null);
                         event_bg.setVisibility(View.VISIBLE);
                         Picasso.with(context).load(Define.URL + eventCardVo.cardImg).fit().into(event_bg);
 
+                    }else{
+                        event_bg.setVisibility(View.GONE);
                     }
                 }
                 @Override
@@ -103,7 +100,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         bg3 = (Button) view.findViewById(R.id.bg3);
         event_bg = (ImageView)view.findViewById(R.id.event_bg);
 
-        initData();
+//        initData();
 
         bg1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,26 +156,26 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
     }
 
 
-    private void initData(){
-
-        babyTagNamesList = new ArrayList<>();
-
-        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
-        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
-
-        File a = ImageUtil.ConvertBitmapToFile(img1);
-        File b = ImageUtil.ConvertBitmapToFile(img2);
-        File c = ImageUtil.ConvertBitmapToFile(img3);
-
-        BabyTagVo baby1 = new BabyTagVo(a, "산체");
-        BabyTagVo baby2 = new BabyTagVo(b, "연두");
-        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
-
-        babyTagNamesList.add(baby1);
-        babyTagNamesList.add(baby2);
-        babyTagNamesList.add(baby3);
-    }
+//    private void initData(){
+//
+//        babyTagNamesList = new ArrayList<>();
+//
+//        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
+//        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
+//        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
+//
+//        File a = ImageUtil.ConvertBitmapToFile(img1);
+//        File b = ImageUtil.ConvertBitmapToFile(img2);
+//        File c = ImageUtil.ConvertBitmapToFile(img3);
+//
+//        BabyTagVo baby1 = new BabyTagVo(a, "산체");
+//        BabyTagVo baby2 = new BabyTagVo(b, "연두");
+//        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
+//
+//        babyTagNamesList.add(baby1);
+//        babyTagNamesList.add(baby2);
+//        babyTagNamesList.add(baby3);
+//    }
 
     @Override
     public GeneralCardVo getCardInfo() {
@@ -190,7 +187,7 @@ public class EventCardFragment extends Fragment implements OnGetCardListener{
         adapter = new BabyTagAdapter(babyTagNamesList, context);
 
         tempVo.content = memo_tv_event.getText().toString();
-        tempVo.names = adapter.getSelectedList();
+        //tempVo.names = adapter.getSelectedNames();
         tempVo.modifiedDate = date_et_event.getText().toString();
 
         if(drawable == null){

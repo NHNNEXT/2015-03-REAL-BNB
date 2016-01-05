@@ -46,8 +46,10 @@ public class CardWritingActivity extends AppCompatActivity {
     Context context;
     List<Fragment> fragmentList = new ArrayList<>();
     List<BabyTagVo> babyTagNamesList;
+    List<BabyTagVo> sel;
     List<BabyVo> babyVoList;
     ViewPager viewPager;
+    BabyTagAdapter adapter;
 
 
     @Override
@@ -112,7 +114,7 @@ public class CardWritingActivity extends AppCompatActivity {
         RecyclerView rv_baby = (RecyclerView)findViewById(R.id.rv_baby_list);
         StaggeredGridLayoutManager sgm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         rv_baby.setLayoutManager(sgm);
-        BabyTagAdapter adapter = new BabyTagAdapter(babyTagNamesList, context);
+        adapter = new BabyTagAdapter(babyTagNamesList, context);
         rv_baby.setAdapter(adapter);
     }
 
@@ -135,10 +137,11 @@ public class CardWritingActivity extends AppCompatActivity {
               @Override
               public void success(ArrayList<BabyVo> babyVos, Response response) {
                   for(BabyVo baby : babyVos){
-                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
+                      BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bid, false, baby.babyName);
+                      Log.d("test", "bid: " + baby.bid + " name: "+ baby.babyName);
                       babyTagNamesList.add(babyTag);
-                      initBabyTag();
                   }
+                  initBabyTag();
               }
 
               @Override
@@ -194,52 +197,78 @@ public class CardWritingActivity extends AppCompatActivity {
 
             TypedFile typedFile = new TypedFile("multipart/form-data", file);
 
-            List<Long> asd = new ArrayList<Long>();
-            asd.add(new Long(2));
-            asd.add(new Long(3));
-            asd.add(new Long(4));
-
-            Long l = new Long(2);
-
-
             TokenUtil tu = new TokenUtil(context);
             tu.getToken();
 
-//            int idx = vo.names.size();
-//            vo.names.get(0);
+            //vo.names = adapter.getSelectedNames();
+            sel = new ArrayList<BabyTagVo>();
+            sel = adapter.getSelectedNames();
 
 
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
-            if((Long)vo.cid == 0) {
 
-                taskService.createCard(typedFile, tu.getToken(), asd.get(0), vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
-                    @Override
-                    public void success(ResponseVo responseVo, Response response) {
-                        Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
-                        goToActivity(CardWritingActivity.this, MainActivity.class);
-                    }
+            if(sel.size() == 1) {
+                if ((Long) vo.cid == 0) {
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.i("test", "card error: " + error);
-                    }
-                });
-            }else{
-                taskService.updateCard(typedFile, tu.getToken(), asd.get(0), vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
-                    @Override
-                    public void success(ResponseVo responseVo, Response response) {
-                        Log.i("test", "업데이트 성공!");
-                        goToActivity(CardWritingActivity.this, MainActivity.class);
-                    }
+                    taskService.createCard(typedFile, tu.getToken(), sel.get(0).bid, vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.i("test", "업데이트 실패!");
-                    }
-                });
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "card error: " + error);
+                        }
+                    });
+                } else {
+                    taskService.updateCard(typedFile, tu.getToken(), sel.get(0).bid, vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "업데이트 성공!");
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "업데이트 실패!");
+                        }
+                    });
+
+                }
+            }else if(sel.size() == 2){
+                if ((Long) vo.cid == 0) {
+
+                    taskService.createCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "card error: " + error);
+                        }
+                    });
+                } else {
+                    taskService.updateCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "업데이트 성공!");
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "업데이트 실패!");
+                        }
+                    });
+
+                }
 
             }
-
             return true;
         }
         return super.onOptionsItemSelected(item);
