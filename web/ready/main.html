@@ -63,6 +63,7 @@
                 <li><a href="#settings"><i class="material-icons">&#xE8B8;</i>설정<span class="new badge">4</span></a></a></li>
             </ul>
         </aside>
+        <div class="modal-main-btn modal-trigger dissappear" data-toggle="modal" data-target="#modal-main"></div>
         <div id="modal-main" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -98,8 +99,8 @@
                                                 </div>
                                             </div>
                                             <div class="baby-info col s9">
-                                                <input type="text" name="babyName" placeholder="이름">
-                                                <input type="date" name="babyBirth" placeholder="생년월일">
+                                                <input required type="text" name="babyName" placeholder="이름">
+                                                <input required type="date" name="babyBirth" placeholder="생년월일">
                                                 <span>
                                                     <input name="babyGender" class="with-gap" type="radio" id="boy" value="BOY" />
                                                     <label for="boy">남</label>
@@ -119,17 +120,17 @@
                                         <button type="submit" name="action">아이 더 추가하기<i class="material-icons">add</i></button>
                                     </div>
                                 </div>
-                                <div class="action-container">
-                                    <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
-                                    <button class="btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
-                                </div>
                             </form>
+                            <div class="action-container">
+                                <a class="js-btn-goto left" data-goto="0">다음에 할게요</a>
+                                <button class="btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                            </div>
                         </div>
                         <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
                             <div class="">
                                 <div>이미 가입한 가족의 Email을 입력해주세요.</div>
                                 <form>
-                                    <input type="email" name="input" placeholder="Email">
+                                    <input type="email" name="input" placeholder="Email" class="validate">
                                 </form>
                                 <button type="button" class="btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
                             </div>

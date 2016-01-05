@@ -100,9 +100,15 @@ var Upload = {
 }
 
 var InitModal = {
-    init: function() {
+    init: function($scope, bMain) {
         this.steps();
         this.uploadPhoto();
+
+        $('.modal-add-baby .action-container .btn-done').on('click', '', function() {
+            $('.add-baby-btn button').click();
+            console.log("done");
+        });
+
     },
     steps: function() {
         $('.modal-main-btn').click(function(){
@@ -150,6 +156,7 @@ var InitModal = {
     },
     postBaby: function($scope, bMain) {
         $('#babyForm').submit(function() {
+            console.log("포스트베이비");
             $('#babyForm').ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
@@ -168,7 +175,7 @@ var InitModal = {
                 },
                 //ajax error
                 error: function(){
-                    alert("문제가 생겼어요, 다시 올려주시겠어요?");
+                    alert("아이 올리는 데 문제가 생겼어요, 다시 올려주시겠어요?");
                 }
             });
             return false;
@@ -252,6 +259,11 @@ var CardCRUD = {
         var url = bId? 'api/filter/baby?token='+token+'&bId='+bId : 'api/card?token='+token;
         $http.get(address + url).then(function(res) {
             ctrl.cardList = res.data.cardList;
+            if(res.data.cardList.length == 0) {
+                console.log("카드리스트 비었다");
+                $('div.modal-main-btn').click();
+
+            }
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
         });
@@ -376,7 +388,7 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     Start.init($scope);
     Upload.init();
     CardCRUD.init($http, cCtrl);
-    InitModal.init();
+    InitModal.init($scope, cCtrl);
 
 
     if(filteredBId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */
