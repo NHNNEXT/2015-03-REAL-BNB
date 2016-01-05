@@ -130,17 +130,19 @@
                             <div class="">
                                 <div>이미 가입한 가족의 Email을 입력해주세요.</div>
                                 <form>
-                                    <input type="email" name="input" placeholder="Email" class="validate">
+                                    <input required type="email" name="input" placeholder="Email" class="validate">
                                 </form>
                                 <button type="button" class="btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
                             </div>
                             <div class="found-existing-user hide">
-                                <img class="circle" src="img/baby1.jpeg" alt="user-photo">
-                                <div class="">
-                                    <div>율무님의 BALBUM</div>
-                                    <div>jayjinjay@gmail.com</div>
-                                    <button type="button" class="btn-done js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                                <div class="section-card row">
+                                    <img class="photo col s4" src="http://dev.balbum.net{{bMain.foundUser.userImg}}" alt="User photo" />
+                                    <div class="info col s8">
+                                        <div class="role">{{bMain.foundUser.userRole}}</div>
+                                        <div class="email"><b>ID</b>{{bMain.foundUser.email}}</div>
+                                    </div>
                                 </div>
+                                <button type="button" class="btn-done js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
                             </div>
                         </div>
                     </div>
@@ -149,6 +151,7 @@
 
         </div>
         <section class="main-container row">
+            {{cCtrl.foundUser.userRole}}
             <div ng-view></div>
         </section>
 
