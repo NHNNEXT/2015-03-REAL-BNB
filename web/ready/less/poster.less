@@ -49,13 +49,64 @@ section.make-poster-container {
 	width: 100%;
 	height: 100%;
 	
-	.btn {
-		background: @primary !important;
-	}
-	.btn:hover{
-		background: @hover-primary !important;
-	}
+    .card {
+        width: 100%;
+        padding-bottom: 10px;
+
+        h5{
+            font-size: 1.5em;
+            padding: 30px;
+        }
+
+        .template-container {
+            margin: 10px 50px;
+            text-align: center;
+
+            .poster-article {
+                border: 5px solid white;
+                width: 100%;
+                // float: left;
+                padding: 20px 20px 5px 20px;
     
+                .poster-preview {
+                    width: 100%;
+                }
+
+                p{
+                    padding-top: 5px;
+                }
+            }
+
+            .poster-article:hover {
+                border: 5px solid @light-gray;
+            }
+
+            .selected-poster {
+                border: 5px solid @hover-primary;
+            }
+        }
+        
+        .poster-btn-container{
+            margin: 20px auto;
+            width: 90%;
+            
+            .prev-btn {
+                background: @light-gray !important;
+            }
+
+            .prev-btn:hover {
+                background : @mid-gray !important;
+            }
+
+            .next-btn {
+                float: right;
+                background: @primary !important;
+            }
+            .next-btn:hover{
+                background: @hover-primary !important;    
+            }
+        }
+    }
 }
 
 section.select-card-container {
