@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="330dp"
     android:layout_gravity="center_vertical"
-    android:background="@drawable/poster_bg_train">
+    android:background="@drawable/poster_bg_train"
+    android:id="@+id/poster_container">
 
     <TextView
         android:layout_width="match_parent"
