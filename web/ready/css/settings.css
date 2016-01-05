@@ -62,3 +62,12 @@ article.settings-col .my-info .info .role {
 article.settings-col .babies-info .baby .info .birth {
   color: #ABABAB;
 }
+article.settings-col .babies-info .baby .info .gender {
+  color: #74d0cb;
+}
+article.settings-col .family-info .person-card .is-authorized {
+  color: #74d0cb;
+}
+article.settings-col .family-info .person-card.unauthorized .is-authorized {
+  color: #F16060;
+}

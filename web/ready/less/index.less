@@ -12,7 +12,27 @@ section.main-container {
     //*-- 메인 타임라인 --*//
     article.main-col {
         height: 600px;
-        // padding: 0.75rem 0.75rem 0;
+        .baby-title {
+            padding: 0.75rem;
+            margin: 0.75rem 0;
+            background-color: rgba(255, 255, 255, 0.64);
+            .photo {
+                width: 3rem;
+                height: 3rem;
+                margin-right: 0.3rem;
+                display: inline-block;
+            }
+            .info {
+                display: inline-block;
+                font-size: 1.5rem;
+                font-weight: 300;
+                color: #86837F
+                .name {
+                    font-weight: 800;
+                    color: @font-primary;
+                }
+            }
+        }
 
         //*-- 카드 작성 컨테이너 --*//
         div.postcard-container {

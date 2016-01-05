@@ -9,6 +9,25 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
+section.main-container article.main-col .baby-title {
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  background-color: rgba(255, 255, 255, 0.64);
+}
+section.main-container article.main-col .baby-title .photo {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 0.3rem;
+  display: inline-block;
+}
+section.main-container article.main-col .baby-title .info {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+section.main-container article.main-col .baby-title .info .name {
+  font-weight: 800;
+}
 section.main-container article.main-col div.postcard-container {
   background: white;
   margin-top: 0.8rem;
