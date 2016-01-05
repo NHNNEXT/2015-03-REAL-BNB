@@ -2,10 +2,7 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Typeface;
-import android.os.Environment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,16 +25,13 @@ import net.balbum.baby.MainActivity;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.ActivityUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.RoundedTransformation;
 import net.balbum.baby.Util.ToastUtil;
-import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.VO.ResponseVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.List;
 
 import retrofit.Callback;
@@ -53,7 +47,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     int layout;
     Context context;
     Typeface typeface;
-    List<BabyVo> babies;
 
 
     public CardViewAdapter(List<GeneralCardVo> cards, Context context, int layout) {
@@ -61,8 +54,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         this.context = context;
         this.layout = layout;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/milkyway.ttf");
-
-        Log.d("test", "babyDate: " + cards.get(0).getBabies().get(0).babyDate);
     }
 
     @Override
@@ -76,18 +67,25 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     public void onBindViewHolder(final viewHolder holder, final int position) {
         final boolean[] flag = {false};
 
-        holder.diary_text.setText(cards.get(position).content);
-        holder.date.setText(cards.get(position).modifiedDate);
-        // holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(cards.get(position).cardImg));
 
-//        Log.d("test", "img Url test" + Config.URL + cards.get(position).cardImg);
+        if(cards.get(position).getType().equals("EVENT")){
+            holder.event_date.setText(cards.get(position).modifiedDate);
+            holder.event_memo.setText(cards.get(position).content);
+            Log.d("test", "drawable" + cards.get(position).cardImg);
+
+        }else {
+            holder.event_date.setVisibility(View.GONE);
+            holder.event_memo.setVisibility(View.GONE);
+            holder.date.setText(cards.get(position).modifiedDate);
+            holder.diary_text.setText(cards.get(position).content);
+            holder.diary_text.setTypeface(typeface);
+        }
         Picasso.with(context)
                 .load((Define.URL + cards.get(position).cardImg))
-                .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
 
-        holder.diary_text.setText(cards.get(position).content);
-        holder.diary_text.setTypeface(typeface);
+        //.placeholder(R.drawable.eggplant)
+
 
         babiesInfo(holder.profile_container, position);
 
@@ -147,9 +145,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
         Intent intent = new Intent(context, CardWritingActivity.class);
         intent.putExtra("type", Define.CARD_MODIFY);
-        Long card_id = (Long) cards.get(position).cid;
-        //GeneralCardVo vo = cards.get(position);
+        Long card_id = cards.get(position).cid;
         intent.putExtra("cId", card_id);
+        intent.putExtra("cImg", cards.get(position).cardImg);
         context.startActivity(intent);
     }
 
@@ -194,9 +192,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         profile_container.removeAllViews();
 
         final int idx = cards.get(position).babies.size();
+//        Log.d("test", "baby" + cards.get(position).babies.size() + " , position " + position);
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(60, 60);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 60);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(85, 85);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 85);
 
 
             for (int i = 0; i < idx; i++) {
@@ -207,7 +206,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
                 ImageView iv_profile = new ImageView(context);
 
-                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).into(iv_profile);
+                Log.d("test", "애기 프로필 사진 " + cards.get(position).getBabies().get(i).babyName + cards.get(position).getBabies().get(i).babyDate);
+                Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).transform(new RoundedTransformation()).into(iv_profile);
 
                // iv_profile.setImageResource(babies.get(i).babyImg);
                 iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -219,10 +219,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
                 tv.setLayoutParams(tvParam);
                 tv.setGravity(Gravity.CENTER);
                 linLayout.addView(tv);
-                ((LinearLayout) profile_container).addView(linLayout);
+                profile_container.addView(linLayout);
             }
 
     }
+
 
 
     @Override
@@ -238,6 +239,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView date, diary_text;
+        TextView event_date;
+        TextView event_memo;
         ImageView photo;
         LinearLayout profile_container;
         LinearLayout delete_modify_layout;
@@ -262,6 +265,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 //            share = (TextView) itemView.findViewById(R.id.share_btn);
             share = (ImageButton) itemView.findViewById(R.id.share_btn);
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
+            event_date = (TextView)itemView.findViewById(R.id.event_date);
+            event_memo=(TextView)itemView.findViewById(R.id.event_memo);
         }
     }
 
@@ -271,52 +276,52 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
     }
 
-    public void cardCapture(View container, long i){
-
-//        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+//    public void cardCapture(View container, long i){
 //
-//        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
-
-
-
-        container.setDrawingCacheEnabled(true);
-
-        container.buildDrawingCache(true);
-
-
-/***********************핵심부분**********************************/
-        Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
-
-                container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-
-        Canvas screenShotCanvas = new Canvas(captureView);
-
-        container.draw(screenShotCanvas);
-/***********************핵심부분*****************************************/
-
-
-        FileOutputStream fos;
-        File fileRoute = null;
-        fileRoute = Environment.getExternalStorageDirectory();
-        String str_name = i+"";
-
-        try {
-
-            File path = new File(fileRoute,"temp");
-
-            if(!path.exists()){//if(!path.isDirectory()){
-                path.mkdirs();
-            }
-
-            fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
-            captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            container.setDrawingCacheEnabled(false);
-
-        }catch (FileNotFoundException e) {
-
-            e.printStackTrace();
-
-        }
-    }
+////        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+////
+////        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
+//
+//
+//
+//        container.setDrawingCacheEnabled(true);
+//
+//        container.buildDrawingCache(true);
+//
+//
+///***********************핵심부분**********************************/
+//        Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
+//
+//                container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//
+//        Canvas screenShotCanvas = new Canvas(captureView);
+//
+//        container.draw(screenShotCanvas);
+///***********************핵심부분*****************************************/
+//
+//
+//        FileOutputStream fos;
+//        File fileRoute = null;
+//        fileRoute = Environment.getExternalStorageDirectory();
+//        String str_name = i+"";
+//
+//        try {
+//
+//            File path = new File(fileRoute,"temp");
+//
+//            if(!path.exists()){//if(!path.isDirectory()){
+//                path.mkdirs();
+//            }
+//
+//            fos = new FileOutputStream(fileRoute+"/temp/"+str_name+".png");
+//            captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//            container.setDrawingCacheEnabled(false);
+//
+//        }catch (FileNotFoundException e) {
+//
+//            e.printStackTrace();
+//
+//        }
+//    }
 
 }

@@ -93,7 +93,6 @@ public class SignEmailActivity extends AppCompatActivity implements View.OnClick
                    // editor.putString("profileImage", profileImage);
                     editor.putString("profileRole", password.getText().toString());
                     editor.commit();
-                    editor.commit();
 
                     goToActivity(context, InitialSettingActivity.class);
                 }

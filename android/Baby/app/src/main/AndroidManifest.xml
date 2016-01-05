@@ -11,7 +11,8 @@
         android:icon="@drawable/eggplant"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -109,6 +110,10 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name="CardShareActivity" />
+        <activity android:name=".PosterList"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BabySettingActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="com.facebook.FacebookContentProvider"

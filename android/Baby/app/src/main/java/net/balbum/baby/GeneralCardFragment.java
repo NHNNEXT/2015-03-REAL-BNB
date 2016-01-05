@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyTagVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -34,8 +32,6 @@ import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -50,7 +46,7 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     private RelativeLayout photo_layout;
     private TextView photo_tv;
     private ImageView camera_iv, photo_iv;
-    private EditText memo_tv;
+    public EditText memo_tv;
     RecyclerView baby_list;
     Context context;
     EditText card_date_et;
@@ -59,42 +55,42 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     View view;
     GeneralCardVo card;
     TaskService taskService;
+    String card_img;
+    int status = 0;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("test", "------------------onCreateView");
         view = inflater.inflate(R.layout.card_general_fragment, container, false);
         context = this.getActivity();
 
         Bundle bundle = getActivity().getIntent().getExtras();
-       // Bundle bundle = getArguments();
+
         if(bundle == null){
-            Log.d("test", "bundle null");
         }
 
         if (bundle != null) {
             long card_id = bundle.getLong("cId");
-            Log.d("test", "cid 넘어왔니 " + card_id);
+            card_img = bundle.getString("cImg");
+            status = 1;
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
             taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
                 @Override
                 public void success(GeneralCardVo generalCardVo, Response response) {
                     card = (GeneralCardVo) generalCardVo;
-                    Log.d("test", "card null ?" + card.cid);
 
+                    if(card.getType().equals("NORMAL")) {
 
-                    if(card != null){
-                        memo_tv.setText(card.content);
-                        Picasso.with(context)
-                                .load((Define.URL+card.cardImg))
-                                .placeholder(R.mipmap.ic_launcher)
-                                .into(photo_iv);
-
+                        if (card != null) {
+                            memo_tv.setText(card.content);
+                            Picasso.with(context)
+                                    .load((Define.URL + card.cardImg))
+                                    .placeholder(R.mipmap.ic_launcher)
+                                    .into(photo_iv);
+                            card_date_et.setText(card.modifiedDate);
+                        }
                     }
-
                 }
-
 
                 @Override
                 public void failure(RetrofitError error) {
@@ -109,7 +105,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("test", "------------------onResume");
         photo_layout = (RelativeLayout)getActivity().findViewById(R.id.photo_layout);
         photo_tv = (TextView)this.getActivity().findViewById(R.id.photo_tv);
         memo_tv = (EditText)this.getActivity().findViewById(R.id.memo_tv);
@@ -119,17 +114,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         card_date_et = (EditText)this.getActivity().findViewById(R.id.card_date);
 
         card_date_et.setText(TimeUtil.getRecordedMoment());
-
-        if(card != null){
-            memo_tv.setText(card.content);
-            Picasso.with(context)
-                    .load((Define.URL+card.cardImg))
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(photo_iv);
-
-            card_date_et.setText(card.modifiedDate);
-
-        }
 
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
@@ -163,42 +147,31 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public GeneralCardVo getCardInfo() {
 
-        EditText memo = (EditText)getActivity().findViewById(R.id.memo_tv);
+        //EditText memo = (EditText)findViewById(R.id.memo_tv);
         //미리 저장된 아기 정보 서버에서 가져오기 또는 내부에 저장해두고 불러오거나
-        babyTagNamesList = new ArrayList<>();
-
-        Bitmap img1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b1);
-        Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b2);
-        Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.b3);
-
-        File a = ImageUtil.ConvertBitmapToFile(img1);
-        File b = ImageUtil.ConvertBitmapToFile(img2);
-        File c = ImageUtil.ConvertBitmapToFile(img3);
-
-        BabyTagVo baby1 = new BabyTagVo(a, "산체");
-        BabyTagVo baby2 = new BabyTagVo(b, "연두");
-        BabyTagVo baby3 = new BabyTagVo(c, "벌이");
-
-        babyTagNamesList.add(baby1);
-        babyTagNamesList.add(baby2);
-        babyTagNamesList.add(baby3);
-        adapter = new BabyTagAdapter(babyTagNamesList, context);
+//        getActivity().
+   //     adapter = new BabyTagAdapter(babyTagNamesList, context);
         GeneralCardVo tempVo = new GeneralCardVo();
-        tempVo.content = memo.getText().toString();
-        tempVo.names = adapter.getSelectedList();
+
+      //  tempVo.names = adapter.getSelectedNames();
+//        Log.d("test", "names: " +tempVo.names.size());
         tempVo.modifiedDate = card_date_et.getText().toString();
-
-        Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
-        String filePath = getRealPathFromURI(tempUri);
-        tempVo.cardImg = filePath;
-
+        tempVo.content = memo_tv.getText().toString();
+        if(status != 1) {
+            Log.d("test", "0?:  " + status);
+            Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
+            String filePath = getRealPathFromURI(tempUri);
+            tempVo.cardImg = filePath;
+        }else{
+            Log.d("test", "1?:  " + status);
+            tempVo.cardImg = Define.URL + card_img;
+            status = 0;
+        }
         return tempVo;
     }
 
     public void setSelectedImage(Bitmap bitmap){
-        Log.i("test", "나는 여기 프레그먼트에");
         photo_iv.setImageBitmap(bitmap);
-
     }
 
     @Override
@@ -247,50 +220,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-    //
-//    public interface CustomOnClickListener{
-//        public void onClicked(int id);
-//    }
-//
-//        @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        customListener = (CustomOnClickListener)activity;
-//    }
-//
-//    View.OnClickListener onClickListener = new View.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View v) {
-//            customListener.onClicked(v.getId());
-//        }
-//    };
-//
-//
-//    public String getItem(){
-//        return "item";
-//    }
 
 }
 
-
-
-
-//    // Activity 로 데이터를 전달할 커스텀 리스너
-//    private CustomOnClickListener customListener;
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너의 인터페이스
-//    public interface CustomOnClickListener{
-//        public void onClicked(int id);
-//    }
-//
-//    // 버튼에 설정한 OnClickListener의 구현, 버튼이 클릭 될 때마다 Activity의 커스텀 리스너를 호출함
-
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너를 연결
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        customListener = (CustomOnClickListener)activity;
-//    }
-//}
