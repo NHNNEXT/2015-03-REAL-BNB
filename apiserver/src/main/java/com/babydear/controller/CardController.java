@@ -54,7 +54,7 @@ public class CardController {
 	public CardListDTO selectCards(String token){
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByModifiedDateDesc(Card.State.Normal, user.getFId());
 			for(Card card : cardResponseList){
 				card.calculate();
 			}

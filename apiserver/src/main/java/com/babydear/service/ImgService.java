@@ -22,10 +22,14 @@ public class ImgService {
     private String FILE_STORAGE_DIRECTORY;
     
     public String processImgCard(MultipartFile image) throws IllegalStateException, IOException, NotGoodExtention{
+    	if(image == null || image.isEmpty()){
+			return null;
+		}
     	return processImg(image, "/imgs/card/", "/imgs/sample/card.jpeg");
     }
+
     public String processImgUser(MultipartFile image) throws IllegalStateException, IOException, NotGoodExtention{
-    	return processImg(image, "/imgs/user/", "/imgs/sample/user.jpeg");
+    	return processImg(image, "/imgs/user/", "/imgs/sample/user.png");
     }
     public String processImgBaby(MultipartFile image) throws IllegalStateException, IOException, NotGoodExtention{
     	return processImg(image, "/imgs/baby/", "/imgs/sample/baby.jpeg");

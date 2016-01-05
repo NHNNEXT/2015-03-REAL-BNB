@@ -9,6 +9,27 @@ section.main-container {
 section.main-container article.main-col {
   height: 600px;
 }
+section.main-container article.main-col .baby-title {
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  background-color: rgba(255, 255, 255, 0.64);
+}
+section.main-container article.main-col .baby-title .photo {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 0.3rem;
+  display: inline-block;
+}
+section.main-container article.main-col .baby-title .info {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #86837F;
+}
+section.main-container article.main-col .baby-title .info .name {
+  font-weight: 800;
+  color: #6f6c66;
+}
 section.main-container article.main-col div.postcard-container {
   background: white;
   margin-top: 0.8rem;
@@ -199,31 +220,6 @@ section.main-container article.main-col div.card-container div.baby-card .babies
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
   height: 2em;
-}
-section.main-container article.settings-col {
-  margin: 0;
-  padding: 0.75rem;
-}
-section.main-container article.settings-col .person-card {
-  display: inline-block;
-  background: white;
-  width: 10rem;
-  height: 12rem;
-  text-align: center;
-}
-section.main-container article.settings-col .person-card .photo {
-  width: 6rem;
-  height: 6rem;
-}
-section.main-container article.settings-col .section-card {
-  margin-bottom: 0.75rem;
-  padding: 0.75rem;
-}
-section.main-container article.settings-col .section-card h2 {
-  font-size: 1.5rem;
-}
-section.main-container article.settings-col .section-card h3 {
-  font-size: 1.3rem;
 }
 section.main-container aside.right-col {
   height: 600px;

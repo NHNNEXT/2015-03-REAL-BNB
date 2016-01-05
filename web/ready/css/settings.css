@@ -1,0 +1,73 @@
+article.settings-col {
+  margin: 0;
+}
+article.settings-col .person-card {
+  display: inline-block;
+  background: white;
+  border-radius: 0.7rem;
+  margin: 0 0.3rem;
+  padding-top: 0.6rem;
+  width: 8rem;
+  height: 11rem;
+  text-align: center;
+}
+article.settings-col .person-card .photo {
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+}
+article.settings-col .person-card .info .name {
+  font-weight: 800;
+}
+article.settings-col .person-card .divider {
+  margin: 2px 0 5px;
+}
+article.settings-col .section {
+  margin-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+article.settings-col .section h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 0.3rem 0.4rem;
+}
+article.settings-col .section-card {
+  background-color: white;
+  border-radius: 0.7rem;
+}
+article.settings-col .my-info {
+  padding-bottom: 0;
+}
+article.settings-col .my-info .photo {
+  display: inline-block;
+  height: 100%;
+  padding: 0;
+  border-radius: 0.7rem 0 0 0.7rem;
+}
+article.settings-col .my-info .info {
+  display: inline-block;
+}
+article.settings-col .my-info .info b {
+  margin-right: 0.5rem;
+  font-weight: 800;
+}
+article.settings-col .my-info .info .name {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+article.settings-col .my-info .info .role {
+  color: #ABABAB;
+  margin-bottom: 0.75rem;
+}
+article.settings-col .babies-info .baby .info .birth {
+  color: #ABABAB;
+}
+article.settings-col .babies-info .baby .info .gender {
+  color: #74d0cb;
+}
+article.settings-col .family-info .person-card .is-authorized {
+  color: #74d0cb;
+}
+article.settings-col .family-info .person-card.unauthorized .is-authorized {
+  color: #F16060;
+}

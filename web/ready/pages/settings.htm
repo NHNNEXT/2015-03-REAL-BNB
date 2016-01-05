@@ -1,46 +1,61 @@
 <article class="settings-col col s12 m12 l8">
-    <div class="my-info section-card">
+    <div class="my-info section">
         <h2>내 정보</h2>
-        <div class="photo">
-            <img src="img/baby2.jpeg" alt="My photo" />
-        </div>
-        <div class="info">
-            <div class="name">Jay Jin</div>
-            <div class="role">이시대의엄마</div>
-            <div class="email">jayjinjay@gmail.com</div>
+        <div class="section-card row">
+            <img class="photo col s4" src="img/baby2.jpeg" alt="My photo" />
+            <div class="info col s8">
+                <!-- <div class="name"><b>Name</b>Jay Jin</div>
+                <div class="role"><b>Role</b>이시대의엄마</div>
+                <div class="email"><b>ID</b>jayjinjay@gmail.com</div>
+                <div class="pw"><b>pw</b>*******</div> -->
+
+                <div class="name">Jay Jin</div>
+                <div class="role">이시대의엄마</div>
+                <div class="email"><b>ID</b>jayjinjay@gmail.com</div>
+                <div class="pw"><b>PW</b>*******</div>
+            </div>
         </div>
     </div>
-    <div class="family-info section-card">
+    <div class="babies-info section">
+        <h2>아이 정보</h2>
+        <div class="baby person-card" id="{{baby.bid}}" ng-repeat="baby in bMain.babyList">
+            <img class="photo circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+            <div class="info">
+                <div class="name">{{baby.babyName}}</div>
+                <div class="birth">{{baby.babyBirth}}</div>
+                <div class="divider"></div>
+                <div class="gender">{{baby.babyGender}}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="family-info section">
         <h2>가족 정보</h2>
-        <h3>우리 가족</h3>
         <div class="person-card">
             <img class="photo circle" src="img/baby2.jpeg" alt="My photo" />
             <div class="info">
                 <div class="name">Jay</div>
                 <div class="role">이시대의엄마</div>
             </div>
-        </div>
-        <div class="person-card">
+            <div class="divider"></div>
+            <div class="is-authorized">승인됨</div>
+        </div><div class="person-card">
             <img class="photo circle" src="img/baby1.jpeg" alt="My photo" />
             <div class="info">
                 <div class="name">Josh</div>
                 <div class="role">이시대의아빠</div>
             </div>
-        </div>
-        <h3>승인 대기중인 가족</h3>
-        <div class="person-card">
+            <div class="divider"></div>
+            <div class="is-authorized">승인됨</div>
+        </div><div class="unauthorized person-card">
             <img class="photo circle" src="img/baby1.jpeg" alt="My photo" />
             <div class="info">
                 <div class="name">John</div>
                 <div class="role">삼촌</div>
             </div>
+            <div class="divider"></div>
+            <div class="is-authorized">승인대기</div>
         </div>
     </div>
-    <div class="babies section-card">
-        <h2>아이 정보</h2>
-        <div class="baby person-card" id="{{baby.bid}}" ng-repeat="baby in bMain.babyList">
-            <img class="photo circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-            {{baby.babyName}} {{baby.babyBirth}}
-        </div>
-    </div>
+
 </article>
