@@ -223,8 +223,17 @@ public class AddBabyFragment extends Fragment {
                 String selectedImagePath = cursor.getString(columnIndex);
                 cursor.close();
 
-                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
-                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
+               // cropImageView.setImageBitmap(bitmap);
+
+                //Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
+               // bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
 
                 Uri tempUri = ImageUtil.getImageUri(context, bitmap);

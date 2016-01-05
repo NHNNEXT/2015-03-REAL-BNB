@@ -142,11 +142,14 @@ public class CardImageEditActivity extends AppCompatActivity implements View.OnC
 //                    txt_image_path.setText(selectedImagePath);
 //                }
 
-                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
-                // preview cardImg
-               // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, false);
 
-                bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
                 cropImageView.setImageBitmap(bitmap);
 
             } else {
