@@ -11,7 +11,15 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String mainpage() {
-		return "index.html";
+		return "landing1.html";
+	}
+	@RequestMapping("/home")
+	public String home() {
+		return "main.html";
+	}
+	@RequestMapping("/exit")
+	public String logout() {
+		return "logout.html";
 	}
 
 	@RequestMapping("/user")
@@ -24,6 +32,6 @@ public class MainController {
 	@RequestMapping("/card/{linkUrl}")
 	public String card(@PathVariable("linkUrl") String linkUrl){
 		System.out.println(linkUrl);
-		return "/card.html";
+		return "/card-share.html";
 	}
 }

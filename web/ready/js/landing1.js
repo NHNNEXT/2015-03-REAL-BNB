@@ -43,7 +43,7 @@ $("#signup-file").change(function () {
 
 // token이 있으면(로그인 된 상태라면) mainPage로 간다
 if(localStorage.getItem("token")){
-    window.location.assign("/"); // mainPage로 감 
+    window.location.assign("/home"); // mainPage로 감 
 }
 
 
