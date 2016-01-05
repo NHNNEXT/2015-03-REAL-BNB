@@ -11,7 +11,7 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String mainpage() {
-		return "index.html";
+		return "landing.html";
 	}
 
 	@RequestMapping("/user")
