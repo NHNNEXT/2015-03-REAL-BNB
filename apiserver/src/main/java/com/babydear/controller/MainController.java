@@ -24,6 +24,6 @@ public class MainController {
 	@RequestMapping("/card/{linkUrl}")
 	public String card(@PathVariable("linkUrl") String linkUrl){
 		System.out.println(linkUrl);
-		return "/card.html";
+		return "/card-share.html";
 	}
 }
