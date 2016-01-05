@@ -58,11 +58,11 @@ section.make-poster-container .card .template-container .template-box label {
   height: 100%;
   text-align: left;
 }
-section.make-poster-container .card .template-container .template-box label .poster-article {
+section.make-poster-container .card .template-container .template-box label .poster-preview {
   width: 100%;
   padding: 10px 0;
 }
-section.make-poster-container .card .template-container .template-box label .poster-article .poster-preview {
+section.make-poster-container .card .template-container .template-box label .poster-preview img {
   width: 100%;
 }
 section.make-poster-container .card .template-container .template-box input[type="radio"]:checked + label:after {

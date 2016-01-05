@@ -306,6 +306,19 @@ var CardCRUD = {
     },
 }
 
+// var Poster = {
+//     init: function() {
+        
+//     },
+//     selectTemplate: function(templateNum) {
+       
+//     },
+//     selectCards: function(input) {
+      
+//     }
+
+// }
+
 var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
 balbumApp.config(function($routeProvider) {
@@ -406,11 +419,12 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 
 balbumApp.controller('PosterController', function($scope, $http) {
     console.log("포스터컨트롤러");
+
+    /* 카드 선택 페이지 */
     var pCtrl = this;
 
     pCtrl.cardList;
     CardCRUD.get($http, pCtrl); /* 서버에 저장된 카드 가져오기 */
-
 
 });
 
