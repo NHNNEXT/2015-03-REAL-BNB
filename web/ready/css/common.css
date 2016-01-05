@@ -27,6 +27,9 @@
 .btn:hover {
   box-shadow: none;
 }
+.divider {
+  background-color: #f3ede8;
+}
 body {
   background: #f3ede8;
   color: #6f6c66;
@@ -215,7 +218,6 @@ aside.left-col ul li span.badge.new {
 }
 .bCard .divider {
   height: 0.05rem;
-  background-color: #f3ede8;
   margin-bottom: 0.4rem;
 }
 .bCard .babies-container {
