@@ -6,30 +6,43 @@
     android:layout_height="115dp"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_marginTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:scaleType="centerInside"
-        android:background="@android:color/transparent" />
-
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_image"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:textColor="@color/text"
         android:textSize="4dp"
         android:textStyle="italic"/>
 
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:scaleType="centerInside"
+        android:layout_below="@+id/tv_date"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/diary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_image"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="5"
+        android:padding="2dp"
+        android:textSize="3dp"
+        android:textColor="@color/text" />
+
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_below="@id/tv_date">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp">
 
         <LinearLayout
             android:id="@+id/profile_container"
@@ -42,16 +55,4 @@
             android:layout_marginRight="3dp"/>
     </HorizontalScrollView>
 
-
-    <TextView
-        android:id="@+id/diary_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="5dp"
-        android:maxLines="5"
-        android:padding="2dp"
-        android:textSize="4dp"
-        android:textColor="@color/text" />
 </RelativeLayout>

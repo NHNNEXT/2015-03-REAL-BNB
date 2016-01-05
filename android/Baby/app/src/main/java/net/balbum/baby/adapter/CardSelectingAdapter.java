@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.RoundedTransformation;
 import net.balbum.baby.VO.GeneralCardVo;
 
 import java.util.ArrayList;
@@ -68,15 +69,10 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
         }
         Picasso.with(context)
                 .load((Define.URL + cards.get(position).cardImg))
-                .placeholder(R.drawable.eggplant)
                 .into(holder.photo);
-
+        // .placeholder(R.drawable.eggplant)
 
         babiesInfo(holder.profile_container, position);
-
-
-
-     
 
         if(cards.get(position).isSelected){
             holder.check_img.setVisibility(View.VISIBLE);
@@ -92,24 +88,12 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
                 if (cards.get(position).isSelected) {
                     selectedCardListLong.add(cards.get(position).cid);
-                    Log.d("test", "add size: " + selectedCardListLong.size());
                 } else {
                     selectedCardListLong.remove(cards.get(position).cid);
-                    Log.d("test", "remove size: " + selectedCardListLong.size());
                 }
 
                 notifyDataSetChanged();
 
-//                if (holder.check_img.getVisibility() == View.GONE) {
-//                    holder.check_img.setVisibility(View.VISIBLE);
-//                    selectedCardListLong.add(cards.get(position).cid);
-//
-//                    Log.d("test", "추가 후 사이즈" + selectedCardListLong.size());
-//                } else {
-//                    holder.check_img.setVisibility(View.GONE);
-//                    selectedCardListLong.remove(cards.get(position).cid);
-//                    Log.d("test", "추가 취소 후 사이즈" + selectedCardListLong.size());
-//                }
             }
         });
 
@@ -117,38 +101,36 @@ public class CardSelectingAdapter extends RecyclerView.Adapter<CardSelectingAdap
 
     private void babiesInfo(LinearLayout profile_container, int position) {
 
-            profile_container.removeAllViews();
+        profile_container.removeAllViews();
 
-            int idx = cards.get(position).babies.size();
+        int idx = cards.get(position).babies.size();
 
-            LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(40, 40);
-            LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 40);
+        LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(40, 40);
+        LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 40);
 
-            //이 가족이 가진 애기 리스트를 가지고 loop돌림
-            List<Integer> baby_list = new ArrayList();
-            baby_list.add(R.drawable.b1);
-            baby_list.add(R.drawable.b2);
-            baby_list.add(R.drawable.b3);
+        for (int i = 0; i < idx; i++) {
 
-            for (int i = 0; i < idx; i++) {
+            LinearLayout linLayout = new LinearLayout(context);
+            linLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-                LinearLayout linLayout = new LinearLayout(context);
-                linLayout.setOrientation(LinearLayout.HORIZONTAL);
-                linLayout.setGravity(Gravity.CENTER_VERTICAL);
+            ImageView iv_profile = new ImageView(context);
 
-                ImageView iv_profile = new ImageView(context);
-                iv_profile.setImageResource(baby_list.get(i));
-                iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
-                linLayout.addView(iv_profile, imageParam);
+            //Log.d("test", "애기 프로필 사진 " + cards.get(position).getBabies().get(i).babyName + cards.get(position).getBabies().get(i).babyDate);
+            Picasso.with(context).load(Define.URL + cards.get(position).getBabies().get(i).babyImg).transform(new RoundedTransformation()).into(iv_profile);
 
-                TextView tv = new TextView(context);
-                tv.setText("13개월");
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 8);
-                tv.setLayoutParams(tvParam);
-                tv.setGravity(Gravity.CENTER);
-                linLayout.addView(tv);
-                ((LinearLayout) profile_container).addView(linLayout);
-            }
+            iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
+            linLayout.addView(iv_profile, imageParam);
+
+            TextView tv = new TextView(context);
+            tv.setText(cards.get(position).getBabies().get(i).babyDate);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 6);
+            tv.setLayoutParams(tvParam);
+            tv.setGravity(Gravity.CENTER);
+            linLayout.addView(tv);
+            ((LinearLayout) profile_container).addView(linLayout);
+        }
+
     }
 
     @Override

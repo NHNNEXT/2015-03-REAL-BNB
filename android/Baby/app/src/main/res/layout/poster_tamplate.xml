@@ -1,59 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_layout"
     android:layout_width="90dp"
     android:layout_height="120dp"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:scaleType="centerInside"
-        android:background="@android:color/transparent" />
-
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_image"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:textColor="@color/text"
         android:textSize="6dp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/diary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_image"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="5"
+        android:padding="2dp"
+        android:ellipsize="end"
+        android:textColor="@color/text"
+        android:textSize="4dp" />
 
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@id/tv_date">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp">
 
         <LinearLayout
             android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
 
-    <TextView
-        android:id="@+id/diary_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="5dp"
-        android:maxLines="5"
-        android:padding="2dp"
-        android:textSize="6dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/text" />
 </RelativeLayout>
