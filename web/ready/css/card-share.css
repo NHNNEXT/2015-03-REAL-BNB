@@ -1,0 +1,24 @@
+section.main-container {
+  padding: 0.7rem;
+}
+section.main-container .bCard {
+  max-width: 500px;
+  margin: 0 auto;
+}
+section.main-container .join {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+section.main-container .join .btn {
+  margin: 2rem 3%;
+  height: 49px;
+  line-height: 49px;
+}
+section.main-container .join .btn a {
+  color: white;
+}
+footer.page-footer {
+  padding-top: 0px;
+  background-color: rgba(63, 74, 88, 0.91);
+}

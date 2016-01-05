@@ -1,0 +1,104 @@
+<!doctype html>
+<html ng-app="balbumApp" class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>BALBUM</title>
+        <meta name="description" content="">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+        <!-- env -->
+        <meta charset="utf-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="viewport"
+              content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+        <meta name="language" content="Korean">
+        <meta http-equiv="content-language" content="KO">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <!-- title -->
+        <title>아이가 커서 보는 육아일기, BALBUM</title>
+        <meta name="title" content="BALBUM"/>
+        <meta name="description"
+              content="아이가 커서 보는 육아일기, BALBUM"/>
+        <meta name="keywords"
+              content="BALBUM, 육아일기, 아이, baby">
+        <!-- og -->
+        <meta property="og:site_name" content="BALBUM"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="핑크퐁 북스토어"/>
+        <meta property="og:description"
+              content="노래로, 놀이로 배웁니다. 핑크퐁 북스토어"/> <!-- 여기에 내용 써야함 -->
+        <meta property="og:image"
+              content="img/asfasdf"/><!-- 여기에 카드 이미지 경로 넣어야함 -->
+        <!-- twitter -->
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:title" content="BALBUM"/>
+        <meta name="twitter:description"
+              content="아이가 커서 보는 육아일기, BALBUM"/>
+        <meta name="twitter:image:src"
+              content="img/asdfasdf"/><!-- 여기에 카드 이미지 경로 넣어야함 -->
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/card-share.css">
+        <link rel="stylesheet" href="css/common.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body ng-controller="MainController as bMain">
+        <div class="navbar-fixed">
+            <nav class="nav-top" role="navigation">
+                <div class="nav-wrapper"><a id="logo-container" href="#/" class="brand-logo"><img src="img/balbum-logo.png" alt="logo"></a>
+                </div>
+            </nav>
+        </div>
+        <section class="main-container row">
+            <div class="baby-card bCard scrollspy row" data-cid="{{bc.cid}}">
+                <div class="bc-action col s12">
+                    <div class="date-container">2015-04-27</div>
+                </div>
+                <img class="bc-photo" src="img/photo9.jpg">
+                <div class="bc-container">
+                    <div class="bc-content">어쩌구 저쩌구 샬라샬라 집에 가고싶다 오징어회도 먹고싶다</div>
+                    <div class="divider"></div>
+                    <div class="babies-container">
+                        <div class="baby">
+                            <img class="circle" src="img/baby1.jpeg" alt="Baby Image">다정이 3개월
+                        </div>
+                        <div class="baby">
+                            <img class="circle" src="img/baby2.jpeg" alt="Baby Image">연우 2살
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="join">
+                <button class="btn"><a href="http://www.balbum.net/">아이의 순간 담으러 가기</a></p>
+            </div>
+        </section>
+        <footer class="page-footer">
+              <div class="footer-copyright">
+                <div class="container">
+                    BALBUM © 2016 Copyright
+                    <a class="grey-text text-lighten-4 right" href="http://www.balbum.net/">GO HOME</a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script type="text/javascript" src="js/vendor/materialize.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/vendor/bootstrap-modal.min.js"></script>
+        <script src="js/vendor/steps-modal.js"></script>
+        <!-- <script src="js/cardCRUD.js"></script> -->
+        <script src="/node_modules/dropzone/dist/dropzone.js"></script>
+    </body>
+</html>

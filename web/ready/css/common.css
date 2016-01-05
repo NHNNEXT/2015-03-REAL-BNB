@@ -140,14 +140,14 @@ aside.left-col ul li span.badge.new {
   padding: 0.75rem 0;
   border-radius: 0.7rem;
 }
+.bCard .date-container {
+  display: inline-block;
+  color: #92889C;
+}
 .bCard .bc-action {
   margin: 0 1rem;
   color: #CECECE;
   cursor: pointer;
-}
-.bCard .bc-action .date-container {
-  display: inline-block;
-  color: #92889C;
 }
 .bCard .bc-action .btn-container {
   display: inline-block;
