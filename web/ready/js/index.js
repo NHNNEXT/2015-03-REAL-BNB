@@ -3,14 +3,26 @@ var address = "http://dev.balbum.net/";
 var token = localStorage.getItem('token');
 // var token = 'asdf1234';
 var today;
-
 var testData;
 
 var Main = {
-    init: function(bMain, $scope) {
+    init: function(bMain, $scope, $http) {
         bMain.token = token;
         $("input[name='token']").val(token);
-    }
+        Main.getMyInfo($http, bMain);
+    },
+    getMyInfo: function($http, bMain) {
+        $http({
+            url: address + 'api/family',
+            method: "GET",
+            params: {token: token}
+        }).then( function(response) {
+            console.log("사용자 정보:", response);
+            bMain.userInfo = response.data;
+        }, function() {
+            alert('사용자 정보를 불러오지 못하였습니다.');
+        });
+    },
 }
 
 var Start = {
@@ -339,8 +351,10 @@ balbumApp.controller('MainController', function($scope, $http) {
     var bMain = this;
     bMain.babyList;
     bMain.token;
+    bMain.userInfo;
 
-    Main.init(bMain, $scope);
+    Main.init(bMain, $scope, $http);
+
 
     User.get($http, bMain); /* 서버에 저장된 유저 토큰값으로 불러오기 */
     User.getBaby($http, bMain); /* 서버에 저장된 유저 토큰별 아이 불러오기 */
