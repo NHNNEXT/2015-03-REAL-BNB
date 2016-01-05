@@ -25,4 +25,5 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 	// public List<Card> findAllByBaby(@Param("bId") Long bId);
 
 	public List<Card> findAllByBabies(List<Baby> babies);
+	public Card findOneByLinkUrl(String linkUrl);
 }

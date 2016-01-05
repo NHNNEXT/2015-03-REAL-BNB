@@ -18,4 +18,8 @@ public class MainController {
 		return "userPage.html";
 	}
 	
+	@RequestMapping("/card/{linkUrl}")
+	public String card(){
+		return "card.html";
+	}
 }

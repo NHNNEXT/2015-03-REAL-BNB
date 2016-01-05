@@ -171,6 +171,13 @@ public class CardController {
 		card.calculate();
 		return card;
 	}
+	@RequestMapping(value="/api/card/link/{linkUrl}")
+	public Card getOne(@PathVariable("linkUrl")String linkUrl){
+		logger.info("hello");
+		Card card =cardRepo.findOneByLinkUrl(linkUrl);
+		card.calculate();
+		return card;
+	}
 	
 	@RequestMapping(value="/api/card/list", consumes ="application/json")
 		public CardListDTO getCardList(@RequestBody Map<String, Object> req){

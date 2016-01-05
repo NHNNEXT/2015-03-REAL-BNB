@@ -2,6 +2,7 @@ package com.babydear.component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
@@ -79,6 +80,7 @@ public class InitDB {
 		card1.setCreateDate(new Date());
 		card1.setUpdateDate(new Date());
 		card1.setState(Card.State.Normal);
+		card1.setLinkUrl(System.currentTimeMillis() + UUID.randomUUID().toString());
 		cardRepo.save(card1);
 
 		Card card2 = new Card();
@@ -93,6 +95,7 @@ public class InitDB {
 		card2.setCreateDate(new Date());
 		card2.setUpdateDate(new Date());
 		card2.setState(Card.State.Normal);
+		card2.setLinkUrl(System.currentTimeMillis() + UUID.randomUUID().toString());
 		cardRepo.save(card2);
 
 		//
