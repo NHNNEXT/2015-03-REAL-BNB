@@ -90,13 +90,21 @@ public class SignFacebookActivity extends AppCompatActivity {
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            editor.putString("tokenB", authVo.token);
-                            editor.putString("profileName", profileName);
-                            editor.putString("profileImage", profileImage);
-                            editor.putString("profileRole", profileRole);
-                            editor.commit();
-                            sendProfileImage(authVo.token, profileImage);
-                            Log.d("test", "authVo받았니 " + authVo.token);
+
+                            if (authVo.message.equals("이미 가입 되었습니다.")) {
+                                ToastUtil.show(context, "이미 가입 되었습니다");
+                                editor.putString("tokenB", authVo.token);
+                                editor.commit();
+                                goToActivity(context, MainActivity.class);
+                            } else {
+                                editor.putString("tokenB", authVo.token);
+                                editor.putString("profileName", profileName);
+                                editor.putString("profileImage", profileImage);
+                                editor.putString("profileRole", profileRole);
+                                editor.commit();
+                                sendProfileImage(profileImage);
+                            }
+
                         }
 
                         @Override
@@ -110,7 +118,7 @@ public class SignFacebookActivity extends AppCompatActivity {
 
         });
     }
-    private void sendProfileImage(String token, final String profileImage) {
+    private void sendProfileImage(final String profileImage) {
         
         final File[] file = {null};
         Thread thread = new Thread(new Runnable() {

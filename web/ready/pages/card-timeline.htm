@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="card-container row">
-        <div class="baby-card bCard scrollspy col s12 l6" data-cid="{{bc.cid}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
+        <div class="baby-card bCard {{bc.type}} scrollspy col s12 l6" data-cid="{{bc.cid}}" data-ctype="{{bc.type}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
             <div class="bc-action">
                 <div class="date-container">{{bc.modifiedDate}}</div>
                 <div class="btn-container">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <img class="bc-photo" src=" http://dev.balbum.net{{bc.cardImg}}">
+            <img class="bc-photo" ng-show="{{bc.cardImg}}" src=" http://dev.balbum.net{{bc.cardImg}}">
             <div class="bc-content">{{bc.content}}</div>
             <div class="divider"></div>
             <div class="babies-container">

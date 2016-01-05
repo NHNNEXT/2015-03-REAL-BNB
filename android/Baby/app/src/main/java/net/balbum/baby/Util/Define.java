@@ -4,8 +4,8 @@ package net.balbum.baby.Util;
  * Created by hyes on 2015. 12. 7..
  */
 public interface Define {
-   // String URL="http://192.168.0.31:8080";
-    String URL="http://dev.balbum.net";
+//    String URL="http://192.168.1.146:8080";
+    String URL="http://www.balbum.net";
     String EVENT_CARD_BG1 = "event_background_1";
     String EVENT_CARD_BG2 = "event_background_2";
     String EVENT_CARD_BG3 = "event_background_3";

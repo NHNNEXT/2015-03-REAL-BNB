@@ -38,7 +38,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:rippleColor="@color/purple4"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/eggplant"
+        android:scaleType="fitXY"
         app:layout_behavior="net.balbum.baby.ScrollFABBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

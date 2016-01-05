@@ -8,7 +8,7 @@ import org.parceler.Parcel;
 @Parcel
 public class BabyVo {
 
-    public long bId;
+    public Long bid;
     public String babyImg;
     public String babyName;
     public String babyBirth;
@@ -18,12 +18,12 @@ public class BabyVo {
     public BabyVo() {
     }
 
-    public BabyVo(String babyName, String babyBirth, String babyGender, String image, Long bId) {
+    public BabyVo(String babyName, String babyBirth, String babyGender, String image, Long bid) {
         this.babyName = babyName;
         this.babyBirth = babyBirth;
         this.babyGender = babyGender;
         this.babyImg = image;
-        this.bId = bId;
+        this.bid = bid;
     }
 
     public BabyVo(String babyName, String babyBirth, String babyGender, String image) {
@@ -33,13 +33,13 @@ public class BabyVo {
         this.babyImg = image;
     }
 
-    public BabyVo(String babyBirth, String babyDate, String babyGender, String babyImg, String babyName, long bId) {
+    public BabyVo(String babyBirth, String babyDate, String babyGender, String babyImg, String babyName, Long bid) {
         this.babyBirth = babyBirth;
         this.babyDate = babyDate;
         this.babyGender = babyGender;
         this.babyImg = babyImg;
         this.babyName = babyName;
-        this.bId = bId;
+        this.bid = bid;
     }
 }
 

@@ -1,8 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
+    <!--<item android:id="@+id/see_all"-->
+        <!--android:icon="@drawable/eggplant"-->
+        <!--android:title="모두 보기"-->
+        <!--app:showAsAction="always|withText"-->
+        <!--/>-->
 
 </menu>

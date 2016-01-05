@@ -40,6 +40,7 @@
     <string name="card_share">공유하기</string>
     <string name="card_delete">삭제하기</string>
     <string name="card_modify">수정하기</string>
+    <string name="select_text">선택완료</string>
 
     <string name="kakao_scheme">kakaodb97a38d74491b60bb09861855a2af39</string>
     <string name="kakaolink_host">kakaolink</string>

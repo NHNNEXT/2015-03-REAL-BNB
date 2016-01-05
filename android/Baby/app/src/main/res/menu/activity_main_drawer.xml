@@ -13,12 +13,12 @@
         <!--android:icon="@android:drawable/ic_menu_gallery"-->
         <!--android:title="Gallery" />-->
 
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="가족 설정"
-            app:actionLayout="@layout/action_view_switch"
-            app:showAsAction="always" />
+        <!--<item-->
+            <!--android:id="@+id/nav_setting"-->
+            <!--android:icon="@android:drawable/ic_menu_manage"-->
+            <!--android:title="가족 설정"-->
+            <!--app:actionLayout="@layout/action_view_switch"-->
+            <!--app:showAsAction="always" />-->
     </group>
 
     <item android:title="Share Poster">
@@ -31,10 +31,21 @@
                 android:id="@+id/nav_poster2"
                 android:icon="@android:drawable/ic_menu_send"
                 android:title="13장 포스터" />
-        </menu>
+            <item
+                android:id="@+id/nav_poster3"
+                android:icon="@android:drawable/ic_menu_send"
+                android:title="포스터 리스트" />
+       </menu>
     </item>
     <item android:title="setting">
         <menu>
+
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="가족 설정"
+                app:actionLayout="@layout/action_view_switch"
+                app:showAsAction="always" />
             <item
                 android:id="@+id/logout"
                 android:icon="@android:drawable/ic_menu_share"

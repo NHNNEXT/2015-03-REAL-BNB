@@ -1,6 +1,7 @@
 package net.balbum.baby.lib.retrofit;
 
 import net.balbum.baby.VO.AuthVo;
+import net.balbum.baby.VO.BabyTimelineVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
@@ -54,6 +55,26 @@ public interface TaskService {
     @POST("/api/card/update")
     void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
 
+
+    //2명
+    @Multipart
+    @POST("/api/card")
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
+
+    @Multipart
+    @POST("/api/card/update")
+    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
+
+    //3명
+    @Multipart
+    @POST("/api/card")
+    void createCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("bIds[2]") Long m, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, Callback<ResponseVo> cb);
+
+    @Multipart
+    @POST("/api/card/update")
+    void updateCard(@Part("image") TypedFile file, @Part("token") String token, @Part("bIds[0]") Long k, @Part("bIds[1]") Long l, @Part("bIds[2]") Long m, @Part("content") String content, @Part("modifiedDate") String date, @Part("type") String type, @Part("cId") Long cId, Callback<ResponseVo> cb);
+
+
     @GET("/api/card/delete")
     void deleteCard(@Query("cId") Long cId, Callback<ResponseVo> cb);
 
@@ -80,17 +101,22 @@ public interface TaskService {
     @Multipart
     @POST("/api/user/baby/create")
 //    void createBabyInfo(@Part("image") TypedFile file, @Body BabyVo babyVo, Callback<ResponseVo> cb);
-    void createBabyInfo(@Part("image") TypedFile file,  @Part("babyName") String name, @Part("babyBirth") String birth,  @Part("babyGender") String gender, Callback<ResponseVo> cb);
+    void createBabyInfo(@Part("token") String token, @Part("image") TypedFile file,  @Part("babyName") String name, @Part("babyBirth") String birth,  @Part("babyGender") String gender, Callback<ResponseVo> cb);
 
     @GET("/api/user/baby")
     void getBabies(@Query("token") String token, Callback<ArrayList<BabyVo>> cb);
 
     @GET("/api/filter/baby")
-    void filteringBaby(@Query("token") String token, @Query("babies") Callback<CardListVo> cb);
-    //@Body CardIdListVo cardIdListVo,
+    void filteringBaby(@Query("token") String token, @Query("bId") Long l,  Callback<CardListVo> cb);
+
+
+//    @POST("/api/filter/babies")
+//    void filteringBabies(@Part("token") String token, @Part("babies") Long[] k, Callback<CardListVo> cb);
+
+    @POST("/api/filter/babies")
+    void filteringBabies(@Body BabyTimelineVo babyTimeline, Callback<CardListVo> cb);
 
     @GET("/api/family")
     void getFamilyGlobalInfo(@Query("token") String token, Callback<FamilyVo> cb);
-
 
 }
