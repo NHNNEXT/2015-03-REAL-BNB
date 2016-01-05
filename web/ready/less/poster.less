@@ -8,16 +8,18 @@ section.poster-container {
     // padding-left: @left-col-width;
 
     .card {
-    	margin: 10px 0px -10px -10px;
+    	margin: 10px 0px 0px -10px;
     	padding: 30px 0;
     	height: 100%;
     	
     	h5:nth-of-type(1){
-			margin: 0px 0 0 10px;
+            font-size: 1.5em;
+			margin: 0px 0 0 20px;
     	}
 
     	h5:nth-of-type(2){
-    		margin: 0 0 20px 10px;
+            font-size: 1.5em;
+    		margin: 0 0 20px 20px;
     		color: @primary;
     	}
 
@@ -28,6 +30,7 @@ section.poster-container {
 		p {
 			padding: 0 20px;
 			color: #505050;
+            min-height: 60px;
 		}
     	div{ 
     		text-align: center;
@@ -60,6 +63,10 @@ section.select-card-container {
         div.baby-card {
             // bCard와 공통 속성과 다름
             // select-card-container 안에 있는 카드에서만의 카드 속성
+         
+            // background-color: red;
+            cursor: pointer;
+
             .babies-container {
                 .baby {
                     img {
@@ -68,6 +75,10 @@ section.select-card-container {
                     }
                 }
             }
+        }
+
+        .chosen {
+            background-color: red;
         }
     }
 }
