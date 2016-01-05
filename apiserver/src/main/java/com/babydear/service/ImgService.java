@@ -29,7 +29,7 @@ public class ImgService {
     }
 
     public String processImgUser(MultipartFile image) throws IllegalStateException, IOException, NotGoodExtention{
-    	return processImg(image, "/imgs/user/", "/imgs/sample/user.jpeg");
+    	return processImg(image, "/imgs/user/", "/imgs/sample/user.png");
     }
     public String processImgBaby(MultipartFile image) throws IllegalStateException, IOException, NotGoodExtention{
     	return processImg(image, "/imgs/baby/", "/imgs/sample/baby.jpeg");
