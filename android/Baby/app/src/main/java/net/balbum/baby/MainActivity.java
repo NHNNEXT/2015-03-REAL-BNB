@@ -31,6 +31,7 @@ import net.balbum.baby.Util.Define;
 import net.balbum.baby.Util.RoundedTransformation;
 import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyTagVo;
+import net.balbum.baby.VO.BabyTimelineVo;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardListVo;
 import net.balbum.baby.VO.GeneralCardVo;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void success(ArrayList<BabyVo> babyVos, Response response) {
                 for (BabyVo baby : babyVos) {
-                    BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bId, false, baby.babyName);
+                    BabyTagVo babyTag = new BabyTagVo(baby.babyImg, baby.bid, false, baby.babyName);
                     babyList.add(babyTag);
                 }
                 initNavRecyclerView();
@@ -141,7 +142,6 @@ public class MainActivity extends AppCompatActivity
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
         TokenUtil tu = new TokenUtil(context);
-        Log.d("test", "token: " + tu.getToken());
 
         taskService.getCard(tu.getToken(), new Callback<CardListVo>() {
             @Override
@@ -208,9 +208,54 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void babyFilter(List<BabyTagVo> selectedNames) {
+
+        int idx = selectedNames.size();
+        Log.d("test", selectedNames.get(0).name + " , "+ selectedNames.get(0).bid);
+
+        TokenUtil tu = new TokenUtil(context);
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
+
+        if(idx == 1) {
+            taskService.filteringBaby(tu.getToken(), selectedNames.get(0).bid, new Callback<CardListVo>() {
+                @Override
+                public void success(CardListVo cardListVo, Response response) {
+                    CardListVo cd = cardListVo;
+                    cardGeneralModelList = cd.cardList;
+                    initView(cardGeneralModelList);
+                    Log.d("test", "error: " + cardListVo.error);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("test", "애기필터 안됨 ");
+
+                }
+            });
+        }else if(idx == 2){
+
+            List<Long> list = new ArrayList<Long>();
+
+            for(int i = 0; i< selectedNames.size(); i++){
+                list.add(selectedNames.get(i).bid);
+            }
+            BabyTimelineVo bt = new BabyTimelineVo(list, tu.getToken());
+            taskService.filteringBabies(bt, new Callback<CardListVo>() {
+                @Override
+                public void success(CardListVo cardListVo, Response response) {
+                    CardListVo cd = cardListVo;
+                    cardGeneralModelList = cd.cardList;
+                    initView(cardGeneralModelList);
+                    Log.d("test", "2명 error: " + cardListVo.error);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("test", "두명 애기필터 안됨 ");
+                }
+            });
+        }
         //선택된 애기 리스트 서버 전달하고 그 아이들이 태깅된 카드 리스트 받아와서 initview 시킬 것!!
-        
+
     }
 
     private void initToolbar() {
