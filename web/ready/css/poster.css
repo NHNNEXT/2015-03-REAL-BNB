@@ -93,13 +93,24 @@ section.make-poster-container .card .poster-btn-container .next-btn {
 section.make-poster-container .card .poster-btn-container .next-btn:hover {
   background: #9b7bba !important;
 }
-section.select-card-container div.card-container div.baby-card {
+section.select-card-container {
+  width: 100%;
+}
+section.select-card-container .card {
+  width: 100%;
+  padding-bottom: 10px;
+}
+section.select-card-container .card h5 {
+  font-size: 1.5em;
+  padding: 30px;
+}
+section.select-card-container .card div.card-container div.baby-card {
   cursor: pointer;
 }
-section.select-card-container div.card-container div.baby-card .babies-container .baby img {
+section.select-card-container .card div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
   height: 2em;
 }
-section.select-card-container div.card-container .chosen {
+section.select-card-container .card div.card-container .chosen {
   background-color: red;
 }

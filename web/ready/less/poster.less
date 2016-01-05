@@ -128,26 +128,39 @@ section.make-poster-container {
 }
 
 section.select-card-container {
-    div.card-container {
-        div.baby-card {
-            // bCard와 공통 속성과 다름
-            // select-card-container 안에 있는 카드에서만의 카드 속성
-         
-            // background-color: red;
-            cursor: pointer;
+    width: 100%;
 
-            .babies-container {
-                .baby {
-                    img {
-                        width: 2em;
-                        height: 2em
+    .card {
+        width: 100%;
+        padding-bottom: 10px;
+
+        h5{
+            font-size: 1.5em;
+            padding: 30px;
+        }
+
+
+        div.card-container {
+            div.baby-card {
+                // bCard와 공통 속성과 다름
+                // select-card-container 안에 있는 카드에서만의 카드 속성
+             
+                // background-color: red;
+                cursor: pointer;
+
+                .babies-container {
+                    .baby {
+                        img {
+                            width: 2em;
+                            height: 2em
+                        }
                     }
                 }
             }
-        }
 
-        .chosen {
-            background-color: red;
+            .chosen {
+                background-color: red;
+            }
         }
     }
 }
