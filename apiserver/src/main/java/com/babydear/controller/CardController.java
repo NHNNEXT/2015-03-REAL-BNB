@@ -76,11 +76,11 @@ public class CardController {
 			return new ResponseDTO(false, e1.getMessage());
 		}
 		final List<Baby> babies = tagService.processTags(card.getBIds(), card.getBabies());
-		if (babies == null || babies.isEmpty()) return new ResponseDTO(false, "아기 태그를 하나 이상 추가해 주세요");
+//		if (babies == null || babies.isEmpty()) return new ResponseDTO(false, "아기 태그를 하나 이상 추가해 주세요");
 		if(card.getType() == null) return new ResponseDTO(false, "카드의 형식을 입력해 주세요 :NORMAL,EVENT? ");
 		if(card.getModifiedDate() == null)return new ResponseDTO(false, "카드 날짜를 입력해 주세요 ");
 		if(!card.getModifiedDate().matches("....-..-..")) return new ResponseDTO(false, "카드 날짜 형식이 잘못되었습니다");
-		card.setBabies(babies);
+		if(babies != null && !babies.isEmpty()) card.setBabies(babies);
 		card.setState(Card.State.Normal);
 		card.setCreateDate(new Date());
 		card.setUpdateDate(new Date());
