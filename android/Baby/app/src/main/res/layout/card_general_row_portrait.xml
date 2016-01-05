@@ -33,7 +33,7 @@
             android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_more_horiz_purple_24dp" />
+            android:src="@drawable/ic_expand_more_white_24dp"/>
 
         <ImageButton
             android:id="@+id/share_btn"
