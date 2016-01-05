@@ -104,9 +104,16 @@ var InitModal = {
         this.steps();
         this.uploadPhoto();
 
-        $('.modal-add-baby .action-container .btn-done').on('click', '', function() {
+        if(localStorage.getItem('initCompleted') !== token) {
+            $('div.modal-main-btn').click();
+        }
+
+        $('.modal-add-baby .action-container .btn-start').on('click', '', function() {
             $('.add-baby-btn button').click();
-            console.log("done");
+            // localStorage.setItem('initCompleted', token);
+        });
+        $('.modal-add-baby .action-container .btn-done').on('click', '', function() {
+            localStorage.setItem('initCompleted', token);
         });
 
     },
@@ -259,11 +266,6 @@ var CardCRUD = {
         var url = bId? 'api/filter/baby?token='+token+'&bId='+bId : 'api/card?token='+token;
         $http.get(address + url).then(function(res) {
             ctrl.cardList = res.data.cardList;
-            if(res.data.cardList.length == 0) {
-                console.log("카드리스트 비었다");
-                $('div.modal-main-btn').click();
-
-            }
         }, function() {
             alert('카드를 불러오지 못했어요. 새로고침을 해주시겠어요?');
         });
