@@ -62,6 +62,7 @@ public class CardWritingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int type = intent.getIntExtra("type", 0);
         final Long card_id = intent.getLongExtra("cId", 0);
+        final String card_img = intent.getStringExtra("cImg");
         GeneralCardFragment generalCardFragment = new GeneralCardFragment();
         EventCardFragment eventCardFragment = new EventCardFragment();
 
@@ -83,6 +84,7 @@ public class CardWritingActivity extends AppCompatActivity {
 
                     Bundle bundle = new Bundle();
                     bundle.putLong("cId", card_id);
+                    bundle.putString("cImg", card_img);
 
                     if(cardVo[0].type.equals("NORMAL")) {
                         GeneralCardFragment generalCardFragment = new GeneralCardFragment();
@@ -188,15 +190,25 @@ public class CardWritingActivity extends AppCompatActivity {
             String type = null;
             if(currentItem == 0){
                 type = "NORMAL";
-                file = new File(vo.cardImg);
+                if(vo.cardImg != null) {
+                    file = new File(vo.cardImg);
+                }else{
+                    file = null;
+                }
             }else if(currentItem == 1){
                 type = "EVENT";
-                file = ImageUtil.getFilefromDrawable(context, vo.cardImg);
+                if(vo.cardImg != null) {
+                    file = ImageUtil.getFilefromDrawable(context, vo.cardImg);
+                }else{
+                    file = null;
+                }
             }
-
-
-            TypedFile typedFile = new TypedFile("multipart/form-data", file);
-
+            TypedFile typedFile;
+            if(vo.cardImg != null) {
+                typedFile = new TypedFile("multipart/form-data", file);
+            }else{
+                typedFile = null;
+            }
             TokenUtil tu = new TokenUtil(context);
             tu.getToken();
 
@@ -254,6 +266,37 @@ public class CardWritingActivity extends AppCompatActivity {
                     });
                 } else {
                     taskService.updateCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "업데이트 성공!");
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "업데이트 실패!");
+                        }
+                    });
+
+                }
+
+            }else if(sel.size() == 3){
+                if ((Long) vo.cid == 0) {
+
+                    taskService.createCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, sel.get(2).bid, vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "card error: " + error);
+                        }
+                    });
+                } else {
+                    taskService.updateCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, sel.get(2).bid, vo.content, vo.modifiedDate, type, vo.cid, new Callback<ResponseVo>() {
                         @Override
                         public void success(ResponseVo responseVo, Response response) {
                             Log.i("test", "업데이트 성공!");

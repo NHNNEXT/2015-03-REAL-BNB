@@ -55,6 +55,8 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     View view;
     GeneralCardVo card;
     TaskService taskService;
+    String card_img;
+    int status = 0;
 
     @Nullable
     @Override
@@ -69,6 +71,8 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
         if (bundle != null) {
             long card_id = bundle.getLong("cId");
+            card_img = bundle.getString("cImg");
+            status = 1;
             TaskService taskService = ServiceGenerator.createService(TaskService.class);
             taskService.getOneCard(card_id, new Callback<GeneralCardVo>() {
                 @Override
@@ -111,17 +115,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 
         card_date_et.setText(TimeUtil.getRecordedMoment());
 
-//        if(card != null) {
-//            memo_tv.setText(card.content);
-//            Picasso.with(context)
-//                    .load((Define.URL+card.cardImg))
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .into(photo_iv);
-//
-//
-//
-//        }
-
         photo_tv.setOnClickListener(this);
         memo_tv.setOnClickListener(this);
         camera_iv.setOnClickListener(this);
@@ -154,7 +147,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
     @Override
     public GeneralCardVo getCardInfo() {
 
-        Log.d("test", "card getCardInfo");
         //EditText memo = (EditText)findViewById(R.id.memo_tv);
         //미리 저장된 아기 정보 서버에서 가져오기 또는 내부에 저장해두고 불러오거나
 //        getActivity().
@@ -165,10 +157,16 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
 //        Log.d("test", "names: " +tempVo.names.size());
         tempVo.modifiedDate = card_date_et.getText().toString();
         tempVo.content = memo_tv.getText().toString();
-        Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
-        String filePath = getRealPathFromURI(tempUri);
-        tempVo.cardImg = filePath;
-
+        if(status != 1) {
+            Log.d("test", "0?:  " + status);
+            Uri tempUri = getImageUri(context, CardImageEditActivity.croppedBitmap);
+            String filePath = getRealPathFromURI(tempUri);
+            tempVo.cardImg = filePath;
+        }else{
+            Log.d("test", "1?:  " + status);
+            tempVo.cardImg = Define.URL + card_img;
+            status = 0;
+        }
         return tempVo;
     }
 
@@ -222,50 +220,6 @@ public class GeneralCardFragment extends Fragment implements View.OnClickListene
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-    //
-//    public interface CustomOnClickListener{
-//        public void onClicked(int id);
-//    }
-//
-//        @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        customListener = (CustomOnClickListener)activity;
-//    }
-//
-//    View.OnClickListener onClickListener = new View.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View v) {
-//            customListener.onClicked(v.getId());
-//        }
-//    };
-//
-//
-//    public String getItem(){
-//        return "item";
-//    }
 
 }
 
-
-
-
-//    // Activity 로 데이터를 전달할 커스텀 리스너
-//    private CustomOnClickListener customListener;
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너의 인터페이스
-//    public interface CustomOnClickListener{
-//        public void onClicked(int id);
-//    }
-//
-//    // 버튼에 설정한 OnClickListener의 구현, 버튼이 클릭 될 때마다 Activity의 커스텀 리스너를 호출함
-
-//
-//    // Activity 로 데이터를 전달할 커스텀 리스너를 연결
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        customListener = (CustomOnClickListener)activity;
-//    }
-//}
