@@ -17,6 +17,10 @@ public class MainController {
 	public String home() {
 		return "main.html";
 	}
+	@RequestMapping("/exit")
+	public String logout() {
+		return "logout.html";
+	}
 
 	@RequestMapping("/user")
 	public String user() {
