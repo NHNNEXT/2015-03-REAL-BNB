@@ -79,6 +79,7 @@ public class Card {
 	}
 	public void calculate() {
 		DateFormatter f = new DateFormatter();
+		if(babies == null) return;
 		for(Baby baby : babies){
 			String result = f.calculateFromBabyToCard(baby.getBabyBirth(), this.modifiedDate);
 			baby.setBabyDate(result);
