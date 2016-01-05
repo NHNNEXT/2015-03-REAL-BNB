@@ -1,20 +1,28 @@
 package net.balbum.baby;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.RoundedTransformation;
+import net.balbum.baby.Util.TimeUtil;
 import net.balbum.baby.VO.BabyVo;
 import net.balbum.baby.VO.CardIdListVo;
 import net.balbum.baby.VO.CardListVo;
@@ -22,6 +30,9 @@ import net.balbum.baby.VO.GeneralCardVo;
 import net.balbum.baby.lib.retrofit.ServiceGenerator;
 import net.balbum.baby.lib.retrofit.TaskService;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,12 +49,15 @@ public class PosterMakingActivity extends AppCompatActivity {
     Context context;
     List<GeneralCardVo> cardList;
     List<BabyVo> babies;
+    RelativeLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poster_making2);
         context = this;
+
+        container = (RelativeLayout)findViewById(R.id.poster_container);
 
         List<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("cIds");
         Log.d("test", "PosterMakingActivity : " + list.toString());
@@ -57,7 +71,7 @@ public class PosterMakingActivity extends AppCompatActivity {
                 @Override
                 public void success(CardListVo cardListVo, Response response) {
                     cardList = cardListVo.cardList;
-                    Log.d("test", "list" + cardListVo.cardList.get(0).content);
+                    Log.d("test", "list" + cardListVo.cardList.get(0).babies.size());
                     showPoster();
                 }
 
@@ -128,12 +142,12 @@ public class PosterMakingActivity extends AppCompatActivity {
         setCard(c1_iv, c1_date, c1_profile, c1_diary, cardList.get(0));
         setCard(c2_iv, c2_date, c2_profile, c2_diary, cardList.get(1));
         setCard(c3_iv, c3_date, c3_profile, c3_diary, cardList.get(2));
-//        setCard(c4_iv, c4_date, c4_profile, c4_diary, cardList.get(3));
-//        setCard(c5_iv, c5_date, c5_profile, c5_diary, cardList.get(4));
-//        setCard(c6_iv, c6_date, c6_profile, c6_diary, cardList.get(5));
-//        setCard(c7_iv, c7_date, c7_profile, c7_diary, cardList.get(6));
-//        setCard(c8_iv, c8_date, c8_profile, c8_diary, cardList.get(7));
-//        setCard(c9_iv, c9_date, c9_profile, c9_diary, cardList.get(8));
+        setCard(c4_iv, c4_date, c4_profile, c4_diary, cardList.get(3));
+        setCard(c5_iv, c5_date, c5_profile, c5_diary, cardList.get(4));
+        setCard(c6_iv, c6_date, c6_profile, c6_diary, cardList.get(5));
+        setCard(c7_iv, c7_date, c7_profile, c7_diary, cardList.get(6));
+        setCard(c8_iv, c8_date, c8_profile, c8_diary, cardList.get(7));
+        setCard(c9_iv, c9_date, c9_profile, c9_diary, cardList.get(8));
 
     }
 
@@ -148,85 +162,110 @@ public class PosterMakingActivity extends AppCompatActivity {
     private void babiesInfo(final LinearLayout profile_container, GeneralCardVo card) {
 
         profile_container.removeAllViews();
+        babies = new ArrayList<BabyVo>();
+        int idx = card.getBabies().size();
 
-        final int idx = card.babies.size();
 
         final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(30, 30);
         final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 30);
 
-        babies = new ArrayList<BabyVo>();
-
         for(int i = 0 ; i < idx; i++) {
-            babies = cardList.get(i).babies;
+
             LinearLayout linLayout = new LinearLayout(context);
             linLayout.setOrientation(LinearLayout.HORIZONTAL);
             linLayout.setGravity(Gravity.CENTER_VERTICAL);
 
             ImageView iv_profile = new ImageView(context);
-            Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
+            Picasso.with(context).load(Define.URL + card.getBabies().get(i).babyImg).transform(new RoundedTransformation()).into(iv_profile);
             iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
             linLayout.addView(iv_profile, imageParam);
 
             TextView tv = new TextView(context);
-            tv.setText(babies.get(i).babyDate);
+            tv.setText(card.getBabies().get(i).babyDate);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 6);
             tv.setLayoutParams(tvParam);
             tv.setGravity(Gravity.CENTER);
             linLayout.addView(tv);
             ((LinearLayout) profile_container).addView(linLayout);
         }
-
-//        TokenUtil tu = new TokenUtil(context);
-//        TaskService taskService = ServiceGenerator.createService(TaskService.class);
-//        taskService.getBabies(tu.getToken(), new Callback<ArrayList<BabyVo>>() {
-//            @Override
-//            public void success(ArrayList<BabyVo> babyVos, Response response) {
-//                babies = babyVos;
-//
-//                for (int i = 0; i < idx; i++) {
-//
-//                    LinearLayout linLayout = new LinearLayout(context);
-//                    linLayout.setOrientation(LinearLayout.HORIZONTAL);
-//                    linLayout.setGravity(Gravity.CENTER_VERTICAL);
-//
-//                    ImageView iv_profile = new ImageView(context);
-//
-//                    Picasso.with(context).load(Define.URL + babies.get(i).babyImg).into(iv_profile);
-//
-//                    // iv_profile.setImageResource(babies.get(i).babyImg);
-//                    iv_profile.setScaleType(ImageView.ScaleType.FIT_XY);
-//                    linLayout.addView(iv_profile, imageParam);
-//
-//                    TextView tv = new TextView(context);
-//                    tv.setText("13개월");
-//                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 8);
-//                    tv.setLayoutParams(tvParam);
-//                    tv.setGravity(Gravity.CENTER);
-//                    linLayout.addView(tv);
-//                    ((LinearLayout) profile_container).addView(linLayout);
-//                }
-//            }
-//
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//
-//            }
-   //     });
-        //이 가족이 가진 애기 리스트를 가지고 loop돌림
-//        List<Integer> baby_list = new ArrayList();
-//        baby_list.add(R.drawable.b1);
-//        baby_list.add(R.drawable.b2);
-//        baby_list.add(R.drawable.b3);
-
-
-
     }
 
-
-    private void initDummy() {
-        posterImages.add(R.drawable.b1);
-        posterImages.add(R.drawable.b2);
-        posterImages.add(R.drawable.b3);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.poster_save, menu);
+        return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_save) {
+             container.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    posterCapture(container);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },1000);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void posterCapture(View container) {
+
+
+
+//        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
+//
+//        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
+
+
+
+            container.setDrawingCacheEnabled(true);
+
+            container.buildDrawingCache(true);
+
+
+/***********************핵심부분**********************************/
+            Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
+
+                    container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+            Canvas screenShotCanvas = new Canvas(captureView);
+
+            container.draw(screenShotCanvas);
+/***********************핵심부분*****************************************/
+
+
+            FileOutputStream fos;
+            File fileRoute = null;
+            fileRoute = Environment.getExternalStorageDirectory();
+            String str_name = TimeUtil.getRecordedTime();
+
+            try {
+
+                File path = new File(fileRoute,"temp");
+
+                if(!path.exists()){//if(!path.isDirectory()){
+                    path.mkdirs();
+                }
+
+                fos = new FileOutputStream(fileRoute+"/temp/poster_"+str_name+".png");
+                captureView.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                container.setDrawingCacheEnabled(false);
+
+            }catch (FileNotFoundException e) {
+
+                e.printStackTrace();
+
+            }
+        }
+
+
 }

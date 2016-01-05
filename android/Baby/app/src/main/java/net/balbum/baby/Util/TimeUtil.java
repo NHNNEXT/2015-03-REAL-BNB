@@ -15,6 +15,10 @@ public class TimeUtil {
         return df.format(new Date().getTime());
     }
 
+    public static String getRecordedTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HHmmss", Locale.ENGLISH);
+        return df.format(new Date().getTime());
+    }
     //yyyy/MM/dd HH:mm:ss
     //"EEE, MMM d, yyyy"
     //dd-MMM-yyyy"
