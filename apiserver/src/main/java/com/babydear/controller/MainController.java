@@ -2,6 +2,7 @@ package com.babydear.controller;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -18,8 +19,11 @@ public class MainController {
 		return "userPage.html";
 	}
 	
+//	@RequestMapping("/card/{linkUrl}")
+//	public String card(){
 	@RequestMapping("/card/{linkUrl}")
-	public String card(){
-		return "card.html";
+	public String card(@PathVariable("linkUrl") String linkUrl){
+		System.out.println(linkUrl);
+		return "/card.html";
 	}
 }
