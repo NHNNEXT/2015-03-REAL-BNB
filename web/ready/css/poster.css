@@ -50,22 +50,31 @@ section.make-poster-container .card .template-container {
   margin: 10px 50px;
   text-align: center;
 }
-section.make-poster-container .card .template-container .poster-article {
+section.make-poster-container .card .template-container input[type="radio"]:checked {
+  display: none;
+}
+section.make-poster-container .card .template-container label {
+  cursor: pointer;
+}
+section.make-poster-container .card .template-container label .poster-article {
   border: 5px solid white;
   width: 100%;
   padding: 20px 20px 5px 20px;
 }
-section.make-poster-container .card .template-container .poster-article .poster-preview {
+section.make-poster-container .card .template-container label .poster-article .poster-preview {
   width: 100%;
 }
-section.make-poster-container .card .template-container .poster-article p {
+section.make-poster-container .card .template-container label .poster-article p {
   padding-top: 5px;
 }
-section.make-poster-container .card .template-container .poster-article:hover {
+section.make-poster-container .card .template-container label .poster-article:hover {
   border: 5px solid #CECECE;
 }
-section.make-poster-container .card .template-container .selected-poster {
+section.make-poster-container .card .template-container label .selected-poster {
   border: 5px solid #9b7bba;
+}
+section.make-poster-container .card .template-container input[type="radio"]:checked + label {
+  color: #FBAF29;
 }
 section.make-poster-container .card .poster-btn-container {
   margin: 20px auto;

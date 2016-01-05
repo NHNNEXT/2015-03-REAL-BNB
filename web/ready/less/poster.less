@@ -61,30 +61,45 @@ section.make-poster-container {
         .template-container {
             margin: 10px 50px;
             text-align: center;
-
-            .poster-article {
-                border: 5px solid white;
-                width: 100%;
-                // float: left;
-                padding: 20px 20px 5px 20px;
-    
-                .poster-preview {
-                    width: 100%;
-                }
-
-                p{
-                    padding-top: 5px;
-                }
+            
+            input[type="radio"]:checked{
+                display: none;
             }
 
-            .poster-article:hover {
-                border: 5px solid @light-gray;
+            label {
+              cursor:pointer;
+               
+               .poster-article {
+                  border: 5px solid white;
+                  width: 100%;
+                  // float: left;
+                  padding: 20px 20px 5px 20px;
+              
+                  .poster-preview {
+                      width: 100%;
+                  }
+
+                  p{
+                      padding-top: 5px;
+                  }
+              }
+
+              .poster-article:hover {
+                  border: 5px solid @light-gray;
+              }
+
+              .selected-poster {
+                  border: 5px solid @hover-primary;
+              }
+
             }
 
-            .selected-poster {
-                border: 5px solid @hover-primary;
+            
+            input[type="radio"]:checked + label {
+              color: #FBAF29;
             }
         }
+        
         
         .poster-btn-container{
             margin: 20px auto;
