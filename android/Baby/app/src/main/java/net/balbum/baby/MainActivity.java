@@ -198,8 +198,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Log.d("test", "navBaby" + babyAdapter.getSelectedNames().size());
-                babyFilter(babyAdapter.getSelectedNames());
+                if (babyAdapter.getSelectedNames().size() == 0) {
+                    getData();
+                }else if(babyAdapter.getSelectedNames().size() > 0){
+                    babyFilter(babyAdapter.getSelectedNames());
+                }
             }
         };
         drawer.setDrawerListener(toggle);
