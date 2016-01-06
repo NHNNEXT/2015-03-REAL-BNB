@@ -464,23 +464,26 @@ balbumApp.controller('PosterController', function($scope, $http) {
     /* 포스터 미리보기 페이지로 가는 버튼을 눌렀을 때  */
     $(".gotoPreviewPoster").click(function(e){
         /* 선택한 카드수가 템플릿에 필요한 카드수보다 적을 경우 */
-        if(selectedCardNum < templateNum){
+        if(selectedCardNum != templateNum){
             e.preventDefault();
+            selectedCardNum = $(".chosen").length;
             alert("카드를 "+selectedCardNum+"개 선택하셨습니다. 총 "+templateNum+"개 선택해주세요.");
         }
     });
 
-
+    
 
     /* 템플릿 선택 시 */
     $(".template-container").click( function(e) {   
         templateNum = $("input[name=template]:checked").val();
     });
 
-    /* 카드 선택 시 */
-    $(".select-for-poster").click(function(e) {   // 그래서 event delegate가 필요함. 그런데 지금보니 index.js에 posterController 실행될때 js로 써도됨.
-        $( this ).toggleClass( "chosen" ); // 카드를 선택할 때마다 'chosen'이라는 토글 클래스 추가/제거 
-    });
+    // /* 카드 선택 시 */
+    // $(".select-for-poster").click(function(e) {   // 그래서 event delegate가 필요함. 그런데 지금보니 index.js에 posterController 실행될때 js로 써도됨.
+    //     console.log("ff");
+    //     selectedCardNum = $(".chosen").length;
+    //         $(".selectedCardNum").text(templateNum);
+    // });
 
 
 
