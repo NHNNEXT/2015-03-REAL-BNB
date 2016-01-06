@@ -123,7 +123,7 @@
                             </form>
                             <div class="action-container">
                                 <!-- <a class="btn-done js-btn-goto left" data-goto="0">다음에 할게요</a> -->
-                                <button ng-show="bMain.babyList" class="btn-start btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                <button ng-hide="bMain.babyList.length==0" class="btn-start btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
                                 <!-- <button class="btn-done js-btn-goto waves-effect dissappear" data-goto="0"></button> -->
                             </div>
                         </div>
