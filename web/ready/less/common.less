@@ -357,3 +357,112 @@ aside.left-col {
     background-color: white;
     border-radius: 0.7rem;
 }
+
+
+div.update-container {
+    background: white;
+    margin-top: 0.8rem;
+    margin-bottom: 0.9rem;
+    padding: 0;
+    border-radius: 0.7rem;
+
+    div.postcard-tabs {
+        padding: 0;
+        .tabs {
+            border-radius: 0.7rem;
+            .tab {
+                a {
+                    background-color: rgba(236, 231, 219, 0.3);;
+                    color: #949494;
+                    &:hover {
+                        color: @primary;
+                    }
+                    &.active {
+                        color: @primary;
+                        background-color: transparent;
+                    }
+
+                }
+            }
+        }
+    }
+    textarea, input.event-txt, .date-container input {
+        margin-bottom: 0;
+        border-bottom: none;
+        box-shadow: none;
+    }
+    .date-container input {
+        cursor: pointer;
+    }
+
+    div.daily-tab {
+        margin-bottom: 0px;
+        .upload-photo-box {
+            margin-top: 13px;
+            width: 100%;
+            height: 56px;
+            border: 1px dashed @light-gray;
+            color: @light-gray;
+            text-align: center;
+            cursor: pointer;
+            i {
+                vertical-align: sub;
+                line-height: 50px;
+            }
+        }
+        .uploaded-photo {
+            display: none;
+        }
+        button {
+            margin-top: 0.45rem;
+        }
+
+    }
+    div.event-tab {
+        margin-bottom: 0px;
+        .event-contents {
+            margin: 2rem 1rem 0.1rem;
+            .date-container {
+                text-align: center;
+                input {
+                    display: inline-block;
+                    text-align: center;
+                    font-size: 1.6rem;
+                    padding-left: 10%;
+                    width: 90%;
+                }
+            }
+            textarea.event-txt {
+                text-align: center;
+                font-size: 1.7rem;
+            }
+        }
+    }
+    div.baby-check-container {
+        // padding: 0;
+        .baby-check {
+            margin: 0;
+            margin-right: 0.5rem;
+            display: inline-block;
+            label {
+                padding-left: 23px;
+                &:before {
+                    // top: 5px;
+                }
+                img {
+                    width: 2.2rem;
+                    height: 2.2rem;
+
+                }
+            }
+
+        }
+    }
+    div.divider {
+        margin: 0.5rem -0.75rem 0;
+        background-color: @background-color;
+    }
+    button {
+        margin: 0.35rem 0;
+    }
+}

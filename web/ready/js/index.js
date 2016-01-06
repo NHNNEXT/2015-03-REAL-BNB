@@ -338,7 +338,7 @@ balbumApp.config(function($routeProvider) {
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
         })
-        .when('/card/:cId', {
+        .when('/!', {
             templateUrl : 'pages/card-timeline.htm',
         })
         .when('/baby/:babyId', {
@@ -469,8 +469,6 @@ balbumApp.controller('PosterController', function($scope, $http) {
             alert("카드를 "+selectedCardNum+"개 선택하셨습니다. 총 "+templateNum+"개 선택해주세요.");
         }
     });
-
-
 
     /* 템플릿 선택 시 */
     $(".template-container").click( function(e) {
