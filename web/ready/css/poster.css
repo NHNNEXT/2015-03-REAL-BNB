@@ -145,3 +145,31 @@ section.select-card-container div.card-container div.baby-card .babies-container
 section.select-card-container div.card-container .chosen {
   background-color: rgba(116, 208, 203, 0.5);
 }
+section.print-poster-container {
+  width: 100%;
+}
+section.print-poster-container .card {
+  width: 100%;
+  padding-bottom: 10px;
+}
+section.print-poster-container .card h5 {
+  font-size: 1.5em;
+  padding: 30px;
+}
+section.print-poster-container .card img {
+  margin: 30px;
+}
+section.view-poster-container {
+  width: 100%;
+}
+section.view-poster-container .card {
+  width: 100%;
+  padding-bottom: 10px;
+}
+section.view-poster-container .card h5 {
+  font-size: 1.5em;
+  padding: 30px;
+}
+section.view-poster-container .card img {
+  margin: 30px;
+}
