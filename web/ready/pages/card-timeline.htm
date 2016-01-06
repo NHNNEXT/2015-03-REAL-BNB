@@ -65,39 +65,7 @@
         </form>
     </div>
     <div id="update-modal" class="modal modal-fixed-footer update-container">
-        <div class="modal-content">
-            <form class="cardForm" action="http://dev.balbum.net/api/card" method="post" enctype="multipart/form-data">
-                <div id="daily-tab" class="daily-tab col row s12">
-                        <input type="hidden" name="type" value="NORMAL"/>
-                        <input type="hidden" name="token" value="{{bMain.token}}"/>
-                        <div class="upload-photo-box col s12">
-                            <i class="material-icons">add_a_photo</i>사진 추가하기
-                        </div>
-                        <input class="upload-photo-input disappear" type="file" name="image">
-                        <img class="uploaded-photo" src="#" alt="uploaded photo" />
-                        <textarea placeholder="우리 아이는 지금 무엇을 하고 있나요?" name="content" class="materialize-textarea" length="120"></textarea>
-                        <div class="baby-check-container card-content">
-                            <p class="baby-check" ng-repeat="baby in bMain.babyList">
-                                <input class="baby-check-input filled-in" type="checkbox" id="bid-{{baby.bid}}" data-bid="{{baby.bid}}"/>
-                                <label for="bid-{{baby.bid}}">
-                                    <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                                    {{baby.babyName}}
-                                </label>
-                            </p>
-                        </div>
-                        <div class="divider"></div>
-                        <!-- <button class="btn waves-effect waves-light right" type="submit" name="action">담기</button> -->
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="date-container col s8">
-                    <input type="date" name="modifiedDate"/><br/>
-                </div>
-                <button class="btn waves-effect waves-light right" type="submit" name="action" onclick="alert('모달창에서 업데이트는 추후 지원될 예정입니다')">담기</button>
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">취소</a>
-            </div>
-        </form>
+        추후 준비될 예정입니다.
     </div>
     <div class="card-container row">
         <div class="baby-card bCard {{bc.type}} scrollspy col s12" data-cid="{{bc.cid}}" data-ctype="{{bc.type}}" id="{{bc.cid}}" ng-repeat="bc in cCtrl.cardList">
