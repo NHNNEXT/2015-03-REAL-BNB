@@ -30,10 +30,19 @@
 
                     </ul>
                     <ul id="nav-mobile" class="side-nav"> <!-- 모바일에서 보이는 왼쪽 슬라이드 메뉴 -->
-                        <li><a href="#">모바일슬라이드다</a></li>
-                        <li><a href="#">타임라인</a></li>
-                        <li ng-repeat="baby in bMain.babyList"><a href="#">{{baby.babyName}}</a></li>
-                        <li><a href="#settings">설정</a></li>
+                        <div class="my-info">
+                            <img class="photo circle" src="http://dev.balbum.net{{::bMain.userInfo.user.userImg}}" alt="My photo" />
+                            <div class="info">
+                                <div class="name">{{::bMain.userInfo.user.email}}</div>
+                                <div class="role">{{::bMain.userInfo.user.userRole}}</div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li class="timeline"><a href="#/"><i class="material-icons">&#xE88A;</i>타임라인</a></li>
+                            <li class="bfilter" ng-repeat="baby in bMain.babyList" data-bid="{{baby.bid}}"><a href="#baby/{{baby.bid}}">{{baby.babyName}}</a></li>
+                            <li><a href="#poster"><i class="material-icons">&#xE8F0;</i>포스터 만들기</a></li>
+                            <li><a href="#settings"><i class="material-icons">&#xE8B8;</i>설정<span class="new badge">4</span></a></a></li>
+                        </ul>
                     </ul>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
                     <a href="#" class="nav-update-modal button-collapse right"><i class="material-icons post-icon">add_circle</i></a>
@@ -47,13 +56,12 @@
             <li><a href="#!">쓰면 넣자</a></li>
         </ul>
 
-        <aside class="left-col hide-on-small-only">
+        <aside class="left-col b-aside hide-on-small-only">
             <div class="my-info">
                 <img class="photo circle" src="http://dev.balbum.net{{::bMain.userInfo.user.userImg}}" alt="My photo" />
                 <div class="info">
                     <div class="name">{{::bMain.userInfo.user.email}}</div>
                     <div class="role">{{::bMain.userInfo.user.userRole}}</div>
-                    <!-- <div class="email">jayjinjay@gmail.com</div> -->
                 </div>
             </div>
             <ul>

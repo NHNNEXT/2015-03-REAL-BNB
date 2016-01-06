@@ -75,8 +75,63 @@ nav.nav-top li {
 nav.nav-top li.nav-update-modal {
   color: #896DA5;
 }
-nav.nav-top #nav-mobile a {
-  color: #896DA5;
+nav.nav-top #nav-mobile {
+  background: rgba(63, 74, 88, 0.91);
+  color: white;
+  position: fixed;
+  left: 0;
+  width: 230px;
+  height: 100%;
+  z-index: 1;
+}
+nav.nav-top #nav-mobile div.my-info {
+  padding: 1rem 0 0;
+  text-align: center;
+}
+nav.nav-top #nav-mobile div.my-info img.photo {
+  width: 55%;
+}
+nav.nav-top #nav-mobile div.my-info div.info {
+  margin-top: 0.5rem;
+}
+nav.nav-top #nav-mobile div.my-info div.info .name {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+nav.nav-top #nav-mobile div.my-info div.info .role {
+  color: rgba(255, 255, 255, 0.66);
+}
+nav.nav-top #nav-mobile ul li {
+  margin: 0;
+  padding: 0;
+}
+nav.nav-top #nav-mobile ul li a {
+  padding: 0.5rem 0.7rem;
+  color: white;
+}
+nav.nav-top #nav-mobile ul li a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
+}
+nav.nav-top #nav-mobile ul li a i {
+  display: inline-block;
+  margin-right: 0.3rem;
+  vertical-align: text-bottom;
+}
+nav.nav-top #nav-mobile ul li.bfilter a {
+  padding-left: 2.5rem;
+  background-color: #48505A;
+}
+nav.nav-top #nav-mobile ul li.bfilter a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
+}
+nav.nav-top #nav-mobile ul li span.badge {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
+nav.nav-top #nav-mobile ul li span.badge.new {
+  background-color: #74d0cb;
 }
 @media (min-width: 600px) and (max-width: 991px) {
   nav.nav-top a.button-collapse {

@@ -82,8 +82,69 @@ nav.nav-top {
         }
     }
     #nav-mobile {
-        a {
-            color: @primary;
+        // a {
+        //     color: @primary;
+        // }
+        background: rgba(63, 74, 88, 0.91);;
+        color: white;
+        position:fixed;
+        left:0;
+        width: @left-col-width;
+        height:100%;
+        z-index: 1;
+        div.my-info {
+            padding: 1rem 0 0;
+            text-align: center;
+            img.photo {
+                width: 55%;
+            }
+            div.info {
+                margin-top: 0.5rem;
+                .name {
+                    font-size: 1.3rem;
+                    font-weight: 900;
+                }
+                .role {
+                    color: rgba(255, 255, 255, 0.66);
+                }
+            }
+        }
+        ul {
+            li {
+                margin: 0;
+                padding: 0;
+                a {
+                    padding: 0.5rem 0.7rem;
+
+                    color: white;
+                    &:hover {
+                        background-color: rgb(52, 62, 76);
+                        transition: @transition;
+                    }
+                    i {
+                        display:inline-block;
+                        margin-right: 0.3rem;
+                        vertical-align: text-bottom;
+                    }
+                }
+                &.bfilter {
+                    a {
+                        padding-left: 2.5rem;
+                        background-color: #48505A;
+                        &:hover {
+                            background-color: rgb(52, 62, 76);
+                            transition: @transition;
+                        }
+                    }
+                }
+                span.badge {
+                    margin-top: 0.2rem;
+                    font-size: 0.9rem;
+                    &.new {
+                        background-color: @tertiary;
+                    }
+                }
+            }
         }
     }
     @media @l-m {
