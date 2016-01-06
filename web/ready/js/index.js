@@ -471,6 +471,12 @@ balbumApp.controller('PosterController', function($scope, $http) {
         }
     });
 
+    /* 템플릿 선택 시 */
+    $(".template-container").click( function(e) {   
+        templateNum = $("input[name=template]:checked").val();
+    });
+
+
     // /* 카드 선택 시 */
     // $(".select-for-poster").click(function(e) {   // 그래서 event delegate가 필요함. 그런데 지금보니 index.js에 posterController 실행될때 js로 써도됨.
     //     console.log("ff");

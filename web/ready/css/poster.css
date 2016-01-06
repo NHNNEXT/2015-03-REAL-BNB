@@ -104,6 +104,9 @@ section.select-card-container .card h4 {
   font-size: 1.5em;
   padding: 30px 0 0 30px;
 }
+section.select-card-container .card .templateNum {
+  font-size: 1.5em;
+}
 section.select-card-container .card .number-container {
   padding: 30px 30px 0 0;
 }
