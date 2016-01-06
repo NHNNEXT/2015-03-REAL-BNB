@@ -46,3 +46,6 @@ article.settings-col .family-info .person-card .is-authorized {
 article.settings-col .family-info .person-card.unauthorized .is-authorized {
   color: #F16060;
 }
+article.settings-col .account-info .section-card {
+  padding: 1rem;
+}
