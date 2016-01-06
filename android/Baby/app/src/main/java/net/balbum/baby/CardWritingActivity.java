@@ -311,6 +311,41 @@ public class CardWritingActivity extends AppCompatActivity {
 
                 }
 
+            }else if(sel.size() == 4){
+                if ((Long) vo.cid == 0) {
+
+                    taskService.createCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, sel.get(2).bid, sel.get(3).bid, vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "card error: " + error);
+                        }
+                    });
+                }
+
+            }else if(sel.size() == 5){
+                if ((Long) vo.cid == 0) {
+
+                    taskService.createCard(typedFile, tu.getToken(), sel.get(0).bid, sel.get(1).bid, sel.get(2).bid, sel.get(3).bid, sel.get(4).bid,vo.content, vo.modifiedDate, type, new Callback<ResponseVo>() {
+                        @Override
+                        public void success(ResponseVo responseVo, Response response) {
+                            Log.i("test", "card success" + responseVo.state + ", error: " + responseVo.error);
+                            goToActivity(CardWritingActivity.this, MainActivity.class);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.i("test", "card error: " + error);
+                        }
+                    });
+
+                }
+
             }
             return true;
         }
