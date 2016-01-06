@@ -2,11 +2,13 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,9 +25,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyVo;
@@ -119,9 +122,18 @@ public class AddBabyFragment extends Fragment {
             public void onClick(View v) {
                 Intent pictureActionIntent = null;
 
-                pictureActionIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
+                pictureActionIntent = new Intent(
+                        MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File(android.os.Environment
+                        .getExternalStorageDirectory(), "temp.jpg");
+                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(f));
+
+                startActivityForResult( pictureActionIntent,
+                        Define.CAMERA_REQUEST);
+//                pictureActionIntent = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
             }
         });
 
@@ -210,41 +222,118 @@ public class AddBabyFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
-            if (data != null) {
+        if (resultCode == getActivity().RESULT_OK && requestCode == Define.CAMERA_REQUEST) {
 
-                Uri selectedImage = data.getData();
-                String[] filePath = {MediaStore.Images.Media.DATA};
+            File f = new File(Environment.getExternalStorageDirectory().toString());
 
-                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
-                        null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePath[0]);
-                String selectedImagePath = cursor.getString(columnIndex);
-                cursor.close();
+            for (File temp : f.listFiles()) {
+                if (temp.getName().equals("temp.jpg")) {
+                    f = temp;
+                    break;
+                }
+            }
+
+            if (!f.exists()) {
+
+                Toast.makeText(context,
+
+                        "Error while capturing cardImg", Toast.LENGTH_LONG)
+
+                        .show();
+
+                return;
+
+            }
+
+            try {
 
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 4;
-                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
+                Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), options); // load
 
                 Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
 
-                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
-               // cropImageView.setImageBitmap(bitmap);
+                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(f.getAbsolutePath()));
 
-                //Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
-               // bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
+
+                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
+
+                int rotate = 0;
+                try {
+                    ExifInterface exif = new ExifInterface(f.getAbsolutePath());
+                    int orientation = exif.getAttributeInt(
+                            ExifInterface.TAG_ORIENTATION,
+                            ExifInterface.ORIENTATION_NORMAL);
+
+                    switch (orientation) {
+                        case ExifInterface.ORIENTATION_ROTATE_270:
+                            rotate = 270;
+                            break;
+                        case ExifInterface.ORIENTATION_ROTATE_180:
+                            rotate = 180;
+                            break;
+                        case ExifInterface.ORIENTATION_ROTATE_90:
+                            rotate = 90;
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotate);
+                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                        bitmap.getHeight(), matrix, true);
+
                 add_baby_image.setImageBitmap(bitmap);
+                //storeImageTosdCard(bitmap);
 
                 Uri tempUri = ImageUtil.getImageUri(context, bitmap);
-//                Uri temp = Uri.parse(selectedImagePath);
+
                 finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
-
-
-            } else {
-                ToastUtil.cancle(context);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+
         }
+
+
+//        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
+//            if (data != null) {
+//
+//                Uri selectedImage = data.getData();
+//                String[] filePath = {MediaStore.Images.Media.DATA};
+//
+//                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
+//                        null, null, null);
+//                cursor.moveToFirst();
+//                int columnIndex = cursor.getColumnIndex(filePath[0]);
+//                String selectedImagePath = cursor.getString(columnIndex);
+//                cursor.close();
+//
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inSampleSize = 4;
+//                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
+//
+//                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+//
+//                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
+//               // cropImageView.setImageBitmap(bitmap);
+//
+//                //Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
+//               // bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
+//                add_baby_image.setImageBitmap(bitmap);
+//
+//                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
+////                Uri temp = Uri.parse(selectedImagePath);
+//                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
+//
+//
+//            } else {
+//                ToastUtil.cancle(context);
+//            }
+//        }
     }
 
 }
