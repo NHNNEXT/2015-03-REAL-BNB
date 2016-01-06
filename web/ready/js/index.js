@@ -10,6 +10,17 @@ var Main = {
         bMain.token = token;
         $("input[name='token']").val(token);
         Main.getMyInfo($http, bMain);
+
+        $('body').on('click', '#logout-btn', function() {
+           if(localStorage.getItem("token")){
+               console.log("로그인 되어있으니 로그아웃하겠습니다.");
+               localStorage.clear(); // token 지우기
+               window.location.assign("/landing1.html");
+           }
+           else{
+               console.log("이미 로그아웃 되었습니다.");
+           }
+        });
     },
     getMyInfo: function($http, bMain) {
         $http({
