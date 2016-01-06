@@ -1,5 +1,25 @@
 @import (once) "var";
-// @left-col-width: 230px;
+
+.poster-btn-container{
+    margin: 20px auto;
+    width: 90%;
+    
+    .prev-btn {
+        background: @light-gray !important;
+    }
+
+    .prev-btn:hover {
+        background : @mid-gray !important;
+    }
+
+    .next-btn {
+        float: right;
+        background: @primary !important;
+    }
+    .next-btn:hover{
+        background: @hover-primary !important;    
+    }
+}
 
 section.poster-container {
 	padding-left:10px;
@@ -102,65 +122,70 @@ section.make-poster-container {
                 height: 100%;
             } 
         }
-        
-        
-        .poster-btn-container{
-            margin: 20px auto;
-            width: 90%;
-            
-            .prev-btn {
-                background: @light-gray !important;
-            }
-
-            .prev-btn:hover {
-                background : @mid-gray !important;
-            }
-
-            .next-btn {
-                float: right;
-                background: @primary !important;
-            }
-            .next-btn:hover{
-                background: @hover-primary !important;    
-            }
-        }
     }
 }
 
 section.select-card-container {
     width: 100%;
+    padding-left:10px;
+    
 
     .card {
         width: 100%;
+        height: 100%;
+        margin-left: -10px;
         padding-bottom: 10px;
 
-        h5{
+        h4{
             font-size: 1.5em;
-            padding: 30px;
+            padding: 30px 0 0 30px;
+        }
+    
+        .number-container {
+            padding: 30px 30px 0 0;
+        }
+        .number-container h5{
+            padding: 0;
+            font-size: 1.5em;
+            float: right;
         }
 
+    }
 
-        div.card-container {
-            div.baby-card {
-                // bCard와 공통 속성과 다름
-                // select-card-container 안에 있는 카드에서만의 카드 속성
-             
-                // background-color: red;
-                cursor: pointer;
+    div.card-container {
+        .select-for-poster{
+            // background-color: red;
+            // margin-left: 15px;
+            // margin: 0px 10px 0px 3px;
+        }
 
-                .babies-container {
-                    .baby {
-                        img {
-                            width: 2em;
-                            height: 2em
-                        }
+        div.baby-card {
+            // margin: 15px !important;
+            // margin: 10px 0px 0px -10px;
+            // padding: 30px 0;
+            
+            padding: 15px 0;
+            cursor: pointer;
+            
+            .bc-action {
+                padding-bottom: 15px;
+            }
+
+            .bc-photo {
+                width: 100%;
+            }
+            .babies-container {
+                .baby {
+                    img {
+                        width: 2em;
+                        height: 2em
                     }
                 }
             }
+        }
 
-            .chosen {
-                background-color: red;
-            }
+        .chosen {
+            background-color: red;
         }
     }
 }
