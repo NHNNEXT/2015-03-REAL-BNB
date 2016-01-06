@@ -198,6 +198,9 @@ section.main-container article.main-col div.card-container div.baby-card .bc-act
 section.main-container article.main-col div.card-container div.baby-card .bc-action .btn-container .action-dropdown-menu.active li:hover {
   background-color: #E8E8E8;
 }
+section.main-container article.main-col div.card-container div.baby-card .event-date-container {
+  display: none;
+}
 section.main-container article.main-col div.card-container div.baby-card .bc-photo {
   width: 100%;
 }
@@ -220,6 +223,18 @@ section.main-container article.main-col div.card-container div.baby-card .babies
 section.main-container article.main-col div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
   height: 2em;
+}
+section.main-container article.main-col div.card-container div.baby-card.EVENT .event-date-container {
+  display: block;
+  text-align: center;
+  margin: 2.5rem 1rem 0;
+  font-size: 1.8rem;
+}
+section.main-container article.main-col div.card-container div.baby-card.EVENT .bc-content {
+  margin: 0.5rem auto 3rem;
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 800;
 }
 section.main-container aside.right-col {
   height: 600px;

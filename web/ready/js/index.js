@@ -100,9 +100,17 @@ var Upload = {
 }
 
 var InitModal = {
-    init: function() {
+    init: function($scope, bMain) {
         this.steps();
         this.uploadPhoto();
+
+        $('.modal-add-baby .action-container .btn-start').on('click', '', function() {
+            $('.add-baby-btn button').click();
+        });
+        $('.modal-add-baby .action-container .btn-done').on('click', '', function() {
+            localStorage.setItem('initCompleted', token);
+        });
+
     },
     steps: function() {
         $('.modal-main-btn').click(function(){
@@ -113,9 +121,6 @@ var InitModal = {
                 }
             );
             $('#main-modal').openModal();
-
-            // $('body').css('overflow', 'hidden');
-            // $('#main-modal').css('z-index', '1003');
         });
         $('.js-btn-find-user').on('click', function() {
             $('.found-existing-user').removeClass('hide');
@@ -150,6 +155,7 @@ var InitModal = {
     },
     postBaby: function($scope, bMain) {
         $('#babyForm').submit(function() {
+            console.log("포스트베이비");
             $('#babyForm').ajaxSubmit({
                 //보내기전 validation check가 필요할경우
                 beforeSubmit: function (data, $form, opt) {
@@ -168,19 +174,23 @@ var InitModal = {
                 },
                 //ajax error
                 error: function(){
-                    alert("문제가 생겼어요, 다시 올려주시겠어요?");
+                    alert("아이 올리는 데 문제가 생겼어요, 다시 올려주시겠어요?");
                 }
             });
             return false;
         });
     },
-    getFamily: function($http, cCtrl) {
+    getFamily: function($scope, $http, bMain) {
         $http({
             url: address + 'api/user/family/findFromMail',
             method: "GET",
-            params: {token: token, email:'a'}
+            params: {token: token, email:$('.modal-find-balbum input').val()}
         }).then( function(response) {
             console.log("res:", response);
+            bMain.foundUser = response.data.res;
+            console.log(bMain.foundUser);
+            // $scope.$apply();
+            // $scope.$apply("cCtrl.foundUser = response.data.res;");
         }, function() {
             alert('사용자 정보를 불러오지 못하였습니다.');
         });
@@ -212,6 +222,9 @@ var User = {
         }).then( function(res) {
             bMain.babyList = res.data;
             console.log("baby res:", bMain.babyList);
+            if(res.data.length == 0) { /* 아이 정보가 없으면 모달 띄우기 */
+                $('div.modal-main-btn').click();
+            }
         }, function() {
             alert('아이 정보를 불러오지 못하였습니다.');
         });
@@ -241,7 +254,6 @@ var CardCRUD = {
         $('li.timeline').click(function() { /* 타임라인 메뉴 누르면 전체 아이 카드 나옴 */
             CardCRUD.get($http, this);
         });
-
 
         $('aside.left-col').on('click', '.bfilter', function() { /* 아이 메뉴 누르면 특정 아이 카드 나옴 */
             $('article.main-col').data('bfilter', $(this).data('bid'));
@@ -365,6 +377,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     bMain.babyList;
     bMain.token;
     bMain.userInfo;
+    bMain.foundUser;
 
     Main.init(bMain, $scope, $http);
 
@@ -374,7 +387,7 @@ balbumApp.controller('MainController', function($scope, $http) {
     InitModal.postBaby($scope, bMain); /* 모달에서 아이 추가하기 */
 
     $('.btn-get-family').click(function() { /* main modal에서 가족 검색 */
-        InitModal.getFamily($http, bMain);
+        InitModal.getFamily($scope, $http, bMain);
     });
 });
 
@@ -385,11 +398,12 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
     cCtrl.cardList;
     cCtrl.filteredBaby;
 
+
     /* 함수들 초기화 */
     Start.init($scope);
     Upload.init();
     CardCRUD.init($http, cCtrl);
-    InitModal.init();
+    InitModal.init($scope, cCtrl);
 
 
     if(filteredBId) { /* 아기 타임라인이면 포스트 숨기고 타이틀 열기 */

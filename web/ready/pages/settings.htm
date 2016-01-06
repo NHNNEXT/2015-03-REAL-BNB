@@ -4,13 +4,7 @@
         <div class="section-card row">
             <img class="photo col s4" src="http://dev.balbum.net{{::bMain.userInfo.user.userImg}}" alt="My photo" />
             <div class="info col s8">
-                <!-- <div class="name"><b>Name</b>Jay Jin</div>
-                <div class="role"><b>Role</b>이시대의엄마</div>
-                <div class="email"><b>ID</b>jayjinjay@gmail.com</div>
-                <div class="pw"><b>pw</b>*******</div> -->
-
-                <div class="name">Jay Jin</div>
-                <!-- <div class="name">{{::bMain.userInfo.user}}</div> -->
+                <!-- <div class="name">Jay Jin</div> -->
                 <div class="role">{{::bMain.userInfo.user.userRole}}</div>
                 <div class="email"><b>ID</b>{{::bMain.userInfo.user.email}}</div>
                 <div class="pw"><b>PW</b>*******</div>
@@ -35,8 +29,9 @@
         <div class="person-card" ng-repeat="family in bMain.userInfo.families">
             <img class="photo circle" src="http://dev.balbum.net{{::family.userImg}}" alt="My photo"/>
             <div class="info">
-                <div class="name">Jay</div>
+                <!-- <div class="name">Jay</div> -->
                 <div class="role">{{::family.userRole}}</div>
+                <div class="email">{{::family.email}}</div>
             </div>
             <div class="divider"></div>
             <div class="is-authorized">승인됨</div>
