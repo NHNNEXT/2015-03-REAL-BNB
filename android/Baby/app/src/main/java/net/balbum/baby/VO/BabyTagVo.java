@@ -10,11 +10,11 @@ public class BabyTagVo {
     public String babyImg;
     public String name;
     public boolean isSelected;
-    public Long bId;
+    public Long bid;
 
-    public BabyTagVo(String babyImg, Long bId, boolean isSelected, String name) {
+    public BabyTagVo(String babyImg, Long bid, boolean isSelected, String name) {
         this.babyImg = babyImg;
-        this.bId = bId;
+        this.bid = bid;
         this.isSelected = isSelected;
         this.name = name;
     }

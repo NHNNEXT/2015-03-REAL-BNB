@@ -75,7 +75,7 @@ public class CardShareActivity extends AppCompatActivity {
             }
             kakaoTalkLinkMessageBuilder.addImage(Define.URL + card.cardImg, 128, 128);
 //            http://dev.balbum.net/imgs/dummy/baby2.jpeg"
-            kakaoTalkLinkMessageBuilder.addWebLink("BALBUM 홈페이지로 이동", "http://www.balbum.net");
+            kakaoTalkLinkMessageBuilder.addWebLink("BALBUM 홈페이지로 이동", "http://www.balbum.net/card/"+card.linkUrl);
             kakaoTalkLinkMessageBuilder.addAppButton("BALBUM으로 이동", new AppActionBuilder()
                     .setAndroidExecuteURLParam("target=main")
                     .setIOSExecuteURLParam("target=main", AppActionBuilder.DEVICE_TYPE.PHONE).build());

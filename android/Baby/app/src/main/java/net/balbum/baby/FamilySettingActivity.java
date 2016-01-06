@@ -9,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -31,6 +33,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import static net.balbum.baby.Util.ActivityUtil.goToActivity;
+
 /**
  * Created by hyes on 2015. 12. 23..
  */
@@ -48,6 +52,13 @@ public class FamilySettingActivity extends AppCompatActivity {
         context = this;
         init();
         initProfileInfo();
+        LinearLayout baby_setting = (LinearLayout)findViewById(R.id.baby_setting);
+        baby_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(context, BabySettingActivity.class);
+            }
+        });
     }
 
     private void init() {
@@ -63,6 +74,7 @@ public class FamilySettingActivity extends AppCompatActivity {
             public void success(FamilyVo familyVo, Response response) {
                 familyList = familyVo.families;
                 babies = familyVo.babies;
+                //Log.d("test", babies.size()+", 0 "+babies.get(2).bid+", "+babies.get(2).babyName);
                 readyList = familyVo.readyList;
                 initFamilyMember();
                 initBabies();

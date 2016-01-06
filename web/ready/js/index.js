@@ -318,6 +318,19 @@ var CardCRUD = {
     },
 }
 
+// var Poster = {
+//     init: function() {
+        
+//     },
+//     selectTemplate: function(templateNum) {
+       
+//     },
+//     selectCards: function(input) {
+      
+//     }
+
+// }
+
 var balbumApp = angular.module('balbumApp', ['ngRoute']);
 
 balbumApp.config(function($routeProvider) {
@@ -418,12 +431,64 @@ balbumApp.controller('CardController', function($scope, $http, $routeParams) {
 
 });
 
+var templateNum = 0;
+var selectedCardNum = 0;
+
 balbumApp.controller('PosterController', function($scope, $http) {
+    console.log("포스터컨트롤러");
+        
+    /* 포스터 페이지 올때마다 초기화 */
+    $(".poster-container a").click(function(e){
+        templateNum = 0;
+        selectedCardNum = 0;
+    });
+
+    /* 템플릿 선택 페이지에 오게되면 초기화 */
+    $(".gotoSelectTemplate").click(function(e){
+        templateNum = 0;
+        selectedCardNum = 0;
+    });
+
+    /* 카드 선택 페이지로 가는 버튼을 눌렀을 때  */
+    $(".gotoSelectCard").click(function(e){
+        /* 템플릿을 선택하지 않고 '다음' 버튼을 눌렀을 경우 */
+        if(templateNum == 0){
+            e.preventDefault();
+            alert("템플릿을 선택해주세요!");
+        }
+    });
+
+    /* 카드 선택 페이지 진입 시 html 초기화 */
+     $(".templateNum").text(templateNum);
+
+    /* 포스터 미리보기 페이지로 가는 버튼을 눌렀을 때  */
+    $(".gotoPreviewPoster").click(function(e){
+        /* 선택한 카드수가 템플릿에 필요한 카드수보다 적을 경우 */
+        if(selectedCardNum < templateNum){
+            e.preventDefault();
+            alert("카드를 "+selectedCardNum+"개 선택하셨습니다. 총 "+templateNum+"개 선택해주세요.");
+        }
+    });
+
+
+
+    /* 템플릿 선택 시 */
+    $(".template-container").click( function(e) {   
+        templateNum = $("input[name=template]:checked").val();
+    });
+
+    /* 카드 선택 시 */
+    $(".select-for-poster").click(function(e) {   // 그래서 event delegate가 필요함. 그런데 지금보니 index.js에 posterController 실행될때 js로 써도됨.
+        $( this ).toggleClass( "chosen" ); // 카드를 선택할 때마다 'chosen'이라는 토글 클래스 추가/제거 
+    });
+
+
+
+    /* 카드 선택 페이지 */
     var pCtrl = this;
 
     pCtrl.cardList;
     CardCRUD.get($http, pCtrl); /* 서버에 저장된 카드 가져오기 */
-
 
 });
 

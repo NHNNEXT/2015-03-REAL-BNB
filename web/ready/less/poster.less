@@ -8,16 +8,18 @@ section.poster-container {
     // padding-left: @left-col-width;
 
     .card {
-    	margin: 10px 0px -10px -10px;
+    	margin: 10px 0px 0px -10px;
     	padding: 30px 0;
     	height: 100%;
     	
     	h5:nth-of-type(1){
-			margin: 0px 0 0 10px;
+            font-size: 1.5em;
+			margin: 0px 0 0 20px;
     	}
 
     	h5:nth-of-type(2){
-    		margin: 0 0 20px 10px;
+            font-size: 1.5em;
+    		margin: 0 0 20px 20px;
     		color: @primary;
     	}
 
@@ -28,6 +30,7 @@ section.poster-container {
 		p {
 			padding: 0 20px;
 			color: #505050;
+            min-height: 60px;
 		}
     	div{ 
     		text-align: center;
@@ -44,29 +47,119 @@ section.poster-container {
 
 section.make-poster-container {
 	width: 100%;
-	height: 100%;
 	
-	.btn {
-		background: @primary !important;
-	}
-	.btn:hover{
-		background: @hover-primary !important;
-	}
-    
+    .card {
+        width: 100%;
+        padding-bottom: 10px;
+
+        h5{
+            font-size: 1.5em;
+            padding: 30px;
+        }
+
+        .template-container {
+            text-align: center;
+            
+            .template-box {
+                height: 100%;  
+                padding: 20px;
+
+
+                // input[type=radio]{
+                //     display: none;
+                // }
+
+                
+                label {
+                  cursor:pointer;
+                  position: relative;
+                  height: 100%;  
+                  text-align: left;
+                
+                   .poster-preview {
+                      width: 100%;
+                      padding: 10px 0;
+                  
+                      img {
+                          width: 100%;
+                      }
+                  }
+                }
+
+                input[type="radio"]:checked + label:after {
+                  background-color: @hover-primary;
+                  border: 5px solid @hover-primary;
+                }
+
+                input[type="radio"]:checked + label {
+                    color: @primary;
+                }
+
+            }
+
+            .right-line {
+                border-right: 1px solid @light-gray;
+                height: 100%;
+            } 
+        }
+        
+        
+        .poster-btn-container{
+            margin: 20px auto;
+            width: 90%;
+            
+            .prev-btn {
+                background: @light-gray !important;
+            }
+
+            .prev-btn:hover {
+                background : @mid-gray !important;
+            }
+
+            .next-btn {
+                float: right;
+                background: @primary !important;
+            }
+            .next-btn:hover{
+                background: @hover-primary !important;    
+            }
+        }
+    }
 }
 
 section.select-card-container {
-    div.card-container {
-        div.baby-card {
-            // bCard와 공통 속성과 다름
-            // select-card-container 안에 있는 카드에서만의 카드 속성
-            .babies-container {
-                .baby {
-                    img {
-                        width: 2em;
-                        height: 2em
+    width: 100%;
+
+    .card {
+        width: 100%;
+        padding-bottom: 10px;
+
+        h5{
+            font-size: 1.5em;
+            padding: 30px;
+        }
+
+
+        div.card-container {
+            div.baby-card {
+                // bCard와 공통 속성과 다름
+                // select-card-container 안에 있는 카드에서만의 카드 속성
+             
+                // background-color: red;
+                cursor: pointer;
+
+                .babies-container {
+                    .baby {
+                        img {
+                            width: 2em;
+                            height: 2em
+                        }
                     }
                 }
+            }
+
+            .chosen {
+                background-color: red;
             }
         }
     }

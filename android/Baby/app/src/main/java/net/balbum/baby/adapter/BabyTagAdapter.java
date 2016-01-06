@@ -2,7 +2,6 @@ package net.balbum.baby.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import net.balbum.baby.R;
 import net.balbum.baby.Util.Define;
 import net.balbum.baby.VO.BabyTagVo;
-import net.balbum.baby.VO.NamesVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,8 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 
     List<BabyTagVo> babyTag;
     Context context;
-    ArrayList<NamesVo> selectedList =new ArrayList<NamesVo>();
+    List<Long> selectedList;
+    List<BabyTagVo>se;
 
 
     public BabyTagAdapter(List<BabyTagVo> babyTag, Context context) {
@@ -47,7 +46,7 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
     }
 
     @Override
-    public void onBindViewHolder(final BabyViewHolder holder, final int position) {
+    public void onBindViewHolder(final BabyViewHolder holder, int position) {
 //        holder.photo.setImageBitmap(ConvertFileToBitmapUtil.convertBitmap(babyTag.get(position).image));
 
         Picasso.with(context).load(Define.URL+ babyTag.get(position).babyImg).into(holder.photo);
@@ -60,25 +59,38 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
             holder.photo.setAlpha(1.0f);
         }
 
+        holder.photo.setTag(position);
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int position = (Integer) v.getTag();
                 babyTag.get(position).isSelected = !babyTag.get(position).isSelected;
                 notifyDataSetChanged();
-
             }
         });
     }
 
-    public List<NamesVo> getSelectedNames(){
+    public List<BabyTagVo> getSelectedNames(){
+        se =new ArrayList<BabyTagVo>();
         for(int i =0; i< babyTag.size(); i++){
             if(babyTag.get(i).isSelected){
-                selectedList.add(new NamesVo(babyTag.get(i).bId));
-                Log.d("test", "bId넣어지는지 " + babyTag.get(i).bId);
+                se.add(babyTag.get(i));
             }
         }
-        return selectedList;
+        return se;
     }
+
+//    public List<Long> getSelectedNames(){
+//        selectedList =new ArrayList<Long>();
+//        for(int i =0; i< babyTag.size(); i++){
+//            if(babyTag.get(i).isSelected){
+//                Log.d("test", babyTag.get(i).name + " , is Sel~? " + babyTag.get(i).isSelected );
+//                selectedList.add(babyTag.get(i).bid);
+//                Log.d("test", "babyTag size " + babyTag.size() + ", bId넣어지는지 " + babyTag.get(i).name + ", bid: "+ babyTag.get(i).bid);
+//            }
+//        }
+//        return selectedList;
+//    }
 
 //    public ArrayList<String> getSelectedNames(){
 //        for(int i =0; i< babyTag.size(); i++){
@@ -128,9 +140,9 @@ public class BabyTagAdapter extends RecyclerView.Adapter<BabyTagAdapter.BabyView
 //    }
 
 
-    public List<NamesVo> getSelectedList() {
-        return selectedList;
-    }
+//    public List<NamesVo> getSelectedList() {
+//        return selectedList;
+//    }
 
     class BabyViewHolder extends RecyclerView.ViewHolder {
 

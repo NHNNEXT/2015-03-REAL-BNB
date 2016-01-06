@@ -3,69 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="330dp"
     android:layout_gravity="center_vertical"
-    android:background="@drawable/poster_bg_train">
+    android:background="@drawable/poster_bg_train"
+    android:id="@+id/poster_container">
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DAILY LIFE"
-        android:textColor="#f47166"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
         android:gravity="center_horizontal"
+        android:hint="DAILY LIFE"
+        android:textColor="#f47166"
+        android:textSize="20dp"
+        android:background="@drawable/nothing"
         />
 
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="56dp"
         android:orientation="horizontal">
 
 
-        <ImageView
-            android:id="@+id/p1"
+        <include
+            android:id="@+id/card1"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="13dp"
-            android:rotation="-2"
-            />
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:rotation="-5" />
 
-        <ImageView
-            android:id="@+id/p2"
+        <include
+            android:id="@+id/card2"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="19dp"
-            android:layout_marginRight="23dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="10dp"
             android:rotation="1" />
 
-        <ImageView
-            android:id="@+id/p3"
+        <include
+            android:id="@+id/card3"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="19dp"
-            android:layout_marginTop="20dp" />
+            android:layout_height="60dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="18dp" />
 
-        <ImageView
-            android:id="@+id/p4"
+        <include
+            android:id="@+id/card4"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="28dp"
             android:layout_marginRight="13dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:rotation="2" />
 
-        <ImageView
-            android:id="@+id/p5"
+        <include
+            android:id="@+id/card5"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="13dp"
-            android:layout_marginTop="53dp"
+            android:layout_marginTop="40dp"
             android:rotation="1" />
 
 
@@ -80,41 +87,44 @@
         android:orientation="horizontal">
 
 
-        <ImageView
-            android:id="@+id/p9"
+        <include
+            android:id="@+id/card9"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="13dp"
             android:layout_marginTop="80dp"
-            android:rotation="-1"
-            />
+            android:rotation="-1" />
 
-        <ImageView
-            android:id="@+id/p8"
+        <include
+            android:id="@+id/card8"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="23dp"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="58dp"
             android:rotation="1" />
 
-        <ImageView
-            android:id="@+id/p7"
+        <include
+            android:id="@+id/card7"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="57dp"
             android:rotation="1" />
 
-        <ImageView
-            android:id="@+id/p6"
+        <include
+            android:id="@+id/card6"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="13dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="59dp"
             android:rotation="2" />
 
     </LinearLayout>
@@ -127,42 +137,46 @@
         android:orientation="horizontal">
 
 
-        <ImageView
-            android:id="@+id/p10"
+        <include
+            android:id="@+id/card10"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="13dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="38dp"
             android:rotation="3"
 
             />
 
-        <ImageView
-            android:id="@+id/p11"
+        <include
+            android:id="@+id/card11"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="38dp"
             android:layout_marginRight="23dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="43dp"
             android:rotation="1" />
 
-        <ImageView
-            android:id="@+id/p12"
+        <include
+            android:id="@+id/card12"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="19dp"
-            android:layout_marginTop="26dp"
-            android:rotation="-2"/>
+            android:layout_marginTop="46dp"
+            android:rotation="-2" />
 
-        <ImageView
-            android:id="@+id/p13"
+        <include
+            android:id="@+id/card13"
+            layout="@layout/poster_tamplate2"
             android:layout_width="43dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
-            android:layout_marginTop="36dp" />
+            android:layout_marginTop="44dp" />
 
     </LinearLayout>
 

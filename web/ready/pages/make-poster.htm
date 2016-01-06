@@ -2,17 +2,27 @@
     <div class="col s12">
         <div class="card">
             <h5 class="">원하시는 포스터를 선택해 주세요.</h5>
-            <div>
-                <img src="img/baby2.jpeg" alt="logo">
-                <p class="center">카드 10장 포스터</p>
+            <div class="template-container row">
+                <div class="template-box right-line col s12 m6">
+                    <input type="radio" name="template" id="radio-option-1" value="9" />
+                    <label for="radio-option-1">카드 9장 포스터
+                        <div class="poster-article">
+                            <img src="img/baby2.jpeg" class="poster-preview" alt="">
+                        </div>
+                    </label>
+                </div>
+                <div class="template-box col s12 m6">
+                    <input type="radio" name="template" id="radio-option-2" value="13" />
+                    <label for="radio-option-2">카드 13장 포스터
+                        <div class="poster-preview">
+                            <img src="img/baby2.jpeg" alt="">
+                        </div>
+                    </label>
+                </div>
             </div>
-            <div>
-                <img src="img/baby2.jpeg" alt="logo">
-                <p class="center">카드 13장 포스터</p>
-            </div>
-            <div>
-              <a href="#poster" class="btn waves-effect">이전</a>
-              <a href="#poster/select" class="btn waves-effect">다음</a>
+            <div class="poster-btn-container">
+                <a href="#poster" class="btn prev-btn waves-effect">이전</a>
+                <a href="#poster/select" class="gotoSelectCard btn next-btn waves-effect">다음</a>
             </div>
         </div>
     </div>

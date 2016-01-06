@@ -53,7 +53,7 @@ public class CardFilterController {
 	public CardListDTO showCardFilter(String token) {
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			List<Card> cardResponseList = cardRepo.findByStateAndFIdOrderByModifiedDateDesc(Card.State.Normal, user.getFId());
 			for(Card card : cardResponseList){
 				card.calculate();
 			}
@@ -69,7 +69,7 @@ public class CardFilterController {
 	public CardListDTO showCardFilterByBaby(String token, Long bId) {
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			List<Card> cardList = cardRepo.findByStateAndFIdOrderByModifiedDateDesc(Card.State.Normal, user.getFId());
 			List<Card> cardResponseList = new ArrayList<>();
 			for (Card card : cardList) {
 				if (card.getBabies().contains(new Baby(bId))) {
@@ -92,7 +92,7 @@ public class CardFilterController {
 		if(babies == null || babies.isEmpty()) return new CardListDTO("baby를 선택해 주세요");
 		try {
 			User user = authService.getUser(token);
-			List<Card> cardList = cardRepo.findByStateAndFIdOrderByCIdDesc(Card.State.Normal, user.getFId());
+			List<Card> cardList = cardRepo.findByStateAndFIdOrderByModifiedDateDesc(Card.State.Normal, user.getFId());
 			List<Card> cardResponseList = new ArrayList<>();
 			for(Card card : cardList){
 				for(Integer bId : babies){

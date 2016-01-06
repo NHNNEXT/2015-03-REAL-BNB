@@ -98,10 +98,10 @@ public class PosterCardSelectingActivity extends AppCompatActivity{
 
             int size = selectedCardListLong.size();
 
-            if(size != 3){
-                if(size < 3){
+            if(size != 9){
+                if(size < 9){
                     ToastUtil.show(context, "카드가 9개보다 적게 선택되었습니다.");
-                }else if(size > 3){
+                }else if(size > 9){
                     ToastUtil.show(context, "카드가 9개보다 많이 선택되었습니다.");
                 }
             }else{
