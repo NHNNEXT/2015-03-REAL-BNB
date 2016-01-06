@@ -92,22 +92,18 @@
                                             <div class="gender">{{baby.babyGender}}</div>
                                         </div>
                                     </div>
-                                    <!-- <div class="added-baby" ng-repeat="baby in bMain.babyList">
-                                        <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
-                                        <p class="baby-info">{{baby.babyName}} {{baby.babyBirth}}</p>
-                                    </div> -->
                                 </div>
                                 <div class="add-baby-container row">
                                     <ul class="collection row">
                                         <li class="collection-item col s12">
-                                            <div class="col s3">
+                                            <div class="col s12 m3">
                                                 <input class="upload-baby-photo-input disappear" type="file" name="image">
                                                 <img class="uploaded-baby-photo" src="#" alt="uploaded baby photo" />
                                                 <div class="upload-baby-photo">
                                                     <i class="material-icons">add</i>
                                                 </div>
                                             </div>
-                                            <div class="baby-info col s9">
+                                            <div class="baby-info col s12 m9">
                                                 <input required type="text" name="babyName" placeholder="이름">
                                                 <input required type="date" name="babyBirth" placeholder="생년월일">
                                                 <span>
@@ -137,12 +133,12 @@
                             </div>
                         </div>
                         <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">
-                            <div class="">
+                            <div class="row">
                                 <div>이미 가입한 가족의 Email을 입력해주세요.</div>
-                                <form>
+                                <form class="col s9">
                                     <input required type="email" name="input" placeholder="Email" class="validate">
                                 </form>
-                                <button type="button" class="btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
+                                <button type="button" class="col s3 btn-get-family js-btn-find-user btn waves-effect" data-goto="4">찾기</button>
                             </div>
                             <div class="found-existing-user hide">
                                 <div class="section-card row">
@@ -152,7 +148,7 @@
                                         <div class="email"><b>ID</b>{{bMain.foundUser.email}}</div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn-done js-btn-goto btn waves-effect" data-goto="0">들어가기</button>
+                                <button type="button" class="btn-done js-btn-goto btn waves-effect right" data-goto="0">들어가기</button>
                             </div>
                         </div>
                     </div>

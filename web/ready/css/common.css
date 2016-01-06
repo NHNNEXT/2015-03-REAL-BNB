@@ -257,3 +257,7 @@ aside.left-col ul li span.badge.new {
 .person-card .divider {
   margin: 2px 0 5px;
 }
+.section-card {
+  background-color: white;
+  border-radius: 0.7rem;
+}
