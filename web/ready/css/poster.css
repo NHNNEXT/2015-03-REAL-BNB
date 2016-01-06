@@ -113,6 +113,7 @@ section.select-card-container .card .number-container h5 {
   float: right;
 }
 section.select-card-container div.card-container div.baby-card {
+  height: 400px;
   padding: 15px 0;
   cursor: pointer;
 }
@@ -121,7 +122,17 @@ section.select-card-container div.card-container div.baby-card .bc-action {
 }
 section.select-card-container div.card-container div.baby-card .bc-photo {
   padding: 0 1px;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: 170px;
+  height: 170px;
+}
+section.select-card-container div.card-container div.baby-card .bc-content {
+  max-height: 50px;
+  overflow: hidden;
+}
+section.select-card-container div.card-container div.baby-card .babies-container {
+  max-height: 32px;
 }
 section.select-card-container div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
