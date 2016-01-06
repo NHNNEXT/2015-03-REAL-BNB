@@ -236,3 +236,24 @@ aside.left-col ul li span.badge.new {
   width: 2em;
   height: 2em;
 }
+.person-card {
+  display: inline-block;
+  background: white;
+  border-radius: 0.7rem;
+  margin: 0 0.3rem;
+  padding-top: 0.6rem;
+  width: 8rem;
+  height: 11rem;
+  text-align: center;
+}
+.person-card .photo {
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+}
+.person-card .info .name {
+  font-weight: 800;
+}
+.person-card .divider {
+  margin: 2px 0 5px;
+}

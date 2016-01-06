@@ -69,7 +69,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="modal-check-balbum row hide" data-step="1" data-title="안녕하세요 유림님!">
-                            <div>안녕하세요, 율무님!</div>
+                            <div>안녕하세요!</div>
                             <div class="collection-container">
                                 <ul class="collection with-header">
                                     <li class="js-btn-goto collection-item" data-goto="2"><div>새 BALBUM 만들기<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
@@ -83,10 +83,19 @@
                                 <input type="hidden" name="token"/>
                                 <div class="">우리 아이를 등록해요.</div>
                                 <div class="added-baby-container row">
-                                    <div class="added-baby" ng-repeat="baby in bMain.babyList">
+                                    <div class="added-baby baby person-card"ng-repeat="baby in bMain.babyList">
+                                        <img class="photo circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
+                                        <div class="info">
+                                            <div class="name">{{baby.babyName}}</div>
+                                            <div class="birth">{{baby.babyBirth}}</div>
+                                            <div class="divider"></div>
+                                            <div class="gender">{{baby.babyGender}}</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="added-baby" ng-repeat="baby in bMain.babyList">
                                         <img class="circle" src="http://dev.balbum.net{{baby.babyImg}}" alt="Baby Image">
                                         <p class="baby-info">{{baby.babyName}} {{baby.babyBirth}}</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="add-baby-container row">
                                     <ul class="collection row">

@@ -242,11 +242,15 @@ section.main-container aside.right-col {
 div#modal-main {
   z-index: 1003;
 }
+div#modal-main .modal-content {
+  background-color: #F7F4F2;
+}
 div#modal-main div.modal-body div.modal-check-balbum .collection-container li {
   cursor: pointer;
 }
 div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby {
   display: inline-block;
+  height: 9.5rem;
 }
 div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby img {
   width: 3.5em;
