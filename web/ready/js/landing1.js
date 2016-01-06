@@ -121,7 +121,6 @@ var ajaxPostLogin =  function() {
         processData: false,
         contentType: false,
         success: function(response) {  //성공시 이 함수를 호출한다.
-                debugger;
             if(response.token != null){
                 localStorage.setItem("token", response.token); // token을 localStorage에 저장
                 window.location.assign("/"); 

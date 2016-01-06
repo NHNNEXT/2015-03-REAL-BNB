@@ -152,6 +152,10 @@ aside.left-col ul li span.badge.new {
   color: #CECECE;
   cursor: pointer;
 }
+.bCard .bc-action .date-container {
+  display: inline-block;
+  color: #92889C;
+}
 .bCard .bc-action .btn-container {
   display: inline-block;
   float: right;
