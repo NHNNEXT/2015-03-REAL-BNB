@@ -104,13 +104,8 @@ var InitModal = {
         this.steps();
         this.uploadPhoto();
 
-        if(localStorage.getItem('initCompleted') !== token) {
-            $('div.modal-main-btn').click();
-        }
-
         $('.modal-add-baby .action-container .btn-start').on('click', '', function() {
             $('.add-baby-btn button').click();
-            // localStorage.setItem('initCompleted', token);
         });
         $('.modal-add-baby .action-container .btn-done').on('click', '', function() {
             localStorage.setItem('initCompleted', token);
@@ -126,9 +121,6 @@ var InitModal = {
                 }
             );
             $('#main-modal').openModal();
-
-            // $('body').css('overflow', 'hidden');
-            // $('#main-modal').css('z-index', '1003');
         });
         $('.js-btn-find-user').on('click', function() {
             $('.found-existing-user').removeClass('hide');
@@ -230,6 +222,9 @@ var User = {
         }).then( function(res) {
             bMain.babyList = res.data;
             console.log("baby res:", bMain.babyList);
+            if(res.data.length == 0) { /* 아이 정보가 없으면 모달 띄우기 */
+                $('div.modal-main-btn').click();
+            }
         }, function() {
             alert('아이 정보를 불러오지 못하였습니다.');
         });
@@ -259,7 +254,6 @@ var CardCRUD = {
         $('li.timeline').click(function() { /* 타임라인 메뉴 누르면 전체 아이 카드 나옴 */
             CardCRUD.get($http, this);
         });
-
 
         $('aside.left-col').on('click', '.bfilter', function() { /* 아이 메뉴 누르면 특정 아이 카드 나옴 */
             $('article.main-col').data('bfilter', $(this).data('bid'));

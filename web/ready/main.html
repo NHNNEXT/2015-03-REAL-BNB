@@ -117,13 +117,14 @@
                                         </li>
                                     </ul>
                                     <div class="add-baby-btn">
-                                        <button type="submit" name="action">아이 더 추가하기<i class="material-icons">add</i></button>
+                                        <button type="submit" name="action">아이 추가하기<i class="material-icons">add</i></button>
                                     </div>
                                 </div>
                             </form>
                             <div class="action-container">
-                                <a class="btn-done js-btn-goto left" data-goto="0">다음에 할게요</a>
-                                <button class="btn-start btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                <!-- <a class="btn-done js-btn-goto left" data-goto="0">다음에 할게요</a> -->
+                                <button ng-show="bMain.babyList" class="btn-start btn-done js-btn-goto btn right waves-effect" data-goto="0">시작하기</button>
+                                <!-- <button class="btn-done js-btn-goto waves-effect dissappear" data-goto="0"></button> -->
                             </div>
                         </div>
                         <div class="modal-find-balbum row hide" data-step="3" data-title="BALBUM 찾기">

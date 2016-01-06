@@ -51,13 +51,13 @@ article.settings-col .my-info .info b {
   margin-right: 0.5rem;
   font-weight: 800;
 }
-article.settings-col .my-info .info .name {
+article.settings-col .my-info .info .role {
   font-size: 1.5rem;
   font-weight: 800;
-}
-article.settings-col .my-info .info .role {
-  color: #ABABAB;
   margin-bottom: 0.75rem;
+}
+article.settings-col .my-info .info .email {
+  font-size: 0.9rem;
 }
 article.settings-col .babies-info .baby .info .birth {
   color: #ABABAB;
