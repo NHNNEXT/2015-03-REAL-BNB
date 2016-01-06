@@ -10,10 +10,6 @@ article.settings-col .section h2 {
   font-weight: 800;
   margin: 0 0 0.3rem 0.4rem;
 }
-article.settings-col .section-card {
-  background-color: white;
-  border-radius: 0.7rem;
-}
 article.settings-col .my-info {
   padding-bottom: 0;
 }
