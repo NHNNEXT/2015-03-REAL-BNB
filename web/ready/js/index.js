@@ -320,13 +320,13 @@ var CardCRUD = {
 
 // var Poster = {
 //     init: function() {
-        
+
 //     },
 //     selectTemplate: function(templateNum) {
-       
+
 //     },
 //     selectCards: function(input) {
-      
+
 //     }
 
 // }
@@ -338,7 +338,7 @@ balbumApp.config(function($routeProvider) {
         .when('/', {
             templateUrl : 'pages/card-timeline.htm',
         })
-        .when('/card/:cId', {
+        .when('/!', {
             templateUrl : 'pages/card-timeline.htm',
         })
         .when('/baby/:babyId', {
@@ -436,7 +436,7 @@ var selectedCardNum = 0;
 
 balbumApp.controller('PosterController', function($scope, $http) {
     console.log("포스터컨트롤러");
-        
+
     /* 포스터 페이지 올때마다 초기화 */
     $(".poster-container a").click(function(e){
         templateNum = 0;
@@ -471,19 +471,13 @@ balbumApp.controller('PosterController', function($scope, $http) {
         }
     });
 
-    
-
-    /* 템플릿 선택 시 */
-    $(".template-container").click( function(e) {   
-        templateNum = $("input[name=template]:checked").val();
-    });
-
     // /* 카드 선택 시 */
     // $(".select-for-poster").click(function(e) {   // 그래서 event delegate가 필요함. 그런데 지금보니 index.js에 posterController 실행될때 js로 써도됨.
     //     console.log("ff");
     //     selectedCardNum = $(".chosen").length;
     //         $(".selectedCardNum").text(templateNum);
     // });
+
 
 
 

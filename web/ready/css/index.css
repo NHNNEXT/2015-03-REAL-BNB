@@ -242,11 +242,15 @@ section.main-container aside.right-col {
 div#modal-main {
   z-index: 1003;
 }
+div#modal-main .modal-content {
+  background-color: #F7F4F2;
+}
 div#modal-main div.modal-body div.modal-check-balbum .collection-container li {
   cursor: pointer;
 }
 div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby {
   display: inline-block;
+  height: 9.5rem;
 }
 div#modal-main div.modal-body div.modal-add-baby .added-baby-container div.added-baby img {
   width: 3.5em;
@@ -300,4 +304,28 @@ div#modal-main div.modal-body div.modal-add-baby div.action-container a {
   text-decoration: underline;
   color: #6f6c66;
   cursor: pointer;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card {
+  padding-bottom: 0;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card .photo {
+  display: inline-block;
+  height: 100%;
+  padding: 0;
+  border-radius: 0.7rem 0 0 0.7rem;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card .info {
+  display: inline-block;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card .info b {
+  margin-right: 0.5rem;
+  font-weight: 800;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card .info .role {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+div#modal-main div.modal-body div.modal-find-balbum .section-card .info .email {
+  font-size: 0.9rem;
 }

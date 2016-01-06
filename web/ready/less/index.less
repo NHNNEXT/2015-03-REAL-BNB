@@ -283,6 +283,9 @@ section.main-container {
 //*-- Main Modal --*//
 div#modal-main {
     z-index: 1003;
+    .modal-content {
+        background-color: #F7F4F2;
+    }
     div.modal-body {
         div.modal-check-balbum {
             .collection-container {
@@ -295,6 +298,7 @@ div#modal-main {
             .added-baby-container {
                 div.added-baby {
                     display: inline-block;
+                    height: 9.5rem;
                     img {
                         width: 3.5em;
                         height: 3.5em;
@@ -331,6 +335,7 @@ div#modal-main {
                         }
                     }
                 }
+
                 .add-baby-btn {
                     text-align: center;
                     button {
@@ -358,6 +363,30 @@ div#modal-main {
             }
         }
         div.modal-find-balbum {
+            .section-card {
+                padding-bottom: 0;
+                .photo {
+                    display: inline-block;
+                    height: 100%;
+                    padding: 0;
+                    border-radius: 0.7rem 0 0 0.7rem;
+                }
+                .info {
+                    display: inline-block;
+                    b {
+                        margin-right: 0.5rem;
+                        font-weight: 800;
+                    }
+                    .role {
+                        font-size: 1.5rem;
+                        font-weight: 800;
+                        margin-bottom: 0.75rem;
+                    }
+                    .email {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
         }
     }
 }

@@ -75,8 +75,63 @@ nav.nav-top li {
 nav.nav-top li.nav-update-modal {
   color: #896DA5;
 }
-nav.nav-top #nav-mobile a {
-  color: #896DA5;
+nav.nav-top #nav-mobile {
+  background: rgba(63, 74, 88, 0.91);
+  color: white;
+  position: fixed;
+  left: 0;
+  width: 230px;
+  height: 100%;
+  z-index: 1;
+}
+nav.nav-top #nav-mobile div.my-info {
+  padding: 1rem 0 0;
+  text-align: center;
+}
+nav.nav-top #nav-mobile div.my-info img.photo {
+  width: 55%;
+}
+nav.nav-top #nav-mobile div.my-info div.info {
+  margin-top: 0.5rem;
+}
+nav.nav-top #nav-mobile div.my-info div.info .name {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+nav.nav-top #nav-mobile div.my-info div.info .role {
+  color: rgba(255, 255, 255, 0.66);
+}
+nav.nav-top #nav-mobile ul li {
+  margin: 0;
+  padding: 0;
+}
+nav.nav-top #nav-mobile ul li a {
+  padding: 0.5rem 0.7rem;
+  color: white;
+}
+nav.nav-top #nav-mobile ul li a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
+}
+nav.nav-top #nav-mobile ul li a i {
+  display: inline-block;
+  margin-right: 0.3rem;
+  vertical-align: text-bottom;
+}
+nav.nav-top #nav-mobile ul li.bfilter a {
+  padding-left: 2.5rem;
+  background-color: #48505A;
+}
+nav.nav-top #nav-mobile ul li.bfilter a:hover {
+  background-color: #343e4c;
+  transition: all 0.3s ease;
+}
+nav.nav-top #nav-mobile ul li span.badge {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+}
+nav.nav-top #nav-mobile ul li span.badge.new {
+  background-color: #74d0cb;
 }
 @media (min-width: 600px) and (max-width: 991px) {
   nav.nav-top a.button-collapse {
@@ -235,4 +290,124 @@ aside.left-col ul li span.badge.new {
 .bCard .babies-container .baby img {
   width: 2em;
   height: 2em;
+}
+.person-card {
+  display: inline-block;
+  background: white;
+  border-radius: 0.7rem;
+  margin: 0 0.3rem;
+  padding-top: 0.6rem;
+  width: 8rem;
+  height: 11rem;
+  text-align: center;
+}
+.person-card .photo {
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+}
+.person-card .info .name {
+  font-weight: 800;
+}
+.person-card .divider {
+  margin: 2px 0 5px;
+}
+.section-card {
+  background-color: white;
+  border-radius: 0.7rem;
+}
+div.update-container {
+  background: white;
+  margin-top: 0.8rem;
+  margin-bottom: 0.9rem;
+  padding: 0;
+  border-radius: 0.7rem;
+}
+div.update-container div.postcard-tabs {
+  padding: 0;
+}
+div.update-container div.postcard-tabs .tabs {
+  border-radius: 0.7rem;
+}
+div.update-container div.postcard-tabs .tabs .tab a {
+  background-color: rgba(236, 231, 219, 0.3);
+  color: #949494;
+}
+div.update-container div.postcard-tabs .tabs .tab a:hover {
+  color: #896DA5;
+}
+div.update-container div.postcard-tabs .tabs .tab a.active {
+  color: #896DA5;
+  background-color: transparent;
+}
+div.update-container textarea,
+div.update-container input.event-txt,
+div.update-container .date-container input {
+  margin-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+}
+div.update-container .date-container input {
+  cursor: pointer;
+}
+div.update-container div.daily-tab {
+  margin-bottom: 0px;
+}
+div.update-container div.daily-tab .upload-photo-box {
+  margin-top: 13px;
+  width: 100%;
+  height: 56px;
+  border: 1px dashed #CECECE;
+  color: #CECECE;
+  text-align: center;
+  cursor: pointer;
+}
+div.update-container div.daily-tab .upload-photo-box i {
+  vertical-align: sub;
+  line-height: 50px;
+}
+div.update-container div.daily-tab .uploaded-photo {
+  display: none;
+}
+div.update-container div.daily-tab button {
+  margin-top: 0.45rem;
+}
+div.update-container div.event-tab {
+  margin-bottom: 0px;
+}
+div.update-container div.event-tab .event-contents {
+  margin: 2rem 1rem 0.1rem;
+}
+div.update-container div.event-tab .event-contents .date-container {
+  text-align: center;
+}
+div.update-container div.event-tab .event-contents .date-container input {
+  display: inline-block;
+  text-align: center;
+  font-size: 1.6rem;
+  padding-left: 10%;
+  width: 90%;
+}
+div.update-container div.event-tab .event-contents textarea.event-txt {
+  text-align: center;
+  font-size: 1.7rem;
+}
+div.update-container div.baby-check-container .baby-check {
+  margin: 0;
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+div.update-container div.baby-check-container .baby-check label {
+  padding-left: 23px;
+}
+div.update-container div.baby-check-container .baby-check label img {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+div.update-container div.divider {
+  margin: 0.5rem -0.75rem 0;
+  background-color: #f3ede8;
+}
+div.update-container button {
+  margin: 0.35rem 0;
 }

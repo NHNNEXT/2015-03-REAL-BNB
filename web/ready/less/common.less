@@ -82,8 +82,69 @@ nav.nav-top {
         }
     }
     #nav-mobile {
-        a {
-            color: @primary;
+        // a {
+        //     color: @primary;
+        // }
+        background: rgba(63, 74, 88, 0.91);;
+        color: white;
+        position:fixed;
+        left:0;
+        width: @left-col-width;
+        height:100%;
+        z-index: 1;
+        div.my-info {
+            padding: 1rem 0 0;
+            text-align: center;
+            img.photo {
+                width: 55%;
+            }
+            div.info {
+                margin-top: 0.5rem;
+                .name {
+                    font-size: 1.3rem;
+                    font-weight: 900;
+                }
+                .role {
+                    color: rgba(255, 255, 255, 0.66);
+                }
+            }
+        }
+        ul {
+            li {
+                margin: 0;
+                padding: 0;
+                a {
+                    padding: 0.5rem 0.7rem;
+
+                    color: white;
+                    &:hover {
+                        background-color: rgb(52, 62, 76);
+                        transition: @transition;
+                    }
+                    i {
+                        display:inline-block;
+                        margin-right: 0.3rem;
+                        vertical-align: text-bottom;
+                    }
+                }
+                &.bfilter {
+                    a {
+                        padding-left: 2.5rem;
+                        background-color: #48505A;
+                        &:hover {
+                            background-color: rgb(52, 62, 76);
+                            transition: @transition;
+                        }
+                    }
+                }
+                span.badge {
+                    margin-top: 0.2rem;
+                    font-size: 0.9rem;
+                    &.new {
+                        background-color: @tertiary;
+                    }
+                }
+            }
         }
     }
     @media @l-m {
@@ -177,7 +238,7 @@ aside.left-col {
             display: inline-block;
             color: @font-secondary;
         }
-        
+
         .btn-container {
             display: inline-block;
             float: right;
@@ -265,5 +326,143 @@ aside.left-col {
                 height: 2em
             }
         }
+    }
+}
+
+.person-card {
+    display: inline-block;
+    background: white;
+    border-radius: 0.7rem;
+    margin: 0 0.3rem;
+    padding-top: 0.6rem;
+    width: 8rem;
+    height: 11rem;
+    text-align: center;
+    .photo {
+        width: 5rem;
+        height: 5rem;
+        margin-bottom: 0.5rem;
+    }
+    .info {
+        .name {
+            font-weight: 800;
+        }
+    }
+    .divider {
+        margin: 2px 0 5px;
+    }
+}
+
+.section-card {
+    background-color: white;
+    border-radius: 0.7rem;
+}
+
+
+div.update-container {
+    background: white;
+    margin-top: 0.8rem;
+    margin-bottom: 0.9rem;
+    padding: 0;
+    border-radius: 0.7rem;
+
+    div.postcard-tabs {
+        padding: 0;
+        .tabs {
+            border-radius: 0.7rem;
+            .tab {
+                a {
+                    background-color: rgba(236, 231, 219, 0.3);;
+                    color: #949494;
+                    &:hover {
+                        color: @primary;
+                    }
+                    &.active {
+                        color: @primary;
+                        background-color: transparent;
+                    }
+
+                }
+            }
+        }
+    }
+    textarea, input.event-txt, .date-container input {
+        margin-bottom: 0;
+        border-bottom: none;
+        box-shadow: none;
+    }
+    .date-container input {
+        cursor: pointer;
+    }
+
+    div.daily-tab {
+        margin-bottom: 0px;
+        .upload-photo-box {
+            margin-top: 13px;
+            width: 100%;
+            height: 56px;
+            border: 1px dashed @light-gray;
+            color: @light-gray;
+            text-align: center;
+            cursor: pointer;
+            i {
+                vertical-align: sub;
+                line-height: 50px;
+            }
+        }
+        .uploaded-photo {
+            display: none;
+        }
+        button {
+            margin-top: 0.45rem;
+        }
+
+    }
+    div.event-tab {
+        margin-bottom: 0px;
+        .event-contents {
+            margin: 2rem 1rem 0.1rem;
+            .date-container {
+                text-align: center;
+                input {
+                    display: inline-block;
+                    text-align: center;
+                    font-size: 1.6rem;
+                    padding-left: 10%;
+                    width: 90%;
+                }
+            }
+            textarea.event-txt {
+                text-align: center;
+                font-size: 1.7rem;
+            }
+        }
+    }
+    div.baby-check-container {
+        // padding: 0;
+        .baby-check {
+            margin: 0;
+            margin-right: 0.5rem;
+            display: inline-block;
+            label {
+                padding-left: 23px;
+                &:before {
+                    // top: 5px;
+                }
+                img {
+                    width: 2.2rem;
+                    height: 2.2rem;
+
+                }
+            }
+
+        }
+    }
+    div.divider {
+        margin: 0.5rem -0.75rem 0;
+        background-color: @background-color;
+    }
+    button {
+        margin: 0.35rem 0;
     }
 }
