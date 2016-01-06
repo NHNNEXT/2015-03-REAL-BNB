@@ -67,7 +67,7 @@ section.poster-container {
 
 section.make-poster-container {
 	width: 100%;
-	
+    
     .card {
         width: 100%;
         padding-bottom: 10px;
@@ -78,9 +78,11 @@ section.make-poster-container {
         }
 
         .template-container {
+            margin-left: 30px;
             text-align: center;
             
             .template-box {
+                left: 50%;
                 height: 100%;  
                 padding: 20px;
 
@@ -98,10 +100,9 @@ section.make-poster-container {
                 
                    .poster-preview {
                       width: 100%;
-                      padding: 10px 0;
                   
                       img {
-                          width: 100%;
+                          width: 80%;
                       }
                   }
                 }
@@ -117,10 +118,10 @@ section.make-poster-container {
 
             }
 
-            .right-line {
-                border-right: 1px solid @light-gray;
-                height: 100%;
-            } 
+            // .right-line {
+            //     border-right: 1px solid @light-gray;
+            //     height: 100%;
+            // } 
         }
     }
 }
@@ -160,6 +161,7 @@ section.select-card-container {
         }
 
         div.baby-card {
+            height: 400px;
             // margin: 15px !important;
             // margin: 10px 0px 0px -10px;
             // padding: 30px 0;
@@ -172,9 +174,22 @@ section.select-card-container {
             }
 
             .bc-photo {
-                width: 100%;
+                padding: 0 1px;
+
+                max-width: 100%;
+                max-height: 100%;
+                    width: 170px;
+                    height: 170px;
+                // height: 100%;
             }
+
+            .bc-content {
+                max-height: 50px;
+                overflow: hidden;
+            }
+
             .babies-container {
+                max-height: 32px;
                 .baby {
                     img {
                         width: 2em;

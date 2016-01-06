@@ -63,9 +63,11 @@ section.make-poster-container .card h5 {
   padding: 30px;
 }
 section.make-poster-container .card .template-container {
+  margin-left: 30px;
   text-align: center;
 }
 section.make-poster-container .card .template-container .template-box {
+  left: 50%;
   height: 100%;
   padding: 20px;
 }
@@ -77,10 +79,9 @@ section.make-poster-container .card .template-container .template-box label {
 }
 section.make-poster-container .card .template-container .template-box label .poster-preview {
   width: 100%;
-  padding: 10px 0;
 }
 section.make-poster-container .card .template-container .template-box label .poster-preview img {
-  width: 100%;
+  width: 80%;
 }
 section.make-poster-container .card .template-container .template-box input[type="radio"]:checked + label:after {
   background-color: #9b7bba;
@@ -88,10 +89,6 @@ section.make-poster-container .card .template-container .template-box input[type
 }
 section.make-poster-container .card .template-container .template-box input[type="radio"]:checked + label {
   color: #896DA5;
-}
-section.make-poster-container .card .template-container .right-line {
-  border-right: 1px solid #CECECE;
-  height: 100%;
 }
 section.select-card-container {
   width: 100%;
@@ -116,6 +113,7 @@ section.select-card-container .card .number-container h5 {
   float: right;
 }
 section.select-card-container div.card-container div.baby-card {
+  height: 400px;
   padding: 15px 0;
   cursor: pointer;
 }
@@ -123,7 +121,18 @@ section.select-card-container div.card-container div.baby-card .bc-action {
   padding-bottom: 15px;
 }
 section.select-card-container div.card-container div.baby-card .bc-photo {
-  width: 100%;
+  padding: 0 1px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 170px;
+  height: 170px;
+}
+section.select-card-container div.card-container div.baby-card .bc-content {
+  max-height: 50px;
+  overflow: hidden;
+}
+section.select-card-container div.card-container div.baby-card .babies-container {
+  max-height: 32px;
 }
 section.select-card-container div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
