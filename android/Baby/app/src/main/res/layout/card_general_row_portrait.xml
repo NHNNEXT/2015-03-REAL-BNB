@@ -46,6 +46,17 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_share_black_24dp" />
 
+        <ImageButton
+            android:id="@+id/print_btn"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/share_btn"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            />
+
 
         <LinearLayout
             android:id="@+id/delete_modify_layout"
