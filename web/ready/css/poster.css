@@ -104,6 +104,9 @@ section.select-card-container .card h4 {
   font-size: 1.5em;
   padding: 30px 0 0 30px;
 }
+section.select-card-container .card .templateNum {
+  font-size: 1.5em;
+}
 section.select-card-container .card .number-container {
   padding: 30px 30px 0 0;
 }
@@ -113,7 +116,7 @@ section.select-card-container .card .number-container h5 {
   float: right;
 }
 section.select-card-container div.card-container div.baby-card {
-  height: 400px;
+  height: 365px;
   padding: 15px 0;
   cursor: pointer;
 }
@@ -128,16 +131,17 @@ section.select-card-container div.card-container div.baby-card .bc-photo {
   height: 170px;
 }
 section.select-card-container div.card-container div.baby-card .bc-content {
-  max-height: 50px;
+  max-height: 40px;
   overflow: hidden;
 }
 section.select-card-container div.card-container div.baby-card .babies-container {
-  max-height: 32px;
+  max-height: 33px;
+  overflow: hidden;
 }
 section.select-card-container div.card-container div.baby-card .babies-container .baby img {
   width: 2em;
   height: 2em;
 }
 section.select-card-container div.card-container .chosen {
-  background-color: red;
+  background-color: rgba(116, 208, 203, 0.5);
 }
