@@ -2,6 +2,7 @@ package net.balbum.baby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -66,6 +67,7 @@ public class AddBabyFragment extends Fragment {
     String finalFilePath;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +111,8 @@ public class AddBabyFragment extends Fragment {
         add_baby_birthday = (EditText) view.findViewById(R.id.add_baby_birthday);
         add_baby_image = (ImageView) view.findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup) view.findViewById(R.id.add_baby_radiogroup);
+        TextView add_profile_camera = (TextView) view.findViewById(R.id.profile_camera);
+        TextView add_profile_gallery = (TextView) view.findViewById(R.id.profile_gallery);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -117,26 +121,42 @@ public class AddBabyFragment extends Fragment {
 
         initData();
 
+        add_profile_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pictureActionIntent = null;
+
+                pictureActionIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                startActivityForResult(pictureActionIntent, Define.CAMERA_REQUEST);
+            }
+        });
+
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pictureActionIntent = null;
 
-                pictureActionIntent = new Intent(
-                        MediaStore.ACTION_IMAGE_CAPTURE);
-                File f = new File(android.os.Environment
-                        .getExternalStorageDirectory(), "temp.jpg");
-                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(f));
+                pictureActionIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(f));
+                startActivityForResult( pictureActionIntent,Define.CAMERA_REQUEST);
 
-                startActivityForResult( pictureActionIntent,
-                        Define.CAMERA_REQUEST);
-//                pictureActionIntent = new Intent(Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
             }
         });
 
+        add_profile_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent pictureActionIntent = null;
+                pictureActionIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
+
+            }
+        });
         add_baby_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,15 +267,6 @@ public class AddBabyFragment extends Fragment {
 
             try {
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4;
-                Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), options); // load
-
-                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
-
-                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(f.getAbsolutePath()));
-
-
                 // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
 
                 int rotate = 0;
@@ -280,10 +291,18 @@ public class AddBabyFragment extends Fragment {
                     e.printStackTrace();
                 }
 
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), options); // load
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+               // bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(f.getAbsolutePath()));
+
                 Matrix matrix = new Matrix();
                 matrix.postRotate(rotate);
-                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-                        bitmap.getHeight(), matrix, true);
+                bitmap = Bitmap.createBitmap(resized, 0, 0, resized.getWidth(),
+                        resized.getHeight(), matrix, true);
 
                 add_baby_image.setImageBitmap(bitmap);
                 //storeImageTosdCard(bitmap);
@@ -296,44 +315,37 @@ public class AddBabyFragment extends Fragment {
                 e.printStackTrace();
             }
 
+        }else if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
+            if (data != null) {
+
+                Uri selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+
+                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
+                        null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePath[0]);
+                String selectedImagePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
+                add_baby_image.setImageBitmap(bitmap);
+
+                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
+//                Uri temp = Uri.parse(selectedImagePath);
+                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
+
+
+            } else {
+                ToastUtil.cancle(context);
+            }
         }
-
-
-//        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
-//            if (data != null) {
-//
-//                Uri selectedImage = data.getData();
-//                String[] filePath = {MediaStore.Images.Media.DATA};
-//
-//                Cursor cursor = context.getContentResolver().query(selectedImage, filePath,
-//                        null, null, null);
-//                cursor.moveToFirst();
-//                int columnIndex = cursor.getColumnIndex(filePath[0]);
-//                String selectedImagePath = cursor.getString(columnIndex);
-//                cursor.close();
-//
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inSampleSize = 4;
-//                Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath, options); // load
-//
-//                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
-//
-//                bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
-//               // cropImageView.setImageBitmap(bitmap);
-//
-//                //Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
-//               // bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
-//                add_baby_image.setImageBitmap(bitmap);
-//
-//                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
-////                Uri temp = Uri.parse(selectedImagePath);
-//                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
-//
-//
-//            } else {
-//                ToastUtil.cancle(context);
-//            }
-//        }
     }
 
 }
