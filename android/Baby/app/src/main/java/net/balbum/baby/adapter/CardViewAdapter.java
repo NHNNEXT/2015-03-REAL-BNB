@@ -211,8 +211,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         final int idx = cards.get(position).babies.size();
 //        Log.d("test", "baby" + cards.get(position).babies.size() + " , position " + position);
 
-        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(90, 90);
-        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 90);
+        final LinearLayout.LayoutParams imageParam = new LinearLayout.LayoutParams(100, 100);
+        final LinearLayout.LayoutParams tvParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 100);
 
 
             for (int i = 0; i < idx; i++) {
