@@ -1,10 +1,12 @@
 package net.balbum.baby;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -63,6 +65,9 @@ public class MainActivity extends AppCompatActivity
     ImageView imageView;
     DrawerLayout drawer;
     BabyTagAdapter babyAdapter;
+
+    private Handler handler;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,24 +144,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getData() {
-        TaskService taskService = ServiceGenerator.createService(TaskService.class);
-        Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
-        TokenUtil tu = new TokenUtil(context);
 
-        taskService.getCard(tu.getToken(), new Callback<CardListVo>() {
-            @Override
-            public void success(CardListVo cardListVo, Response response) {
-                CardListVo cd = cardListVo;
-                cardGeneralModelList = cd.cardList;
-                initView(cardGeneralModelList);
-                Log.d("test", "error: " + cardListVo.error);
-            }
+        handler = new Handler();
 
+        runOnUiThread(new Runnable() {
             @Override
-            public void failure(RetrofitError error) {
-                Log.d("test", " taskService failure");
+            public void run() {
+                progressDialog = ProgressDialog.show(MainActivity.this, "",
+                        "잠시만 기다려 주세요.", true);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                                TaskService taskService = ServiceGenerator.createService(TaskService.class);
+                                Log.d("test", "url 정보: " + taskService.toString() + "URL" + Define.URL);
+                                TokenUtil tu = new TokenUtil(context);
+
+                                taskService.getCard(tu.getToken(), new Callback<CardListVo>() {
+                                    @Override
+                                    public void success(CardListVo cardListVo, Response response) {
+                                        CardListVo cd = cardListVo;
+                                        cardGeneralModelList = cd.cardList;
+                                        initView(cardGeneralModelList);
+                                        Log.d("test", "error: " + cardListVo.error);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.d("test", " taskService failure");
+                                    }
+                                });
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 1000);
             }
         });
+
     }
 
     private void initView(List<GeneralCardVo> cardGeneralModelList) {
@@ -320,10 +348,10 @@ public class MainActivity extends AppCompatActivity
             ActivityUtil.goToActivity(context, PosterList.class);
 
         } else if ( id == R.id.logout){
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.commit();
+//            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.clear();
+//            editor.commit();
             ActivityUtil.goToActivity(context, StartActivity.class);
         }
 
