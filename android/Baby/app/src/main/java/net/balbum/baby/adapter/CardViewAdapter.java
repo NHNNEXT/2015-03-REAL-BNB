@@ -116,10 +116,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             }
         });
 
-        holder.print_btn.setOnClickListener(new View.OnClickListener() {
+        holder.photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardCapture(holder.cv);
+                cardCapture(holder.cv, holder);
                 Log.d("test", "print");
 
             }
@@ -266,7 +266,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         ImageButton share;
         ImageButton more_btn;
         RelativeLayout container;
-        ImageButton print_btn;
+        TextView photo_btn;
 
 
         viewHolder(View itemView) {
@@ -285,7 +285,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             more_btn = (ImageButton) itemView.findViewById(R.id.more_btn);
             event_date = (TextView)itemView.findViewById(R.id.event_date);
             event_memo=(TextView)itemView.findViewById(R.id.event_memo);
-            print_btn = (ImageButton)itemView.findViewById(R.id.print_btn);
+            photo_btn = (TextView)itemView.findViewById(R.id.photo_btn);
         }
     }
 
@@ -295,20 +295,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
 
     }
 
-    public void cardCapture(View container){
-
-//        int width_container = container.getWidth() ;//캡쳐할 레이아웃 크기
-//
-//        int height_container = container.getHeight() ;//캡쳐할 레이아웃 크기
-
-
+    public void cardCapture(View container, viewHolder holder){
 
         container.setDrawingCacheEnabled(true);
-
         container.buildDrawingCache(true);
 
 
-/***********************핵심부분**********************************/
         Bitmap captureView = Bitmap.createBitmap(container.getMeasuredWidth(),
 
                 container.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
@@ -316,8 +308,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
         Canvas screenShotCanvas = new Canvas(captureView);
 
         container.draw(screenShotCanvas);
-/***********************핵심부분*****************************************/
-
 
         FileOutputStream fos;
         File fileRoute = null;
@@ -341,6 +331,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.viewHo
             e.printStackTrace();
 
         }
+
+        boolean[] temp = new boolean[]{true};
+        showCardSetting(holder, temp);
 
         MediaScannerUtil scanner = MediaScannerUtil.newInstance(context);
         scanner.mediaScanning(fileRoute+"/temp/balbum"+str_name+".png");
