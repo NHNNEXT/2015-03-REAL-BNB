@@ -30,7 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/background">
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:elevation="10dp">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
