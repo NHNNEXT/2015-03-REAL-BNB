@@ -114,6 +114,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".BabySettingActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileSettingActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="com.facebook.FacebookContentProvider"

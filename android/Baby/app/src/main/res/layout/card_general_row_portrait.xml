@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="22dp"
             android:textColor="@color/text"
             android:textSize="14dp"/>
 
@@ -45,7 +45,6 @@
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_share_black_24dp" />
-
 
         <LinearLayout
             android:id="@+id/delete_modify_layout"
@@ -75,6 +74,16 @@
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/card_modify"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/photo_btn"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/card_photo"
                 android:textColor="@color/white" />
 
             <!--<TextView-->

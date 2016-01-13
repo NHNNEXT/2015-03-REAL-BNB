@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,9 +26,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.Define;
+import net.balbum.baby.Util.ImageUtil;
 import net.balbum.baby.Util.ToastUtil;
 import net.balbum.baby.Util.TokenUtil;
 import net.balbum.baby.VO.BabyVo;
@@ -61,6 +65,7 @@ public class AddBabyFragment extends Fragment {
     BabyListAdapter adapter;
     List<BabyVo> babyVoList = new ArrayList<>();
     String finalFilePath;
+
 
 
     @Nullable
@@ -106,6 +111,8 @@ public class AddBabyFragment extends Fragment {
         add_baby_birthday = (EditText) view.findViewById(R.id.add_baby_birthday);
         add_baby_image = (ImageView) view.findViewById(R.id.add_baby_photo);
         radioGroup = (RadioGroup) view.findViewById(R.id.add_baby_radiogroup);
+        TextView add_profile_camera = (TextView) view.findViewById(R.id.profile_camera);
+        TextView add_profile_gallery = (TextView) view.findViewById(R.id.profile_gallery);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -114,17 +121,42 @@ public class AddBabyFragment extends Fragment {
 
         initData();
 
+        add_profile_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pictureActionIntent = null;
+
+                pictureActionIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                startActivityForResult(pictureActionIntent, Define.CAMERA_REQUEST);
+            }
+        });
+
         add_baby_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pictureActionIntent = null;
 
-                pictureActionIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
+                pictureActionIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+                pictureActionIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(f));
+                startActivityForResult( pictureActionIntent,Define.CAMERA_REQUEST);
+
             }
         });
 
+        add_profile_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent pictureActionIntent = null;
+                pictureActionIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pictureActionIntent, Define.GALLERY_PICTURE);
+
+            }
+        });
         add_baby_birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +242,80 @@ public class AddBabyFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
+        if (resultCode == getActivity().RESULT_OK && requestCode == Define.CAMERA_REQUEST) {
+
+            File f = new File(Environment.getExternalStorageDirectory().toString());
+
+            for (File temp : f.listFiles()) {
+                if (temp.getName().equals("temp.jpg")) {
+                    f = temp;
+                    break;
+                }
+            }
+
+            if (!f.exists()) {
+
+                Toast.makeText(context,
+
+                        "Error while capturing cardImg", Toast.LENGTH_LONG)
+
+                        .show();
+
+                return;
+
+            }
+
+            try {
+
+                // bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
+
+                int rotate = 0;
+                try {
+                    ExifInterface exif = new ExifInterface(f.getAbsolutePath());
+                    int orientation = exif.getAttributeInt(
+                            ExifInterface.TAG_ORIENTATION,
+                            ExifInterface.ORIENTATION_NORMAL);
+
+                    switch (orientation) {
+                        case ExifInterface.ORIENTATION_ROTATE_270:
+                            rotate = 270;
+                            break;
+                        case ExifInterface.ORIENTATION_ROTATE_180:
+                            rotate = 180;
+                            break;
+                        case ExifInterface.ORIENTATION_ROTATE_90:
+                            rotate = 90;
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), options); // load
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+               // bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(f.getAbsolutePath()));
+
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotate);
+                bitmap = Bitmap.createBitmap(resized, 0, 0, resized.getWidth(),
+                        resized.getHeight(), matrix, true);
+
+                add_baby_image.setImageBitmap(bitmap);
+                //storeImageTosdCard(bitmap);
+
+                Uri tempUri = ImageUtil.getImageUri(context, bitmap);
+
+                finalFilePath = ImageUtil.getRealPathFromURI(context, tempUri);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }else if (resultCode == getActivity().RESULT_OK && requestCode == Define.GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
@@ -230,10 +335,6 @@ public class AddBabyFragment extends Fragment {
                 Bitmap resized = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
 
                 bitmap = ImageUtil.GetRotatedBitmap(resized, ImageUtil.GetExifOrientation(selectedImagePath));
-               // cropImageView.setImageBitmap(bitmap);
-
-                //Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
-               // bitmap = ImageUtil.GetRotatedBitmap(bitmap, ImageUtil.GetExifOrientation(selectedImagePath));
                 add_baby_image.setImageBitmap(bitmap);
 
                 Uri tempUri = ImageUtil.getImageUri(context, bitmap);

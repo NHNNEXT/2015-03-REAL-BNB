@@ -52,6 +52,22 @@ public class FamilySettingActivity extends AppCompatActivity {
         context = this;
         init();
         initProfileInfo();
+        myProfileSetting();
+        babySetting();
+
+    }
+
+    private void myProfileSetting() {
+        TextView profile_setting = (TextView)findViewById(R.id.my_profile_setting);
+        profile_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(context, ProfileSettingActivity.class);
+            }
+        });
+    }
+
+    private void babySetting() {
         LinearLayout baby_setting = (LinearLayout)findViewById(R.id.baby_setting);
         baby_setting.setOnClickListener(new View.OnClickListener() {
             @Override
